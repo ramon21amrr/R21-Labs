@@ -40,10 +40,13 @@ Uma partida é válida para uma estatística quando:
 
 ### 2.3 Zeros, vazios e ausência
 
+**DECISÃO APROVADA — D-MATH-009 e D-MATH-010:**
+
 - `0` significa valor observado igual a zero.
 - `ausente` significa que o fornecedor ou arquivo não trouxe a estatística.
 - `não aplicável` significa que a estatística não existe para aquele contexto.
 - Um valor ausente não entra no denominador do Método 3 nem nas médias dos Métodos 1 e 2.
+- Estados inválido e pendente de revisão permanecem distintos e podem bloquear cálculo.
 
 **RISCO:** a planilha atual não permite provar se todos os zeros representam observações reais.
 
@@ -63,7 +66,7 @@ Cada resultado precificado deverá ser identificado pelos seguintes campos:
 | Resultado | Valor ou estado observado | mandante venceu por um gol |
 | Liquidação | Efeito financeiro abstrato | vitória, meia vitória, reembolso, meia derrota, derrota |
 
-**RECOMENDAÇÃO:** linhas e odds devem usar representação decimal exata, nunca ponto flutuante binário, para evitar valores como `0,749999`.
+**DECISÃO APROVADA — D-MATH-003:** linhas asiáticas serão armazenadas como unidades inteiras de quartos. Probabilidades e odds usarão `binary64/double`, com valor bruto preservado e arredondamento apenas na apresentação.
 
 ## 4. Mercados por etapa
 
@@ -160,7 +163,7 @@ Para evitar ambiguidade, a meia vitória e a meia derrota devem ser derivadas da
 
 ### 6.4 Odd justa com liquidação parcial
 
-**RECOMENDAÇÃO:** calcular a odd justa pelo valor esperado das parcelas:
+**DECISÃO APROVADA — D-MATH-012:** calcular a odd justa pela liquidação completa das parcelas:
 
 `odd justa = 1 + perdas equivalentes / vitórias equivalentes`
 
@@ -170,7 +173,9 @@ Em que:
 - `perdas equivalentes = P(derrota integral) + 0,5 × P(meia derrota)`;
 - reembolsos não entram em vitórias nem perdas equivalentes.
 
-**DECISÃO PENDENTE:** validar formalmente esta interpretação contra todas as fórmulas atuais. O Word descreve alguns handicaps inteiros de forma ambígua e não deve ser tratado isoladamente como especificação definitiva.
+**FATO OBSERVADO:** 408 de 408 casos independentes foram aprovados contra a semântica observada no Excel. O Word permanece referência conceitual, não especificação normativa isolada.
+
+**DECISÃO APROVADA — D-MATH-005:** a linha principal será a de odd justa mais próxima de 2,00; em empate matemático, prevalece a linha mais próxima de zero, com simetria entre mandante e visitante. Todas as linhas calculadas serão preservadas.
 
 ## 7. Catálogo de incrementos
 
@@ -221,8 +226,8 @@ stateDiagram-v2
     Publicada --> Arquivada
 ```
 
-- Uma precificação aprovada não pode ser recalculada no mesmo registro.
-- Uma alteração posterior cria nova revisão e novo snapshot.
+- **DECISÃO APROVADA — D-MATH-016:** uma precificação aprovada não pode ser recalculada no mesmo registro.
+- Qualquer alteração de dados, filtros, amostra, parâmetros, pesos, multiplicadores, método, versão ou regra cria nova revisão e novo snapshot vinculados ao anterior.
 - Publicação fica preparada conceitualmente, mas não será exposta a assinantes no MVP.
 
 ## 11. Decisões pendentes deste catálogo
@@ -230,6 +235,5 @@ stateDiagram-v2
 - tratamento de partidas anuladas, W.O., prorrogação e disputa por pênaltis;
 - inclusão da dupla chance `12`;
 - linhas de total de gols exibidas no MVP;
-- fórmula definitiva de odd justa para todos os casos de liquidação parcial;
 - convenção para cartões vermelhos e múltiplos cartões no mesmo lance;
 - regras específicas por competição para classificação e desempate.

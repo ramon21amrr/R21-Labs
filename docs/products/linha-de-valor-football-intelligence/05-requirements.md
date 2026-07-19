@@ -50,7 +50,8 @@
 - **RF-043 — MVP:** formar a amostra apenas com partidas encerradas e estatísticas disponíveis.
 - **RF-044 — MVP:** preservar IDs e ordem das partidas usadas em cada precificação.
 - **RF-045 — MVP:** calcular média, desvio-padrão, coeficiente de variação e frequência quando aplicáveis.
-- **RF-046 — MVP:** sinalizar amostra pequena ou insuficiente conforme regra versionada.
+- **RF-046 — MVP:** aplicar `D-MATH-007`: menos de 5 observações bloqueia publicação e aprovação; de 5 a 9 exige alerta, permissão e justificativa; 10 ou mais é confiança padrão inicial.
+- **RF-047 — MVP:** registrar quantidades solicitada, encontrada, válida e excluída, numerador, denominador, filtros e motivos de exclusão.
 
 ### 2.6 Configurações
 
@@ -59,6 +60,8 @@
 - **RF-052 — MVP:** versionar pesos, multiplicadores, limites, presets e faixas de probabilidade.
 - **RF-053 — MVP:** registrar justificativa, autor e data de qualquer alteração.
 - **RF-054 — MVP:** impedir edição retroativa de configuração usada em snapshot aprovado.
+- **RF-055 — MVP:** rejeitar pesos fora de `[0,1]`, não finitos ou cuja soma não seja 1 dentro da tolerância, sem normalização silenciosa.
+- **RF-056 — MVP:** exigir multiplicadores positivos; tratar `0,90–1,10` como faixa padrão e auditar exceções versionadas.
 
 ### 2.7 Pricing Engine
 
@@ -69,6 +72,9 @@
 - **RF-064 — MVP:** registrar massa residual e tolerância dos cálculos probabilísticos.
 - **RF-065 — MVP:** impedir aprovação quando houver erro, dado insuficiente ou soma fora da tolerância.
 - **RF-066 — MVP:** comparar os três métodos sem fundi-los automaticamente em uma probabilidade única.
+- **RF-067 — MVP:** calcular a distribuição integralmente, de forma analítica ou adaptativa, sem descartar ou normalizar silenciosamente a massa residual.
+- **RF-068 — MVP:** representar linhas asiáticas como quartos inteiros e calcular odd justa pela liquidação integral, incluindo estados parciais.
+- **RF-069 — MVP:** usar somente observações válidas no denominador do Método 3 e preservar numerador e denominador.
 
 ### 2.8 Workflow
 
@@ -79,6 +85,7 @@
 - **RF-074 — MVP:** exigir confirmação explícita para aprovar.
 - **RF-075 — MVP:** criar snapshot imutável ao aprovar.
 - **RF-076 — MVP:** criar nova revisão, em vez de modificar a aprovada, quando houver mudança posterior.
+- **RF-077 — MVP:** usar erros tipados e bloquear aprovação ou publicação diante de erro crítico, sem convertê-lo silenciosamente em vazio.
 
 ### 2.9 Central da partida e PDF
 
@@ -112,9 +119,11 @@
 ### 4.1 Correção e reprodutibilidade
 
 - **RNF-001:** o mesmo snapshot de dados, modelo e configuração deve produzir o mesmo resultado.
-- **RNF-002:** cálculos monetários, linhas e probabilidades devem usar tipos decimais adequados.
-- **RNF-003:** arredondamento de exibição não pode alterar o cálculo interno.
+- **RNF-002:** probabilidades, Poisson, médias e lambdas devem usar `binary64/double`; linhas asiáticas devem usar unidades inteiras de quartos.
+- **RNF-003:** valores brutos devem ser preservados, e arredondamento de exibição não pode alterar o cálculo interno.
 - **RNF-004:** alterações de modelo devem passar por regressão contra os casos de referência.
+- **RNF-005:** regressão numérica inicial usa tolerâncias absoluta e relativa de `1e-8`; elementos categóricos e composição de amostra exigem igualdade exata.
+- **RNF-006:** distribuições mutuamente exclusivas e exaustivas devem somar 1 dentro de `1e-12`, com diferença não explicada tratada como bloqueadora.
 
 ### 4.2 Segurança e propriedade intelectual
 

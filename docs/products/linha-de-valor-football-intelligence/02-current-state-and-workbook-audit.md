@@ -4,7 +4,7 @@
 
 **FATO OBSERVADO:** os materiais originais foram tratados como somente leitura. A inspeção utilizou leitura do pacote XLSM, fórmulas armazenadas, valores em cache, estrutura do DOCX, extração textual dos PDFs e inspeção visual das imagens e dos PDFs renderizados.
 
-**LIMITAÇÃO:** esta não foi uma auditoria dinâmica no Excel. Macros, botões, recálculo, formulários e geração operacional do PDF não foram executados.
+A inspeção inicial foi complementada pela auditoria dinâmica e pela baseline matemática da `LVFI-DISC-002`. O protocolo, as evidências consolidadas e os limites de validade estão em [Auditoria dinâmica e baseline matemático](12-dynamic-audit-and-mathematical-baseline.md).
 
 ## 2. Inventário dos materiais
 
@@ -47,7 +47,7 @@
 | `ULTIMOS 10` | Oculta | Protótipo do Método 3 | Frequências em dez jogos | Legado de validação | Algumas fórmulas usam `COUNTA` sobre células com fórmula |
 | `Planilha2` | Oculta | Notas e lista inicial de mercados | Rótulos e comentários manuais | Conhecimento a consolidar | Não deve permanecer como fonte normativa isolada |
 
-**RISCO:** ausência de referência de fórmula não prova que uma aba é descartável. Uma macro ou operação manual pode utilizá-la. A classificação como legado só poderá ser concluída após a auditoria dinâmica.
+**FATO OBSERVADO:** a auditoria dinâmica e o inventário VBA não encontraram eventos automáticos que tornem todas as abas parte do fluxo principal. Ainda assim, ausência de referência de fórmula não prova que uma aba seja descartável; classificação definitiva exige uma decisão de produto sobre usos manuais e históricos.
 
 ## 4. Base de jogos
 
@@ -69,7 +69,13 @@
 - **RISCO:** um zero pode representar ocorrência real ou dado indisponível preenchido como zero.
 - **FATO OBSERVADO:** não há campo de fornecedor, ID externo, data de importação, versão da correção ou responsável por registro.
 - **RISCO:** o campo `Temporada` usa um rótulo numérico que precisa ser separado de datas reais de início e fim, especialmente em calendários que atravessam dois anos.
-- **RECOMENDAÇÃO:** toda estatística futura deve guardar valor, disponibilidade, origem e revisão, permitindo distinguir `0`, `não informado` e `não aplicável`.
+- **DECISÃO APROVADA:** toda estatística futura guardará valor, disponibilidade, origem e revisão, distinguindo zero observado, ausência, não aplicável, inválido e pendente de revisão, conforme `D-MATH-009` e `D-MATH-010`.
+
+### 4.3 Varredura de qualidade da LVFI-DISC-002
+
+**FATO OBSERVADO:** dos 2.129 registros, 1.512 foram classificados como válidos para fixtures, 616 como válidos com ressalva de temporada/ano civil, um como suspeito, nenhum como inválido e nenhum como duplicado.
+
+Os 616 registros com ressalva deverão ser normalizados na importação futura sem alterar os originais. A linha de origem 1808, CRB x Ponte Preta, com 13 cartões do mandante, permanece suspeita e excluída de baselines e calibrações até verificação manual; ela não foi classificada como inválida.
 
 ## 5. Dependências observadas
 
@@ -83,8 +89,8 @@ flowchart LR
     E --> L["Lançamentos - históricos"]
     L --> P["Parâmetros - médias e Poisson"]
     P --> O["Lançamentos - mercados e odds"]
-    F["FORMULARIO + VBA"] -. "cadastro não executado" .-> J
-    O -. "VBA de exportação não executado" .-> PDF["PDF"]
+    F["FORMULARIO + VBA"] -. "fluxo testado em cópias" .-> J
+    O -. "exportação testada em cópia" .-> PDF["PDF"]
 ```
 
 **FATO OBSERVADO:** `Lançamentos` referencia intensamente `Entradas` e `Parâmetros`; `Parâmetros` usa estatísticas intermediárias de `Lançamentos`. Esse ciclo em nível de abas não significa necessariamente referência circular de células, mas aumenta a dificuldade de entendimento.
@@ -101,11 +107,9 @@ Foram identificados controles com nomes compatíveis com:
 
 Também foram encontradas referências textuais a rotinas de inclusão de `SEERRO/IFERROR` em fórmulas e exportação `ExportAsFixedFormat`.
 
-**LIMITAÇÃO:** o código fonte completo dos módulos não foi extraído porque `oletools/olefile` não estava disponível e a instalação de dependências era proibida.
+**FATO OBSERVADO:** a extração controlada posterior identificou 18 componentes e nove procedimentos, sem eventos automáticos de workbook ou de ciclo de vida das planilhas. Fontes e p-code foram comparados, e os fluxos de novo jogo, limpeza, salvamento e PDF foram executados em cópias descartáveis.
 
-**Impacto:** efeitos colaterais, validações, células alteradas, nomes de módulos e tratamento de falhas das macros não podem ser considerados auditados.
-
-**Procedimento futuro recomendado:** copiar o XLSM para uma pasta temporária; abrir a cópia no Microsoft Excel com macros inicialmente desabilitadas; exportar módulos e formulários; revisar o código; executar cada fluxo com dados de teste; comparar hashes do original antes e depois.
+**FATO OBSERVADO:** os testes confirmaram seis defeitos `LVFI-LEGACY-001` a `LVFI-LEGACY-006`, incluindo limpeza incompleta, erro silencioso, escrita não atômica, validação estatística insuficiente, ausência de deduplicação e PDF ilegível. O inventário e os resultados resumidos estão no [documento 12](12-dynamic-audit-and-mathematical-baseline.md).
 
 ## 7. Fórmulas e achados matemáticos preliminares
 
@@ -115,8 +119,7 @@ Também foram encontradas referências textuais a rotinas de inclusão de `SEERR
 
 **RISCO:** resultados com sete ou mais gols de qualquer participante ficam fora da soma. No confronto armazenado na planilha, as probabilidades de resultado dos Métodos 1 e 2 totalizam aproximadamente 99,85% e 99,82%.
 
-- **DECISÃO PENDENTE:** definir tratamento da cauda da distribuição.
-- **RECOMENDAÇÃO:** calcular até um limite adaptativo que deixe massa residual abaixo da tolerância aprovada, registrando a massa omitida; preferir fórmulas analíticas quando disponíveis.
+- **DECISÃO APROVADA — D-MATH-001:** o futuro motor usará cálculo integral, analítico ou adaptativo; massa residual será registrada e observável, sem descarte ou normalização silenciosa. A matriz 0–6 permanece apenas como comportamento observado do legado.
 
 ### 7.2 Cores
 
@@ -132,7 +135,7 @@ Também foram encontradas referências textuais a rotinas de inclusão de `SEERR
 
 **RISCO:** transformar qualquer erro em vazio dificulta distinguir ausência normal, divisão por zero, referência quebrada e falha de cálculo.
 
-- **RECOMENDAÇÃO:** validar entradas antes de calcular, retornar erros de domínio identificáveis e impedir aprovação de precificação incompleta.
+- **DECISÃO APROVADA — D-MATH-011:** entradas serão validadas e erros serão tipados; erro crítico não poderá virar vazio e bloqueará aprovação e publicação.
 
 ### 7.4 Legado e inconsistências
 
@@ -151,26 +154,16 @@ Também foram encontradas referências textuais a rotinas de inclusão de `SEERR
 
 **RECOMENDAÇÃO:** reorganizar o relatório em seções e páginas temáticas, conforme [Experiência do usuário e PDF](09-user-experience-and-pdf.md), sem reproduzir a largura da planilha.
 
-## 9. Limitações consolidadas
+## 9. Limitações consolidadas após a auditoria dinâmica
 
-| Não verificado | Motivo | Impacto | Procedimento futuro |
-|---|---|---|---|
-| Execução de macros e botões | XLSM não foi aberto ou executado | Fluxo operacional e efeitos não confirmados | Executar cópia temporária após revisão do VBA |
-| Código VBA completo | Biblioteca de extração indisponível e instalação proibida | Módulos e tratamento de erros incompletos | Exportar com Excel ou usar ferramenta aprovada |
-| Recálculo integral | Análise estática e por valores em cache | Resultados podem estar desatualizados | Recalcular cópia no Excel e congelar evidências |
-| Layout completo do DOCX | LibreOffice ausente | Não há garantia sobre paginação e formatação | Renderizar com Word ou instalar ferramenta aprovada |
-| Origem de cada registro | Planilha não armazena procedência | Qualidade e licença não auditáveis | Localizar fonte e documentar linhagem |
-| Operação real de geração do PDF | Macro não executada | Nome, destino e comportamento não confirmados | Teste controlado em cópia temporária |
+| Limitação remanescente | Consequência |
+|---|---|
+| A baseline cobre 14 fixtures, não todo o espaço de estados. | Equivalência observada não certifica correção universal do XLSM. |
+| A base não registra procedência completa por linha. | Fonte, licença e correções históricas precisam ser reconciliadas na importação. |
+| A matriz legada é truncada em 0–6. | O futuro motor seguirá `D-MATH-001`, mesmo quando divergir deliberadamente do legado. |
+| O JR-07 usa cenário sintético controlado. | O caso cobre semântica, mas não substitui dados reais de temporada anterior. |
+| Há seis defeitos operacionais confirmados. | As rotinas legadas não devem ser migradas como especificação do produto. |
 
-## 10. Entregáveis da auditoria completa
+## 10. Encerramento
 
-Antes da implementação, a auditoria deverá complementar este documento com:
-
-- fonte e responsabilidade de cada módulo VBA;
-- mapa célula a célula dos mercados do MVP;
-- inventário de intervalos de entrada, cálculo e saída;
-- relatório de fórmulas duplicadas e divergentes;
-- massa residual da Poisson em diferentes cenários;
-- comportamento de vazios, zeros e erros;
-- comparação de pelo menos 12 confrontos de referência;
-- decisão formal sobre cada aba legada.
+Os entregáveis dinâmicos, o baseline, os defeitos, os fixtures e as 16 decisões aprovadas foram consolidados em [Auditoria dinâmica e baseline matemático](12-dynamic-audit-and-mathematical-baseline.md). O gate atual permite planejar o Pricing Engine, sem autorizar sua implementação.

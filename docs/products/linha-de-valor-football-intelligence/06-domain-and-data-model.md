@@ -70,7 +70,7 @@ Identidade permanente da competição: nome oficial, nome curto, país, modalida
 
 Edição da competição: rótulo, datas de início e fim, formato, estado, fases e regras de classificação.
 
-**RECOMENDAÇÃO:** o rótulo “2026” não substitui datas; temporadas que atravessam anos devem manter rótulo e período separados.
+**DECISÃO APROVADA:** o rótulo “2026” não substitui datas; temporadas que atravessam anos manterão rótulo e período separados. A importação normalizará a convenção temporada/ano civil sem alterar o registro original.
 
 ### 4.4 Team
 
@@ -95,8 +95,12 @@ Registra estatística de um time em uma partida, com:
 - valor decimal ou inteiro;
 - unidade;
 - disponibilidade;
+- estado de qualidade: observado, ausente, não aplicável, inválido, suspeito ou pendente de revisão;
 - fonte e observação;
+- data de coleta;
 - versão/correção.
+
+**DECISÃO APROVADA — D-MATH-009 e D-MATH-010:** zero será armazenado apenas como observação real. Ausência, erro e desconhecido não serão convertidos em zero.
 
 Esse formato evita criar uma nova coluna física para toda estatística futura, mas deverá ser avaliado contra desempenho e simplicidade no ADR de dados.
 
@@ -133,7 +137,7 @@ Snapshots aprovados não serão alterados; uma correção poderá gerar nova rev
 
 `Sample` guarda a definição dos filtros e a versão dos dados. `SampleMatch` guarda IDs, ordem, lado do time e disponibilidade da estatística.
 
-**RECOMENDAÇÃO:** não armazenar apenas “últimos 10”. Guardar as dez partidas efetivamente usadas permite reproduzir o cálculo mesmo após novas partidas serem importadas.
+**DECISÃO APROVADA — D-MATH-008 e D-MATH-013:** não armazenar apenas “últimos 10”. `Sample` e `SampleMatch` preservarão partidas efetivamente usadas, quantidades solicitada, encontrada, válida e excluída, numerador, denominador, confiança, filtros e motivos de exclusão.
 
 Agregações como média, desvio-padrão e frequência podem ser recalculadas ou mantidas em cache. O cache deve ser invalidado por versão dos dados e filtros.
 
@@ -157,7 +161,7 @@ Execução de um método para uma partida. Mantém estado, modelo, configuraçã
 
 ### 9.2 PricingResult
 
-Mercado, período, participante, seleção, linha, probabilidade, odd justa, linha projetada e metadados de precisão.
+Mercado, período, participante, seleção, linha, probabilidade, odd justa, linha projetada e metadados de precisão. Linhas asiáticas usam quartos inteiros; probabilidades, médias e lambdas preservam o valor bruto `binary64/double`, e os valores de apresentação são derivados separadamente.
 
 ### 9.3 PricingSnapshot
 
@@ -170,7 +174,7 @@ Criado na aprovação e imutável. Deve incluir cópia lógica de:
 - observações e responsável;
 - hash ou assinatura do conteúdo.
 
-**RECOMENDAÇÃO:** novas revisões referenciam a anterior, formando histórico sem sobrescrita.
+**DECISÃO APROVADA — D-MATH-016:** novas revisões referenciam a anterior, formando histórico sem sobrescrita. Qualquer mudança em dados, filtros, amostra, parâmetros, pesos, multiplicadores, método, versão ou regra matemática exige nova revisão.
 
 ## 10. Mercados e odds
 

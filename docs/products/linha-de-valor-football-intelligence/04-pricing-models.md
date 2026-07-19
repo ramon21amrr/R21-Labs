@@ -35,18 +35,16 @@ Cada execução deve registrar:
 
 ### 2.3 Erros
 
-**RECOMENDAÇÃO:** não reproduzir `IFERROR` como tratamento universal. Erros deverão possuir código e explicação, por exemplo: amostra vazia, média da liga igual a zero, parâmetro fora do limite ou distribuição não convergente.
+**DECISÃO APROVADA — D-MATH-011:** `IFERROR` com retorno vazio não será reproduzido como tratamento universal. Erros terão tipo e explicação; erro crítico bloqueará aprovação e publicação.
 
 ### 2.4 Quantidade mínima
 
-**DECISÃO PENDENTE:** a quantidade mínima ainda não foi aprovada.
+**DECISÃO APROVADA — D-MATH-007 e D-MATH-008:**
 
-**RECOMENDAÇÃO inicial:**
-
-- menos de 5 observações válidas: não publicar probabilidade;
-- de 5 a 9: calcular apenas para análise, com aviso de baixa confiança;
-- 10 ou mais: faixa operacional padrão inicial;
-- sempre mostrar `n` efetivo por time e estatística.
+- menos de 5 observações válidas: amostra insuficiente; cálculo apenas para auditoria, sem publicação ou aprovação;
+- de 5 a 9: baixa confiança, alerta explícito e publicação condicionada a permissão e justificativa;
+- 10 ou mais: confiança padrão inicial, sem implicar garantia estatística;
+- sempre registrar e mostrar quantidades solicitada, encontrada, válida e excluída, numerador, denominador, filtros e motivos de exclusão.
 
 Esses limites deverão ser calibrados por mercado; não constituem evidência de validade estatística.
 
@@ -84,12 +82,12 @@ Para faltas e cartões, a planilha usa conjunto específico:
 
 `média refinada = média base × HFA × SOS × ritmo × must win × árbitro`
 
-**DECISÃO PENDENTE:** confirmar se todos os multiplicadores devem ser aplicados de forma puramente multiplicativa e se existirão limites diferentes por mercado.
+**DECISÃO PENDENTE:** definir por mercado como múltiplos ajustes se combinam quando a composição puramente multiplicativa produzir extremos. A faixa padrão e o controle de exceções já estão aprovados em `D-MATH-015`.
 
 ### 3.5 Pesos
 
 - Os pesos representam a importância relativa da produção própria e da concessão do adversário.
-- **RECOMENDAÇÃO:** a soma deve ser 1,00; o sistema deve impedir aprovação fora da tolerância.
+- **DECISÃO APROVADA — D-MATH-014:** pesos serão finitos, estarão entre 0 e 1 e somarão 1 dentro da tolerância; configuração inválida bloqueia cálculo ou aprovação e não será normalizada silenciosamente.
 - Pesos podem variar por mercado, competição e participante.
 
 ### 3.6 Multiplicadores
@@ -100,7 +98,7 @@ Para faltas e cartões, a planilha usa conjunto específico:
 
 **FATO OBSERVADO:** o Word menciona faixa usual de `0,90` a `1,10`.
 
-**DECISÃO PENDENTE:** aprovar limites rígidos, permissões para exceção e comportamento quando vários ajustes extremos se acumularem.
+**DECISÃO APROVADA — D-MATH-015:** multiplicadores serão positivos, com faixa padrão inicial de `0,90` a `1,10`. Exceção exige configuração versionada, justificativa, autorização administrativa, auditoria e aprovação do Product Owner quando alterar a regra do modelo; nenhuma limitação será silenciosa.
 
 ### 3.7 Hierarquia de configuração
 
@@ -206,6 +204,8 @@ Exemplos de ocorrência: vitória, empate, over de uma linha, ambas marcam ou co
 
 ### 5.3 Denominador
 
+**DECISÃO APROVADA — D-MATH-013:**
+
 - Cada time contribui apenas com partidas em que os campos necessários são numéricos e disponíveis.
 - A quantidade solicitada, como dez, não substitui a quantidade efetivamente válida.
 - Amostras dos dois times podem possuir tamanhos diferentes.
@@ -249,14 +249,14 @@ Para placar exato, multiplica-se a probabilidade de gols do mandante pela do vis
 
 **RISCO:** limitar o placar a 6 × 6 perde massa de probabilidade.
 
-**RECOMENDAÇÃO:** o motor deverá calcular a cauda até que a massa residual fique abaixo da tolerância e registrar:
+**DECISÃO APROVADA — D-MATH-001 e D-MATH-006:** o motor calculará a distribuição integralmente, de forma analítica ou adaptativa, e registrará:
 
 - limite usado;
 - soma calculada;
 - massa residual;
-- eventual normalização, se aprovada.
+- diferença de totalização e sua explicação.
 
-**DECISÃO PENDENTE:** aprovar tolerância e se a exibição será normalizada para 100% ou mostrará a massa residual separadamente.
+Massa residual nunca será descartada ou normalizada silenciosamente. Distribuições exaustivas deverão somar 1 dentro de `1e-12`; diferença não explicada será bloqueadora.
 
 ### 6.4 Adequação por mercado
 
@@ -272,7 +272,7 @@ Para mercados sem reembolso:
 
 Para mercados com reembolso ou liquidação parcial, aplicar a regra de valor esperado descrita no [catálogo de mercados](03-business-rules-and-market-catalog.md#64-odd-justa-com-liquidação-parcial).
 
-**RECOMENDAÇÃO:** não arredondar probabilidades antes de calcular odds. Arredondamento é apenas de apresentação.
+**DECISÃO APROVADA — D-MATH-003 e D-MATH-004:** probabilidades, odds, médias e lambdas preservam o valor bruto em `binary64/double`. Arredondamento é apenas de apresentação: duas casas para probabilidades percentuais e odds, três para lambdas e médias.
 
 ## 8. Versionamento e auditoria
 
@@ -289,6 +289,8 @@ Uma versão de modelo deve registrar:
 
 O snapshot de uma precificação deve preservar o resultado, mesmo que dados, configurações ou código mudem depois.
 
+**DECISÃO APROVADA — D-MATH-016:** qualquer mudança relevante cria nova revisão vinculada; uma precificação aprovada é imutável e a anterior permanece disponível para auditoria.
+
 ## 9. Estratégia de testes dos modelos
 
 - testes unitários de cada média, peso e multiplicador;
@@ -301,13 +303,12 @@ O snapshot de uma precificação deve preservar o resultado, mesmo que dados, co
 - amostras pequenas, incompletas e desiguais;
 - reprodução dos confrontos de referência definidos em [MVP, roadmap e validação](11-mvp-roadmap-and-validation.md).
 
-## 10. Decisões pendentes dos modelos
+## 10. Decisões ainda pendentes dos modelos
 
-- limites e soma obrigatória dos pesos;
-- limites dos multiplicadores e permissão para exceções;
-- quantidade mínima por método e mercado;
-- política de cauda e tolerância numérica;
+- regra de composição de múltiplos ajustes por mercado;
 - janela usada nas médias do campeonato;
-- confiança estatística exibida no Método 3;
+- forma visual da confiança estatística exibida no Método 3;
 - distribuições alternativas para mercados futuros;
-- fórmula final de odd justa para todas as liquidações asiáticas.
+- critérios de calibração e promoção de uma versão de modelo.
+
+As regras matemáticas aprovadas estão consolidadas em [Auditoria dinâmica e baseline matemático](12-dynamic-audit-and-mathematical-baseline.md#15-decisões-matemáticas-aprovadas).

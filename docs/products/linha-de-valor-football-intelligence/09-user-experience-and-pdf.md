@@ -126,6 +126,12 @@ Além da cor:
 - não usar vermelho/verde como única diferença;
 - manter casas decimais consistentes e explicar arredondamento.
 
+### 6.1 Exibição matemática aprovada
+
+Conforme `D-MATH-004`, a configuração inicial exibe probabilidades percentuais e odds justas com duas casas, lambdas e médias com três e linhas asiáticas em passos de 0,25. A interface deriva esses valores do bruto preservado e nunca recalcula a partir do valor arredondado.
+
+O estado da amostra deve seguir `D-MATH-007`: insuficiente abaixo de 5 observações, baixa confiança de 5 a 9 e confiança padrão a partir de 10. O rótulo não deve sugerir garantia estatística e deve permitir consultar numerador, denominador, exclusões e filtros.
+
 ## 7. Estados vazios e falhas
 
 - Sem partida: orientar seleção.
@@ -161,6 +167,7 @@ Produzir documento legível para consulta e compartilhamento autorizado, sem rep
 - quantidade e filtros da amostra;
 - disponibilidade dos dados;
 - massa residual e avisos relevantes;
+- erro tipado ou bloqueio de amostra, quando aplicável;
 - responsável pela análise;
 - versão do template do PDF.
 
@@ -206,3 +213,5 @@ Adicionar páginas temáticas para escanteios, finalizações, chutes no gol, ca
 - tecnologia de PDF;
 - necessidade de assinatura ou marca d'água;
 - política de armazenamento e expiração dos relatórios.
+
+As restrições confirmadas do PDF legado e a baseline de validação estão em [Auditoria dinâmica e baseline matemático](12-dynamic-audit-and-mathematical-baseline.md#6-macros-e-testes-operacionais).

@@ -6,6 +6,8 @@
 - **DECISÃO APROVADA:** o Value Tracker será um produto posterior, integrado ao Linha de Valor, e não faz parte do MVP atual.
 - **DECISÃO APROVADA:** esta pasta registra exclusivamente a fase de discovery, auditoria e planejamento. Ela não autoriza desenvolvimento.
 - **FATO OBSERVADO:** os documentos foram elaborados a partir do contexto institucional, do R21 Development Framework e dos materiais originais em `inputs/linha-de-valor-football-intelligence/`.
+- **FATO OBSERVADO:** a `LVFI-DISC-002` foi encerrada com auditoria dinâmica, baseline matemática e evidências privadas preservadas.
+- **GATE:** **GO PARA PLANEJAMENTO DO DESENVOLVIMENTO DO PRICING ENGINE.** O gate autoriza planejamento, não implementação.
 
 ## Propósito
 
@@ -50,12 +52,15 @@ As afirmações relevantes usam os seguintes estados:
 9. [Experiência do usuário e PDF](09-user-experience-and-pdf.md) — navegação, central da partida, acessibilidade e relatórios.
 10. [Integração futura com o Value Tracker](10-value-tracker-integration.md) — fronteiras, contrato, eventos e prevenção de duplicidades.
 11. [MVP, roadmap e validação](11-mvp-roadmap-and-validation.md) — escopo aprovado, etapas futuras, migração, testes, riscos e decisões pendentes.
+12. [Auditoria dinâmica e baseline matemático](12-dynamic-audit-and-mathematical-baseline.md) — protocolo executado, VBA, macros, defeitos, qualidade, fixtures, equivalência e decisões `D-MATH` aprovadas.
 
 ## Síntese das decisões vigentes
 
 - O MVP começará pelo Brasileirão Série A 2026.
 - O XLSM será um oráculo de validação, não um componente da aplicação.
 - Os três métodos serão versionados e cada precificação aprovada será imutável.
+- As decisões matemáticas `D-MATH-001` a `D-MATH-016` orientam o planejamento do Pricing Engine.
+- Cauda probabilística não será descartada nem normalizada silenciosamente; linhas asiáticas serão modeladas em quartos inteiros e liquidadas integralmente.
 - O MVP cobrirá resultado, dupla chance, ambas marcam, totais de gols e handicap asiático.
 - A arquitetura inicial será um monólito modular, sem microsserviços.
 - O sistema começará com um administrador, mas evitará barreiras desnecessárias à comercialização futura.
@@ -63,9 +68,9 @@ As afirmações relevantes usam os seguintes estados:
 
 ## Limites desta documentação
 
-- **LIMITAÇÃO:** macros e botões do XLSM não foram executados; a auditoria disponível é estática.
-- **LIMITAÇÃO:** o código VBA completo não foi extraído por indisponibilidade da ferramenta de leitura apropriada.
-- **LIMITAÇÃO:** o Word foi lido estruturalmente, mas não foi renderizado integralmente por ausência de LibreOffice no ambiente de inspeção.
+- **LIMITAÇÃO:** a baseline reproduz o comportamento observado nos fixtures; não certifica a planilha em todos os cenários.
+- **LIMITAÇÃO:** a procedência dos registros históricos não está completa no XLSM.
 - **LIMITAÇÃO:** fornecedores não foram selecionados ou contratados; o documento correspondente define critérios e processo de avaliação.
+- **LIMITAÇÃO:** o gate atual permite somente planejar o Pricing Engine; qualquer implementação exige sprint própria aprovada.
 
-As ações necessárias para eliminar essas limitações estão detalhadas em [Estado atual e auditoria da planilha](02-current-state-and-workbook-audit.md).
+O encerramento técnico, as limitações remanescentes e a referência ao arquivo privado estão em [Auditoria dinâmica e baseline matemático](12-dynamic-audit-and-mathematical-baseline.md).

@@ -44,6 +44,8 @@ Contratos e identificadores podem preparar essas evoluções, sem ampliar a impl
 
 ### Etapa 0 — Fechamento do discovery
 
+**FATO OBSERVADO:** concluída pela `LVFI-DISC-002`; resultados, limitações e decisões estão em [Auditoria dinâmica e baseline matemático](12-dynamic-audit-and-mathematical-baseline.md).
+
 - executar auditoria dinâmica da planilha em ambiente controlado;
 - congelar uma versão-oráculo e seus hashes;
 - aprovar cauda da matriz de placares e tolerâncias de equivalência;
@@ -160,17 +162,11 @@ Cada fixture deve conter dados brutos e normalizados, IDs das partidas nas amost
 
 ## 7. Tolerâncias e arredondamento
 
-**DECISÃO PENDENTE** — A tolerância oficial de equivalência ainda precisa ser aprovada.
+**DECISÃO APROVADA — D-MATH-002:** a regressão inicial usa tolerâncias absoluta e relativa de `1e-8` em política combinada documentada. Método, versão, seleção, mercado, período, linha, componentes asiáticos, filtros, amostra e identificadores exigem igualdade exata.
 
-**RECOMENDAÇÃO** — Iniciar com:
+**DECISÃO APROVADA — D-MATH-004:** valores brutos são preservados; arredondamento ocorre somente na apresentação, inicialmente com duas casas para probabilidades percentuais e odds, três para lambdas e médias e passos de 0,25 para linhas asiáticas.
 
-- tolerância absoluta de `1e-8` para probabilidades brutas com a mesma política de cauda;
-- igualdade do valor exibido após a regra oficial de arredondamento;
-- comparação separada de valor bruto, normalizado e exibido;
-- tolerância zero para composição de amostra, mercado, workflow e liquidação;
-- divergência acima da tolerância sempre explicada, nunca escondida pelo arredondamento.
-
-A recomendação deve ser calibrada com fixtures reais antes de se tornar contratual.
+Na baseline, 350 de 350 comparações independentes passaram em `1e-8`. Evoluções deliberadas, como o cálculo integral da cauda, deverão ser versionadas e explicadas, nunca ocultadas pelo arredondamento.
 
 ## 8. Critérios de aceite do MVP
 
@@ -202,7 +198,7 @@ A recomendação deve ser calibrada com fixtures reais antes de se tornar contra
 
 | ID | Risco | Probabilidade | Impacto | Mitigação |
 |---|---|---|---|---|
-| R-01 | fórmula ou macro não extraída altera resultado | alta | crítico | auditoria dinâmica e fixtures |
+| R-01 | comportamento legado fora da cobertura dos fixtures altera resultado | média | crítico | ampliar regressão de forma versionada conforme novos casos reais |
 | R-02 | truncamento perde massa relevante | média | alto | política de cauda e teste de soma |
 | R-03 | zero e ausência são confundidos | alta | alto | representação tipada e fixtures |
 | R-04 | filtros mudam a amostra | alta | crítico | manifestar IDs e tolerância zero |
@@ -215,39 +211,33 @@ A recomendação deve ser calibrada com fixtures reais antes de se tornar contra
 | R-11 | lock-in prematuro de provedor | média | médio | adaptadores e benchmark |
 | R-12 | ajuste intuitivo não é explicável | média | alto | motivo e versionamento obrigatórios |
 
-## 10. Decisões pendentes consolidadas
+## 10. Decisões remanescentes para o planejamento
 
-Antes do desenvolvimento do motor, aprovar:
+As decisões matemáticas `D-MATH-001` a `D-MATH-016` estão aprovadas. O planejamento ainda deverá tratar, sem reabrir essas regras:
 
-1. política de cauda e tamanho da matriz de placares;
-2. tolerância matemática e arredondamento;
-3. amostra mínima por método e competição;
-4. semântica de zero, vazio, ausente e erro herdado;
-5. pesos, limites e precedência dos critérios humano-estatísticos;
-6. escolha ou combinação entre os três métodos;
-7. catálogo final do PDF-resumo;
-8. correção, invalidação e republicação de preços;
-9. formato de importação e deduplicação;
-10. retenção de brutos, snapshots, PDFs e logs;
-11. orçamento de desempenho e disponibilidade;
-12. perfis, segregação organizacional e dados pessoais necessários;
-13. primeiro provedor a testar e critérios eliminatórios;
-14. contrato de IDs e evento futuro para o Value Tracker;
-15. sucesso do piloto e autoridade de cutover.
+1. escolha ou combinação de apresentação dos três métodos;
+2. catálogo final do PDF-resumo e sua tecnologia de geração;
+3. formato de importação, identidade e estratégia operacional de deduplicação;
+4. retenção de brutos, snapshots, PDFs e logs;
+5. orçamento de desempenho, disponibilidade e recuperação;
+6. perfis, segregação organizacional e dados pessoais necessários;
+7. primeiro provedor a testar e critérios eliminatórios;
+8. contrato de IDs e evento futuro para o Value Tracker;
+9. sucesso do piloto e autoridade de cutover.
 
-## 11. Próxima Sprint recomendada
+## 11. Gate e próxima sprint
 
-**RECOMENDAÇÃO** — Executar `LVFI-DISC-002 — Auditoria dinâmica e baseline matemático`, sem iniciar a implementação do produto.
+**GO PARA PLANEJAMENTO DO DESENVOLVIMENTO DO PRICING ENGINE.**
 
-Entregáveis:
+O GO autoriza somente uma sprint de planejamento. Não autoriza criar código, banco, front-end, back-end ou desenvolver o MVP. A implementação exigirá sprint própria aprovada.
 
-1. planilha-oráculo congelada e executada em ambiente controlado;
-2. inventário de macros, eventos, dependências ocultas e caminhos críticos;
-3. fixtures JR-01 a JR-14 com entradas e saídas brutas;
-4. relatório de divergências e massa probabilística;
-5. decisões sobre cauda, tolerância, arredondamento, amostra e ausências;
-6. testes matemáticos portáveis e independentes da planilha;
-7. backlog do MVP refinado com aceite rastreável;
-8. gate formal de `go/no-go` para implementar o motor.
+Entregáveis recomendados para o planejamento:
+
+1. decomposição do Pricing Engine em capacidades e contratos;
+2. mapeamento de `D-MATH-001` a `D-MATH-016` para requisitos e testes;
+3. estratégia de importação e reconciliação sem alterar dados originais;
+4. desenho da suíte de regressão a partir dos fixtures privados;
+5. backlog de implementação com dependências, riscos e critérios de aceite;
+6. proposta de sprint de implementação para aprovação separada.
 
 Em paralelo, uma tarefa institucional separada deve atualizar o Company Context para refletir a prioridade aprovada da Linha de Valor sobre o Value Tracker. Essa alteração não pertence ao escopo deste discovery.
