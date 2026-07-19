@@ -225,19 +225,14 @@ As decisões matemáticas `D-MATH-001` a `D-MATH-016` estão aprovadas. O planej
 8. contrato de IDs e evento futuro para o Value Tracker;
 9. sucesso do piloto e autoridade de cutover.
 
-## 11. Gate e próxima sprint
+## 11. Planejamento concluído, gate e próxima Task
 
-**GO PARA PLANEJAMENTO DO DESENVOLVIMENTO DO PRICING ENGINE.**
+**FATO OBSERVADO:** a `LVFI-ENG-001` foi concluída. A decomposição, os contratos, o mapeamento das decisões matemáticas, a estratégia de regressão e o backlog estão consolidados no [plano técnico do Pricing Engine](13-pricing-engine-technical-plan.md) e nos ADRs `ADR-LVFI-001` a `ADR-LVFI-010`.
 
-O GO autoriza somente uma sprint de planejamento. Não autoriza criar código, banco, front-end, back-end ou desenvolver o MVP. A implementação exigirá sprint própria aprovada.
+A `LVFI-ENG-002` implementará somente o núcleo matemático compartilhado, mercados, contratos e serialização. Os Métodos 1, 2 e 3 pertencem, respectivamente, às `LVFI-ENG-003`, `LVFI-ENG-004` e `LVFI-ENG-005`.
 
-Entregáveis recomendados para o planejamento:
+O backlog atualizado antecipa `LVFI-ENG-002-T05 — fixtures seguras e harness inicial de regressão` para antes da distribuição Poisson e dos mercados.
 
-1. decomposição do Pricing Engine em capacidades e contratos;
-2. mapeamento de `D-MATH-001` a `D-MATH-016` para requisitos e testes;
-3. estratégia de importação e reconciliação sem alterar dados originais;
-4. desenho da suíte de regressão a partir dos fixtures privados;
-5. backlog de implementação com dependências, riscos e critérios de aceite;
-6. proposta de sprint de implementação para aprovação separada.
+**GO PARA IMPLEMENTAÇÃO CONTROLADA DA LVFI-ENG-002.**
 
-Em paralelo, uma tarefa institucional separada deve atualizar o Company Context para refletir a prioridade aprovada da Linha de Valor sobre o Value Tracker. Essa alteração não pertence ao escopo deste discovery.
+O GO autoriza iniciar somente a `LVFI-ENG-002-T02 — fundação do pacote e ferramentas`, após plano específico e aprovação. Não autoriza banco, front-end, back-end, PDF, integrações ou os Métodos 1, 2 e 3.

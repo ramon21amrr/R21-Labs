@@ -6,6 +6,8 @@
 
 **DECISÃO APROVADA:** não adotar microsserviços no estágio inicial. Separação de responsabilidades será feita no código e no modelo de domínio, sem criar complexidade de rede e operação.
 
+**DECISÃO APROVADA:** a `LVFI-ENG-001` foi concluída. O Pricing Engine será um pacote Python puro e isolado em `packages/pricing-engine/`, com namespace `lvfi_pricing`, sem I/O externo. As fronteiras e o backlog estão no [plano técnico do Pricing Engine](13-pricing-engine-technical-plan.md).
+
 ## 2. Tecnologias candidatas
 
 - front-end web: Next.js e TypeScript;
@@ -197,7 +199,13 @@ O worker deverá suportar, conforme cada etapa do roadmap:
 
 Extrair um serviço independente somente quando houver necessidade comprovada, como escala distinta, isolamento de segurança ou ciclo de release realmente independente. A expectativa de crescimento, isoladamente, não justifica microsserviço.
 
-## 12. ADRs necessários antes da implementação
+## 12. ADRs do Pricing Engine
+
+Os ADRs `ADR-LVFI-001` a `ADR-LVFI-010` estão formalizados com status `Aprovada` em [decisões de arquitetura](../../architecture/decisions/). Eles autorizam o gate **GO PARA IMPLEMENTAÇÃO CONTROLADA DA LVFI-ENG-002**, limitado a uma Task com plano específico aprovado por vez.
+
+Esses ADRs não escolhem tecnologias da aplicação e não autorizam Métodos 1, 2 e 3, back-end, front-end, banco, PDF ou integrações.
+
+## 13. ADRs necessários para aplicações futuras
 
 1. FastAPI versus Django.
 2. representação física de estatísticas e snapshots.
@@ -206,4 +214,4 @@ Extrair um serviço independente somente quando houver necessidade comprovada, c
 5. implantação e armazenamento de objetos.
 6. política de autenticação e sessão.
 
-Esses ADRs devem ser aprovados antes das Tasks que dependam de suas escolhas.
+Esses ADRs devem ser aprovados antes das Tasks de aplicação que dependam de suas escolhas; não bloqueiam a implementação isolada do pacote do Pricing Engine.
