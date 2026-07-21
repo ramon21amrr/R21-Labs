@@ -21,8 +21,14 @@ harness de regressão é puro, determinístico e compara estruturas tipadas,
 usando `NumericPolicy` para floats. Não há fixtures proprietárias, I/O ou
 dependências de runtime além da biblioteca padrão.
 
-Estão fora desta Task: distribuições, mercados, liquidação, precificação,
-Métodos 1, 2 e 3, serialização, hashes e integrações.
+Inclui a distribuição Poisson adaptativa: materializa inicialmente `0–10`,
+expande pelo residual até o alvo padrão de `1e-14` e aplica limite de segurança
+de `1000`. Não há truncagem fixa `0–6` nem renormalização silenciosa; falhas de
+convergência retornam erros tipados. A rotina permanece pura, sem I/O e com
+runtime somente na biblioteca padrão.
+
+Continuam fora desta Task: mercados, liquidação, precificação, Métodos 1, 2 e
+3, serialização, hashes e integrações.
 
 ## Ambiente de desenvolvimento
 
