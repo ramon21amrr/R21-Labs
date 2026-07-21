@@ -52,6 +52,16 @@ de runtime além da biblioteca padrão.
 
 ## Ambiente de desenvolvimento
 
+## Orquestração interna
+
+`lvfi_pricing.run_pricing_engine` é o ponto único de entrada interno. Ele recebe
+um `PricingRequest` imutável e tipado, executa seletivamente o catálogo fechado
+de mercados e devolve `PricingResult` com distribuições, matriz, diferença de
+gols, resultados específicos, avisos/erros tipados e metadados técnicos
+determinísticos. A ordem é canônica e as estruturas compartilhadas são
+construídas uma única vez por execução. Esta etapa não inclui serialização, hash
+ou I/O; o runtime continua somente com a biblioteca padrão.
+
 Crie o ambiente virtual fora do repositório e, a partir desta pasta, execute:
 
 ```powershell
