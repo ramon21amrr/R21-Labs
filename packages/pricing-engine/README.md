@@ -2,13 +2,15 @@
 
 Pacote Python que abrigará o núcleo matemático isolado do Linha de Valor
 Football Intelligence. Nesta fundação, ele define somente o empacotamento e os
-controles de qualidade; ainda não existe API matemática implementada.
+controles de qualidade e a camada `core`, com erros e avisos tipados e uma
+política numérica centralizada; ainda não existe API matemática de domínio.
 
 ## Fronteiras
 
 O pacote usa CPython 3.13.x e terá apenas a biblioteca padrão como dependência de
 runtime. O núcleo não realiza I/O, não consulta rede, banco, ambiente ou relógio
 e não conhece Excel, aplicações web, fornecedores ou geração de PDF.
+O runtime continua usando somente a biblioteca padrão.
 
 Estão fora desta Task: distribuições, probabilidades, odds, mercados, handicap,
 linhas, Métodos 1, 2 e 3, fixtures matemáticas, serialização, hashes e integrações.

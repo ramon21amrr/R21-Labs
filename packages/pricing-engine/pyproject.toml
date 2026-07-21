@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "lvfi-pricing-engine"
-version = "0.1.0"
+version = "0.2.0"
 description = "Núcleo matemático isolado do Linha de Valor Football Intelligence."
 readme = "README.md"
 requires-python = ">=3.13,<3.14"
@@ -13,7 +13,7 @@ dependencies = []
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["lvfi_pricing"]
+include = ["lvfi_pricing*"]
 namespaces = false
 
 [tool.setuptools.package-data]
