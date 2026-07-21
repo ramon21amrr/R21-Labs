@@ -59,8 +59,11 @@ um `PricingRequest` imutável e tipado, executa seletivamente o catálogo fechad
 de mercados e devolve `PricingResult` com distribuições, matriz, diferença de
 gols, resultados específicos, avisos/erros tipados e metadados técnicos
 determinísticos. A ordem é canônica e as estruturas compartilhadas são
-construídas uma única vez por execução. Esta etapa não inclui serialização, hash
-ou I/O; o runtime continua somente com a biblioteca padrão.
+construídas uma única vez por execução. A serialização canônica versionada usa
+`float.hex()` para `binary64`, JSON interno determinístico em bytes UTF-8 e
+SHA-256 como identidade de conteúdo. O hash não é assinatura digital, não
+oferece autenticidade e não existe persistência ou I/O; o runtime continua
+somente com a biblioteca padrão.
 
 Crie o ambiente virtual fora do repositório e, a partir desta pasta, execute:
 
