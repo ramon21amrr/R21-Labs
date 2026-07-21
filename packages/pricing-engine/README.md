@@ -34,10 +34,14 @@ fixa, e permanecem puras, sem I/O e somente com a biblioteca padrão.
 
 Mercados básicos disponíveis nesta etapa: resultado 1X2, dupla chance, BTTS e
 totais simples nas linhas de meia unidade de 0.5 a 5.5. As odds são justas,
-sem margem, e a massa residual permanece explícita sem renormalização. Não há
-handicap asiático, liquidação asiática ou I/O; o runtime usa somente a
-biblioteca padrão. Métodos 1, 2 e 3, serialização, hashes e integrações
-continuam fora desta etapa.
+sem margem, e a massa residual permanece explícita sem renormalização.
+
+O motor liquida handicap e totais asiáticos de forma pura e auditável, com os
+cinco estados `WIN`, `HALF_WIN`, `PUSH`, `HALF_LOSS` e `LOSS`. Linhas de quarto
+sofrem split canônico nas linhas pares adjacentes, cada uma com metade da stake
+conceitual. A decisão usa cálculo inteiro em quartos, sem float, arredondamento
+ou cálculo financeiro. Não há precificação asiática da T10, I/O ou dependências
+de runtime além da biblioteca padrão.
 
 ## Ambiente de desenvolvimento
 
