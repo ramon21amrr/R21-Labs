@@ -16,8 +16,13 @@ Os value objects não fazem coerção silenciosa nem I/O; `QuarterLine` é
 armazenada como quartos inteiros. O runtime continua usando somente a biblioteca
 padrão.
 
+As fixtures atuais são sintéticas, públicas e mantidas somente em memória. O
+harness de regressão é puro, determinístico e compara estruturas tipadas,
+usando `NumericPolicy` para floats. Não há fixtures proprietárias, I/O ou
+dependências de runtime além da biblioteca padrão.
+
 Estão fora desta Task: distribuições, mercados, liquidação, precificação,
-Métodos 1, 2 e 3, fixtures matemáticas, serialização, hashes e integrações.
+Métodos 1, 2 e 3, serialização, hashes e integrações.
 
 ## Ambiente de desenvolvimento
 
