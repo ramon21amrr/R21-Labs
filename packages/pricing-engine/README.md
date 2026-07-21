@@ -32,8 +32,12 @@ auditável de placares e deriva a distribuição de diferença de gols. Ambas
 preservam a massa residual combinada, não fazem renormalização nem truncagem
 fixa, e permanecem puras, sem I/O e somente com a biblioteca padrão.
 
-Continuam fora desta Task: mercados, liquidação, precificação, Métodos 1, 2 e
-3, serialização, hashes e integrações.
+Mercados básicos disponíveis nesta etapa: resultado 1X2, dupla chance, BTTS e
+totais simples nas linhas de meia unidade de 0.5 a 5.5. As odds são justas,
+sem margem, e a massa residual permanece explícita sem renormalização. Não há
+handicap asiático, liquidação asiática ou I/O; o runtime usa somente a
+biblioteca padrão. Métodos 1, 2 e 3, serialização, hashes e integrações
+continuam fora desta etapa.
 
 ## Ambiente de desenvolvimento
 
