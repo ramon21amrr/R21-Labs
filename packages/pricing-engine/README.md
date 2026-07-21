@@ -40,7 +40,14 @@ O motor liquida handicap e totais asiáticos de forma pura e auditável, com os
 cinco estados `WIN`, `HALF_WIN`, `PUSH`, `HALF_LOSS` e `LOSS`. Linhas de quarto
 sofrem split canônico nas linhas pares adjacentes, cada uma com metade da stake
 conceitual. A decisão usa cálculo inteiro em quartos, sem float, arredondamento
-ou cálculo financeiro. Não há precificação asiática da T10, I/O ou dependências
+ou cálculo financeiro. A precificação asiática transforma cada célula da matriz
+nos cinco estados e em frações esperadas de vitória, reembolso e derrota. A odd
+justa é `(1 - pushed_fraction) / won_fraction`; ela fica explicitamente ausente
+quando não há fração vencedora. Handicap e totais aceitam linhas inteiras, meias
+e de quarto, preservam a massa residual e nunca renormalizam ou aplicam margem.
+Os catálogos de candidatos e a seleção da linha principal são determinísticos:
+o handicap usa HOME e a linha oposta AWAY com sinal invertido; totais usam OVER
+e UNDER na mesma linha. Não há edge, EV, stake, recomendação, I/O ou dependências
 de runtime além da biblioteca padrão.
 
 ## Ambiente de desenvolvimento
