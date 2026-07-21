@@ -27,6 +27,11 @@ de `1000`. Não há truncagem fixa `0–6` nem renormalização silenciosa; falh
 convergência retornam erros tipados. A rotina permanece pura, sem I/O e com
 runtime somente na biblioteca padrão.
 
+A camada de distribuições também combina duas Poisson independentes em uma matriz
+auditável de placares e deriva a distribuição de diferença de gols. Ambas
+preservam a massa residual combinada, não fazem renormalização nem truncagem
+fixa, e permanecem puras, sem I/O e somente com a biblioteca padrão.
+
 Continuam fora desta Task: mercados, liquidação, precificação, Métodos 1, 2 e
 3, serialização, hashes e integrações.
 

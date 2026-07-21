@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "lvfi-pricing-engine"
-version = "0.5.0"
+version = "0.6.0"
 description = "Núcleo matemático isolado do Linha de Valor Football Intelligence."
 readme = "README.md"
 requires-python = ">=3.13,<3.14"
@@ -34,7 +34,7 @@ addopts = [
     "--cov=lvfi_pricing",
     "--cov-branch",
     "--cov-report=term-missing",
-    "--cov-fail-under=90",
+    "--cov-fail-under=100",
 ]
 
 [tool.coverage.run]
@@ -44,7 +44,7 @@ omit = ["tests/*"]
 
 [tool.coverage.report]
 show_missing = true
-fail_under = 90
+fail_under = 100
 
 [tool.ruff]
 target-version = "py313"
