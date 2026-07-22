@@ -1,6 +1,6 @@
 # LVFI Pricing Engine
 
-Distribuição `1.0.1` do Pricing Engine matemático do Linha de Valor Football
+Distribuição `1.1.0a2` do Pricing Engine matemático do Linha de Valor Football
 Intelligence, preservado na versão matemática `1.0.0`. O pacote recebe taxas
 Poisson já normalizadas, calcula
 distribuições e mercados e devolve contratos imutáveis, determinísticos e
@@ -44,13 +44,20 @@ if not isinstance(request, CalculationError):
 
 Falhas de domínio são retornadas como `CalculationError`.
 
+## Contratos compartilhados
+
+`lvfi_pricing.models.samples` disponibiliza contratos comuns `1.0.0` para
+observações, amostras e qualidade, com schemas estruturais `1`. Eles usam apenas
+a biblioteca padrão, são imutáveis e não realizam I/O. O Método 1 não é
+implementado nesta distribuição.
+
 ## Runtime e instalação
 
 Requer CPython `>=3.13,<3.14`. O runtime usa exclusivamente a biblioteca padrão
 e o wheel não declara `Requires-Dist`.
 
 ```powershell
-python -m pip install --no-deps lvfi_pricing_engine-1.0.1-py3-none-any.whl
+python -m pip install --no-deps lvfi_pricing_engine-1.1.0a2-py3-none-any.whl
 ```
 
 O núcleo não lê arquivos, rede, banco, relógio ou variáveis de ambiente. Também
@@ -81,7 +88,7 @@ python -m compileall -q src
 python -m pip check
 ```
 
-A validação final executa 337 testes com 100% de linhas e branches. Detalhes,
+A validação final executa 384 testes com 100% de linhas e branches. Detalhes,
 limitações e critérios de integração estão na
 [validação final](../../docs/products/linha-de-valor-football-intelligence/14-pricing-engine-final-validation.md).
 
