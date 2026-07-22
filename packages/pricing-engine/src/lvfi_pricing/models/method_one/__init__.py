@@ -1,7 +1,13 @@
 """Public immutable contracts for Method One."""
 
+from .averages import (
+    MethodOneContextualAverages,
+    calculate_contextual_average,
+    calculate_method_one_contextual_averages,
+)
 from .contracts import (
     ContextualAverage,
+    ContextualAverageEvidence,
     MethodOneConfiguration,
     MethodOneMetadata,
     MethodOneMultiplierCandidate,
@@ -33,7 +39,11 @@ __all__ = (
     "MethodOneRequest",
     "MethodOneSeriesReference",
     "ContextualAverage",
+    "ContextualAverageEvidence",
+    "MethodOneContextualAverages",
     "MethodOneRateExplanation",
     "MethodOneMetadata",
     "MethodOneResult",
+    "calculate_contextual_average",
+    "calculate_method_one_contextual_averages",
 )

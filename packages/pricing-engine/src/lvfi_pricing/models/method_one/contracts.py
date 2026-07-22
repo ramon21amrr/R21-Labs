@@ -14,6 +14,8 @@ from lvfi_pricing.core.numeric import NumericPolicy, is_close
 from lvfi_pricing.models.samples import (
     MatchPeriodCode,
     ObservationRole,
+    SampleExclusion,
+    SampleQuality,
     SampleSnapshot,
     StatisticCode,
     VenueCondition,
@@ -433,6 +435,7 @@ class ContextualAverage:
     valid_count: int
     used_match_ids: tuple[str, ...]
     effective_weights: tuple[float, ...]
+    evidence: ContextualAverageEvidence | None = None
     average_schema_version: int = 1
 
     def __post_init__(self) -> None:
@@ -469,6 +472,10 @@ class ContextualAverage:
                 _number(item, "effective_weights", positive=True) for item in weights
             ),
         )
+        if self.evidence is not None and not isinstance(
+            self.evidence, ContextualAverageEvidence
+        ):
+            raise ValueError("invalid average evidence")
         _schema(self.average_schema_version, "average schema")
 
     @classmethod
@@ -602,3 +609,24 @@ class MethodOneResult:
     @classmethod
     def create(cls, **kwargs: object) -> Self | CalculationError:
         return _factory(cls, ErrorCode.INCONSISTENT_DATA, "result", kwargs)
+
+
+@dataclass(frozen=True, slots=True)
+class ContextualAverageEvidence:
+    """Immutable audit trail for one contextual average."""
+
+    considered_match_ids: tuple[str, ...]
+    exclusions: tuple[SampleExclusion, ...]
+    quality: SampleQuality
+    statistic: StatisticCode
+    period: MatchPeriodCode
+    subject_id: str
+    opponent_ids: tuple[str, ...]
+    venue_condition: VenueCondition
+    common_contract_version: str
+    recency_policy: RecencyPolicyCode
+    calculation_method: str
+    deterministic: bool
+    used_values: tuple[float, ...]
+    warnings: tuple[CalculationWarning, ...]
+    errors: tuple[CalculationError, ...]

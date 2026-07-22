@@ -1,6 +1,6 @@
 # LVFI Pricing Engine
 
-Distribuição `1.1.0a4` do Pricing Engine matemático do Linha de Valor Football
+Distribuição `1.1.0a5` do Pricing Engine matemático do Linha de Valor Football
 Intelligence, preservado na versão matemática `1.0.0`. O pacote recebe taxas
 Poisson já normalizadas, calcula
 distribuições e mercados e devolve contratos imutáveis, determinísticos e
@@ -50,7 +50,7 @@ Falhas de domínio são retornadas como `CalculationError`.
 observações, amostras e qualidade, com schemas estruturais `1`. Eles usam apenas
 a biblioteca padrão, são imutáveis e não realizam I/O.
 
-`lvfi_pricing.models.method_one` disponibiliza contratos estruturais `1` do Método 1 `1.0.0a1`: configuração, pesos, recência, referências das quatro séries, multiplicadores, request, explicação, metadados e resultado. Esta distribuição não calcula médias, taxas, Poisson ou mercados pelo Método 1.
+`lvfi_pricing.models.method_one` disponibiliza contratos estruturais `1` do Método 1 `1.0.0a1`: configuração, pesos, recência, referências das quatro séries, multiplicadores, request, explicação, metadados e resultado. Esta distribuição calcula médias contextuais individuais `uniform/v1` auditáveis do Método 1, mas não combina séries, produz taxas, converte para Poisson ou calcula mercados pelo Método 1.
 
 ## Runtime e instalação
 
