@@ -8,7 +8,9 @@
 - **FATO OBSERVADO:** os documentos foram elaborados a partir do contexto institucional, do R21 Development Framework e dos materiais originais em `inputs/linha-de-valor-football-intelligence/`.
 - **FATO OBSERVADO:** a `LVFI-DISC-002` foi encerrada com auditoria dinâmica, baseline matemática e evidências privadas preservadas.
 - **FATO OBSERVADO:** a `LVFI-ENG-001` foi concluída e seu planejamento foi consolidado no plano técnico do Pricing Engine.
-- **GATE:** **GO PARA IMPLEMENTAÇÃO CONTROLADA DA LVFI-ENG-002.** O gate autoriza iniciar somente a próxima Task com plano específico aprovado.
+- **FATO OBSERVADO:** a `LVFI-ENG-002` foi concluída no Pricing Engine `1.0.0`, com validação final registrada no documento 14.
+- **FATO OBSERVADO:** a `LVFI-ENG-003-T01` planeja documentalmente o Método 1, sem implementar código.
+- **GATE:** **NO-GO PARA IMPLEMENTAÇÃO MATEMÁTICA DO MÉTODO 1 E PARA INÍCIO DA T02**, enquanto as sete decisões `M1-PEND-001` a `M1-PEND-007` não forem aprovadas explicitamente.
 
 ## Propósito
 
@@ -55,6 +57,13 @@ As afirmações relevantes usam os seguintes estados:
 11. [MVP, roadmap e validação](11-mvp-roadmap-and-validation.md) — escopo aprovado, etapas futuras, migração, testes, riscos e decisões pendentes.
 12. [Auditoria dinâmica e baseline matemático](12-dynamic-audit-and-mathematical-baseline.md) — protocolo executado, VBA, macros, defeitos, qualidade, fixtures, equivalência e decisões `D-MATH` aprovadas.
 13. [Plano técnico do Pricing Engine](13-pricing-engine-technical-plan.md) — fronteiras, contratos, política numérica, backlog e gate da `LVFI-ENG-002`.
+14. [Validação final do Pricing Engine](14-pricing-engine-final-validation.md) — evidências, API pública, versão `1.0.0` e critérios de integração.
+15. [Plano técnico do Método 1](15-method-one-technical-plan.md) — função, fronteiras, arquitetura, integração, segurança e desempenho.
+16. [Catálogo de contratos do Método 1](16-method-one-contract-catalog.md) — responsabilidades, campos, invariantes, erros, warnings e versões.
+17. [Decisões matemáticas do Método 1](17-method-one-mathematical-decisions.md) — regras aprovadas, fatos observados, recomendações, conflitos e pendências.
+18. [Estratégia de testes do Método 1](18-method-one-test-strategy.md) — testes unitários, propriedades, regressão, integração, segurança e desempenho.
+19. [Backlog do Método 1](19-method-one-implementation-backlog.md) — Tasks, dependências, critérios de aceite, riscos, testes e versões.
+20. [Gate de planejamento do Método 1](20-method-one-planning-gate.md) — condições bloqueadoras e decisão `NO-GO`.
 
 ## ADRs do Pricing Engine
 
@@ -86,6 +95,6 @@ As afirmações relevantes usam os seguintes estados:
 - **LIMITAÇÃO:** a baseline reproduz o comportamento observado nos fixtures; não certifica a planilha em todos os cenários.
 - **LIMITAÇÃO:** a procedência dos registros históricos não está completa no XLSM.
 - **LIMITAÇÃO:** fornecedores não foram selecionados ou contratados; o documento correspondente define critérios e processo de avaliação.
-- **LIMITAÇÃO:** o gate atual permite implementação controlada somente da `LVFI-ENG-002`, uma Task aprovada por vez; Métodos 1, 2 e 3 e as aplicações permanecem fora do escopo.
+- **LIMITAÇÃO:** o Pricing Engine `1.0.0` está concluído, mas o Método 1 permanece em `NO-GO` até aprovação explícita das decisões matemáticas pendentes; Métodos 2 e 3 e as aplicações permanecem fora do escopo.
 
 O encerramento técnico, as limitações remanescentes e a referência ao arquivo privado estão em [Auditoria dinâmica e baseline matemático](12-dynamic-audit-and-mathematical-baseline.md).
