@@ -105,6 +105,11 @@ def test_public_api_versions_enums_and_root_namespace() -> None:
         "MethodOneResult",
         "calculate_contextual_average",
         "calculate_method_one_contextual_averages",
+        "MethodOneWeightedComponent",
+        "MethodOneParticipantBaseRateExplanation",
+        "MethodOneBaseRateExplanation",
+        "MethodOneBaseRateResult",
+        "calculate_method_one_base_rates",
     )
     assert MethodOneStatisticPeriod.GOALS_FIRST_HALF.value == "goals/first_half"  # noqa: F405
     assert RecencyPolicyCode.UNIFORM_V1.value == "uniform/v1"  # noqa: F405

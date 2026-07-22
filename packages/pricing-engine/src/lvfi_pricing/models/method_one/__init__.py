@@ -5,6 +5,13 @@ from .averages import (
     calculate_contextual_average,
     calculate_method_one_contextual_averages,
 )
+from .base_rates import (
+    MethodOneBaseRateExplanation,
+    MethodOneBaseRateResult,
+    MethodOneParticipantBaseRateExplanation,
+    MethodOneWeightedComponent,
+    calculate_method_one_base_rates,
+)
 from .contracts import (
     ContextualAverage,
     ContextualAverageEvidence,
@@ -46,4 +53,9 @@ __all__ = (
     "MethodOneResult",
     "calculate_contextual_average",
     "calculate_method_one_contextual_averages",
+    "MethodOneWeightedComponent",
+    "MethodOneParticipantBaseRateExplanation",
+    "MethodOneBaseRateExplanation",
+    "MethodOneBaseRateResult",
+    "calculate_method_one_base_rates",
 )
