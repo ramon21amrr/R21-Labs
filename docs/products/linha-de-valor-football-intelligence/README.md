@@ -65,6 +65,11 @@ As afirmações relevantes usam os seguintes estados:
 18. [Estratégia de testes do Método 1](18-method-one-test-strategy.md) — testes unitários, propriedades, regressão, integração, segurança e desempenho.
 19. [Backlog do Método 1](19-method-one-implementation-backlog.md) — Tasks, dependências, critérios de aceite, riscos, testes e versões.
 20. [Gate de planejamento do Método 1](20-method-one-planning-gate.md) — baseline histórica `NO-GO`, encerramento das sete pendências e novo gate de planejamento da T02.
+21. [Decisão do catálogo operacional de mercados do MVP](21-market-operational-catalog-decision.md) — separação entre catálogo matemático e operacional, faixas asiáticas do MVP, impactos e gate de implementação.
+22. [Plano técnico de implementação do catálogo operacional MVP](22-operational-catalog-implementation-plan.md) — arquitetura, contratos, versionamento, migração, testes, riscos e gate de aprovação.
+
+23. [Design técnico do catálogo operacional MVP](23-operational-catalog-implementation-design.md) — fronteira entre catálogo, composição LVFI e Pricing Engine, identidade operacional, migração e validação futura.
+24. [Plano de implementação dos contratos base do Método 1](24-method-one-contracts-implementation-plan.md) — fronteira, contratos, invariantes, testes, riscos e gate da LVFI-ENG-003-T02-C02.
 
 ## ADRs do Pricing Engine
 
