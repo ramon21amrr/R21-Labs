@@ -155,3 +155,19 @@ def test_undefined_candidates_are_ignored_in_every_position_and_ties_are_canonic
     )
     assert isinstance(symmetric, AsianMainLine)
     assert symmetric.line == QuarterLine(-1)
+
+
+def test_large_main_lines_preserve_the_complete_mathematical_catalogue() -> None:
+    source = matrix(10.0, 10.0)
+    handicap_candidates = generate_asian_handicap_candidates(source)
+    total_candidates = generate_asian_total_candidates(source)
+    assert isinstance(handicap_candidates, tuple)
+    assert isinstance(total_candidates, tuple)
+    assert len(handicap_candidates) == 345
+    assert len(total_candidates) == 341
+    handicap = select_asian_handicap_main_line(source)
+    total = select_asian_total_main_line(source)
+    assert isinstance(handicap, AsianMainLine)
+    assert isinstance(total, AsianMainLine)
+    assert handicap.evaluated_lines == len(handicap_candidates)
+    assert total.evaluated_lines == len(total_candidates)

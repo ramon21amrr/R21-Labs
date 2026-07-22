@@ -12,6 +12,7 @@ from lvfi_pricing.settlement import (
     settle_asian_total,
     split_asian_line,
 )
+from lvfi_pricing.settlement import asian as asian_module
 
 
 @given(st.integers(-10_000, 10_000))
@@ -52,3 +53,26 @@ def test_total_is_deterministic(home: int, away: int, quarters: int) -> None:
         home, away, QuarterLine(quarters), AsianTotalSelection.OVER
     )
     assert first == second
+
+
+@given(st.integers(0, 20), st.integers(0, 20), st.integers(-80, 80))
+def test_internal_states_are_exactly_the_public_states(
+    home: int, away: int, quarters: int
+) -> None:
+    line = QuarterLine(quarters)
+    for handicap_selection in HandicapSelection:
+        complete = settle_asian_handicap(home, away, line, handicap_selection)
+        assert not isinstance(complete, Exception)
+        assert (
+            asian_module._settle_asian_handicap_state(
+                home, away, line, handicap_selection
+            )
+            is complete.state
+        )
+    for total_selection in AsianTotalSelection:
+        complete = settle_asian_total(home, away, line, total_selection)
+        assert not isinstance(complete, Exception)
+        assert (
+            asian_module._settle_asian_total_state(home, away, line, total_selection)
+            is complete.state
+        )

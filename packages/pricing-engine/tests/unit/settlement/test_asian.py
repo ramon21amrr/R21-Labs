@@ -289,3 +289,37 @@ def test_contract_rejections_and_internal_error_paths(
         lambda _: CalculationError(ErrorCode.INCONSISTENT_DATA, "bad"),
     )
     assert isinstance(asian_module._settle(0, line(0)), CalculationError)
+    with pytest.raises(CalculationError):
+        asian_module._settle_asian_state(0, 0)
+
+
+def test_internal_state_path_matches_complete_settlement_over_supported_domain() -> (
+    None
+):
+    for margin in range(-42, 43):
+        home, away = max(margin, 0), max(-margin, 0)
+        for quarters in range(-172, 173):
+            source_line = line(quarters)
+            for handicap_selection in HandicapSelection:
+                complete = settle_asian_handicap(
+                    home, away, source_line, handicap_selection
+                )
+                assert isinstance(complete, AsianSettlementResult)
+                assert (
+                    asian_module._settle_asian_handicap_state(
+                        home, away, source_line, handicap_selection
+                    )
+                    is complete.state
+                )
+    for total in range(85):
+        for quarters in range(341):
+            source_line = line(quarters)
+            for total_selection in AsianTotalSelection:
+                complete = settle_asian_total(total, 0, source_line, total_selection)
+                assert isinstance(complete, AsianSettlementResult)
+                assert (
+                    asian_module._settle_asian_total_state(
+                        total, 0, source_line, total_selection
+                    )
+                    is complete.state
+                )

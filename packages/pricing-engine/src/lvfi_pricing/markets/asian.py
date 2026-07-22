@@ -9,12 +9,13 @@ from lvfi_pricing.core.numeric import NumericPolicy, stable_sum
 from lvfi_pricing.distributions import ScoreProbabilityMatrix
 from lvfi_pricing.domain import FairOdds, Probability, QuarterLine
 from lvfi_pricing.settlement import (
-    AsianSettlementResult,
     AsianSettlementState,
     AsianTotalSelection,
     HandicapSelection,
-    settle_asian_handicap,
-    settle_asian_total,
+)
+from lvfi_pricing.settlement.asian import (
+    _settle_asian_handicap_state,
+    _settle_asian_total_state,
 )
 
 from .asian_contracts import (
@@ -50,7 +51,7 @@ def _price(
     selection: object,
     line: object,
     market: AsianMarketCode,
-    settle: Callable[..., AsianSettlementResult | CalculationError],
+    settle: Callable[..., AsianSettlementState | CalculationError],
     policy: NumericPolicy | None,
 ) -> AsianMarketPrice | CalculationError:
     active_policy = _policy(policy)
@@ -76,12 +77,21 @@ def _price(
     buckets: dict[AsianSettlementState, list[float]] = {
         state: [] for state in AsianSettlementState
     }
+    state_cache: dict[int, AsianSettlementState] = {}
     for home_goals, row in enumerate(matrix.probabilities):
         for away_goals, probability in enumerate(row):
-            settlement = settle(home_goals, away_goals, line, selection)
-            if isinstance(settlement, CalculationError):
-                return settlement
-            state = settlement.state
+            state_key = (
+                home_goals - away_goals
+                if market is AsianMarketCode.HANDICAP
+                else home_goals + away_goals
+            )
+            state = state_cache.get(state_key)
+            if state is None:
+                settled = settle(home_goals, away_goals, line, selection)
+                if isinstance(settled, CalculationError):
+                    return settled
+                state = settled
+                state_cache[state_key] = state
             buckets[state].append(probability)
     values: list[float] = []
     for state in AsianSettlementState:
@@ -148,7 +158,12 @@ def price_asian_handicap(
 ) -> AsianMarketPrice | CalculationError:
     """Price a HOME or AWAY Asian handicap from each matrix cell exactly once."""
     return _price(
-        matrix, selection, line, AsianMarketCode.HANDICAP, settle_asian_handicap, policy
+        matrix,
+        selection,
+        line,
+        AsianMarketCode.HANDICAP,
+        _settle_asian_handicap_state,
+        policy,
     )
 
 
@@ -160,5 +175,10 @@ def price_asian_total(
 ) -> AsianMarketPrice | CalculationError:
     """Price an OVER or UNDER Asian total from each matrix cell exactly once."""
     return _price(
-        matrix, selection, line, AsianMarketCode.TOTAL, settle_asian_total, policy
+        matrix,
+        selection,
+        line,
+        AsianMarketCode.TOTAL,
+        _settle_asian_total_state,
+        policy,
     )

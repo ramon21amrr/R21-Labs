@@ -1,11 +1,14 @@
 """Unit tests for T10 Asian probabilistic prices."""
 
 import math
+from collections.abc import Callable
 from dataclasses import FrozenInstanceError
+from typing import cast
 
 import pytest
 
 from lvfi_pricing.core.errors import CalculationError, ErrorCode
+from lvfi_pricing.core.numeric import stable_sum
 from lvfi_pricing.distributions import (
     PoissonDistribution,
     ScoreProbabilityMatrix,
@@ -21,7 +24,13 @@ from lvfi_pricing.markets import (
     price_asian_handicap,
     price_asian_total,
 )
-from lvfi_pricing.settlement import AsianTotalSelection, HandicapSelection
+from lvfi_pricing.markets import asian as asian_module
+from lvfi_pricing.settlement import (
+    AsianSettlementState,
+    AsianTotalSelection,
+    HandicapSelection,
+)
+from lvfi_pricing.settlement import asian as settlement_asian_module
 
 
 def matrix(home: float = 1.0, away: float = 1.5) -> ScoreProbabilityMatrix:
@@ -217,3 +226,136 @@ def test_contract_validation_and_invalid_inputs() -> None:
         price_asian_total(matrix(), AsianTotalSelection.OVER, object()),  # type: ignore[arg-type]
         CalculationError,
     )
+
+
+def _legacy_state_values(
+    source: ScoreProbabilityMatrix,
+    selection: HandicapSelection | AsianTotalSelection,
+    line: QuarterLine,
+) -> tuple[float, ...]:
+    buckets: dict[AsianSettlementState, list[float]] = {
+        state: [] for state in AsianSettlementState
+    }
+    for home_goals, row in enumerate(source.probabilities):
+        for away_goals, probability in enumerate(row):
+            settlement = (
+                settlement_asian_module.settle_asian_handicap(
+                    home_goals, away_goals, line, selection
+                )
+                if isinstance(selection, HandicapSelection)
+                else settlement_asian_module.settle_asian_total(
+                    home_goals, away_goals, line, selection
+                )
+            )
+            assert not isinstance(settlement, CalculationError)
+            buckets[settlement.state].append(probability)
+    values: list[float] = []
+    for state in AsianSettlementState:
+        value = stable_sum(buckets[state])
+        assert isinstance(value, float)
+        values.append(value)
+    return tuple(values)
+
+
+@pytest.mark.parametrize(
+    ("selection", "quarters"),
+    [
+        (HandicapSelection.HOME, -3),
+        (HandicapSelection.AWAY, 3),
+        (AsianTotalSelection.OVER, 9),
+        (AsianTotalSelection.UNDER, 9),
+    ],
+)
+def test_optimized_prices_match_the_complete_settlement_path_exactly(
+    selection: HandicapSelection | AsianTotalSelection, quarters: int
+) -> None:
+    source = matrix(2.5, 1.2)
+    source_line = QuarterLine(quarters)
+    price = (
+        price_asian_handicap(source, selection, source_line)
+        if isinstance(selection, HandicapSelection)
+        else price_asian_total(source, selection, source_line)
+    )
+    assert isinstance(price, AsianMarketPrice)
+    values = _legacy_state_values(source, selection, source_line)
+    states = price.settlement_probabilities
+    assert (
+        tuple(
+            value.value
+            for value in (
+                states.win,
+                states.half_win,
+                states.push,
+                states.half_loss,
+                states.loss,
+            )
+        )
+        == values
+    )
+    won = values[0] + 0.5 * values[1]
+    pushed = values[2] + 0.5 * values[1] + 0.5 * values[3]
+    lost = values[4] + 0.5 * values[3]
+    assert (
+        price.expected_profile.won_fraction,
+        price.expected_profile.pushed_fraction,
+        price.expected_profile.lost_fraction,
+    ) == (won, pushed, lost)
+    assert price.fair_odds is not None
+    assert price.fair_odds.value == 1.0 + lost / won
+    assert price.warnings == source.warnings
+    assert price.residual_mass == source.residual_mass
+
+
+def test_pricing_reuses_states_without_constructing_settlement_contracts(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    source = matrix(10.0, 10.0)
+    calls = {"handicap": 0, "total": 0}
+    original_handicap = cast(
+        Callable[[int, int, QuarterLine, HandicapSelection], AsianSettlementState],
+        asian_module.__dict__["_settle_asian_handicap_state"],
+    )
+    original_total = cast(
+        Callable[[int, int, QuarterLine, AsianTotalSelection], AsianSettlementState],
+        asian_module.__dict__["_settle_asian_total_state"],
+    )
+
+    def handicap_state(
+        home_goals: int,
+        away_goals: int,
+        line: QuarterLine,
+        selection: HandicapSelection,
+    ) -> AsianSettlementState:
+        calls["handicap"] += 1
+        return original_handicap(home_goals, away_goals, line, selection)
+
+    def total_state(
+        home_goals: int,
+        away_goals: int,
+        line: QuarterLine,
+        selection: AsianTotalSelection,
+    ) -> AsianSettlementState:
+        calls["total"] += 1
+        return original_total(home_goals, away_goals, line, selection)
+
+    def unexpected_contract(*_: object) -> object:
+        raise AssertionError("pricing constructed a complete settlement contract")
+
+    monkeypatch.setattr(asian_module, "_settle_asian_handicap_state", handicap_state)
+    monkeypatch.setattr(asian_module, "_settle_asian_total_state", total_state)
+    monkeypatch.setattr(
+        settlement_asian_module, "AsianSettlementResult", unexpected_contract
+    )
+    monkeypatch.setattr(
+        settlement_asian_module, "AsianSettlementProfile", unexpected_contract
+    )
+    monkeypatch.setattr(
+        settlement_asian_module, "AsianLineComponent", unexpected_contract
+    )
+    monkeypatch.setattr(settlement_asian_module, "AsianLineSplit", unexpected_contract)
+    handicap = price_asian_handicap(source, HandicapSelection.HOME, QuarterLine(0))
+    total = price_asian_total(source, AsianTotalSelection.OVER, QuarterLine(8))
+    assert isinstance(handicap, AsianMarketPrice)
+    assert isinstance(total, AsianMarketPrice)
+    distinct = source.home_max_goals + source.away_max_goals + 1
+    assert calls == {"handicap": distinct, "total": distinct}
