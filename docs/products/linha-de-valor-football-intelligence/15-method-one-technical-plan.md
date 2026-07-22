@@ -5,7 +5,7 @@
 - **Initiative:** `LVFI-ENG-003`
 - **Task:** `LVFI-ENG-003-T01`
 - **Entrega:** planejamento documental do Método 1
-- **Estado:** documentação aprovada para criação; implementação matemática não autorizada
+- **Estado:** decisões `D-M1-001` a `D-M1-007` aprovadas; implementação não autorizada sem plano próprio da Task
 - **Dependência:** Pricing Engine `1.0.0`, encerrado no commit `7da4b0bc8c980597ae970ef4165b94a649af4b94`
 - **Gate detalhado:** [20-method-one-planning-gate.md](20-method-one-planning-gate.md)
 
@@ -27,8 +27,9 @@ linhas permanecem responsabilidades exclusivas do engine.
 `lvfi_pricing.models`, usando contratos de amostra compartilháveis, sem alterar
 o comportamento ou os schemas v1 do Pricing Engine.
 
-**NO-GO:** a implementação matemática permanece bloqueada pelas sete decisões
-listadas na seção 19 e no documento de gate.
+**DECISÃO APROVADA:** as sete decisões matemáticas do Método 1 foram
+formalizadas como `D-M1-001` a `D-M1-007`. Essa aprovação remove o bloqueio de
+produto para planejar a T02, mas não autoriza sua implementação nem seu início.
 
 ## 3. Fontes e ordem de autoridade
 
@@ -102,7 +103,7 @@ Entradas opcionais:
 - data de corte fornecida pelo chamador;
 - temporadas adicionais explicitamente selecionadas;
 - recorte personalizado;
-- pesos de recência, somente sob política aprovada;
+- política de recência explícita, `uniform/v1` no MVP;
 - ajustes contextuais aprovados;
 - justificativas e referências de configuração;
 - metadados seguros de correlação, fora do hash matemático quando voláteis.
@@ -150,20 +151,24 @@ positivo. A geração dos pesos não poderá ser implícita.
 **FATO OBSERVADO:** o legado calcula uma soma ponderada entre produção própria
 e concessão adversária.
 
-**RECOMENDAÇÃO — PENDENTE DE APROVAÇÃO:** adotar média aritmética ponderada:
+**DECISÃO APROVADA — D-M1-001:** adotar a combinação aritmética ponderada:
 
 `home_base = home_own_weight * home_production_mean + home_opponent_weight * away_concession_mean`
 
 `away_base = away_own_weight * away_production_mean + away_opponent_weight * home_concession_mean`
 
-Para cada participante, os dois pesos deverão ser `Weight`, estar em `[0,1]`
-e somar `1` dentro da `NumericPolicy`. Não haverá normalização silenciosa.
+Para cada participante, os dois pesos deverão ser `Weight` `binary64` finitos,
+estar em `[0,1]` e somar `1` dentro da `NumericPolicy`. Não haverá normalização
+silenciosa.
 
-Não se recomenda ponderar novamente pelo número de partidas. Cada média usa seu
-próprio denominador, e os pesos de negócio controlam a combinação. O tamanho da
-amostra afeta qualidade e warnings, não o significado dos pesos.
+Cada média usa seu próprio denominador de observações `OBSERVED`. A combinação
+não é ponderada novamente pelo número de partidas: o tamanho da amostra afeta
+qualidade e warnings, não o significado dos pesos.
 
-**DECISÃO PENDENTE:** a fórmula acima ainda não é normativa.
+**DECISÃO APROVADA — D-M1-002:** o preset global inicial é `0.50/0.50` para
+produção própria e concessão adversária, tanto para o mandante quanto para o
+visitante. Os pesos e sua origem são versionados e aparecem na explicação.
+Outras combinações poderão ser configuradas em versões futuras.
 
 ## 9. Ajustes contextuais
 
@@ -174,34 +179,42 @@ e must-win. Faltas e cartões usam árbitro no conjunto observado.
 **DECISÃO APROVADA — D-MATH-015:** multiplicadores são positivos; a faixa
 inicial é `0,90–1,10`; exceções são versionadas, justificadas e auditadas.
 
-**RECOMENDAÇÃO — PENDENTE DE APROVAÇÃO:** para uma lista ordenada de ajustes
-aplicáveis:
+**DECISÃO APROVADA — D-M1-004:** para a lista canônica de ajustes efetivos:
 
 `refined_rate = base_rate * math.prod(multiplier_i)`
 
-O resultado deve preservar o valor antes e depois de cada ajuste. Nenhum
-ajuste desconhecido, duplicado, fora da configuração resolvida ou não aplicável
-à estatística poderá ser executado.
+O valor neutro é `1.00`. Somente multiplicadores positivos e finitos podem ser
+aplicados. Para cada categoria, a configuração resolve no máximo um valor pela
+precedência `partida → campeonato → global`; todos os candidatos considerados,
+o escolhido e os descartados preservam fonte e motivo na auditoria. A ordem de
+aplicação pertence ao catálogo versionado e cada etapa registra valor anterior,
+multiplicador e valor posterior.
 
-Enquanto a composição não for aprovada, a implementação dessa fórmula
-permanece bloqueada.
+Valores fora de `0.90–1.10` seguem integralmente `D-MATH-015`: exigem
+configuração versionada, justificativa, autorização administrativa, auditoria e
+aprovação do Product Owner quando mudarem a regra do modelo. A política
+explícita decide entre warning e erro; nenhuma limitação ou composição aditiva
+é silenciosa.
 
 ## 10. Pesos de recência
 
 **FATO OBSERVADO:** o XLSM ordena jogos por data decrescente e exibe até dez,
 mas não aplica pesos formais de recência nem desempata datas iguais.
 
-**RECOMENDAÇÃO — PENDENTE DE APROVAÇÃO:** o MVP deverá usar política
-`UNIFORM`, equivalente a recência desativada. Cada observação válida recebe o
-mesmo peso matemático.
+**DECISÃO APROVADA — D-M1-003:** o MVP usa `uniform/v1`, equivalente a
+recência não uniforme desativada. Cada observação `OBSERVED` recebe o mesmo peso
+matemático.
 
 Ordem canônica dos snapshots:
 
 1. instante da partida decrescente;
 2. `match_id` crescente como desempate estável.
 
-Partidas canceladas são excluídas antes da ponderação. Anuladas, interrompidas,
-W.O., prorrogadas e decididas por pênaltis dependem da decisão `M1-PEND-007`.
+Partidas canceladas, anuladas, interrompidas, decididas por W.O. ou por disputa
+de pênaltis são excluídas antes da ponderação. A prorrogação não entra na taxa;
+somente o segmento de tempo regulamentar claramente separado e validado pode
+ser usado. Estado não classificável com confiança vira `PENDING_REVIEW`, fica
+fora da amostra e bloqueia uso automático até revisão.
 
 Uma futura política não uniforme deverá declarar fórmula, parâmetros,
 normalização, versão, aplicabilidade e testes. Nenhum decaimento será escolhido
@@ -213,26 +226,31 @@ Conforme `D-MATH-007` e `D-MATH-008`:
 
 - `0` observações válidas em componente obrigatório: média indefinida e erro;
 - `1–4`: cálculo somente para auditoria, qualidade insuficiente;
-- `5–9`: baixa confiança, warning explícito;
+- `5–9`: baixa confiança, warning explícito e publicação condicionada a
+  permissão e justificativa;
 - `10+`: confiança padrão inicial, sem garantia estatística.
 
 O resultado agregado herda a pior qualidade entre os quatro snapshots.
 
-**RECOMENDAÇÃO — PENDENTE DE APROVAÇÃO:** aceitar tamanhos assimétricos. Cada
-média usa seu denominador real. Diferença de tamanho gera warning e permanece
-visível na explicação.
+**DECISÃO APROVADA — D-M1-006:** tamanhos assimétricos são aceitos. Cada média
+usa seu denominador real, a diferença de tamanho gera warning e permanece
+visível na explicação. A qualidade geral corresponde à pior das quatro séries.
 
 ## 12. Dados ausentes, inválidos e zeros
 
 - `OBSERVED(0.0)` entra no numerador e denominador;
 - `MISSING` não entra e mantém motivo de ausência;
 - `NOT_APPLICABLE` não entra e não é tratado como ausência;
-- `INVALID` bloqueia por padrão quando pertence ao conjunto necessário;
-- `PENDING_REVIEW` bloqueia por padrão;
-- `SUSPECT` é excluído e gera warning até revisão explícita;
+- `INVALID` não entra na média e bloqueia sob a política aplicável;
+- `PENDING_REVIEW` não entra na média e bloqueia uso automático;
+- `SUSPECT` não entra na média e gera warning até revisão explícita;
 - nenhum estado é convertido em zero, vazio ou `NaN`;
 - valor observado deve ser finito, compatível com a unidade e não negativo no
   escopo inicial de contagens.
+
+**DECISÃO APROVADA — D-M1-007:** somente `OBSERVED` participa da média.
+`OBSERVED(0.0)` continua sendo uma observação válida; ausência nunca é
+convertida em zero.
 
 ## 13. Duplicidade e sobreposição
 
@@ -247,7 +265,7 @@ séries representam papéis distintos e não são agrupadas em uma média única
 
 ## 14. Escopo estatístico
 
-**RECOMENDAÇÃO — PENDENTE DE APROVAÇÃO:** o primeiro escopo implementável será:
+**DECISÃO APROVADA — D-M1-005:** o escopo inicial da ENG-003 é:
 
 - estatística: gols por participante;
 - períodos: primeiro tempo e tempo regulamentar completo;
@@ -257,11 +275,11 @@ séries representam papéis distintos e não são agrupadas em uma média única
 Gols do mandante, gols do visitante e total de gols são mercados derivados
 posteriormente pelo Pricing Engine a partir das mesmas taxas.
 
-O catálogo futuro deverá representar escanteios, finalizações, chutes no gol,
-cartões e faltas, nos períodos aplicáveis. O Método 1 poderá produzir uma taxa
-matemática genérica para essas contagens, mas a conversão para `PoissonRate` e
-o uso em mercados dependerão de decisão explícita sobre distribuição,
-calibração e catálogo.
+Contratos comuns poderão representar escanteios, finalizações, chutes no gol,
+cartões e faltas no futuro. Essas estatísticas ficam fora da implementação
+inicial e não são elegíveis para `PoissonRate` nesta Initiative; qualquer uso
+futuro exige decisão matemática específica sobre distribuição, calibração e
+catálogo.
 
 ## 15. Integração com o Pricing Engine 1.0.0
 
@@ -349,17 +367,19 @@ configuração resolvida, snapshots, ordem, IDs, pesos, ajustes, política numé
 taxas e schemas. Horário de execução, duração, host, processo e caminhos locais
 ficam fora.
 
-## 19. Decisões pendentes bloqueadoras
+## 19. Decisões aprovadas e rastreabilidade
 
-1. `M1-PEND-001`: fórmula canônica de combinação.
-2. `M1-PEND-002`: pesos globais iniciais.
-3. `M1-PEND-003`: ausência de recência no MVP.
-4. `M1-PEND-004`: composição dos multiplicadores.
-5. `M1-PEND-005`: escopo estatístico inicial e elegibilidade para Poisson.
-6. `M1-PEND-006`: aceitação de amostras assimétricas.
-7. `M1-PEND-007`: política dos estados especiais de partida.
+1. `M1-PEND-001 → D-M1-001`: fórmula canônica de combinação aprovada.
+2. `M1-PEND-002 → D-M1-002`: pesos globais iniciais `0.50/0.50` aprovados.
+3. `M1-PEND-003 → D-M1-003`: recência uniforme `uniform/v1` aprovada.
+4. `M1-PEND-004 → D-M1-004`: composição multiplicativa aprovada.
+5. `M1-PEND-005 → D-M1-005`: escopo inicial de gols e elegibilidade para
+   Poisson aprovados.
+6. `M1-PEND-006 → D-M1-006`: amostras assimétricas aprovadas.
+7. `M1-PEND-007 → D-M1-007`: estados especiais de partida aprovados.
 
-Nenhuma recomendação deste plano muda o estado dessas decisões.
+As sete pendências estão encerradas. O gate passa a **GO PARA PLANEJAMENTO DA
+LVFI-ENG-003-T02**, sem autorizar implementação ou início da T02.
 
 ## 20. Segurança e limites
 

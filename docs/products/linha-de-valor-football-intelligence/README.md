@@ -9,8 +9,9 @@
 - **FATO OBSERVADO:** a `LVFI-DISC-002` foi encerrada com auditoria dinâmica, baseline matemática e evidências privadas preservadas.
 - **FATO OBSERVADO:** a `LVFI-ENG-001` foi concluída e seu planejamento foi consolidado no plano técnico do Pricing Engine.
 - **FATO OBSERVADO:** a `LVFI-ENG-002` foi concluída no Pricing Engine `1.0.0`, com validação final registrada no documento 14.
-- **FATO OBSERVADO:** a `LVFI-ENG-003-T01` planeja documentalmente o Método 1, sem implementar código.
-- **GATE:** **NO-GO PARA IMPLEMENTAÇÃO MATEMÁTICA DO MÉTODO 1 E PARA INÍCIO DA T02**, enquanto as sete decisões `M1-PEND-001` a `M1-PEND-007` não forem aprovadas explicitamente.
+- **FATO OBSERVADO:** a `LVFI-ENG-003-T01` planejou documentalmente o Método 1, sem implementar código.
+- **DECISÃO APROVADA:** `M1-PEND-001–007` foram encerradas por `D-M1-001–007`, preservando a rastreabilidade integral.
+- **GATE:** **GO PARA PLANEJAMENTO DA LVFI-ENG-003-T02**. Esse GO não autoriza implementação nem início da T02, que depende de plano próprio, aprovação explícita e gates específicos.
 
 ## Propósito
 
@@ -60,10 +61,10 @@ As afirmações relevantes usam os seguintes estados:
 14. [Validação final do Pricing Engine](14-pricing-engine-final-validation.md) — evidências, API pública, versão `1.0.0` e critérios de integração.
 15. [Plano técnico do Método 1](15-method-one-technical-plan.md) — função, fronteiras, arquitetura, integração, segurança e desempenho.
 16. [Catálogo de contratos do Método 1](16-method-one-contract-catalog.md) — responsabilidades, campos, invariantes, erros, warnings e versões.
-17. [Decisões matemáticas do Método 1](17-method-one-mathematical-decisions.md) — regras aprovadas, fatos observados, recomendações, conflitos e pendências.
+17. [Decisões matemáticas do Método 1](17-method-one-mathematical-decisions.md) — regras aprovadas, fatos observados, conflitos resolvidos e rastreabilidade `M1-PEND → D-M1`.
 18. [Estratégia de testes do Método 1](18-method-one-test-strategy.md) — testes unitários, propriedades, regressão, integração, segurança e desempenho.
 19. [Backlog do Método 1](19-method-one-implementation-backlog.md) — Tasks, dependências, critérios de aceite, riscos, testes e versões.
-20. [Gate de planejamento do Método 1](20-method-one-planning-gate.md) — condições bloqueadoras e decisão `NO-GO`.
+20. [Gate de planejamento do Método 1](20-method-one-planning-gate.md) — baseline histórica `NO-GO`, encerramento das sete pendências e novo gate de planejamento da T02.
 
 ## ADRs do Pricing Engine
 
@@ -84,6 +85,7 @@ As afirmações relevantes usam os seguintes estados:
 - O XLSM será um oráculo de validação, não um componente da aplicação.
 - Os três métodos serão versionados e cada precificação aprovada será imutável.
 - As decisões matemáticas `D-MATH-001` a `D-MATH-016` orientam o planejamento do Pricing Engine.
+- As decisões `D-M1-001` a `D-M1-007` formalizam fórmula, pesos, recência, multiplicadores, escopo, qualidade e estados especiais do Método 1.
 - Cauda probabilística não será descartada nem normalizada silenciosamente; linhas asiáticas serão modeladas em quartos inteiros e liquidadas integralmente.
 - O MVP cobrirá resultado, dupla chance, ambas marcam, totais de gols e handicap asiático.
 - A arquitetura inicial será um monólito modular, sem microsserviços.
@@ -95,6 +97,6 @@ As afirmações relevantes usam os seguintes estados:
 - **LIMITAÇÃO:** a baseline reproduz o comportamento observado nos fixtures; não certifica a planilha em todos os cenários.
 - **LIMITAÇÃO:** a procedência dos registros históricos não está completa no XLSM.
 - **LIMITAÇÃO:** fornecedores não foram selecionados ou contratados; o documento correspondente define critérios e processo de avaliação.
-- **LIMITAÇÃO:** o Pricing Engine `1.0.0` está concluído, mas o Método 1 permanece em `NO-GO` até aprovação explícita das decisões matemáticas pendentes; Métodos 2 e 3 e as aplicações permanecem fora do escopo.
+- **LIMITAÇÃO:** o Pricing Engine `1.0.0` está concluído e o Método 1 possui decisões matemáticas formalizadas, mas nenhuma implementação da ENG-003 está autorizada sem plano e aprovação da Task correspondente; Métodos 2 e 3 e as aplicações permanecem fora do escopo.
 
 O encerramento técnico, as limitações remanescentes e a referência ao arquivo privado estão em [Auditoria dinâmica e baseline matemático](12-dynamic-audit-and-mathematical-baseline.md).

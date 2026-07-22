@@ -15,7 +15,7 @@ Esta estratégia planeja testes futuros; nenhum teste ou código é criado na T0
 - igualdade exata para IDs, códigos, ordem, estados, versões e hashes;
 - `NumericPolicy` para comparações `binary64`;
 - preservar valores brutos e nunca testar a partir de arredondamento exibido;
-- cada decisão `M1-PEND` deve possuir teste de aceitação após aprovação;
+- cada decisão `D-M1` possui teste de aceitação rastreável à antiga `M1-PEND`;
 - nenhuma suíte pode depender de rede, arquivo privado, Excel ou relógio real.
 
 ## 3. Organização futura recomendada
@@ -73,7 +73,8 @@ Séries com cinco a nove observações e warning explícito.
 ### M1-FX-008 — Assimetria
 
 Exemplo puramente sintético com dez observações de um lado e sete do outro.
-Será habilitado somente após `M1-PEND-006`.
+Confirma denominadores independentes, warning e qualidade agregada pela pior
+série, conforme `D-M1-006`.
 
 ### M1-FX-009 — Datas empatadas
 
@@ -87,8 +88,9 @@ da mesma identidade. Confirma registro de sobreposição.
 
 ### M1-FX-011 — Ajustes
 
-Multiplicadores identidade, dentro da faixa e exceção aprovada. Depende de
-`M1-PEND-004`.
+Multiplicadores identidade, dentro da faixa e exceção aprovada. Inclui
+candidatos de partida, campeonato e global na mesma categoria, confirma o único
+valor efetivo e audita escolhidos e descartados conforme `D-M1-004`.
 
 ### M1-FX-012 — Elegibilidade de distribuição
 
@@ -127,8 +129,11 @@ separados produz objetos, bytes e hashes idênticos.
 - preservar IDs considerados, usados e excluídos;
 - reconciliar todas as contagens e exclusões;
 - validar versão/hash dos dados e filtros;
-- excluir canceladas antes de pesos;
-- testar cada estado especial depois de `M1-PEND-007`;
+- excluir canceladas, anuladas, interrompidas, W.O. e disputas por pênaltis;
+- excluir prorrogação e aceitar somente tempo regulamentar claramente separado
+  e validado;
+- marcar estado incerto como `PENDING_REVIEW`, excluir da média e bloquear uso
+  automático;
 - rejeitar mais de 1.000 observações por snapshot.
 
 ## 7. Testes unitários de médias
@@ -139,17 +144,19 @@ separados produz objetos, bytes e hashes idênticos.
 - inválido, suspeito e pendente seguem política;
 - média vazia retorna `SAMPLE_EMPTY`;
 - `1–4`, `5–9` e `10+` produzem qualidades corretas;
+- somente `OBSERVED` entra no denominador e zero observado permanece válido;
 - `math.fsum` é usado para soma relevante;
-- média ponderada conhecida, se recência não uniforme for aprovada;
+- `uniform/v1` atribui pesos iguais e usa ordem `occurred_at DESC, match_id ASC`;
+- recência não uniforme não é executável na implementação inicial;
 - pesos desalinhados, negativos, não finitos ou com soma inválida falham;
 - ordem de observações uniformes não altera valor, mas a ordem canônica do
   snapshot permanece estável.
 
 ## 8. Testes da combinação
 
-Após `M1-PEND-001` e `M1-PEND-002`:
-
 - exemplos manuais de mandante e visitante;
+- exemplo canônico confirma `0.50 * 1.60 + 0.50 * 1.10 = 1.35` e
+  `1.35 * 1.05 * 0.95 = 1.346625`;
 - peso próprio `1` e adversário `0`;
 - peso próprio `0` e adversário `1`;
 - pesos fora de `[0,1]`;
@@ -161,14 +168,15 @@ Após `M1-PEND-001` e `M1-PEND-002`:
 
 ## 9. Testes dos ajustes
 
-Após `M1-PEND-004`:
-
 - nenhum ajuste preserva a taxa base;
 - multiplicador `1.0` é identidade;
 - sequência conhecida reconcilia cada etapa;
 - multiplicador zero, negativo ou não finito falha;
 - exceção fora de `0,90–1,10` exige metadados aprovados;
 - código desconhecido, duplicado ou não aplicável falha;
+- precedência `partida → campeonato → global` escolhe um valor por categoria;
+- candidatos efetivos e descartados preservam valor, fonte e motivo;
+- política explícita produz warning ou erro para exceções, sem clamp;
 - ordem canônica é preservada;
 - taxa negativa ou não finita nunca é produzida;
 - alteração isolada de ajuste altera resultado e hash.
@@ -176,12 +184,14 @@ Após `M1-PEND-004`:
 ## 10. Testes de qualidade, warnings e erros
 
 - componente vazio bloqueia cálculo;
-- amostra `1–4` retorna resultado auditável com warning;
-- amostra `5–9` retorna baixa confiança;
+- amostra `1–4` retorna resultado auditável com warning grave e bloqueia
+  aprovação e publicação;
+- amostra `5–9` retorna baixa confiança, warning e publicação condicionada a
+  permissão e justificativa;
 - amostra `10+` retorna confiança padrão;
 - qualidade agregada corresponde à pior série;
 - quantidade encontrada menor que solicitada gera warning;
-- assimetria gera warning quando autorizada;
+- assimetria gera warning e preserva os quatro denominadores independentes;
 - temporada anterior, recorte personalizado, suspeitas e sobreposição são
   registrados;
 - warning não altera taxa matemática;
@@ -203,7 +213,7 @@ Após `M1-PEND-004`:
 - zero observado nunca reduz o denominador;
 - estados não observados nunca aumentam o denominador;
 - pesos válidos formam combinação dentro do intervalo das duas médias;
-- produto de multiplicadores positivos preserva não negatividade, se aprovado;
+- produto de multiplicadores positivos preserva não negatividade;
 - objetos públicos não expõem mutação observável;
 - serialização seguida de repetição produz bytes idênticos.
 
@@ -235,6 +245,9 @@ reidentificáveis.
 ## 13. Integração com o Pricing Engine 1.0.0
 
 - converter somente taxa elegível e finita em `PoissonRate`;
+- aceitar somente `goals/first_half` e `goals/regulation_time`;
+- rejeitar escanteios, finalizações, chutes no gol, cartões e faltas com
+  `MODEL_NOT_APPLICABLE` nesta Initiative;
 - construir `PricingRequest` sem ampliar schema v1;
 - executar `run_pricing_engine` com mercados sintéticos aprovados;
 - verificar que taxas do Método 1 chegam sem arredondamento;
@@ -316,7 +329,8 @@ Na validação final futura:
 ## 19. Critérios de aceite da estratégia
 
 - todos os estados de observação possuem casos positivos e negativos;
-- todas as decisões `M1-PEND` aprovadas ganham testes rastreáveis;
+- todas as decisões `M1-PEND-001–007 → D-M1-001–007` possuem testes
+  rastreáveis;
 - fórmula, pesos, recência, ajustes, assimetria e estados especiais possuem
   evidência específica;
 - testes distinguem cálculo auditável de elegibilidade para aprovação;

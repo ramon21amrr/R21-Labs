@@ -8,16 +8,18 @@
 - **Dependência aceita:** Pricing Engine `1.0.0`
 - **Data do diagnóstico:** 2026-07-21
 
-## 2. Resultado
+## 2. Resultado histórico da T01
 
-**NO-GO PARA IMPLEMENTAÇÃO MATEMÁTICA DO MÉTODO 1.**
+**BASELINE HISTÓRICA — NO-GO PARA IMPLEMENTAÇÃO MATEMÁTICA DO MÉTODO 1.**
 
-O planejamento técnico, o catálogo de contratos, a estratégia de testes e o
-backlog estão definidos. Entretanto, sete decisões de produto e matemática
-continuam sem aprovação explícita. A implementação não pode escolher essas
-regras por inferência, conveniência técnica ou comportamento do legado.
+No encerramento original da T01, o planejamento técnico, o catálogo de
+contratos, a estratégia de testes e o backlog estavam definidos, mas sete
+decisões de produto e matemática ainda não possuíam aprovação explícita. A
+implementação não podia escolher essas regras por inferência, conveniência
+técnica ou comportamento do legado.
 
-Este gate não autoriza `LVFI-ENG-003-T02` nem qualquer alteração de código.
+Esse gate histórico não autorizava `LVFI-ENG-003-T02` nem qualquer alteração de
+código. A reavaliação posterior está registrada na seção 12.
 
 ## 3. Estado inicial verificado
 
@@ -55,55 +57,59 @@ Este gate não autoriza `LVFI-ENG-003-T02` nem qualquer alteração de código.
 - contratos comuns podem ser reutilizados sem incorporar regras dos Métodos 2 e
   3.
 
-## 6. Pendências bloqueadoras
+## 6. Pendências bloqueadoras na baseline histórica
 
-### 6.1 `M1-PEND-001` — fórmula canônica de combinação
+Todas as pendências desta seção foram posteriormente encerradas por
+`D-M1-001–007`, conforme a seção 12.
 
-Não há aprovação explícita da média aritmética ponderada como fórmula normativa.
+### 6.1 `M1-PEND-001` — fórmula canônica de combinação — encerrada
+
+Naquele momento, não havia aprovação explícita da média aritmética ponderada
+como fórmula normativa.
 
 **Necessário para liberar:** fórmula, versão e aplicabilidade aprovadas.
 
-### 6.2 `M1-PEND-002` — pesos globais iniciais
+### 6.2 `M1-PEND-002` — pesos globais iniciais — encerrada
 
-O legado usa `0,5/0,5`, enquanto o exemplo documental usa `0,6/0,4`.
+O legado usava `0,5/0,5`, enquanto o exemplo documental usava `0,6/0,4`.
 
 **Necessário para liberar:** valores ou política de configuração obrigatória.
 
-### 6.3 `M1-PEND-003` — ausência de recência no MVP
+### 6.3 `M1-PEND-003` — ausência de recência no MVP — encerrada
 
-Não existe fórmula de recência aprovada.
+Naquele momento, não existia fórmula de recência aprovada.
 
 **Necessário para liberar:** aprovação da política uniforme ou especificação
 completa de alternativa.
 
-### 6.4 `M1-PEND-004` — composição dos multiplicadores
+### 6.4 `M1-PEND-004` — composição dos multiplicadores — encerrada
 
-O produto simples é observado e recomendado, mas permanece pendente.
+O produto simples era observado e recomendado, mas permanecia pendente.
 
 **Necessário para liberar:** fórmula, ordem e catálogo aplicável por estatística.
 
-### 6.5 `M1-PEND-005` — escopo inicial de estatísticas e elegibilidade para Poisson
+### 6.5 `M1-PEND-005` — escopo inicial de estatísticas e elegibilidade para Poisson — encerrada
 
-Não está aprovado quais estatísticas e períodos integram a primeira versão nem
-quais podem virar `PoissonRate`.
+Não estava aprovado quais estatísticas e períodos integrariam a primeira versão
+nem quais poderiam virar `PoissonRate`.
 
 **Necessário para liberar:** catálogo inicial e política de elegibilidade de
 distribuição.
 
-### 6.6 `M1-PEND-006` — aceitação de amostras assimétricas
+### 6.6 `M1-PEND-006` — aceitação de amostras assimétricas — encerrada
 
-O comportamento do Método 1 para tamanhos diferentes não está aprovado.
+O comportamento do Método 1 para tamanhos diferentes não estava aprovado.
 
 **Necessário para liberar:** aceitar, equalizar ou bloquear, incluindo warnings.
 
-### 6.7 `M1-PEND-007` — política dos estados especiais de partida
+### 6.7 `M1-PEND-007` — política dos estados especiais de partida — encerrada
 
-Anuladas, interrompidas, W.O., prorrogação e pênaltis não possuem política
+Anuladas, interrompidas, W.O., prorrogação e pênaltis não possuíam política
 aprovada.
 
 **Necessário para liberar:** elegibilidade por estado, período e estatística.
 
-## 7. Recomendações não aprovadas
+## 7. Recomendações da baseline, posteriormente aprovadas
 
 - média aritmética ponderada de produção e concessão;
 - preset global neutro `0,5/0,5`;
@@ -112,13 +118,14 @@ aprovada.
 - gols de primeiro tempo e tempo regulamentar como escopo inicial;
 - Poisson somente para combinações explicitamente autorizadas;
 - amostras assimétricas aceitas com denominadores separados e warning;
-- somente partidas encerradas no tempo regulamentar na primeira política.
+- política conservadora para estados especiais de partida.
 
-Essas recomendações permanecem sem efeito normativo.
+Na baseline histórica, essas recomendações não possuíam efeito normativo. Elas
+foram posteriormente formalizadas por `D-M1-001–007`.
 
-## 8. Condições para novo gate
+## 8. Condições históricas para novo gate
 
-Um novo gate poderá ser solicitado quando:
+O novo gate poderia ser solicitado quando:
 
 1. o Product Owner decidir explicitamente os sete itens;
 2. o documento 17 for atualizado com o estado aprovado e referência do aceite;
@@ -126,10 +133,10 @@ Um novo gate poderá ser solicitado quando:
 4. o backlog for revisado se alguma escolha alterar contratos ou sequência;
 5. a próxima Task possuir plano próprio aprovado.
 
-Somente então poderá ser avaliado `GO`, `GO COM CONDIÇÕES` ou manutenção do
+Somente então poderia ser avaliado `GO`, `GO COM CONDIÇÕES` ou manutenção do
 `NO-GO`.
 
-## 9. Proibições durante o NO-GO
+## 9. Proibições durante o NO-GO histórico
 
 - não criar contratos Python;
 - não criar diretórios de implementação;
@@ -154,15 +161,53 @@ Antes do encerramento da T01:
 - nenhum código, dependência, fixture privada ou artefato temporário;
 - `git diff --check` aprovado.
 
-## 11. Decisão final da T01
+## 11. Decisão final histórica da T01
 
 **T01 DOCUMENTAL PLANEJADA E VALIDÁVEL.**
 
 **NO-GO PARA IMPLEMENTAÇÃO MATEMÁTICA E PARA INÍCIO DA T02.**
 
-O encerramento documental não implica aprovação das sete decisões pendentes.
+Naquele momento, o encerramento documental não implicava aprovação das sete
+decisões pendentes.
 
-## 12. Referências
+## 12. Reavaliação após aprovação do Product Owner
+
+### 12.1 Estado verificado
+
+- `LVFI-ENG-003-T01` publicada no commit
+  `18be07dd1a32957039a275b6b7fd216fc92c74a5`;
+- aprovação explícita posterior das decisões `D-M1-001` a `D-M1-007`;
+- Company Context, Development Framework, `D-MATH-001` a `D-MATH-016` e
+  `ADR-LVFI-001` a `ADR-LVFI-010` revisados;
+- nenhum conflito normativo ou necessidade de novo ADR;
+- Pricing Engine `1.0.0`, schemas v1 e hashes preservados.
+
+### 12.2 Decisões e encerramento das pendências
+
+| Pendência histórica | Decisão aprovada | Resultado |
+|---|---|---|
+| `M1-PEND-001` | `D-M1-001` — fórmula canônica | Encerrada |
+| `M1-PEND-002` | `D-M1-002` — pesos `0.50/0.50` | Encerrada |
+| `M1-PEND-003` | `D-M1-003` — `uniform/v1` | Encerrada |
+| `M1-PEND-004` | `D-M1-004` — composição multiplicativa | Encerrada |
+| `M1-PEND-005` | `D-M1-005` — gols FT e 1T | Encerrada |
+| `M1-PEND-006` | `D-M1-006` — assimetria e qualidade | Encerrada |
+| `M1-PEND-007` | `D-M1-007` — estados especiais | Encerrada |
+
+As regras completas e normativas estão no
+[documento 17](17-method-one-mathematical-decisions.md). Os documentos de plano,
+contratos, testes e backlog foram reconciliados com as decisões.
+
+### 12.3 Novo gate
+
+**GO PARA PLANEJAMENTO DA LVFI-ENG-003-T02.**
+
+Esse GO encerra o bloqueio decisório da T01, mas não autoriza implementação nem
+início da T02. A T02 continua dependente de plano próprio, aprovação explícita
+e gates específicos. T03 e todas as etapas matemáticas posteriores permanecem
+fora do escopo deste gate.
+
+## 13. Referências
 
 - [Plano técnico do Método 1](15-method-one-technical-plan.md)
 - [Catálogo de contratos](16-method-one-contract-catalog.md)

@@ -5,9 +5,9 @@
 Este backlog divide a LVFI-ENG-003 em Tasks pequenas, verificáveis e dependentes
 de gates explícitos. Ele não autoriza iniciar nenhuma Task.
 
-**Estado atual:** `LVFI-ENG-003-T01` documental. A implementação matemática
-está em **NO-GO** enquanto as decisões `M1-PEND-001` a `M1-PEND-007` não forem
-aprovadas.
+**Estado atual:** as decisões `M1-PEND-001–007` foram encerradas por
+`D-M1-001–007`. O gate é **GO PARA PLANEJAMENTO DA LVFI-ENG-003-T02**, sem
+autorizar implementação ou início da T02.
 
 ## 2. Estratégia de versão
 
@@ -41,10 +41,10 @@ retorno ao planejamento.
 | 1 | `LVFI-ENG-003-T01` | documentação e gate | ENG-002 aceita | sem mudança de pacote |
 | 2 | `LVFI-ENG-003-T02` | contratos de observação e amostra | T01 e novo plano | schemas de amostra v1, release não publicado |
 | 3 | `LVFI-ENG-003-T03` | contratos e configuração do Método 1 | T02 | schemas Method 1 v1, release não publicado |
-| 4 | `LVFI-ENG-003-T04` | validação e médias contextuais uniformes | T03 e `M1-PEND-003/007` | fórmula de média v1 candidata |
-| 5 | `LVFI-ENG-003-T05` | combinação produção/concessão | T04 e `M1-PEND-001/002/006` | fórmula Method 1 v1 candidata |
-| 6 | `LVFI-ENG-003-T06` | ajustes, qualidade, erros e warnings | T05 e `M1-PEND-004` | configuração v1 candidata |
-| 7 | `LVFI-ENG-003-T07` | integração controlada com engine | T06 e `M1-PEND-005` | integration schema v1 |
+| 4 | `LVFI-ENG-003-T04` | validação e médias contextuais uniformes | T03 e `D-M1-003/007` | fórmula de média v1 candidata |
+| 5 | `LVFI-ENG-003-T05` | combinação produção/concessão | T04 e `D-M1-001/002/006` | fórmula Method 1 v1 candidata |
+| 6 | `LVFI-ENG-003-T06` | ajustes, qualidade, erros e warnings | T05 e `D-M1-004` | configuração v1 candidata |
+| 7 | `LVFI-ENG-003-T07` | integração controlada com engine | T06 e `D-M1-005` | integration schema v1 |
 | 8 | `LVFI-ENG-003-T08` | serialização e hashing | T07 | canonical schema v1 |
 | 9 | `LVFI-ENG-003-T09` | fixtures e regressão consolidadas | T08 | baseline segura candidata |
 | 10 | `LVFI-ENG-003-T10` | validação final e release | T09 | pacote `1.1.0`, Método 1 `1.0.0` |
@@ -63,7 +63,8 @@ Documentos 15–20 e índice do produto.
 
 - fontes autoritativas revisadas;
 - estado aprovado, observado, recomendado e pendente separados;
-- sete decisões bloqueadoras registradas;
+- sete decisões bloqueadoras registradas e posteriormente encerradas com
+  rastreabilidade `M1-PEND-001–007 → D-M1-001–007`;
 - links, numeração, terminologia e escopo validados;
 - nenhuma alteração no pacote ou em documentos 01–14;
 - gate final explícito.
@@ -89,6 +90,7 @@ snapshot, exclusão e qualidade da amostra.
 ### Dependências
 
 - T01 aceita;
+- gate de planejamento da T02 emitido;
 - plano específico aprovado;
 - nenhuma dependência das fórmulas do Método 1.
 
@@ -175,7 +177,7 @@ Validar os quatro snapshots e calcular médias uniformes auditáveis.
 ### Dependências
 
 - T03 aceita;
-- `M1-PEND-003` e `M1-PEND-007` aprovadas;
+- `D-M1-003` e `D-M1-007` vigentes;
 - plano específico aprovado.
 
 ### Arquivos previstos
@@ -186,10 +188,13 @@ property-based tests e fixtures sintéticas.
 ### Critérios de aceite
 
 - `math.fsum` e denominador real;
-- zero incluído; estados não observados tratados conforme política;
-- vazio bloqueia; `1–4` produz cálculo auditável; `5–9` avisa;
+- somente `OBSERVED` entra na média e zero observado é incluído;
+- vazio bloqueia; `1–4` produz cálculo auditável sem aprovação/publicação;
+  `5–9` avisa e condiciona publicação a permissão e justificativa;
 - ordem e IDs preservados;
-- política uniforme explícita;
+- política `uniform/v1` e desempate canônico explícitos;
+- estados especiais seguem `D-M1-007`, incluindo bloqueio automático de
+  `PENDING_REVIEW`;
 - nenhuma ponderação não aprovada.
 
 ### Riscos
@@ -216,7 +221,7 @@ Produzir taxas base do mandante e visitante a partir das quatro médias.
 ### Dependências
 
 - T04 aceita;
-- `M1-PEND-001`, `M1-PEND-002` e `M1-PEND-006` aprovadas;
+- `D-M1-001`, `D-M1-002` e `D-M1-006` vigentes;
 - plano específico aprovado.
 
 ### Arquivos previstos
@@ -226,7 +231,7 @@ Função pura de combinação, termos de explicação, testes e fixtures.
 ### Critérios de aceite
 
 - fórmula implementada exatamente na versão aprovada;
-- pesos validados e não normalizados;
+- preset global `0.50/0.50`, pesos validados, versionados e não normalizados;
 - denominadores das séries permanecem independentes;
 - assimetria segue decisão aprovada;
 - explicação reconcilia contribuições e taxa base;
@@ -256,7 +261,7 @@ Aplicar somente ajustes aprovados e produzir explicação e qualidade completas.
 ### Dependências
 
 - T05 aceita;
-- `M1-PEND-004` aprovada;
+- `D-M1-004` vigente;
 - catálogo de ajustes aprovado;
 - plano específico aprovado.
 
@@ -267,8 +272,11 @@ Aplicador de ajustes, agregação de qualidade e issues, testes e documentação
 ### Critérios de aceite
 
 - composição idêntica à decisão aprovada;
+- precedência `partida → campeonato → global` e um valor efetivo por categoria;
+- candidatos escolhidos e descartados preservados na auditoria;
 - etapas antes/depois preservadas;
-- faixa e exceções de multiplicadores validadas;
+- faixa e exceções de multiplicadores validadas integralmente conforme
+  `D-MATH-015`;
 - qualidade agregada usa pior snapshot;
 - warnings determinísticos e seguros;
 - erros críticos não produzem taxa parcial.
@@ -298,7 +306,7 @@ Converter taxas elegíveis em `PoissonRate` e provar composição com
 ### Dependências
 
 - T06 aceita;
-- `M1-PEND-005` aprovada;
+- `D-M1-005` vigente;
 - plano específico aprovado.
 
 ### Arquivos previstos
@@ -309,7 +317,7 @@ aprovação explícita e compatível.
 
 ### Critérios de aceite
 
-- somente estatística/período aprovados viram `PoissonRate`;
+- somente `goals/first_half` e `goals/regulation_time` viram `PoissonRate`;
 - primeiro tempo e partida usam requests separados;
 - engine recebe os valores brutos;
 - Method 1 não seleciona mercados;
@@ -396,7 +404,8 @@ aprovadas.
 - regressão normativa separada da histórica;
 - nenhuma identificação proprietária;
 - hashes e expectativas revisados;
-- decisões `M1-PEND` rastreadas aos casos correspondentes.
+- decisões `M1-PEND-001–007 → D-M1-001–007` rastreadas aos casos
+  correspondentes.
 
 ### Riscos
 

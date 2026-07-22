@@ -38,8 +38,10 @@ Códigos mapeados:
 - `cards`;
 - `fouls`.
 
-Somente os códigos aprovados na decisão `M1-PEND-005` integrarão o escopo
-inicial. A existência no catálogo não autoriza Poisson ou mercado.
+**DECISÃO APROVADA — D-M1-005:** somente `goals`, nos períodos `first_half` e
+`regulation_time`, integra o escopo inicial e pode ser elegível para Poisson.
+A existência dos demais códigos no contrato compartilhável não autoriza sua
+implementação, distribuição ou mercado nesta Initiative.
 
 ### 3.2 `MatchPeriodCode`
 
@@ -77,6 +79,9 @@ inicial.
 - `invalid`;
 - `suspect`;
 - `pending_review`.
+
+Somente `observed` participa de médias. `observed` com valor `0.0` é válido;
+nenhum outro estado pode ser convertido em zero ou entrar no denominador.
 
 ## 4. `ObservationValue`
 
@@ -184,6 +189,12 @@ Invariantes:
 - condição, estatística e período não podem divergir das observações;
 - hash cobre somente conteúdo determinístico.
 
+**DECISÃO APROVADA — D-M1-007:** cancelada, anulada, interrompida, W.O. e
+disputa por pênaltis são estados inelegíveis. Prorrogação não pertence a
+`regulation_time`; somente o segmento regulamentar claramente separado e
+validado pode ser usado. Estado não classificável vira `pending_review`, é
+excluído e bloqueia uso automático até revisão.
+
 ## 8. `SampleExclusion`
 
 Responsabilidade: explicar por que uma partida considerada não foi usada.
@@ -193,8 +204,10 @@ Campos:
 - `match_id: str`;
 - `reason_code: str`;
 - `observation_state: ObservationState | None`;
+- `match_state: str | None`;
 - `field: str | None`;
 - `blocks_calculation: bool`;
+- `blocks_automatic_use: bool`;
 
 Motivos mínimos:
 
@@ -273,6 +286,13 @@ Regras:
 - `10+` é padrão inicial, não certificado estatístico;
 - a qualidade agregada do Método 1 é a pior das quatro séries.
 
+**DECISÃO APROVADA — D-M1-006:** uma série obrigatória vazia bloqueia o
+cálculo. Séries com `1–4` observações permitem resultado auditável com warning
+grave, mas bloqueiam aprovação e publicação. Séries com `5–9` mantêm warning e
+publicação condicionada a permissão e justificativa. Tamanhos assimétricos são
+permitidos, preservam denominadores independentes e geram warning; quantidade
+de jogos não altera os pesos de combinação.
+
 Esses campos pertencem aos contratos compartilháveis e não alteram
 `CalculationError` ou `CalculationWarning` do engine `1.0.0`.
 
@@ -290,7 +310,7 @@ Campos conceituais:
 - `tie_break_rule: str`;
 - `policy_hash: str`.
 
-Política recomendada, ainda pendente:
+**DECISÃO APROVADA — D-M1-003:** política inicial:
 
 - `uniform/v1`;
 - peso bruto `1.0` para cada observação válida;
@@ -298,8 +318,9 @@ Política recomendada, ainda pendente:
 - ordem canônica por instante decrescente e ID crescente;
 - partidas inelegíveis excluídas antes da atribuição.
 
-Nenhuma política de decaimento não uniforme será aceita sem fórmula e decisão
-explícitas.
+Recência não uniforme permanece prevista no contrato, desativada por padrão e
+fora da implementação matemática inicial. Nenhuma política de decaimento será
+aceita sem fórmula, calibração e decisão explícitas.
 
 ## 12. `MethodOneWeights`
 
@@ -322,6 +343,11 @@ Invariantes:
 - pesos de mandante e visitante podem ser configurados separadamente;
 - nenhuma ponderação implícita por quantidade de jogos.
 
+**DECISÕES APROVADAS — D-M1-001 e D-M1-002:** a fórmula combina produção
+própria e concessão adversária sem ponderação adicional por tamanho de amostra.
+O preset global inicial é `0.50/0.50` para mandante e visitante; valores,
+origem, versão e hash aparecem na explicação auditável.
+
 ## 13. `ContextAdjustment`
 
 Responsabilidade: representar um multiplicador aplicável e auditável.
@@ -329,6 +355,7 @@ Responsabilidade: representar um multiplicador aplicável e auditável.
 Campos:
 
 - `code: str`;
+- `category_code: str`;
 - `multiplier: Multiplier`;
 - `applies_to: home | away`;
 - `statistic_codes: tuple[StatisticCode, ...]`;
@@ -347,6 +374,19 @@ Invariantes:
 - códigos e ordens não se repetem para o mesmo participante;
 - ajuste não aplicável bloqueia configuração em vez de ser ignorado.
 
+### 13.1 Resolução dos ajustes
+
+**DECISÃO APROVADA — D-M1-004:** a resolução usa precedência
+`match → competition → global` e escolhe no máximo um multiplicador efetivo por
+categoria. A configuração e a explicação preservam, para cada candidato, fonte,
+valor, versão, condição de escolhido ou descartado e motivo da decisão. Somente
+os escolhidos compõem a lista ordenada efetiva.
+
+O produto dos multiplicadores efetivos é aplicado à taxa base. `1.00` é neutro;
+zero, negativos e não finitos são inválidos. Valores fora de `0.90–1.10` seguem
+integralmente `D-MATH-015` e produzem warning ou erro conforme política
+explícita, sem clamp ou composição aditiva silenciosa.
+
 ## 14. `MethodOneConfiguration`
 
 Responsabilidade: congelar a configuração resolvida após precedência.
@@ -360,6 +400,7 @@ Campos:
 - `away_weights: MethodOneWeights`;
 - `recency_policy: RecencyWeightPolicy`;
 - `adjustments: tuple[ContextAdjustment, ...]`;
+- `adjustment_resolution_trace` com candidatos escolhidos e descartados;
 - `numeric_policy: NumericPolicy`;
 - `resolved_sources: tuple[global | competition | match, ...]`;
 - `replaces_configuration_id: str | None`;
@@ -488,6 +529,7 @@ Campos:
 - `away: ParticipantRateExplanation`;
 - `overlapping_match_ids: tuple[str, ...]`;
 - `resolved_configuration_summary`;
+- `adjustment_resolution_trace`;
 - `sample_hashes`;
 - `explanation_schema_version`.
 
@@ -552,6 +594,10 @@ Campos:
 Somente `eligible=true` permite criar `PoissonRate`. A decisão pertence à
 configuração aprovada, não à magnitude da taxa.
 
+Na ENG-003, somente `goals/first_half` e `goals/regulation_time` podem ter
+`eligible=true`. Qualquer outra combinação retorna `MODEL_NOT_APPLICABLE` e não
+é convertida em `PoissonRate`.
+
 ## 23. `MethodOnePricingEnvelope`
 
 Responsabilidade: correlacionar Método 1 e Pricing Engine sem alterar os
@@ -610,7 +656,7 @@ Bloqueiam cálculo:
 - `SAMPLE_INSUFFICIENT` para `1–4`;
 - `SAMPLE_INSUFFICIENT` com contexto de baixa confiança para `5–9`;
 - quantidade encontrada menor que a solicitada;
-- tamanhos assimétricos, se `M1-PEND-006` for aprovada;
+- tamanhos assimétricos;
 - uso de temporada anterior;
 - recorte personalizado;
 - observações ausentes, não aplicáveis ou suspeitas excluídas;
@@ -671,7 +717,7 @@ MethodOneResult + DistributionEligibility
 - Method 1 request/result/explanation schema v1;
 - canonical Method 1 schema v1;
 - integration envelope schema v1;
-- formula version somente após `M1-PEND-001` e `M1-PEND-004` aprovadas;
+- formula version incorpora `D-M1-001` e `D-M1-004`;
 - method version `1.0.0` somente após gate matemático;
 - pacote alvo `1.1.0` na validação final da ENG-003.
 

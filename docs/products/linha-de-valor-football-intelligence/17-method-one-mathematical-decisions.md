@@ -1,10 +1,11 @@
-# Decisões matemáticas e pendências do Método 1
+# Decisões matemáticas aprovadas do Método 1
 
 ## 1. Finalidade
 
-Este documento separa regras aprovadas, fatos observados, recomendações e
-decisões pendentes. Uma recomendação não se torna aprovada por estar registrada
-aqui, e o comportamento da planilha não substitui decisão normativa.
+Este documento separa regras aprovadas, fatos observados, recomendações
+históricas e pendências encerradas. Uma recomendação não se tornou aprovada por
+estar registrada aqui, e o comportamento da planilha não substitui decisão
+normativa.
 
 ## 2. Decisões já aprovadas
 
@@ -108,7 +109,7 @@ A inspeção histórica somente leitura confirmou:
 
 Esses itens são evidência histórica, não aprovação.
 
-## 5. Conflitos identificados
+## 5. Conflitos identificados e reconciliados
 
 ### C-M1-001 — Saída do Método 1
 
@@ -121,23 +122,25 @@ Esses itens são evidência histórica, não aprovação.
 
 - XLSM observado: `0,5/0,5`;
 - exemplo textual: `0,6/0,4`;
-- regra aprovada: apenas intervalo e soma;
-- tratamento: nenhum valor será chamado de padrão até `M1-PEND-002`.
+- regra anterior aprovada: apenas intervalo e soma;
+- tratamento final: `D-M1-002` aprova `0.50/0.50` como preset global do MVP; o
+  exemplo `0.60/0.40` permanece somente histórico.
 
 ### C-M1-003 — Recência
 
 - legado: ordenação e recorte;
 - solicitação: pesos de recência configuráveis;
-- estado normativo: nenhuma fórmula aprovada;
-- tratamento: recomendar política uniforme no MVP e manter decaimento fora do
-  escopo até decisão.
+- estado normativo anterior: nenhuma fórmula aprovada;
+- tratamento final: `D-M1-003` aprova `uniform/v1` e mantém decaimento fora da
+  implementação inicial até calibração e nova aprovação.
 
 ### C-M1-004 — Gates de qualidade
 
 - `D-MATH-007`: amostra `1–4` permite cálculo somente para auditoria;
 - um `CalculationError(SAMPLE_INSUFFICIENT)` impediria qualquer resultado;
-- tratamento recomendado: retornar resultado auditável com `SampleQuality` e
-  warning; reservar erro para componente vazio ou dado/configuração inválidos.
+- tratamento final: `D-M1-006` autoriza resultado auditável com `SampleQuality`
+  e warning para `1–4`; erro fica reservado a componente vazio ou
+  dado/configuração inválidos.
 
 ### C-M1-005 — Contrato conceitual versus engine real
 
@@ -150,122 +153,108 @@ Esses itens são evidência histórica, não aprovação.
 
 - ADR-LVFI-006 menciona flags separadas para cálculo, aprovação e publicação;
 - os tipos públicos atuais de erro/warning não possuem essas flags;
-- tratamento recomendado: `SampleQuality` carrega elegibilidade de workflow
-  para os modelos, sem alterar os tipos públicos do engine nesta Initiative.
+- tratamento final: `SampleQuality` carrega elegibilidade de workflow para os
+  modelos, sem alterar os tipos públicos do engine nesta Initiative.
 
-## 6. Recomendações técnicas
+## 6. Decisões específicas aprovadas
 
-### R-M1-001 — Média de cada série
+### D-M1-001 — Fórmula canônica
 
-Usar média aritmética uniforme das observações válidas no MVP:
+Para o mandante:
 
-`mean = math.fsum(values) / valid_count`
+`base_home = weight_own * mean_home_production + weight_opponent * mean_away_concession`
 
-Motivo: corresponde à semântica documentada e observada sem introduzir
-decaimento não aprovado.
+Para o visitante:
 
-### R-M1-002 — Combinação
+`base_away = weight_own * mean_away_production + weight_opponent * mean_home_concession`
 
-Usar média aritmética ponderada de produção e concessão, com um par de pesos por
-participante. Não ponderar novamente pelo número de jogos.
+A taxa final é `final_rate = base_rate * product(effective_multipliers)`. Cada
+média usa seu próprio denominador de observações `OBSERVED`; a combinação não é
+ponderada pela quantidade de partidas.
 
-Motivo: mantém significado explícito dos pesos e evita que assimetria altere a
-configuração de negócio de forma implícita.
+Exemplo manual com o preset inicial: `mean_home_production = 1.60` e
+`mean_away_concession = 1.10` produzem
+`base_home = 0.50 * 1.60 + 0.50 * 1.10 = 1.35`. Com multiplicadores efetivos
+`1.05` e `0.95`, `final_home = 1.35 * 1.05 * 0.95 = 1.346625`. Se as médias
+vierem, respectivamente, de dez e sete observações válidas, o resultado
+permanece `1.35`: os denominadores independentes ficam auditáveis, mas não
+alteram os pesos aprovados.
 
-### R-M1-003 — Pesos iniciais
+### D-M1-002 — Pesos globais iniciais
 
-Exigir configuração global explícita. Se o Product Owner desejar um preset
-neutro, recomendar `0,5/0,5`. Não promover o exemplo `0,6/0,4` a padrão.
+O preset global do MVP é `0.50` para produção própria e `0.50` para concessão
+adversária, para mandante e visitante. Pesos são `binary64` finitos, pertencem a
+`[0,1]`, somam `1` dentro da `NumericPolicy`, são versionados e aparecem na
+explicação. Configuração inválida não é normalizada silenciosamente.
 
-### R-M1-004 — Recência
+### D-M1-003 — Recência
 
-Usar `uniform/v1` no MVP. A ordem canônica continua registrada para auditoria e
-hash. Qualquer política não uniforme deverá ser calibrada e aprovada em versão
-posterior.
+O MVP usa `uniform/v1`: toda observação válida possui o mesmo peso. A ordem
+canônica é instante da partida decrescente e `match_id` crescente. Políticas
+não uniformes permanecem previstas no contrato, desativadas por padrão e fora
+da implementação matemática inicial até calibração e aprovação futura.
 
-### R-M1-005 — Ajustes
+### D-M1-004 — Multiplicadores
 
-Se aprovada, aplicar lista ordenada de multiplicadores por produto, preservando
-cada etapa. Rejeitar ajustes desconhecidos, duplicados ou não aplicáveis.
+A composição é multiplicativa e usa a lista canônica de multiplicadores
+efetivos. Todo valor é positivo e finito; `1.00` é neutro. A resolução aplica
+precedência `partida → campeonato → global` e escolhe no máximo um valor por
+categoria. Todos os candidatos considerados, escolhidos e descartados são
+auditáveis, incluindo fonte e motivo.
 
-### R-M1-006 — Assimetria
+A faixa inicial é `0.90–1.10`. Exceções seguem integralmente `D-MATH-015`:
+configuração versionada, justificativa, autorização administrativa, auditoria e
+aprovação do Product Owner quando mudarem a regra do modelo. A política
+explícita determina warning ou erro; não existe clamp, composição aditiva ou
+limitação silenciosa.
 
-Aceitar amostras assimétricas, manter denominadores separados e emitir warning.
-A qualidade agregada corresponde à pior série.
+### D-M1-005 — Escopo estatístico inicial
 
-### R-M1-007 — Escopo inicial
+A ENG-003 implementa somente taxas de gols por participante para primeiro tempo
+e tempo regulamentar. Apenas `goals/first_half` e `goals/regulation_time` podem
+ser elegíveis para `PoissonRate` nesta Initiative. Escanteios, finalizações,
+chutes no gol, cartões e faltas ficam fora da implementação inicial e exigem
+decisão matemática específica para qualquer distribuição futura.
 
-Começar por gols de primeiro tempo e tempo regulamentar. Mapear as demais
-contagens, mas não convertê-las em `PoissonRate` sem aprovação de distribuição.
+### D-M1-006 — Amostras assimétricas e qualidade
 
-### R-M1-008 — Estados de partida
+Amostras assimétricas são permitidas e cada série usa seu denominador real. A
+qualidade geral é a pior das quatro séries e o tamanho não muda os pesos:
 
-Começar conservadoramente com partidas encerradas no tempo regulamentar e
-estatística compatível com o período. Excluir canceladas. Não inferir política
-para W.O., anulação, interrupção, prorrogação ou pênaltis.
+- `0`: erro e bloqueio do cálculo;
+- `1–4`: resultado auditável com warning grave, sem aprovação ou publicação;
+- `5–9`: qualidade parcial, warning e publicação condicionada a permissão e
+  justificativa;
+- `10+`: qualidade adequada inicial, sem garantia estatística automática.
 
-## 7. Decisões pendentes bloqueadoras
+### D-M1-007 — Estados especiais de partida e observação
 
-### M1-PEND-001 — Fórmula canônica de combinação
+Partidas canceladas, anuladas, interrompidas, decididas por W.O. ou por disputa
+de pênaltis são excluídas. Prorrogação não entra na taxa; somente o tempo
+regulamentar claramente separado e validado pode ser usado. Estado não
+classificável com confiança vira `PENDING_REVIEW`, fica fora da amostra e
+bloqueia uso automático até revisão.
 
-- **Alternativa A — recomendada:** média aritmética ponderada.
-- **Alternativa B:** média geométrica ponderada.
-- **Alternativa C:** outra função explicitamente especificada.
-- **Impacto:** define todas as taxas e regressões do Método 1.
-- **Decisão necessária:** Product Owner deve aprovar fórmula e versão inicial.
+Os estados preservados são `OBSERVED`, `MISSING`, `NOT_APPLICABLE`, `INVALID`,
+`SUSPECT` e `PENDING_REVIEW`. Somente `OBSERVED` entra na média. Zero observado
+é válido; ausência nunca é convertida em zero.
 
-### M1-PEND-002 — Pesos globais iniciais
+## 7. Encerramento das pendências
 
-- **Alternativa A — recomendada:** `0,5/0,5` como preset neutro explícito.
-- **Alternativa B:** `0,6/0,4`, conforme exemplo textual.
-- **Alternativa C:** nenhuma configuração padrão; valor global obrigatório por
-  implantação.
-- **Impacto:** altera a influência relativa de produção e concessão.
-- **Decisão necessária:** valores para mandante e visitante e possibilidade de
-  variação por estatística.
+| Pendência anterior | Decisão aprovada | Estado |
+|---|---|---|
+| `M1-PEND-001` | `D-M1-001` | Encerrada |
+| `M1-PEND-002` | `D-M1-002` | Encerrada |
+| `M1-PEND-003` | `D-M1-003` | Encerrada |
+| `M1-PEND-004` | `D-M1-004` | Encerrada |
+| `M1-PEND-005` | `D-M1-005` | Encerrada |
+| `M1-PEND-006` | `D-M1-006` | Encerrada |
+| `M1-PEND-007` | `D-M1-007` | Encerrada |
 
-### M1-PEND-003 — Recência no MVP
-
-- **Alternativa A — recomendada:** uniformidade; recência desativada.
-- **Alternativa B:** política não uniforme a especificar e calibrar.
-- **Impacto:** altera todas as médias e exige novos parâmetros e testes.
-- **Decisão necessária:** aprovar `uniform/v1` ou fornecer fórmula completa.
-
-### M1-PEND-004 — Composição dos multiplicadores
-
-- **Alternativa A — recomendada:** produto ordenado, com explicação por etapa.
-- **Alternativa B:** composição aditiva em torno de `1.0`.
-- **Alternativa C:** regra específica por estatística.
-- **Impacto:** controla extremos, interação e interpretação dos ajustes.
-- **Decisão necessária:** fórmula, catálogo por estatística e política de
-  exceção conjunta.
-
-### M1-PEND-005 — Escopo e elegibilidade para Poisson
-
-- **Alternativa A — recomendada:** gols de primeiro tempo e tempo regulamentar;
-  Poisson autorizado somente para esses códigos/períodos na versão inicial.
-- **Alternativa B:** somente gols da partida completa.
-- **Alternativa C:** incluir outras estatísticas após estudo de distribuição.
-- **Impacto:** define API inicial, fixtures e integração com o engine.
-- **Decisão necessária:** catálogo inicial e referência de aprovação da
-  distribuição.
-
-### M1-PEND-006 — Amostras assimétricas
-
-- **Alternativa A — recomendada:** aceitar, preservar denominadores e avisar.
-- **Alternativa B:** exigir tamanhos iguais, reduzindo a maior amostra.
-- **Alternativa C:** bloquear qualquer assimetria.
-- **Impacto:** afeta disponibilidade de cálculo e uso de dados válidos.
-- **Decisão necessária:** comportamento e limiar de warning.
-
-### M1-PEND-007 — Estados especiais de partida
-
-- **Alternativa A — recomendada:** incluir apenas encerradas no tempo
-  regulamentar; excluir canceladas; bloquear os demais estados até política
-  específica.
-- **Alternativa B:** regras por estatística/mercado.
-- **Impacto:** composição da amostra, período e comparabilidade histórica.
-- **Decisão necessária:** anuladas, interrompidas, W.O., prorrogação e pênaltis.
+As decisões são coerentes com Company Context, Development Framework,
+`D-MATH-001` a `D-MATH-016` e `ADR-LVFI-001` a `ADR-LVFI-010`. Elas não mudam
+arquitetura, dependências, schemas ou hashes do Pricing Engine `1.0.0`; nenhum
+novo ADR é necessário.
 
 ## 8. Decisões que não pertencem à ENG-003
 
@@ -278,8 +267,10 @@ para W.O., anulação, interrupção, prorrogação ou pênaltis.
 
 ## 9. Estado do gate
 
-As sete decisões `M1-PEND` estão abertas. Portanto, o estado é **NO-GO para
-implementação matemática do Método 1**. O detalhamento está em
+As sete decisões `M1-PEND` estão encerradas pelas decisões `D-M1`. O estado é
+**GO PARA PLANEJAMENTO DA LVFI-ENG-003-T02**. Esse GO não autoriza implementação
+nem início da T02, que depende de plano próprio, aprovação explícita e gates
+específicos. O detalhamento está em
 [20-method-one-planning-gate.md](20-method-one-planning-gate.md).
 
 ## 10. Referências
