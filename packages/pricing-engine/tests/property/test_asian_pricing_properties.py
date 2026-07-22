@@ -56,7 +56,7 @@ def test_asian_prices_preserve_mass_and_balance(
         assert price.residual_mass == matrix.residual_mass
         if price.fair_odds is not None:
             assert math.isclose(
-                profile.won_fraction * price.fair_odds.value + profile.pushed_fraction,
-                1.0,
+                price.fair_odds.value,
+                1.0 + profile.lost_fraction / profile.won_fraction,
                 abs_tol=1e-12,
             )

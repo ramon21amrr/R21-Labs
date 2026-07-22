@@ -1,106 +1,92 @@
 # LVFI Pricing Engine
 
-Pacote Python que abrigará o núcleo matemático isolado do Linha de Valor
-Football Intelligence. A fundação inclui value objects matemáticos fundamentais
-(`Probability`, `FairOdds`, `PoissonRate`, `Weight`, `Multiplier` e
-`QuarterLine`), com validação tipada e política numérica centralizada.
+Pricing Engine matemático do Linha de Valor Football Intelligence, concluído na
+versão `1.0.0`. O pacote recebe taxas Poisson já normalizadas, calcula
+distribuições e mercados e devolve contratos imutáveis, determinísticos e
+auditáveis.
 
-## Fronteiras
+## Capacidades
 
-O pacote usa CPython 3.13.x e terá apenas a biblioteca padrão como dependência de
-runtime. O núcleo não realiza I/O, não consulta rede, banco, ambiente ou relógio
-e não conhece Excel, aplicações web, fornecedores ou geração de PDF.
-O runtime continua usando somente a biblioteca padrão.
+- Poisson com suporte adaptativo e residual explícito;
+- matriz de placares e distribuição de diferença de gols sem renormalização;
+- resultado 1X2, dupla chance, ambas marcam e totais simples;
+- handicap e total asiático com `WIN`, `HALF_WIN`, `PUSH`, `HALF_LOSS` e
+  `LOSS`;
+- odd asiática normativa `1 + perdas equivalentes / vitórias equivalentes`;
+- linha principal escolhida entre odds definidas pela menor distância até
+  `2.00`;
+- serialização canônica schema v1, floats em `float.hex()`, JSON UTF-8 compacto
+  e SHA-256.
 
-Os value objects não fazem coerção silenciosa nem I/O; `QuarterLine` é
-armazenada como quartos inteiros. O runtime continua usando somente a biblioteca
-padrão.
+O ponto de entrada é `lvfi_pricing.engine.run_pricing_engine`:
 
-As fixtures atuais são sintéticas, públicas e mantidas somente em memória. O
-harness de regressão é puro, determinístico e compara estruturas tipadas,
-usando `NumericPolicy` para floats. Não há fixtures proprietárias, I/O ou
-dependências de runtime além da biblioteca padrão.
+```python
+from lvfi_pricing.core import CalculationError
+from lvfi_pricing.domain import PoissonRate
+from lvfi_pricing.engine import (
+    PricingRequest,
+    ThreeWayResultRequest,
+    run_pricing_engine,
+)
+from lvfi_pricing.serialization import serialize_pricing_result
 
-Inclui a distribuição Poisson adaptativa: materializa inicialmente `0–10`,
-expande pelo residual até o alvo padrão de `1e-14` e aplica limite de segurança
-de `1000`. Não há truncagem fixa `0–6` nem renormalização silenciosa; falhas de
-convergência retornam erros tipados. A rotina permanece pura, sem I/O e com
-runtime somente na biblioteca padrão.
+request = PricingRequest.create(
+    PoissonRate(1.5),
+    PoissonRate(1.0),
+    (ThreeWayResultRequest(),),
+)
+if not isinstance(request, CalculationError):
+    result = run_pricing_engine(request)
+    if not isinstance(result, CalculationError):
+        canonical = serialize_pricing_result(result)
+```
 
-A camada de distribuições também combina duas Poisson independentes em uma matriz
-auditável de placares e deriva a distribuição de diferença de gols. Ambas
-preservam a massa residual combinada, não fazem renormalização nem truncagem
-fixa, e permanecem puras, sem I/O e somente com a biblioteca padrão.
+Falhas de domínio são retornadas como `CalculationError`.
 
-Mercados básicos disponíveis nesta etapa: resultado 1X2, dupla chance, BTTS e
-totais simples nas linhas de meia unidade de 0.5 a 5.5. As odds são justas,
-sem margem, e a massa residual permanece explícita sem renormalização.
+## Runtime e instalação
 
-O motor liquida handicap e totais asiáticos de forma pura e auditável, com os
-cinco estados `WIN`, `HALF_WIN`, `PUSH`, `HALF_LOSS` e `LOSS`. Linhas de quarto
-sofrem split canônico nas linhas pares adjacentes, cada uma com metade da stake
-conceitual. A decisão usa cálculo inteiro em quartos, sem float, arredondamento
-ou cálculo financeiro. A precificação asiática transforma cada célula da matriz
-nos cinco estados e em frações esperadas de vitória, reembolso e derrota. A odd
-justa é `(1 - pushed_fraction) / won_fraction`; ela fica explicitamente ausente
-quando não há fração vencedora. Handicap e totais aceitam linhas inteiras, meias
-e de quarto, preservam a massa residual e nunca renormalizam ou aplicam margem.
-Os catálogos de candidatos e a seleção da linha principal são determinísticos:
-o handicap usa HOME e a linha oposta AWAY com sinal invertido; totais usam OVER
-e UNDER na mesma linha. Não há edge, EV, stake, recomendação, I/O ou dependências
-de runtime além da biblioteca padrão.
+Requer CPython `>=3.13,<3.14`. O runtime usa exclusivamente a biblioteca padrão
+e o wheel não declara `Requires-Dist`.
 
-## Ambiente de desenvolvimento
+```powershell
+python -m pip install --no-deps lvfi_pricing_engine-1.0.0-py3-none-any.whl
+```
 
-## Orquestração interna
+O núcleo não lê arquivos, rede, banco, relógio ou variáveis de ambiente. Também
+não conhece Excel, fornecedores, aplicações web, PDF ou Value Tracker. O
+namespace de fixtures `lvfi_pricing.testing` é exclusivo do source tree de
+desenvolvimento e não integra o wheel.
 
-`lvfi_pricing.run_pricing_engine` é o ponto único de entrada interno. Ele recebe
-um `PricingRequest` imutável e tipado, executa seletivamente o catálogo fechado
-de mercados e devolve `PricingResult` com distribuições, matriz, diferença de
-gols, resultados específicos, avisos/erros tipados e metadados técnicos
-determinísticos. A ordem é canônica e as estruturas compartilhadas são
-construídas uma única vez por execução. A serialização canônica versionada usa
-`float.hex()` para `binary64`, JSON interno determinístico em bytes UTF-8 e
-SHA-256 como identidade de conteúdo. O hash não é assinatura digital, não
-oferece autenticidade e não existe persistência ou I/O; o runtime continua
-somente com a biblioteca padrão.
+## Desenvolvimento
 
-Crie o ambiente virtual fora do repositório e, a partir desta pasta, execute:
+Crie o ambiente virtual fora do repositório e instale o lock sem adicionar
+dependências:
 
 ```powershell
 py -3.13 -m venv <caminho-fora-do-repositorio>
-<venv>\Scripts\python -m pip install --index-url https://pypi.org/simple -r requirements-dev.lock
+<venv>\Scripts\python -m pip install -r requirements-dev.lock
 <venv>\Scripts\python -m pip install --no-deps --no-build-isolation -e .
 ```
 
-Com o ambiente ativado, os gates locais são:
+Gates locais:
 
 ```powershell
-python -m pytest --no-cov
-python -m pytest
+python -m ruff format .
 python -m ruff check .
 python -m ruff format --check .
 python -m mypy
+python -m pytest
+python -m compileall -q src
 python -m pip check
 ```
 
-O primeiro comando executa somente os testes; o segundo inclui cobertura de
-branches, linhas ausentes e o limite mínimo de 90%.
+A validação final executa 337 testes com 100% de linhas e branches. Detalhes,
+limitações e critérios de integração estão na
+[validação final](../../docs/products/linha-de-valor-football-intelligence/14-pricing-engine-final-validation.md).
 
-## Estrutura inicial
+## Limitações
 
-```text
-pricing-engine/
-├── pyproject.toml
-├── README.md
-├── requirements-dev.lock
-├── src/lvfi_pricing/
-│   ├── __init__.py
-│   └── py.typed
-└── tests/unit/test_package_import.py
-```
-
-As fronteiras e a evolução planejada estão no
-[plano técnico](../../docs/products/linha-de-valor-football-intelligence/13-pricing-engine-technical-plan.md)
-e nos [ADRs LVFI](../../docs/architecture/decisions/). A API matemática desta
-Task está concentrada em `lvfi_pricing.domain`.
+O pacote não implementa os Métodos 1, 2 ou 3, geração de taxas, persistência,
+API HTTP, interface, odds de bookmaker, edge, EV, stake, Kelly, recomendações
+ou integrações externas. O hash identifica conteúdo; não é assinatura digital
+nem prova de autenticidade.

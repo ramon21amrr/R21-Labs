@@ -67,8 +67,8 @@ def test_handicap_prices_each_state_without_renormalization(quarters: int) -> No
     if profile.won_fraction:
         assert price.fair_odds is not None
         assert math.isclose(
-            profile.won_fraction * price.fair_odds.value + profile.pushed_fraction,
-            1.0,
+            price.fair_odds.value,
+            1.0 + profile.lost_fraction / profile.won_fraction,
             abs_tol=1e-12,
         )
     assert price.residual_mass == source.residual_mass
@@ -95,6 +95,92 @@ def test_half_states_and_undefined_odds_are_explicit() -> None:
     assert undefined.fair_odds is None
     assert undefined.error is not None
     assert undefined.error.code is ErrorCode.FAIR_ODD_UNDEFINED
+
+
+def test_normative_fair_odds_excludes_push_and_residual() -> None:
+    no_residual = matrix(0.0, 0.0)
+    half_win = price_asian_handicap(no_residual, HandicapSelection.HOME, QuarterLine(1))
+    assert isinstance(half_win, AsianMarketPrice)
+    profile = half_win.expected_profile
+    assert no_residual.residual_mass == 0.0
+    assert half_win.fair_odds is not None
+    assert (
+        1.0 + profile.lost_fraction / profile.won_fraction
+        == (1.0 - profile.pushed_fraction) / profile.won_fraction
+    )
+
+    with_residual = matrix(10.0, 10.0)
+    price = price_asian_total(with_residual, AsianTotalSelection.OVER, QuarterLine(10))
+    assert isinstance(price, AsianMarketPrice)
+    assert price.fair_odds is not None
+    profile = price.expected_profile
+    normative = 1.0 + profile.lost_fraction / profile.won_fraction
+    legacy = (1.0 - profile.pushed_fraction) / profile.won_fraction
+    assert with_residual.residual_mass > 0.0
+    assert price.fair_odds.value == normative
+    assert legacy != normative
+    assert math.isclose(
+        legacy - normative,
+        with_residual.residual_mass / profile.won_fraction,
+        rel_tol=1e-3,
+        abs_tol=1e-15,
+    )
+
+
+def test_partial_states_contribute_exactly_half_to_expected_fractions() -> None:
+    source = matrix(0.0, 0.0)
+    cases = (
+        (
+            price_asian_handicap(source, HandicapSelection.HOME, QuarterLine(1)),
+            (0.5, 0.5, 0.0),
+        ),
+        (
+            price_asian_handicap(source, HandicapSelection.HOME, QuarterLine(-1)),
+            (0.0, 0.5, 0.5),
+        ),
+        (
+            price_asian_total(source, AsianTotalSelection.UNDER, QuarterLine(1)),
+            (0.5, 0.5, 0.0),
+        ),
+        (
+            price_asian_total(source, AsianTotalSelection.OVER, QuarterLine(1)),
+            (0.0, 0.5, 0.5),
+        ),
+    )
+    for price, expected in cases:
+        assert isinstance(price, AsianMarketPrice)
+        profile = price.expected_profile
+        assert (
+            profile.won_fraction,
+            profile.pushed_fraction,
+            profile.lost_fraction,
+        ) == expected
+
+
+@pytest.mark.parametrize("quarters", (0, 2, 1))
+@pytest.mark.parametrize("selection", tuple(HandicapSelection))
+def test_handicap_line_kinds_and_sides_use_normative_odds(
+    quarters: int, selection: HandicapSelection
+) -> None:
+    price = price_asian_handicap(matrix(), selection, QuarterLine(quarters))
+    assert isinstance(price, AsianMarketPrice)
+    profile = price.expected_profile
+    assert price.fair_odds is not None
+    assert math.isfinite(price.fair_odds.value)
+    assert price.fair_odds.value == 1.0 + profile.lost_fraction / profile.won_fraction
+
+
+@pytest.mark.parametrize("quarters", (4, 2, 1))
+@pytest.mark.parametrize("selection", tuple(AsianTotalSelection))
+def test_total_line_kinds_and_sides_use_normative_odds(
+    quarters: int, selection: AsianTotalSelection
+) -> None:
+    price = price_asian_total(matrix(), selection, QuarterLine(quarters))
+    assert isinstance(price, AsianMarketPrice)
+    profile = price.expected_profile
+    assert price.fair_odds is not None
+    assert math.isfinite(price.fair_odds.value)
+    assert price.fair_odds.value == 1.0 + profile.lost_fraction / profile.won_fraction
 
 
 def test_prices_are_symmetric_and_immutable() -> None:

@@ -8,7 +8,7 @@ from dataclasses import fields, is_dataclass
 from enum import Enum
 from types import MappingProxyType
 
-from lvfi_pricing.core.errors import CalculationError, ErrorCode
+from lvfi_pricing.core.errors import CalculationError, CalculationWarning, ErrorCode
 from lvfi_pricing.core.numeric import NumericPolicy
 from lvfi_pricing.distributions import (
     GoalDifferenceDistribution,
@@ -67,6 +67,7 @@ _SUPPORTED_DATACLASSES = (
     QuarterLine,
     NumericPolicy,
     CalculationError,
+    CalculationWarning,
     PoissonDistribution,
     GoalDifferenceDistribution,
     ScoreProbabilityMatrix,

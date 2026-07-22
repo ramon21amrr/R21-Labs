@@ -9,12 +9,10 @@ from types import MappingProxyType
 from typing import cast
 
 from lvfi_pricing.core.errors import CalculationError, ErrorCode
-from lvfi_pricing.engine.contracts import PricingResult
+from lvfi_pricing.engine.contracts import PACKAGE_VERSION, PricingResult
 
 from .canonical import CANONICAL_SCHEMA_VERSION, to_canonical_value
 from .contracts import CanonicalPayload, CanonicalValue
-
-_PACKAGE_VERSION = "0.11.0"
 
 
 def _json_value(value: CanonicalValue) -> object:
@@ -67,7 +65,7 @@ def serialize_pricing_result(
     content = MappingProxyType(
         {
             "content": result_value,
-            "package_version": _PACKAGE_VERSION,
+            "package_version": PACKAGE_VERSION,
             "root_type": "PricingResult",
             "schema_version": CANONICAL_SCHEMA_VERSION,
         }

@@ -2,7 +2,7 @@
 
 import math
 
-from hypothesis import given
+from hypothesis import given, settings
 from hypothesis import strategies as st
 
 from lvfi_pricing.distributions import (
@@ -81,6 +81,7 @@ def test_basic_markets_preserve_finite_mass_and_odds(
     )
 
 
+@settings(deadline=None, derandomize=True)
 @given(st.floats(0.0, 10.0))
 def test_equal_rates_are_symmetric(home_rate: float) -> None:
     away_rate = home_rate

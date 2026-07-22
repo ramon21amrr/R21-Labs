@@ -291,7 +291,9 @@ class AsianMainLine:
                 ErrorCode.INVALID_NUMBER, "balance values must be finite", "balance"
             )
         if (
-            self.balance_distance != abs(self.balance_value)
+            self.reference_price.fair_odds is None
+            or self.balance_value != self.reference_price.fair_odds.value
+            or self.balance_distance != abs(self.balance_value - 2.0)
             or isinstance(self.evaluated_lines, bool)
             or not isinstance(self.evaluated_lines, int)
             or self.evaluated_lines <= 0

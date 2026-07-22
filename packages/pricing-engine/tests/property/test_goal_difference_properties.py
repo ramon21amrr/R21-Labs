@@ -19,7 +19,7 @@ rates = st.floats(
 )
 
 
-@settings(database=None, derandomize=True)
+@settings(database=None, deadline=None, derandomize=True)
 @given(rates, rates)
 def test_difference_invariants(home_value: float, away_value: float) -> None:
     home_rate = PoissonRate.create(home_value)

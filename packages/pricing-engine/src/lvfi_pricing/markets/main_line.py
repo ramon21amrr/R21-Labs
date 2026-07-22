@@ -123,12 +123,10 @@ def _select(
         )
         if isinstance(price, CalculationError):
             return price
-        value = (
-            2.0 * price.expected_profile.won_fraction
-            + price.expected_profile.pushed_fraction
-            - 1.0
-        )
-        distance = abs(value)
+        if price.fair_odds is None:
+            continue
+        value = price.fair_odds.value
+        distance = abs(value - 2.0)
         if best_line is None:
             best_line, best_price, best_value, best_distance = (
                 line,
@@ -140,10 +138,8 @@ def _select(
         close = is_close(distance, best_distance, active_policy)
         if isinstance(close, CalculationError):
             return close
-        if (
-            distance < best_distance
-            and not close
-            or close
+        if (distance < best_distance and not close) or (
+            close
             and (abs(line.quarters), line.quarters)
             < (abs(best_line.quarters), best_line.quarters)
         ):
@@ -153,7 +149,12 @@ def _select(
                 value,
                 distance,
             )
-    assert best_line is not None and best_price is not None
+    if best_line is None or best_price is None:
+        return _error(
+            ErrorCode.FAIR_ODD_UNDEFINED,
+            "no candidate has defined fair odds",
+            "candidates",
+        )
     opposite_line = (
         QuarterLine(-best_line.quarters)
         if market is AsianMarketCode.HANDICAP

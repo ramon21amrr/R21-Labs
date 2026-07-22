@@ -126,7 +126,7 @@ def _price(
             matrix.warnings,
             matrix.residual_mass,
         )
-    odds = FairOdds((1.0 - pushed) / won)
+    odds = FairOdds(1.0 + lost / won)
     return AsianMarketPrice(
         market,
         selection,
