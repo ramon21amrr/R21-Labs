@@ -50,7 +50,7 @@ Falhas de domínio são retornadas como `CalculationError`.
 observações, amostras e qualidade, com schemas estruturais `1`. Eles usam apenas
 a biblioteca padrão, são imutáveis e não realizam I/O.
 
-`lvfi_pricing.models.method_one` disponibiliza o Método 1 `1.0.0a3`: contratos, médias contextuais `uniform/v1`, taxas-base e o catálogo matemático de ajustes `lvfi-method-one-adjustments@1.0.0`. A distribuição resolve candidatos por `MATCH → COMPETITION → GLOBAL`, aplica os fatores por destino e produz taxas ajustadas auditáveis. A composição explícita `build_method_one_pricing_request` converte somente `GOALS` em `FIRST_HALF` ou `REGULATION_TIME` para `PoissonRate`; `price_method_one` chama a API pública do engine e preserva integralmente o resultado ajustado, qualidade, warnings e bloqueios. Ela usa um request mínimo e determinístico de resultado 1X2, sem alterar a matemática, os mercados internos, a serialização ou os hashes do engine.
+`lvfi_pricing.models.method_one` disponibiliza o Método 1 `1.0.0a4`: contratos, médias contextuais `uniform/v1`, taxas-base e o catálogo matemático de ajustes `lvfi-method-one-adjustments@1.0.0`. A nova API `run_method_one` consolida o fluxo completo — médias, taxas-base, multiplicadores, `PricingRequest`, Pricing Engine e `MethodOneFinalResult` — em um resultado determinístico com explicação auditável, qualidade, warnings e bloqueios preservados. A etapa não cria serialização ou hashing próprios, persistência ou I/O.
 
 ## Runtime e instalação
 
@@ -58,7 +58,7 @@ Requer CPython `>=3.13,<3.14`. O runtime usa exclusivamente a biblioteca padrão
 e o wheel não declara `Requires-Dist`.
 
 ```powershell
-python -m pip install --no-deps lvfi_pricing_engine-1.1.0a8-py3-none-any.whl
+python -m pip install --no-deps lvfi_pricing_engine-1.1.0a9-py3-none-any.whl
 ```
 
 O núcleo não lê arquivos, rede, banco, relógio ou variáveis de ambiente. Também
@@ -99,3 +99,4 @@ O pacote não implementa os Métodos 2 ou 3, integração automática durante o 
 API HTTP, interface, odds de bookmaker, edge, EV, stake, Kelly, recomendações
 ou integrações externas. O hash identifica conteúdo; não é assinatura digital
 nem prova de autenticidade.
+
