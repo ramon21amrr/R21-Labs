@@ -227,11 +227,13 @@ def test_four_series_are_independent_and_canonical() -> None:
         MatchPeriodCode.REGULATION_TIME,
         references,
         MethodOneConfiguration("config"),
+        "competition",
     )
     result = calculate_method_one_contextual_averages(request)
     assert not isinstance(result, CalculationError)
     assert tuple(item.role for item in result.values) == tuple(MethodOneSeriesRole)
     assert tuple(item.value for item in result.values) == (4.0, 3.0, 2.0, 1.0)
+    assert (result.match_id, result.competition_id) == ("target", "competition")
     assert (
         failure(calculate_method_one_contextual_averages(cast(Any, object()))).code
         is ErrorCode.INCONSISTENT_DATA
@@ -371,6 +373,7 @@ def test_four_series_returns_the_first_calculation_error() -> None:
         MatchPeriodCode.REGULATION_TIME,
         references,
         MethodOneConfiguration("config"),
+        "competition",
     )
     assert (
         failure(calculate_method_one_contextual_averages(request)).code

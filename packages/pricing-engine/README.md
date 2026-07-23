@@ -1,6 +1,6 @@
 # LVFI Pricing Engine
 
-Distribuição `1.1.0a6` do Pricing Engine matemático do Linha de Valor Football
+Distribuição `1.1.0a7` do Pricing Engine matemático do Linha de Valor Football
 Intelligence, preservado na versão matemática `1.0.0`. O pacote recebe taxas
 Poisson já normalizadas, calcula
 distribuições e mercados e devolve contratos imutáveis, determinísticos e
@@ -50,7 +50,7 @@ Falhas de domínio são retornadas como `CalculationError`.
 observações, amostras e qualidade, com schemas estruturais `1`. Eles usam apenas
 a biblioteca padrão, são imutáveis e não realizam I/O.
 
-`lvfi_pricing.models.method_one` disponibiliza contratos estruturais `1` do Método 1 `1.0.0a1`: configuração, pesos, recência, referências das quatro séries, multiplicadores, request, explicação, metadados e resultado. Esta distribuição calcula médias contextuais individuais `uniform/v1` auditáveis e combina as quatro médias canônicas em taxas-base auditáveis do Método 1. Não aplica multiplicadores, não produz taxa-final, não converte para Poisson e não calcula mercados pelo Método 1.
+`lvfi_pricing.models.method_one` disponibiliza o Método 1 `1.0.0a2`: contratos, médias contextuais `uniform/v1`, taxas-base e o catálogo matemático de ajustes `lvfi-method-one-adjustments@1.0.0`. A distribuição resolve candidatos por `MATCH → COMPETITION → GLOBAL`, aplica os fatores por destino e produz taxas ajustadas auditáveis. Não converte para Poisson nem calcula mercados pelo Método 1.
 
 ## Runtime e instalação
 
@@ -58,7 +58,7 @@ Requer CPython `>=3.13,<3.14`. O runtime usa exclusivamente a biblioteca padrão
 e o wheel não declara `Requires-Dist`.
 
 ```powershell
-python -m pip install --no-deps lvfi_pricing_engine-1.1.0a4-py3-none-any.whl
+python -m pip install --no-deps lvfi_pricing_engine-1.1.0a7-py3-none-any.whl
 ```
 
 O núcleo não lê arquivos, rede, banco, relógio ou variáveis de ambiente. Também
@@ -89,13 +89,13 @@ python -m compileall -q src
 python -m pip check
 ```
 
-A validação final executa 384 testes com 100% de linhas e branches. Detalhes,
+A validação final executa 463 testes com 100% de linhas e branches. Detalhes,
 limitações e critérios de integração estão na
 [validação final](../../docs/products/linha-de-valor-football-intelligence/14-pricing-engine-final-validation.md).
 
 ## Limitações
 
-O pacote não implementa os Métodos 1, 2 ou 3, geração de taxas, persistência,
+O pacote não implementa os Métodos 2 ou 3, integração automática do Método 1 com o Pricing Engine, persistência,
 API HTTP, interface, odds de bookmaker, edge, EV, stake, Kelly, recomendações
 ou integrações externas. O hash identifica conteúdo; não é assinatura digital
 nem prova de autenticidade.

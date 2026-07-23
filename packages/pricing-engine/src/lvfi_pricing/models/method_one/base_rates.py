@@ -98,6 +98,8 @@ class MethodOneBaseRateResult:
     period: MatchPeriodCode
     home_team_id: str
     away_team_id: str
+    match_id: str
+    competition_id: str
     home_weights: MethodOneWeightConfiguration
     away_weights: MethodOneWeightConfiguration
     contextual_averages: MethodOneContextualAverages
@@ -105,7 +107,7 @@ class MethodOneBaseRateResult:
     warnings: tuple[CalculationWarning, ...]
     explanation: MethodOneBaseRateExplanation
     method_version: str = METHOD_ONE_VERSION
-    result_schema_version: int = 1
+    result_schema_version: int = 2
     deterministic: bool = True
 
 
@@ -263,6 +265,14 @@ def _validate_averages(
     if (
         len({evidence.statistic for evidence in audit}) != 1
         or len({evidence.period for evidence in audit}) != 1
+        or contextual_averages.statistic is not audit[0].statistic
+        or contextual_averages.period is not audit[0].period
+        or contextual_averages.home_team_id not in home_ids
+        or contextual_averages.away_team_id not in away_ids
+        or not isinstance(contextual_averages.match_id, str)
+        or not contextual_averages.match_id
+        or not isinstance(contextual_averages.competition_id, str)
+        or not contextual_averages.competition_id
         or len(home_ids) != 1
         or len(away_ids) != 1
         or home_ids == away_ids
@@ -367,6 +377,8 @@ def calculate_method_one_base_rates(
         audit[0].period,
         home.participant_id,
         away.participant_id,
+        contextual_averages.match_id,
+        contextual_averages.competition_id,
         config.home_weights,
         config.away_weights,
         contextual_averages,

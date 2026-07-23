@@ -13,6 +13,7 @@ from .base_rates import (
     calculate_method_one_base_rates,
 )
 from .contracts import (
+    METHOD_ONE_MULTIPLIER_CATALOG_VERSION,
     ContextualAverage,
     ContextualAverageEvidence,
     MethodOneConfiguration,
@@ -27,9 +28,20 @@ from .contracts import (
     MethodOneSeriesRole,
     MethodOneStatisticPeriod,
     MethodOneWeightConfiguration,
+    MultiplierAppliesTo,
     MultiplierCategory,
     MultiplierScope,
     RecencyPolicyCode,
+)
+from .multipliers import (
+    METHOD_ONE_MULTIPLIER_CATALOG,
+    MethodOneAdjustedRateExplanation,
+    MethodOneAdjustedRateResult,
+    MethodOneMultiplierApplicationStep,
+    MethodOneMultiplierCatalog,
+    MethodOneMultiplierCatalogEntry,
+    apply_method_one_multipliers,
+    resolve_method_one_multipliers,
 )
 
 __all__ = (
@@ -38,6 +50,8 @@ __all__ = (
     "RecencyPolicyCode",
     "MultiplierScope",
     "MultiplierCategory",
+    "MultiplierAppliesTo",
+    "METHOD_ONE_MULTIPLIER_CATALOG_VERSION",
     "MethodOneWeightConfiguration",
     "MethodOneRecencyConfiguration",
     "MethodOneMultiplierCandidate",
@@ -58,4 +72,12 @@ __all__ = (
     "MethodOneBaseRateExplanation",
     "MethodOneBaseRateResult",
     "calculate_method_one_base_rates",
+    "MethodOneMultiplierCatalogEntry",
+    "MethodOneMultiplierCatalog",
+    "METHOD_ONE_MULTIPLIER_CATALOG",
+    "MethodOneMultiplierApplicationStep",
+    "MethodOneAdjustedRateExplanation",
+    "MethodOneAdjustedRateResult",
+    "resolve_method_one_multipliers",
+    "apply_method_one_multipliers",
 )

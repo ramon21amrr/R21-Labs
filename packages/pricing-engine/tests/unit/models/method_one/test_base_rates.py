@@ -30,7 +30,18 @@ def averages(
         average = calculate_contextual_average(sample((value,) * count, role=role))
         assert not isinstance(average, CalculationError)
         calculated.append(average)
-    return MethodOneContextualAverages(*calculated)
+    return MethodOneContextualAverages(
+        calculated[0],
+        calculated[1],
+        calculated[2],
+        calculated[3],
+        "target",
+        "competition",
+        StatisticCode.GOALS,
+        MatchPeriodCode.REGULATION_TIME,
+        "home",
+        "away",
+    )
 
 
 def calculate(
@@ -69,16 +80,14 @@ def test_default_formula_audit_public_api_and_immutability() -> None:
     assert calculated.statistic is StatisticCode.GOALS
     assert calculated.period is MatchPeriodCode.REGULATION_TIME
     assert (calculated.home_team_id, calculated.away_team_id) == ("home", "away")
+    assert (calculated.match_id, calculated.competition_id) == ("target", "competition")
     assert calculated.explanation.averages == calculated.contextual_averages.values
     assert calculated.explanation.consolidated_quality is calculated.quality
     assert (
-        calculated.method_version == calculated.explanation.formula_version == "1.0.0a1"
+        calculated.method_version == calculated.explanation.formula_version == "1.0.0a2"
     )
-    assert (
-        calculated.explanation.explanation_schema_version
-        == calculated.result_schema_version
-        == 1
-    )
+    assert calculated.explanation.explanation_schema_version == 1
+    assert calculated.result_schema_version == 2
     with pytest.raises(FrozenInstanceError):
         calculated.home_base_rate = 1.0  # type: ignore[misc]
 

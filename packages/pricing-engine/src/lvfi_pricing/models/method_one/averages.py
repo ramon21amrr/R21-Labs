@@ -8,10 +8,12 @@ from typing import cast
 from lvfi_pricing.core import CalculationError, ErrorCode, stable_sum, validate_finite
 from lvfi_pricing.models.samples import (
     MatchObservation,
+    MatchPeriodCode,
     ObservationRole,
     ObservationState,
     ParticipantRole,
     SampleSnapshot,
+    StatisticCode,
     VenueCondition,
 )
 from lvfi_pricing.models.samples.contracts import COMMON_CONTRACT_VERSION
@@ -33,6 +35,12 @@ class MethodOneContextualAverages:
     home_concession: ContextualAverage
     away_production: ContextualAverage
     away_concession: ContextualAverage
+    match_id: str
+    competition_id: str
+    statistic: StatisticCode
+    period: MatchPeriodCode
+    home_team_id: str
+    away_team_id: str
 
     @property
     def values(self) -> tuple[ContextualAverage, ...]:
@@ -232,4 +240,10 @@ def calculate_method_one_contextual_averages(
         calculated[MethodOneSeriesRole.HOME_CONCESSION],
         calculated[MethodOneSeriesRole.AWAY_PRODUCTION],
         calculated[MethodOneSeriesRole.AWAY_CONCESSION],
+        request.match_id,
+        request.competition_id,
+        request.statistic,
+        request.period,
+        request.home_team_id,
+        request.away_team_id,
     )

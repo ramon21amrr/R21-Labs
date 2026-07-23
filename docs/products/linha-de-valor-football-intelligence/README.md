@@ -70,6 +70,7 @@ As afirmações relevantes usam os seguintes estados:
 
 23. [Design técnico do catálogo operacional MVP](23-operational-catalog-implementation-design.md) — fronteira entre catálogo, composição LVFI e Pricing Engine, identidade operacional, migração e validação futura.
 24. [Plano de implementação dos contratos base do Método 1](24-method-one-contracts-implementation-plan.md) — fronteira, contratos, invariantes, testes, riscos e gate da LVFI-ENG-003-T02-C02.
+25. [Decisão do catálogo de ajustes do Método 1](25-method-one-adjustment-catalog-decision.md) — categorias, destinos, ordem, escopos, precedência, faixa e composição matemática da T06.
 
 ## ADRs do Pricing Engine
 

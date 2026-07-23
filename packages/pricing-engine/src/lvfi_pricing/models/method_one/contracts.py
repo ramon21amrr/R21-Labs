@@ -22,7 +22,8 @@ from lvfi_pricing.models.samples import (
 )
 from lvfi_pricing.models.samples.contracts import COMMON_CONTRACT_VERSION
 
-METHOD_ONE_VERSION = "1.0.0a1"
+METHOD_ONE_VERSION = "1.0.0a2"
+METHOD_ONE_MULTIPLIER_CATALOG_VERSION = "lvfi-method-one-adjustments@1.0.0"
 _SCHEMA_VERSION = 1
 _SAFE_CODE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]*$")
 
@@ -44,18 +45,33 @@ class RecencyPolicyCode(StrEnum):
 
 
 class MultiplierScope(StrEnum):
-    MATCH = auto()
-    COMPETITION = auto()
-    GLOBAL = auto()
+    MATCH = "MATCH"
+    COMPETITION = "COMPETITION"
+    GLOBAL = "GLOBAL"
 
 
 class MultiplierCategory(StrEnum):
-    HOME_ADVANTAGE = auto()
-    OPPONENT_STRENGTH = auto()
-    FORM = auto()
-    AVAILABILITY = auto()
-    PACE = auto()
-    MUST_WIN = auto()
+    HOME_FIELD_ADVANTAGE = "HOME_FIELD_ADVANTAGE"
+    OPPONENT_STRENGTH = "OPPONENT_STRENGTH"
+    RECENT_FORM = "RECENT_FORM"
+    SQUAD_AVAILABILITY = "SQUAD_AVAILABILITY"
+    MATCH_PACE = "MATCH_PACE"
+    MUST_WIN = "MUST_WIN"
+
+
+class MultiplierAppliesTo(StrEnum):
+    HOME = "HOME"
+    AWAY = "AWAY"
+
+
+_MULTIPLIER_ORDER = {
+    MultiplierCategory.HOME_FIELD_ADVANTAGE: 10,
+    MultiplierCategory.OPPONENT_STRENGTH: 20,
+    MultiplierCategory.RECENT_FORM: 30,
+    MultiplierCategory.SQUAD_AVAILABILITY: 40,
+    MultiplierCategory.MATCH_PACE: 50,
+    MultiplierCategory.MUST_WIN: 60,
+}
 
 
 def _code(value: object, field: str) -> str:
@@ -77,10 +93,10 @@ def _number(value: object, field: str, *, positive: bool = False) -> float:
     return 0.0 if result == 0 else result
 
 
-def _schema(value: object, field: str) -> int:
-    if isinstance(value, bool) or value != _SCHEMA_VERSION:
+def _schema(value: object, field: str, expected: int = _SCHEMA_VERSION) -> int:
+    if isinstance(value, bool) or value != expected:
         raise ValueError(f"unsupported {field}")
-    return _SCHEMA_VERSION
+    return expected
 
 
 def _items(value: object, field: str, type_: type[object]) -> tuple[object, ...]:
@@ -176,34 +192,67 @@ class MethodOneRecencyConfiguration:
 @dataclass(frozen=True, slots=True)
 class MethodOneMultiplierCandidate:
     category: MultiplierCategory
-    value: float = 1.0
-    scope: MultiplierScope = MultiplierScope.GLOBAL
-    source_id: str = "default"
-    justification_code: str | None = None
-    configuration_version: str = METHOD_ONE_VERSION
+    value: float
+    scope: MultiplierScope
+    applies_to: MultiplierAppliesTo
+    statistic: StatisticCode
+    period: MatchPeriodCode
+    catalog_order: int
+    catalog_version: str
+    source: str
+    justification: str
+    target_match_id: str | None = None
+    competition_id: str | None = None
     candidate_schema_version: int = 1
 
     def __post_init__(self) -> None:
-        if not isinstance(self.category, MultiplierCategory) or not isinstance(
-            self.scope, MultiplierScope
+        if (
+            not isinstance(self.category, MultiplierCategory)
+            or not isinstance(self.scope, MultiplierScope)
+            or not isinstance(self.applies_to, MultiplierAppliesTo)
+            or not isinstance(self.statistic, StatisticCode)
+            or not isinstance(self.period, MatchPeriodCode)
         ):
             raise ValueError("invalid multiplier")
+        _period(self.statistic, self.period)
+        if (
+            self.category is MultiplierCategory.HOME_FIELD_ADVANTAGE
+            and self.applies_to is not MultiplierAppliesTo.HOME
+        ):
+            raise ValueError("invalid multiplier destination")
+        if (
+            isinstance(self.catalog_order, bool)
+            or self.catalog_order != _MULTIPLIER_ORDER[self.category]
+        ):
+            raise ValueError("invalid multiplier order")
+        if self.catalog_version != METHOD_ONE_MULTIPLIER_CATALOG_VERSION:
+            raise ValueError("unsupported multiplier catalog")
         value = _number(self.value, "value", positive=True)
         if not 0.9 <= value <= 1.1:
             raise ValueError("multiplier outside initial range")
         object.__setattr__(self, "value", value)
-        object.__setattr__(self, "source_id", _code(self.source_id, "source_id"))
-        if self.justification_code is not None:
+        object.__setattr__(self, "source", _code(self.source, "source"))
+        object.__setattr__(
+            self, "justification", _code(self.justification, "justification")
+        )
+        if self.scope is MultiplierScope.GLOBAL:
+            if self.target_match_id is not None or self.competition_id is not None:
+                raise ValueError("global multiplier cannot carry context ids")
+        elif self.scope is MultiplierScope.COMPETITION:
+            if self.target_match_id is not None or self.competition_id is None:
+                raise ValueError("competition multiplier requires competition id")
+        elif self.target_match_id is None:
+            raise ValueError("match multiplier requires target match id")
+        if self.target_match_id is not None:
             object.__setattr__(
                 self,
-                "justification_code",
-                _code(self.justification_code, "justification_code"),
+                "target_match_id",
+                _code(self.target_match_id, "target_match_id"),
             )
-        object.__setattr__(
-            self,
-            "configuration_version",
-            _code(self.configuration_version, "configuration_version"),
-        )
+        if self.competition_id is not None:
+            object.__setattr__(
+                self, "competition_id", _code(self.competition_id, "competition_id")
+            )
         _schema(self.candidate_schema_version, "candidate schema")
 
     @classmethod
@@ -214,36 +263,98 @@ class MethodOneMultiplierCandidate:
 @dataclass(frozen=True, slots=True)
 class MethodOneMultiplierResolution:
     category: MultiplierCategory
-    selected: MethodOneMultiplierCandidate
+    applies_to: MultiplierAppliesTo
+    statistic: StatisticCode
+    period: MatchPeriodCode
+    catalog_order: int
+    match_id: str
+    competition_id: str
+    selected: MethodOneMultiplierCandidate | None = None
     discarded: tuple[MethodOneMultiplierCandidate, ...] = ()
+    discard_reasons: tuple[str, ...] = ()
+    effective_value: float = 1.0
+    effective_scope: MultiplierScope | None = None
+    neutral: bool = True
+    catalog_version: str = METHOD_ONE_MULTIPLIER_CATALOG_VERSION
     resolution_schema_version: int = 1
+
+    @property
+    def key(
+        self,
+    ) -> tuple[MultiplierCategory, MultiplierAppliesTo, StatisticCode, MatchPeriodCode]:
+        return self.category, self.applies_to, self.statistic, self.period
 
     def __post_init__(self) -> None:
         if (
             not isinstance(self.category, MultiplierCategory)
-            or not isinstance(self.selected, MethodOneMultiplierCandidate)
-            or self.selected.category is not self.category
+            or not isinstance(self.applies_to, MultiplierAppliesTo)
+            or not isinstance(self.statistic, StatisticCode)
+            or not isinstance(self.period, MatchPeriodCode)
+            or (
+                self.selected is not None
+                and not isinstance(self.selected, MethodOneMultiplierCandidate)
+            )
         ):
             raise ValueError("invalid resolution")
+        _period(self.statistic, self.period)
+        if (
+            self.catalog_order != _MULTIPLIER_ORDER[self.category]
+            or self.catalog_version != METHOD_ONE_MULTIPLIER_CATALOG_VERSION
+            or (
+                self.category is MultiplierCategory.HOME_FIELD_ADVANTAGE
+                and self.applies_to is not MultiplierAppliesTo.HOME
+            )
+        ):
+            raise ValueError("invalid resolution entry")
+        object.__setattr__(self, "match_id", _code(self.match_id, "match_id"))
+        object.__setattr__(
+            self, "competition_id", _code(self.competition_id, "competition_id")
+        )
         discarded = cast(
             tuple[MethodOneMultiplierCandidate, ...],
             _items(self.discarded, "discarded", MethodOneMultiplierCandidate),
         )
-        candidates = (self.selected, *discarded)
+        reasons = cast(
+            tuple[str, ...], _items(self.discard_reasons, "discard_reasons", str)
+        )
+        candidates = (() if self.selected is None else (self.selected,)) + discarded
         if (
-            any(item.category is not self.category for item in discarded)
+            any(
+                (item.category, item.applies_to, item.statistic, item.period)
+                != self.key
+                for item in candidates
+            )
             or len(set(candidates)) != len(candidates)
-            or self.selected.scope
-            is not min(candidates, key=lambda item: _rank(item.scope)).scope
+            or len(reasons) != len(discarded)
+            or any(_code(reason, "discard_reason") != reason for reason in reasons)
         ):
             raise ValueError("unresolved multiplier precedence")
-        object.__setattr__(
-            self,
-            "discarded",
-            tuple(
-                sorted(discarded, key=lambda item: (_rank(item.scope), item.source_id))
+        if self.selected is None:
+            if (
+                discarded
+                or self.effective_value != 1.0
+                or self.effective_scope is not None
+                or self.neutral is not True
+            ):
+                raise ValueError("invalid neutral resolution")
+        elif (
+            self.selected.scope
+            is not min(candidates, key=lambda item: _rank(item.scope)).scope
+            or self.effective_value != self.selected.value
+            or self.effective_scope is not self.selected.scope
+            or self.neutral is not (self.selected.value == 1.0)
+        ):
+            raise ValueError("invalid effective multiplier")
+        pairs = sorted(
+            zip(discarded, reasons, strict=True),
+            key=lambda pair: (
+                _rank(pair[0].scope),
+                pair[0].source,
+                pair[0].value,
             ),
         )
+        object.__setattr__(self, "discarded", tuple(pair[0] for pair in pairs))
+        object.__setattr__(self, "discard_reasons", tuple(pair[1] for pair in pairs))
         _schema(self.resolution_schema_version, "resolution schema")
 
     @classmethod
@@ -282,12 +393,25 @@ class MethodOneConfiguration:
                 MethodOneMultiplierResolution,
             ),
         )
-        if len({item.category for item in resolutions}) != len(resolutions):
-            raise ValueError("duplicate multiplier category")
+        keys = {
+            (item.category, item.applies_to, item.statistic, item.period)
+            for item in resolutions
+        }
+        if len(keys) != len(resolutions):
+            raise ValueError("duplicate multiplier entry")
         object.__setattr__(
             self,
             "multiplier_resolutions",
-            tuple(sorted(resolutions, key=lambda item: item.category.value)),
+            tuple(
+                sorted(
+                    resolutions,
+                    key=lambda item: (
+                        item.catalog_order,
+                        item.applies_to.value,
+                        item.period.value,
+                    ),
+                )
+            ),
         )
         object.__setattr__(
             self, "formula_version", _code(self.formula_version, "formula_version")
@@ -353,19 +477,20 @@ _CONTEXT = {
 
 @dataclass(frozen=True, slots=True)
 class MethodOneRequest:
-    target_match_id: str
+    match_id: str
     home_team_id: str
     away_team_id: str
     statistic: StatisticCode
     period: MatchPeriodCode
     series_references: tuple[MethodOneSeriesReference, ...]
     configuration: MethodOneConfiguration
+    competition_id: str
     data_cutoff_at: datetime | None = None
     method_version: str = METHOD_ONE_VERSION
-    request_schema_version: int = 1
+    request_schema_version: int = 2
 
     def __post_init__(self) -> None:
-        for field in ("target_match_id", "home_team_id", "away_team_id"):
+        for field in ("match_id", "competition_id", "home_team_id", "away_team_id"):
             object.__setattr__(self, field, _code(getattr(self, field), field))
         if (
             self.home_team_id == self.away_team_id
@@ -415,7 +540,7 @@ class MethodOneRequest:
         )
         if self.method_version != METHOD_ONE_VERSION:
             raise ValueError("unsupported method version")
-        _schema(self.request_schema_version, "request schema")
+        _schema(self.request_schema_version, "request schema", 2)
 
     def __hash__(self) -> int:
         raise TypeError("MethodOneRequest is not hashable")
@@ -533,7 +658,7 @@ class MethodOneRateExplanation:
 
 @dataclass(frozen=True, slots=True)
 class MethodOneMetadata:
-    package_version: str = "1.1.0a3"
+    package_version: str = "1.1.0a7"
     method_version: str = METHOD_ONE_VERSION
     configuration_version: str = METHOD_ONE_VERSION
     data_version: str = "synthetic"

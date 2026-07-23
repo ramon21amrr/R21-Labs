@@ -58,7 +58,7 @@ def snapshot(role: MethodOneSeriesRole) -> SampleSnapshot:  # noqa: F405
 
 def request() -> MethodOneRequest:  # noqa: F405
     result = MethodOneRequest.create(  # noqa: F405
-        target_match_id="target",
+        match_id="target",
         home_team_id="home",
         away_team_id="away",
         statistic=StatisticCode.GOALS,
@@ -68,6 +68,7 @@ def request() -> MethodOneRequest:  # noqa: F405
             for role in reversed(tuple(MethodOneSeriesRole))  # noqa: F405
         ),
         configuration=MethodOneConfiguration("config"),  # noqa: F405
+        competition_id="competition",
         data_cutoff_at=at(1),
     )
     assert isinstance(result, MethodOneRequest)  # noqa: F405
@@ -90,6 +91,8 @@ def test_public_api_versions_enums_and_root_namespace() -> None:
         "RecencyPolicyCode",
         "MultiplierScope",
         "MultiplierCategory",
+        "MultiplierAppliesTo",
+        "METHOD_ONE_MULTIPLIER_CATALOG_VERSION",
         "MethodOneWeightConfiguration",
         "MethodOneRecencyConfiguration",
         "MethodOneMultiplierCandidate",
@@ -110,6 +113,14 @@ def test_public_api_versions_enums_and_root_namespace() -> None:
         "MethodOneBaseRateExplanation",
         "MethodOneBaseRateResult",
         "calculate_method_one_base_rates",
+        "MethodOneMultiplierCatalogEntry",
+        "MethodOneMultiplierCatalog",
+        "METHOD_ONE_MULTIPLIER_CATALOG",
+        "MethodOneMultiplierApplicationStep",
+        "MethodOneAdjustedRateExplanation",
+        "MethodOneAdjustedRateResult",
+        "resolve_method_one_multipliers",
+        "apply_method_one_multipliers",
     )
     assert MethodOneStatisticPeriod.GOALS_FIRST_HALF.value == "goals/first_half"  # noqa: F405
     assert RecencyPolicyCode.UNIFORM_V1.value == "uniform/v1"  # noqa: F405
@@ -118,7 +129,7 @@ def test_public_api_versions_enums_and_root_namespace() -> None:
     assert lvfi_pricing.__all__ == ()
 
 
-def test_weights_recency_and_multiplier_contracts() -> None:
+def test_weights_and_recency_contracts() -> None:
     assert MethodOneWeightConfiguration().weight_own == 0.5  # noqa: F405
     assert MethodOneWeightConfiguration(-0.0, 1.0).weight_own == 0.0  # noqa: F405
     assert isinstance(
@@ -131,21 +142,6 @@ def test_weights_recency_and_multiplier_contracts() -> None:
     assert isinstance(
         MethodOneRecencyConfiguration.create(code=object()), CalculationError
     )  # noqa: F405
-    global_ = MethodOneMultiplierCandidate(MultiplierCategory.FORM, 1.0)  # noqa: F405
-    match = MethodOneMultiplierCandidate(  # noqa: F405
-        MultiplierCategory.FORM, 1.01, MultiplierScope.MATCH, "match"
-    )
-    resolution = MethodOneMultiplierResolution(
-        MultiplierCategory.FORM, match, (global_,)
-    )  # noqa: F405
-    assert resolution.discarded == (global_,)
-    assert isinstance(
-        MethodOneMultiplierCandidate.create(category=object()), CalculationError
-    )  # noqa: F405
-    with pytest.raises(ValueError):
-        MethodOneMultiplierCandidate(MultiplierCategory.PACE, 1.2)  # noqa: F405
-    with pytest.raises(ValueError):
-        MethodOneMultiplierResolution(MultiplierCategory.FORM, global_, (match,))  # noqa: F405
 
 
 def test_request_series_are_canonical_immutable_and_validated() -> None:
@@ -153,6 +149,11 @@ def test_request_series_are_canonical_immutable_and_validated() -> None:
     assert tuple(item.role for item in value.series_references) == tuple(
         MethodOneSeriesRole
     )  # noqa: F405
+    assert (value.match_id, value.competition_id, value.request_schema_version) == (
+        "target",
+        "competition",
+        2,
+    )
     with pytest.raises((AttributeError, TypeError)):
         value.home_team_id = "other"  # type: ignore[misc]
     with pytest.raises(TypeError):
@@ -167,6 +168,7 @@ def test_request_series_are_canonical_immutable_and_validated() -> None:
             MatchPeriodCode.REGULATION_TIME,
             value.series_references,
             value.configuration,
+            "competition",
         )
     with pytest.raises(ValueError):
         MethodOneRequest(  # noqa: F405
@@ -177,6 +179,7 @@ def test_request_series_are_canonical_immutable_and_validated() -> None:
             MatchPeriodCode.REGULATION_TIME,
             value.series_references,
             value.configuration,
+            "competition",
         )
 
 
@@ -224,24 +227,10 @@ def test_factories_and_rejected_shapes_cover_contract_boundaries() -> None:
     assert contracts._period(StatisticCode.GOALS, MatchPeriodCode.FIRST_HALF)
     with pytest.raises(ValueError):
         MethodOneWeightConfiguration(0.5, 0.5, source_scope=cast(Any, object()))  # noqa: F405
-    candidate = MethodOneMultiplierCandidate(  # noqa: F405
-        MultiplierCategory.PACE, justification_code="reason"
-    )
-    assert candidate.justification_code == "reason"
-    assert isinstance(MethodOneMultiplierResolution.create(), CalculationError)  # noqa: F405
-    with pytest.raises(ValueError):
-        MethodOneMultiplierResolution(  # noqa: F405
-            MultiplierCategory.PACE, candidate, cast(Any, (object(),))
-        )
-    with pytest.raises(ValueError):
-        MethodOneMultiplierResolution(cast(Any, object()), candidate)  # noqa: F405
-    resolution = MethodOneMultiplierResolution(MultiplierCategory.PACE, candidate)  # noqa: F405
     assert isinstance(
-        MethodOneConfiguration.create(  # noqa: F405
-            configuration_id="x", multiplier_resolutions=(resolution, resolution)
-        ),
-        CalculationError,
-    )
+        MethodOneMultiplierCandidate.create(category=object()), CalculationError
+    )  # noqa: F405
+    assert isinstance(MethodOneMultiplierResolution.create(), CalculationError)  # noqa: F405
     with pytest.raises(ValueError):
         MethodOneConfiguration("x", home_weights=cast(Any, object()))  # noqa: F405
     ref = MethodOneSeriesReference(
@@ -256,34 +245,37 @@ def test_factories_and_rejected_shapes_cover_contract_boundaries() -> None:
     base = request()
     with pytest.raises(ValueError):
         MethodOneRequest(  # noqa: F405
-            base.target_match_id,
+            base.match_id,
             base.home_team_id,
             base.away_team_id,
             base.statistic,
             base.period,
             base.series_references[:3],
             base.configuration,
+            base.competition_id,
         )
     with pytest.raises(ValueError):
         MethodOneRequest(  # noqa: F405
-            base.target_match_id,
+            base.match_id,
             base.home_team_id,
             base.away_team_id,
             base.statistic,
             base.period,
             base.series_references,
             base.configuration,
+            base.competition_id,
             datetime(2026, 1, 1),
         )
     with pytest.raises(ValueError):
         MethodOneRequest(  # noqa: F405
-            base.target_match_id,
+            base.match_id,
             base.home_team_id,
             base.away_team_id,
             base.statistic,
             base.period,
             base.series_references,
             base.configuration,
+            base.competition_id,
             method_version="2",
         )
     assert isinstance(MethodOneRateExplanation.create(), CalculationError)  # noqa: F405
@@ -323,6 +315,7 @@ def test_request_rejects_context_and_cutoff_after_snapshot() -> None:
             base.period,
             inconsistent,
             base.configuration,
+            base.competition_id,
         )
     with pytest.raises(ValueError):
         MethodOneRequest(  # noqa: F405
@@ -333,5 +326,6 @@ def test_request_rejects_context_and_cutoff_after_snapshot() -> None:
             base.period,
             base.series_references,
             base.configuration,
+            base.competition_id,
             datetime(2025, 1, 1, tzinfo=UTC),
         )
