@@ -84,7 +84,7 @@ def test_default_formula_audit_public_api_and_immutability() -> None:
     assert calculated.explanation.averages == calculated.contextual_averages.values
     assert calculated.explanation.consolidated_quality is calculated.quality
     assert (
-        calculated.method_version == calculated.explanation.formula_version == "1.0.0a2"
+        calculated.method_version == calculated.explanation.formula_version == "1.0.0a3"
     )
     assert calculated.explanation.explanation_schema_version == 1
     assert calculated.result_schema_version == 2

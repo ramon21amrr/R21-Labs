@@ -121,6 +121,10 @@ def test_public_api_versions_enums_and_root_namespace() -> None:
         "MethodOneAdjustedRateResult",
         "resolve_method_one_multipliers",
         "apply_method_one_multipliers",
+        "MethodOnePricingExplanation",
+        "MethodOnePricingResult",
+        "build_method_one_pricing_request",
+        "price_method_one",
     )
     assert MethodOneStatisticPeriod.GOALS_FIRST_HALF.value == "goals/first_half"  # noqa: F405
     assert RecencyPolicyCode.UNIFORM_V1.value == "uniform/v1"  # noqa: F405
