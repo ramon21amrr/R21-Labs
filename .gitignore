@@ -1,2 +1,21 @@
 # Proprietary LVFI source materials; do not version.
 inputs/linha-de-valor-football-intelligence/
+
+# Regenerable local Graphify artifacts.
+graphify-out/
+
+# Local environments, caches and build artifacts.
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+.coverage.*
+.hypothesis/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+*.egg-info/
+node_modules/

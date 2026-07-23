@@ -1,0 +1,34 @@
+# VCS, tooling environments, caches, builds and generated artifacts
+.git/
+**/.venv/
+**/venv/
+**/__pycache__/
+**/.pytest_cache/
+**/.hypothesis/
+**/.mypy_cache/
+**/.ruff_cache/
+**/build/
+**/dist/
+**/*.egg-info/
+**/node_modules/
+graphify-out/
+
+# Proprietary inputs and local/temporary material
+inputs/
+**/backup/
+**/backups/
+**/tmp/
+**/temp/
+*.log
+
+# Secrets and credentials
+.env
+.env.*
+!.env.example
+**/auth.json
+**/*credential*
+**/*secret*
+**/*.pem
+**/*.key
+**/*.p12
+**/*.pfx
