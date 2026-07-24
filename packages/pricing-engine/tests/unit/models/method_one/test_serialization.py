@@ -26,13 +26,13 @@ CONFIGURATION_HASH = "34a33777d62a07b606e599de23dd2889efb24c19c009ce31775cc6ace3
 # serialization, the version constants or the canonical rules fails here.
 REGRESSION_RESULT_HASHES: dict[str, str] = {
     "baseline_candidate": (
-        "e80340fae279a0d2adcc2f6ab31130cfd4cb3b9745a6d0b33d1b31e7afc49b02"
+        "111aa9233114b89f0e77b4f5890f062f06c94ad0d369bc9465a46a13fb741179"
     ),
     "no_multipliers": (
-        "4f4a627cb8ee78dd9e876b1e199639455719effa02264489b948233d524974cb"
+        "d45c701ed25a7099f1d1c1565014cb692306bf6da0a0fb0f4413f9c7aaf98903"
     ),
     "partial_count5": (
-        "77df2df41f0d338d5590eddb9802ef6257a3b6a4710658b12053bfd38e3652bd"
+        "9705fb42cda6ac71439ca8e6937d281d0f13a1673d7fb0f6af97dc7a7dcdcac2"
     ),
 }
 
@@ -137,10 +137,10 @@ def test_envelope_carries_versions_schema_and_root_type() -> None:
     assert payload.schema_version == METHOD_ONE_CANONICAL_SCHEMA_VERSION
     assert payload.root_type == "MethodOneFinalResult"
     assert payload.method_version == "1.0.0"
-    assert payload.package_version == "1.1.0"
+    assert payload.package_version == "1.1.1"
     assert payload.hash_algorithm == "sha256"
     assert b'"method_version":"1.0.0"' in payload.canonical_bytes
-    assert b'"package_version":"1.1.0"' in payload.canonical_bytes
+    assert b'"package_version":"1.1.1"' in payload.canonical_bytes
     assert b'"root_type":"MethodOneFinalResult"' in payload.canonical_bytes
     assert b'"schema_version":1' in payload.canonical_bytes
 
@@ -191,7 +191,7 @@ def test_identity_isolates_input_configuration_and_result() -> None:
     assert isinstance(identity, MethodOneIdentity)
     assert identity.schema_version == METHOD_ONE_CANONICAL_SCHEMA_VERSION
     assert identity.method_version == "1.0.0"
-    assert identity.package_version == "1.1.0"
+    assert identity.package_version == "1.1.1"
     assert identity.hash_algorithm == "sha256"
     assert identity.result_hash == REGRESSION_RESULT_HASHES["baseline_candidate"]
     assert identity.configuration_hash == CONFIGURATION_HASH

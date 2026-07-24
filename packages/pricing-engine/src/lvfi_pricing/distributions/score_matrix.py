@@ -196,11 +196,17 @@ def build_score_probability_matrix(
         tuple(home * away for away in away_distribution.probabilities)
         for home in home_distribution.probabilities
     )
-    total = stable_sum(tuple(cell for row in probabilities for cell in row))
-    if isinstance(total, CalculationError):
+    materialized_total = stable_sum(
+        tuple(cell for row in probabilities for cell in row)
+    )
+    if isinstance(materialized_total, CalculationError):
         return _error(
             ErrorCode.PROBABILITY_SUM_INVALID, "matrix probability sum is invalid"
         )
+    total = (
+        home_distribution.cumulative_probability
+        * away_distribution.cumulative_probability
+    )
     residual = 1.0 - total
     combined_residual = (
         home_distribution.residual_mass
@@ -208,7 +214,10 @@ def build_score_probability_matrix(
         - home_distribution.residual_mass * away_distribution.residual_mass
     )
     if (
-        total > 1.0 + policy.probability_sum_tolerance
+        materialized_total > 1.0 + policy.probability_sum_tolerance
+        or not math.isclose(
+            materialized_total, total, abs_tol=policy.probability_sum_tolerance
+        )
         or residual < -policy.probability_sum_tolerance
         or not math.isclose(
             residual, combined_residual, abs_tol=policy.probability_sum_tolerance

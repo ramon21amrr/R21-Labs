@@ -75,7 +75,7 @@ def test_prices_explicitly_and_retains_all_t06_information() -> None:
     assert priced.blockers is value.blockers
     assert priced.explanation.engine_called
     assert priced.explanation.catalog_version == "lvfi-method-one-adjustments@1.0.0"
-    assert priced.pricing_engine_version == "1.0.0"
+    assert priced.pricing_engine_version == "1.0.1"
     assert priced.integration_schema_version == 1
     assert priced.deterministic
     with pytest.raises(FrozenInstanceError):

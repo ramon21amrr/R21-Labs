@@ -2,9 +2,13 @@
 
 from __future__ import annotations
 
+import gzip
+import json
 import math
 from collections.abc import Mapping
 from dataclasses import FrozenInstanceError, fields, is_dataclass
+from pathlib import Path
+from typing import cast
 
 import pytest
 
@@ -27,6 +31,12 @@ from lvfi_pricing.engine import (
 from lvfi_pricing.markets import HalfGoalLine
 from lvfi_pricing.serialization import CanonicalPayload, serialize_pricing_result
 from lvfi_pricing.settlement import AsianTotalSelection, HandicapSelection
+from tests.integration.pricing_engine_baselines import (
+    MATHEMATICAL_CHANGE_CASES,
+    OPERATIONAL_ENGINE_VERSION,
+    OPERATIONAL_HASHES,
+    VERSION_ONLY_CASES,
+)
 
 RATE_CASES = (
     (0.0, 0.0),
@@ -38,17 +48,6 @@ RATE_CASES = (
     (5.0, 3.0),
     (10.0, 10.0),
 )
-
-EXPECTED_HASHES = {
-    (0.0, 0.0): "8051a1b099137b2c56df3733e1e418d9ed9f95df3c35761c42b89b71bb311c75",
-    (0.5, 0.5): "21271b4f51985ee5bec7c635dc9a25f15b3f5304571c761fc68fb4ac790e2e9b",
-    (1.0, 1.0): "174828b2a00fabb07fedd8621d6ac696695ae006df18f0eeb9296c853e1c0e51",
-    (1.5, 1.0): "1b9791d0dd26fbb7bca068d18dc259a5e07ccf6e3fe7ea1bd4a699f59006f10b",
-    (1.0, 1.5): "3f271310adaa3ad25689a03f748c8467a2b8b982dcfa0301e9c5c0f6446b1ad9",
-    (2.5, 1.2): "4b545f5fb97be85c2adb8d042d601b0ebf53dc4e0acae8408a3e5ceeac6c9210",
-    (5.0, 3.0): "f175b1729f579a7048b045c1219f7007c0f51fb6b78b6d7263d62a20c7c42004",
-    (10.0, 10.0): "11bdfc2a7addcf241a248f2a6bdfa888e7d4a6aa639095a809f59a11bba5d670",
-}
 
 
 def _markets(*, include_asian_total_main: bool) -> tuple[MarketRequest, ...]:
@@ -128,7 +127,7 @@ def test_complete_requests_are_deterministic_canonical_and_regressive(
     reordered = _result(home, away, reverse=True)
     assert first == reordered
     assert first.request.requested_markets == reordered.request.requested_markets
-    assert first.metadata.package_version == "1.0.0"
+    assert first.metadata.package_version == OPERATIONAL_ENGINE_VERSION
     assert first.metadata.deterministic
     assert not first.errors
     assert first.metadata.warnings_count == len(first.warnings)
@@ -136,7 +135,7 @@ def test_complete_requests_are_deterministic_canonical_and_regressive(
 
     payload = _payload(first)
     assert payload == _payload(reordered)
-    assert payload.content_hash == EXPECTED_HASHES[(home, away)]
+    assert payload.content_hash == OPERATIONAL_HASHES[(home, away)]
     assert len(payload.content_hash) == 64
     assert payload.content_hash == payload.content_hash.lower()
     assert payload.content_hash.encode("ascii") not in payload.canonical_bytes
@@ -185,3 +184,61 @@ def test_public_result_contract_is_frozen() -> None:
     result = _result(1.5, 1.0)
     with pytest.raises(FrozenInstanceError):
         result.errors = ()  # type: ignore[misc]
+
+
+def _audit_projection(value: object, *, mask_mass: bool) -> object:
+    if isinstance(value, list):
+        return [_audit_projection(item, mask_mass=mask_mass) for item in value]
+    if not isinstance(value, dict):
+        return "<VERSION>" if value in {"1.0.0", "1.0.1"} else value
+    projected = {
+        key: _audit_projection(item, mask_mass=mask_mass) for key, item in value.items()
+    }
+    if mask_mass and set(value) == {"fields", "schema_version", "type"}:
+        fields = projected["fields"]
+        assert isinstance(fields, dict)
+        for field in ("total_probability", "residual_mass", "probability", "fair_odds"):
+            if field in fields:
+                fields[field] = "<CANONICAL_MASS>"
+    return projected
+
+
+def _payload_baselines() -> dict[str, object]:
+    fixture = Path(__file__).with_name("pricing_engine_payload_baselines.json.gz")
+    loaded = cast(dict[str, object], json.loads(gzip.decompress(fixture.read_bytes())))
+    assert loaded["fixture_schema"] == 1
+    assert loaded["historical_engine_version"] == "1.0.0"
+    assert loaded["operational_engine_version"] == OPERATIONAL_ENGINE_VERSION
+    return loaded
+
+
+def _case_key(home: float, away: float) -> str:
+    return f"{home:.1f}x{away:.1f}"
+
+
+def test_versioned_baselines_preserve_only_authorized_payload_differences() -> None:
+    baseline = _payload_baselines()
+    stored = baseline["payloads"]
+    assert isinstance(stored, dict)
+    for home, away in (*VERSION_ONLY_CASES, *MATHEMATICAL_CHANGE_CASES):
+        record = stored[_case_key(home, away)]
+        assert isinstance(record, dict)
+        historical = record["historical"]
+        operational = record["operational"]
+        assert isinstance(historical, dict)
+        assert isinstance(operational, dict)
+        assert historical["content_hash"] != operational["content_hash"]
+        assert operational["content_hash"] == OPERATIONAL_HASHES[(home, away)]
+        payload = _payload(_result(home, away))
+        assert payload.content_hash == operational["content_hash"]
+        assert payload.canonical_bytes.decode() == operational["canonical_json"]
+        historical_json = json.loads(historical["canonical_json"])
+        operational_json = json.loads(operational["canonical_json"])
+        if (home, away) in VERSION_ONLY_CASES:
+            assert _audit_projection(
+                historical_json, mask_mass=False
+            ) == _audit_projection(operational_json, mask_mass=False)
+        else:
+            assert _audit_projection(
+                historical_json, mask_mass=True
+            ) == _audit_projection(operational_json, mask_mass=True)

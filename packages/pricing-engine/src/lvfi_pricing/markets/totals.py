@@ -62,26 +62,28 @@ def price_total_goals(
             "policy must be a NumericPolicy",
             "policy",
         )
-    under = stable_sum(
-        [
-            matrix.probabilities[home][away]
-            for home in range(matrix.home_max_goals + 1)
-            for away in range(matrix.away_max_goals + 1)
-            if 2 * (home + away) < line.half_units
-        ]
-    )
-    over = stable_sum(
-        [
-            matrix.probabilities[home][away]
-            for home in range(matrix.home_max_goals + 1)
-            for away in range(matrix.away_max_goals + 1)
-            if 2 * (home + away) > line.half_units
-        ]
-    )
+    under_values = [
+        matrix.probabilities[home][away]
+        for home in range(matrix.home_max_goals + 1)
+        for away in range(matrix.away_max_goals + 1)
+        if 2 * (home + away) < line.half_units
+    ]
+    over_values = [
+        matrix.probabilities[home][away]
+        for home in range(matrix.home_max_goals + 1)
+        for away in range(matrix.away_max_goals + 1)
+        if 2 * (home + away) > line.half_units
+    ]
+    under = stable_sum(under_values)
+    over = stable_sum(over_values)
     if isinstance(under, CalculationError) or isinstance(over, CalculationError):
         return CalculationError(
             ErrorCode.PROBABILITY_SUM_INVALID, "total sum is invalid"
         )
+    if under <= over:
+        over = matrix.total_probability - under
+    else:
+        under = matrix.total_probability - over
     return _market(
         MarketCode.TOTAL_GOALS,
         ((TotalSelection.OVER, over), (TotalSelection.UNDER, under)),

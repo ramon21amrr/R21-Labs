@@ -26,9 +26,9 @@ def test_serializes_complete_synthetic_pricing_result() -> None:
     repeated = serialize_pricing_result(result)
     assert isinstance(repeated, CanonicalPayload)
     assert payload.content_hash == repeated.content_hash
-    assert b'"package_version":"1.0.0"' in payload.canonical_bytes
-    assert result.request.engine_version == "1.0.0"
-    assert result.metadata.package_version == "1.0.0"
+    assert b'"package_version":"1.0.1"' in payload.canonical_bytes
+    assert result.request.engine_version == "1.0.1"
+    assert result.metadata.package_version == "1.0.1"
 
 
 def test_serializes_typed_warning_with_immutable_context() -> None:
