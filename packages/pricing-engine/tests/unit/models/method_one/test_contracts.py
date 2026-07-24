@@ -129,6 +129,15 @@ def test_public_api_versions_enums_and_root_namespace() -> None:
         "MethodOneFinalExplanation",
         "MethodOneFinalResult",
         "run_method_one",
+        "DISTRIBUTION_VERSION",
+        "METHOD_ONE_CANONICAL_SCHEMA_VERSION",
+        "MethodOneIdentity",
+        "MethodOnePayload",
+        "method_one_canonical_bytes",
+        "method_one_canonical_value",
+        "method_one_identity",
+        "method_one_sha256",
+        "serialize_method_one_final_result",
     )
     assert MethodOneStatisticPeriod.GOALS_FIRST_HALF.value == "goals/first_half"  # noqa: F405
     assert RecencyPolicyCode.UNIFORM_V1.value == "uniform/v1"  # noqa: F405

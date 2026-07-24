@@ -13,6 +13,7 @@ from .base_rates import (
     calculate_method_one_base_rates,
 )
 from .contracts import (
+    DISTRIBUTION_VERSION,
     METHOD_ONE_MULTIPLIER_CATALOG_VERSION,
     ContextualAverage,
     ContextualAverageEvidence,
@@ -54,6 +55,16 @@ from .pricing import (
     MethodOnePricingResult,
     build_method_one_pricing_request,
     price_method_one,
+)
+from .serialization import (
+    METHOD_ONE_CANONICAL_SCHEMA_VERSION,
+    MethodOneIdentity,
+    MethodOnePayload,
+    method_one_canonical_bytes,
+    method_one_canonical_value,
+    method_one_identity,
+    method_one_sha256,
+    serialize_method_one_final_result,
 )
 
 __all__ = (
@@ -100,4 +111,13 @@ __all__ = (
     "MethodOneFinalExplanation",
     "MethodOneFinalResult",
     "run_method_one",
+    "DISTRIBUTION_VERSION",
+    "METHOD_ONE_CANONICAL_SCHEMA_VERSION",
+    "MethodOneIdentity",
+    "MethodOnePayload",
+    "method_one_canonical_bytes",
+    "method_one_canonical_value",
+    "method_one_identity",
+    "method_one_sha256",
+    "serialize_method_one_final_result",
 )

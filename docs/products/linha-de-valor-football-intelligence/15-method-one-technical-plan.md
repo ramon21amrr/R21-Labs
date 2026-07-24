@@ -351,16 +351,91 @@ Restrições:
 
 ## 18. Versionamento, serialização e hashes
 
-Eixos independentes:
+Eixos independentes (estado implementado em T09):
 
-- pacote: alvo recomendado `1.1.0` após validação final;
-- Método 1: SemVer próprio, inicialmente `1.0.0` após aprovação matemática;
-- fórmula: identificador e SemVer próprios;
+- distribuição (`lvfi-pricing-engine`, `pyproject.toml`): `1.1.0a10`;
+- Método 1 (`METHOD_ONE_VERSION`): `1.0.0a5`;
+- schema canônico do Método 1 (`METHOD_ONE_CANONICAL_SCHEMA_VERSION`): `1`,
+  versão própria e independente da versão do pacote;
+- fórmula: identificador e versão próprios (`formula_version`);
 - configuração: revisão imutável, versão e hash;
 - sample schema, request schema, result schema e integration schema: v1;
 - dados e snapshots: versão declarada e SHA-256 do conteúdo autorizado;
 - resultado: hash canônico separado;
-- Pricing Engine: permanece `1.0.0` e schema canônico v1.
+- Pricing Engine: permanece `1.0.0` e schema canônico v1, sem alteração.
+
+### 18.1 Objetivo e localização
+
+A serialização canônica (T09) existe para produzir bytes determinísticos e
+hashes SHA-256 estáveis dos contratos e resultados do Método 1, permitindo
+comparar execuções, congelar regressões e preparar futura persistência e
+auditoria. Ela está em `lvfi_pricing.models.method_one.serialization` e nunca
+altera a matemática, os contratos, os schemas internos ou os hashes congelados
+do Pricing Engine: ela apenas lê estado imutável existente e o hashed.
+
+### 18.2 Regras de canonicalização
+
+Compartilhadas com o Pricing Engine (sem duplicação):
+
+- JSON UTF-8 compacto, `separators=(",", ":")`, `sort_keys=True`, sem BOM e sem
+  whitespace;
+- `None`, `bool`, `int` e `str` codificados diretamente, com `bool` distinto de
+  `int`;
+- `float` finito codificado via `float.hex()` (binary64 exato, independente de
+  locale); `nan`/`inf` rejeitados com `INVALID_NUMBER`;
+- `datetime` com fuso horário normalizado para UTC ISO 8601 (`+00:00`);
+  `datetime` sem fuso é rejeitado com `SERIALIZATION_ERROR`;
+- `Enum` como `{"enum", "type", "value"}`;
+- `tuple` e `Mapping` em envelopes tipados `{"type", ...}`;
+- dataclasses emitidos como `{"fields", "schema_version", "type"}`, com os campos
+  ordenados por nome e recursando sobre valores aninhados.
+
+Contratos do Pricing Engine aninhados (p.ex. `PricingRequest`, `PricingResult`,
+`PoissonRate`) são serializados pelo mesmo walker e mantêm o schema canônico do
+Pricing Engine (`CANONICAL_SCHEMA_VERSION = 1`), produzindo bytes idênticos aos
+da serialização direta do engine.
+
+### 18.3 Schemas e API pública
+
+- `METHOD_ONE_CANONICAL_SCHEMA_VERSION = 1`: versão explícita da forma canônica
+  do Método 1, separada da versão do pacote e dos schemas internos por contrato;
+- `serialize_method_one_final_result(result) -> MethodOnePayload | CalculationError`:
+  envelope versionado do resultado final; `content_hash` cobre `content`,
+  `method_version`, `package_version`, `root_type` e `schema_version`;
+- `method_one_identity(result) -> MethodOneIdentity | CalculationError`:
+  identidade comparável isolando entrada, configuração e resultado;
+- `method_one_canonical_value/bytes/sha256(value)`: serialização de baixo nível
+  para qualquer objeto do Método 1 suportado;
+- `MethodOnePayload` e `MethodOneIdentity`: contratos imutáveis (`frozen`,
+  `slots`).
+
+### 18.4 Hashes disponíveis e finalidade
+
+- `MethodOnePayload.content_hash`: identidade do resultado final consolidado
+  (entrada, taxas, precificação, qualidade e versões);
+- `MethodOneIdentity.input_hash`: entrada completa (`request` + candidatos de
+  multiplicador), incluindo amostras e configuração;
+- `MethodOneIdentity.configuration_hash`: apenas a `MethodOneConfiguration`,
+  isolando a configuração das amostras;
+- `MethodOneIdentity.result_hash`: igual a `content_hash`, repetido para
+  comparação direta.
+
+Hashes redundantes sem finalidade não são expostos. Cada hash é reproduzível,
+determinístico e independente de ordem incidental de dicionário, `repr`,
+endereço de memória, locale, fuso local, plataforma ou versão de SO.
+
+### 18.5 Estabilidade, limitações e evolução
+
+Estabilidade prometida: os bytes e hashes são estáveis para conteúdos
+semanticamente idênticos. Limitações atuais: a serialização é em memória (sem
+persistência, banco ou I/O); `datetime` deve ser consciente do fuso; `float`
+deve ser finito. A evolução do schema canônico do Método 1 ocorre por bump
+explícito e auditável de `METHOD_ONE_CANONICAL_SCHEMA_VERSION`, separado da
+versão do pacote; mudanças intencionais de hash exigem registrar a causa antes
+de atualizar vetores congelados. A relação com futura persistência e auditoria é
+que `content_hash`, `input_hash` e `configuration_hash` servem como identidade de
+conteúdo para armazenamento, rastreabilidade e detecção de divergência entre
+execuções.
 
 Floats serão serializados por `float.hex()`. O hash do Método 1 incluirá fórmula,
 configuração resolvida, snapshots, ordem, IDs, pesos, ajustes, política numérica,
