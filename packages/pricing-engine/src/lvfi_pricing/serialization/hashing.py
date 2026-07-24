@@ -23,7 +23,8 @@ def _json_value(value: CanonicalValue) -> object:
     return value
 
 
-def _encode(canonical_value: CanonicalValue) -> bytes:
+def canonical_json_bytes(canonical_value: CanonicalValue) -> bytes:
+    """Encode an already-canonical value as compact, sorted UTF-8 JSON."""
     return json.dumps(
         _json_value(canonical_value),
         allow_nan=False,
@@ -38,7 +39,7 @@ def canonical_bytes(value: object) -> bytes | CalculationError:
     canonical_value = to_canonical_value(value)
     if isinstance(canonical_value, CalculationError):
         return canonical_value
-    return _encode(canonical_value)
+    return canonical_json_bytes(canonical_value)
 
 
 def sha256_canonical(value: object) -> str | CalculationError:
@@ -70,7 +71,7 @@ def serialize_pricing_result(
             "schema_version": CANONICAL_SCHEMA_VERSION,
         }
     )
-    content_bytes = _encode(content)
+    content_bytes = canonical_json_bytes(content)
     content_hash = hashlib.sha256(content_bytes).hexdigest()
     return CanonicalPayload(
         CANONICAL_SCHEMA_VERSION,

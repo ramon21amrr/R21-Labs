@@ -68,7 +68,7 @@ def test_runs_complete_flow_and_retains_structured_evidence() -> None:
     assert value.explanation.resolutions is value.resolutions
     assert value.quality is value.adjusted_rates.quality
     assert value.publication_state is MethodOnePublicationState.PUBLISHABLE
-    assert value.method_version == "1.0.0a4"
+    assert value.method_version == "1.0.0a5"
     assert (
         value.explanation.multiplier_catalog_version
         == "lvfi-method-one-adjustments@1.0.0"

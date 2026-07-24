@@ -22,7 +22,8 @@ from lvfi_pricing.models.samples import (
 )
 from lvfi_pricing.models.samples.contracts import COMMON_CONTRACT_VERSION
 
-METHOD_ONE_VERSION = "1.0.0a4"
+METHOD_ONE_VERSION = "1.0.0a5"
+DISTRIBUTION_VERSION = "1.1.0a10"
 METHOD_ONE_MULTIPLIER_CATALOG_VERSION = "lvfi-method-one-adjustments@1.0.0"
 _SCHEMA_VERSION = 1
 _SAFE_CODE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]*$")
@@ -658,7 +659,7 @@ class MethodOneRateExplanation:
 
 @dataclass(frozen=True, slots=True)
 class MethodOneMetadata:
-    package_version: str = "1.1.0a9"
+    package_version: str = DISTRIBUTION_VERSION
     method_version: str = METHOD_ONE_VERSION
     configuration_version: str = METHOD_ONE_VERSION
     data_version: str = "synthetic"
