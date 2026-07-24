@@ -1,0 +1,85 @@
+[build-system]
+requires = ["setuptools==83.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lvfi-api"
+version = "0.1.0"
+description = "Backend foundation for Linha de Valor Football Intelligence."
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "alembic==1.17.1",
+    "asyncpg==0.30.0",
+    "fastapi==0.120.4",
+    "lvfi-pricing-engine==1.1.1",
+    "pydantic-settings==2.11.0",
+    "sqlalchemy==2.0.44",
+    "uvicorn==0.38.0",
+]
+
+[dependency-groups]
+dev = [
+    "coverage==7.15.2",
+    "httpx==0.28.1",
+    "mypy==1.18.2",
+    "pytest==8.4.2",
+    "pytest-asyncio==1.2.0",
+    "pytest-cov==7.0.0",
+    "ruff==0.14.2",
+]
+
+[tool.uv.sources]
+lvfi-pricing-engine = { path = "../../packages/pricing-engine", editable = true }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["lvfi_api*"]
+namespaces = false
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+addopts = [
+    "--strict-config",
+    "--strict-markers",
+    "--import-mode=importlib",
+    "-p", "no:cacheprovider",
+    "-ra",
+    "--cov=lvfi_api",
+    "--cov-branch",
+    "--cov-report=term-missing",
+    "--cov-fail-under=100",
+]
+asyncio_mode = "auto"
+
+[tool.coverage.run]
+branch = true
+source = ["lvfi_api"]
+omit = ["src/lvfi_api/__init__.py"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 100
+exclude_also = [
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["lvfi_api"]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+files = ["src", "tests"]
+mypy_path = "src"
+explicit_package_bases = true
+warn_unused_configs = true
