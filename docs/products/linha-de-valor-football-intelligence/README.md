@@ -72,6 +72,7 @@ As afirmações relevantes usam os seguintes estados:
 24. [Plano de implementação dos contratos base do Método 1](24-method-one-contracts-implementation-plan.md) — fronteira, contratos, invariantes, testes, riscos e gate da LVFI-ENG-003-T02-C02.
 25. [Decisão do catálogo de ajustes do Método 1](25-method-one-adjustment-catalog-decision.md) — categorias, destinos, ordem, escopos, precedência, faixa e composição matemática da T06.
 26. [Validação final do Método 1](26-method-one-final-validation.md) — auditoria T02–T10, contratos, versões, schemas, hashes, gates, wheel e readiness.
+27. [Arquitetura da aplicação](27-application-architecture.md) — decisão oficial de stack, fronteiras, dados, jobs, segurança e sequência.
 
 ## ADRs do Pricing Engine
 
@@ -85,6 +86,9 @@ As afirmações relevantes usam os seguintes estados:
 - [ADR-LVFI-008 — Estratégia de versionamento](../../architecture/decisions/ADR-LVFI-008-estrategia-de-versionamento.md)
 - [ADR-LVFI-009 — Estratégia de fixtures](../../architecture/decisions/ADR-LVFI-009-estrategia-de-fixtures.md)
 - [ADR-LVFI-010 — Ferramentas e dependências](../../architecture/decisions/ADR-LVFI-010-ferramentas-e-dependencias.md)
+- [ADR-LVFI-011 — Stack e monólito modular da aplicação](../../architecture/decisions/ADR-LVFI-011-stack-e-monolito-modular-da-aplicacao.md)
+- [ADR-LVFI-012 — Fronteira da aplicação com o Pricing Engine](../../architecture/decisions/ADR-LVFI-012-fronteira-da-aplicacao-com-o-pricing-engine.md)
+- [ADR-LVFI-013 — Persistência, jobs e isolamento de fornecedores](../../architecture/decisions/ADR-LVFI-013-persistencia-jobs-e-integracoes-externas.md)
 
 ## Síntese das decisões vigentes
 
