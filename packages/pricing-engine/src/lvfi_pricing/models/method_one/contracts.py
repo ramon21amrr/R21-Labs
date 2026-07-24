@@ -23,7 +23,7 @@ from lvfi_pricing.models.samples import (
 from lvfi_pricing.models.samples.contracts import COMMON_CONTRACT_VERSION
 
 METHOD_ONE_VERSION = "1.0.0"
-DISTRIBUTION_VERSION = "1.1.0"
+DISTRIBUTION_VERSION = "1.1.1"
 METHOD_ONE_MULTIPLIER_CATALOG_VERSION = "lvfi-method-one-adjustments@1.0.0"
 _SCHEMA_VERSION = 1
 _SAFE_CODE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]*$")

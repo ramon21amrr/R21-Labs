@@ -21,7 +21,7 @@ from lvfi_pricing.markets import (
 )
 from lvfi_pricing.settlement import AsianTotalSelection, HandicapSelection
 
-PACKAGE_VERSION = "1.0.0"
+PACKAGE_VERSION = "1.0.1"
 REQUEST_SCHEMA_VERSION = 1
 RESULT_SCHEMA_VERSION = 1
 

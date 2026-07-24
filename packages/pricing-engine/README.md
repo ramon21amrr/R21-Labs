@@ -1,7 +1,7 @@
 # LVFI Pricing Engine
 
-Distribuição `1.1.0` do Pricing Engine matemático do Linha de Valor Football
-Intelligence, preservado na versão matemática `1.0.0`. O pacote recebe taxas
+Distribuição `1.1.1` do Pricing Engine matemático do Linha de Valor Football
+Intelligence, preservado na versão matemática `1.0.1`. O pacote recebe taxas
 Poisson já normalizadas, calcula
 distribuições e mercados e devolve contratos imutáveis, determinísticos e
 auditáveis.
@@ -58,7 +58,7 @@ Requer CPython `>=3.13,<3.14`. O runtime usa exclusivamente a biblioteca padrão
 e o wheel não declara `Requires-Dist`.
 
 ```powershell
-python -m pip install --no-deps lvfi_pricing_engine-1.1.0-py3-none-any.whl
+python -m pip install --no-deps lvfi_pricing_engine-1.1.1-py3-none-any.whl
 ```
 
 O núcleo não lê arquivos, rede, banco, relógio ou variáveis de ambiente. Também
