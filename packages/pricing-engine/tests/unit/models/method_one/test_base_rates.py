@@ -84,7 +84,7 @@ def test_default_formula_audit_public_api_and_immutability() -> None:
     assert calculated.explanation.averages == calculated.contextual_averages.values
     assert calculated.explanation.consolidated_quality is calculated.quality
     assert (
-        calculated.method_version == calculated.explanation.formula_version == "1.0.0a5"
+        calculated.method_version == calculated.explanation.formula_version == "1.0.0"
     )
     assert calculated.explanation.explanation_schema_version == 1
     assert calculated.result_schema_version == 2
@@ -279,4 +279,3 @@ def test_public_exports_are_explicit_and_not_aliased_at_root() -> None:
     assert "calculate_method_one_base_rates" in __all__
     assert "MethodOneBaseRateResult" in __all__
     assert not hasattr(lvfi_pricing, "calculate_method_one_base_rates")
-

@@ -9,9 +9,9 @@
 - **FATO OBSERVADO:** a `LVFI-DISC-002` foi encerrada com auditoria dinâmica, baseline matemática e evidências privadas preservadas.
 - **FATO OBSERVADO:** a `LVFI-ENG-001` foi concluída e seu planejamento foi consolidado no plano técnico do Pricing Engine.
 - **FATO OBSERVADO:** a `LVFI-ENG-002` foi concluída no Pricing Engine `1.0.0`, com validação final registrada no documento 14.
-- **FATO OBSERVADO:** a `LVFI-ENG-003-T01` planejou documentalmente o Método 1, sem implementar código.
+- **FATO OBSERVADO:** a `LVFI-ENG-003` concluiu o Método 1 `1.0.0` na distribuição `lvfi-pricing-engine` `1.1.0`, com schemas canônicos v1 e integração controlada ao Pricing Engine `1.0.0`.
 - **DECISÃO APROVADA:** `M1-PEND-001–007` foram encerradas por `D-M1-001–007`, preservando a rastreabilidade integral.
-- **GATE:** **GO PARA PLANEJAMENTO DA LVFI-ENG-003-T02**. Esse GO não autoriza implementação nem início da T02, que depende de plano próprio, aprovação explícita e gates específicos.
+- **GATE:** a validação final da T10 define o estado de readiness no documento 26; ela não autoriza backend, banco, API, interface, Value Tracker, Método 2 ou Método 3.
 
 ## Propósito
 
@@ -71,6 +71,7 @@ As afirmações relevantes usam os seguintes estados:
 23. [Design técnico do catálogo operacional MVP](23-operational-catalog-implementation-design.md) — fronteira entre catálogo, composição LVFI e Pricing Engine, identidade operacional, migração e validação futura.
 24. [Plano de implementação dos contratos base do Método 1](24-method-one-contracts-implementation-plan.md) — fronteira, contratos, invariantes, testes, riscos e gate da LVFI-ENG-003-T02-C02.
 25. [Decisão do catálogo de ajustes do Método 1](25-method-one-adjustment-catalog-decision.md) — categorias, destinos, ordem, escopos, precedência, faixa e composição matemática da T06.
+26. [Validação final do Método 1](26-method-one-final-validation.md) — auditoria T02–T10, contratos, versões, schemas, hashes, gates, wheel e readiness.
 
 ## ADRs do Pricing Engine
 
@@ -103,6 +104,6 @@ As afirmações relevantes usam os seguintes estados:
 - **LIMITAÇÃO:** a baseline reproduz o comportamento observado nos fixtures; não certifica a planilha em todos os cenários.
 - **LIMITAÇÃO:** a procedência dos registros históricos não está completa no XLSM.
 - **LIMITAÇÃO:** fornecedores não foram selecionados ou contratados; o documento correspondente define critérios e processo de avaliação.
-- **LIMITAÇÃO:** o Pricing Engine `1.0.0` está concluído e o Método 1 possui decisões matemáticas formalizadas, mas nenhuma implementação da ENG-003 está autorizada sem plano e aprovação da Task correspondente; Métodos 2 e 3 e as aplicações permanecem fora do escopo.
+- **LIMITAÇÃO:** o Pricing Engine `1.0.0` e o Método 1 `1.0.0` estão concluídos como núcleo matemático puro. Métodos 2 e 3, backend, banco, API, interface, PDF, dados externos e aplicações permanecem fora do escopo e exigem planejamento e aprovação próprios.
 
 O encerramento técnico, as limitações remanescentes e a referência ao arquivo privado estão em [Auditoria dinâmica e baseline matemático](12-dynamic-audit-and-mathematical-baseline.md).

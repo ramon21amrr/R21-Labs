@@ -588,7 +588,7 @@ def test_application_applies_each_side_in_catalog_order_and_audits_steps() -> No
     assert (
         adjusted.explanation.formula == "refined_rate=base_rate*math.prod(multiplier_i)"
     )
-    assert adjusted.method_version == "1.0.0a5"
+    assert adjusted.method_version == "1.0.0"
     assert adjusted.adjusted_rate_schema_version == 1
     with pytest.raises(FrozenInstanceError):
         adjusted.home_adjusted_rate = 0.0  # type: ignore[misc]
@@ -679,4 +679,3 @@ def test_numeric_failures_are_typed_and_no_forbidden_runtime_imports_exist() -> 
         "lvfi_pricing.distributions",
     ):
         assert forbidden not in text
-

@@ -17,7 +17,7 @@ from tests.unit.models.method_one.test_multipliers import candidate
 from tests.unit.models.method_one.test_orchestration import request
 
 FROZEN_FINAL_RESULT_HASH = (
-    "46fa5524f9d9650d773b531e93676c3c5b6c3b5d281c0bd716ba703476e04480"
+    "e80340fae279a0d2adcc2f6ab31130cfd4cb3b9745a6d0b33d1b31e7afc49b02"
 )
 
 
