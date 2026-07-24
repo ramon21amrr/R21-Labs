@@ -1,6 +1,6 @@
 # LVFI Pricing Engine
 
-Distribuição `1.1.0a7` do Pricing Engine matemático do Linha de Valor Football
+Distribuição `1.1.0` do Pricing Engine matemático do Linha de Valor Football
 Intelligence, preservado na versão matemática `1.0.0`. O pacote recebe taxas
 Poisson já normalizadas, calcula
 distribuições e mercados e devolve contratos imutáveis, determinísticos e
@@ -50,7 +50,7 @@ Falhas de domínio são retornadas como `CalculationError`.
 observações, amostras e qualidade, com schemas estruturais `1`. Eles usam apenas
 a biblioteca padrão, são imutáveis e não realizam I/O.
 
-`lvfi_pricing.models.method_one` disponibiliza o Método 1 `1.0.0a4`: contratos, médias contextuais `uniform/v1`, taxas-base e o catálogo matemático de ajustes `lvfi-method-one-adjustments@1.0.0`. A nova API `run_method_one` consolida o fluxo completo — médias, taxas-base, multiplicadores, `PricingRequest`, Pricing Engine e `MethodOneFinalResult` — em um resultado determinístico com explicação auditável, qualidade, warnings e bloqueios preservados. A etapa não cria serialização ou hashing próprios, persistência ou I/O.
+`lvfi_pricing.models.method_one` disponibiliza o Método 1 `1.0.0`: contratos, médias contextuais `uniform/v1`, taxas-base e o catálogo matemático de ajustes `lvfi-method-one-adjustments@1.0.0`. A API `run_method_one` consolida médias, taxas-base, multiplicadores, `PricingRequest`, Pricing Engine e `MethodOneFinalResult` em um resultado determinístico com explicação auditável, qualidade, warnings e bloqueios preservados. `serialize_method_one_final_result` e `method_one_identity` produzem bytes canônicos schema v1 e hashes SHA-256 separados para entrada, configuração e resultado. Não há persistência ou I/O.
 
 ## Runtime e instalação
 
@@ -58,7 +58,7 @@ Requer CPython `>=3.13,<3.14`. O runtime usa exclusivamente a biblioteca padrão
 e o wheel não declara `Requires-Dist`.
 
 ```powershell
-python -m pip install --no-deps lvfi_pricing_engine-1.1.0a9-py3-none-any.whl
+python -m pip install --no-deps lvfi_pricing_engine-1.1.0-py3-none-any.whl
 ```
 
 O núcleo não lê arquivos, rede, banco, relógio ou variáveis de ambiente. Também
@@ -89,9 +89,9 @@ python -m compileall -q src
 python -m pip check
 ```
 
-A validação final executa 463 testes com 100% de linhas e branches. Detalhes,
-limitações e critérios de integração estão na
-[validação final](../../docs/products/linha-de-valor-football-intelligence/14-pricing-engine-final-validation.md).
+A validação final do Método 1 executa 548 testes com 100% de statements e
+branches. Detalhes, limitações e critérios de integração estão na
+[validação final do Método 1](../../docs/products/linha-de-valor-football-intelligence/26-method-one-final-validation.md).
 
 ## Limitações
 
