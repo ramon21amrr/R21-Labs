@@ -111,3 +111,9 @@ As afirmações relevantes usam os seguintes estados:
 - **LIMITAÇÃO:** o Pricing Engine `1.0.0` e o Método 1 `1.0.0` estão concluídos como núcleo matemático puro. Métodos 2 e 3, backend, banco, API, interface, PDF, dados externos e aplicações permanecem fora do escopo e exigem planejamento e aprovação próprios.
 
 O encerramento técnico, as limitações remanescentes e a referência ao arquivo privado estão em [Auditoria dinâmica e baseline matemático](12-dynamic-audit-and-mathematical-baseline.md).
+
+
+## Backend e banco
+
+- [28. Fundação do backend e banco](28-backend-database-foundation.md) — API FastAPI, PostgreSQL, migrations, health, readiness, observabilidade e fronteira pública do Pricing Engine.
+- [29. Estabilidade numérica do mercado de totais](29-lvfi-eng-004-total-market-numerical-stability.md) — correção oficial do Pricing Engine 1.0.1 e baselines operacionais atualizadas.
