@@ -88,6 +88,7 @@ A aprovação deve ser explícita e vinculada ao objeto aprovado. Uma mudança m
 - [Git e GitHub](git-github.md): branches, commits, push e revisão.
 - [Qualidade](quality.md): critérios de revisão e definição de pronto.
 - [Eficiência de contexto e tokens](context-and-token-efficiency.md): navegação, gates e retomada compactas.
+- [PostgreSQL persistente do Codex](codex-postgres-test-environment.md): ambiente local isolado para migrations e testes de backend.
 - [Templates](templates/): modelos oficiais para execução do processo.
 
 ## Evolução do framework

@@ -15,17 +15,18 @@ A task is documentation-only, Pricing Engine-only, or has no backend/data change
 
 ## Inputs
 
-Approved scope, migration contract, source-data constraints and authorized environment.
+Approved scope, migration contract, source-data constraints and authorized environment. When R21-DEV-002 is installed, use its isolated `codex_task_*` database flow; never create a cluster, `connection.json` or `.env` per task.
 
 ## Steps
 
 1. Locate affected paths with `r21-repository-navigation` and confirm contracts.
 2. Preserve migration reversibility, provenance and disposable-resource cleanup.
-3. Run the `api` profile and migration-specific tests.
+3. When the persistent Codex PostgreSQL environment is available, create a validated `codex_task_*` database, run migrations/tests through `scripts/development/codex-postgres/`, then remove it.
+4. Run the `api` profile and migration-specific tests.
 
 ## Success
 
-Contracts, migrations and resource cleanup are verified without exposing source data.
+Contracts, migrations and resource cleanup are verified without exposing source data, credentials or temporary databases.
 
 ## Stop
 

@@ -1,0 +1,18 @@
+# The managed Codex policy remains authoritative. These narrow project rules
+# document the only PostgreSQL client executables used by the task scripts.
+# They intentionally do not permit service control, initdb, arbitrary network
+# clients, access to port 5432, or writes to the cluster data directory.
+
+prefix_rule(
+    pattern = ["C:\\Program Files\\PostgreSQL\\16\\bin\\psql.exe"],
+    decision = "prompt",
+    justification = "Use the version-pinned PostgreSQL 16 client only through the R21 Codex test-environment scripts.",
+    match = ["C:\\Program Files\\PostgreSQL\\16\\bin\\psql.exe --version"],
+)
+
+prefix_rule(
+    pattern = ["C:\\Program Files\\PostgreSQL\\16\\bin\\pg_isready.exe"],
+    decision = "prompt",
+    justification = "Probe only the local Codex PostgreSQL test service through the R21 scripts.",
+    match = ["C:\\Program Files\\PostgreSQL\\16\\bin\\pg_isready.exe --version"],
+)
