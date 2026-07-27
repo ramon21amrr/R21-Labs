@@ -28,10 +28,10 @@ it is safe to log; otherwise a UUID is generated.
 
 ## Migrations
 
-Alembic owns its `alembic_version` control table. The first revision deliberately
-creates no football-domain table: that model belongs to the next approved task.
-Run `uv run alembic upgrade head` and `uv run alembic downgrade base` to validate
-the reversible migration pipeline against PostgreSQL.
+Alembic owns its `alembic_version` control table. Revision `20260724_01` establishes
+the foundation; `20260727_02` adds the controlled historical-import model. Run
+`uv run alembic upgrade head` and `uv run alembic downgrade 20260724_01` to validate
+the APP-003 rollback path against disposable PostgreSQL.
 
 ## Pricing Engine boundary
 

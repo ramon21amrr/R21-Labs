@@ -29,8 +29,8 @@ def test_initial_migration_is_the_only_current_head(
     config, _ = _config(monkeypatch)
     script = ScriptDirectory.from_config(config)
 
-    assert script.get_heads() == ["20260724_01"]
-    assert script.get_revision("20260724_01").down_revision is None
+    assert script.get_heads() == ["20260727_02"]
+    assert script.get_revision("20260727_02").down_revision == "20260724_01"
 
 
 def test_migration_upgrade_and_downgrade_generate_postgresql_sql(
