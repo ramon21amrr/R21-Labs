@@ -117,3 +117,5 @@ O encerramento técnico, as limitações remanescentes e a referência ao arquiv
 
 - [28. Fundação do backend e banco](28-backend-database-foundation.md) — API FastAPI, PostgreSQL, migrations, health, readiness, observabilidade e fronteira pública do Pricing Engine.
 - [29. Estabilidade numérica do mercado de totais](29-lvfi-eng-004-total-market-numerical-stability.md) — correção oficial do Pricing Engine 1.0.1 e baselines operacionais atualizadas.
+
+- [30. Modelo e importação controlada da base histórica](30-historical-data-model-and-import.md) — contrato de origem, modelo canônico, migrations e validação controlada.
