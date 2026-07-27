@@ -1,52 +1,25 @@
-# R21 Labs — orientação permanente para agentes
+# R21 Labs
 
-## Ordem de autoridade e leitura
+Siga: instrução explícita mais recente do Product Owner; task; contexto da
+empresa; framework; documentação do produto; ADRs; código e testes. Em conflito,
+pare, registre as fontes e peça decisão.
 
-Siga, nesta ordem: instrução explícita mais recente do Product Owner; documento
-da tarefa atual; `docs/company/company-context.md`;
-`docs/development-framework/`; documentação do produto afetado; ADRs
-aplicáveis; código e testes vigentes. Em conflito ou ambiguidade material, pare,
-registre as fontes conflitantes e solicite decisão.
+Antes de mudar: confirme baseline, branch própria, escopo, ambiente autorizado e
+gates. Para localização, arquitetura ou impacto, consulte primeiro
+`graphify-out/graph.json` com consulta limitada quando existir; abra só as fontes
+indicadas e confirme toda decisão material no original. Se o grafo estiver ausente,
+desatualizado ou insuficiente, use busca direcionada e informe-o.
 
-Antes de trabalhar:
+Não leia relatórios do grafo integralmente por padrão, não trate relações inferidas
+como prova e não inicie outra task. Preserve contratos, schemas, hashes, fixtures,
+testes, cobertura, versões e matemática congelada. Não leia segredos nem altere
+produto fora do escopo.
 
-1. consulte o Graphify para localização e impacto quando
-   `graphify-out/graph.json` existir;
-2. abra diretamente os arquivos autoritativos antes de alterar regra crítica;
-3. confirme branch própria da tarefa, baseline, escopo, venv autorizado e gates;
-4. leia a documentação específica da tarefa e do produto afetado.
+Nunca trabalhe diretamente em `main`, force-push, reescreva histórico, use
+`reset --hard` ou `git clean` amplo, instale dependência global, nem altere lock
+sem escopo explícito. Publicação exige a autorização e o fluxo do framework.
 
-O grafo é um índice auxiliar, nunca substitui a fonte original. Atualize-o apenas
-após mudanças estruturais aprovadas e informe quando estiver ausente ou
-desatualizado.
-
-## Invariantes
-
-Preserve matemática congelada, contratos públicos, schemas, hashes, fixtures,
-testes, cobertura e política de versões. Use evolução pequena, verificável e
-reversível. Não diminua testes ou cobertura e não altere expectativas ou hashes
-para esconder divergência.
-
-Todo trabalho de produto usa branch própria, venv autorizado, gates completos e
-relatório final padronizado. Commit, push, PR, merge e release exigem as
-autorizações definidas em `docs/development-framework/opencode-execution-workflow.md`.
-
-## Paradas obrigatórias
-
-Pare quando faltar decisão de produto, houver contradição documental, o baseline
-falhar, surgir arquivo inesperado, a tarefa exigir matemática congelada, contrato
-público ou schema fora do escopo, ou houver necessidade de alterar `main`
-diretamente.
-
-Nunca trabalhe diretamente em `main`, faça push ou merge para `main`, use
-`git reset --hard`, use `git clean` amplo, reescreva histórico, leia/edite
-segredos, instale dependências globais, modifique `requirements-dev.lock` sem
-escopo explícito, ou habilite auto-approve irrestrito.
-
-## Verificação e entrega
-
-Use as skills institucionais sob `.opencode/skills/` e os comandos `/lvfi-*`.
-Antes da entrega, revise escopo e diff, procure segredos, execute
-`git diff --check`, rode os gates aplicáveis e produza o relatório institucional.
-O Codex audita os marcos classificados como obrigatórios em
-`docs/development-framework/codex-audit-matrix.md`.
+Use Skills versionadas em `.agents/skills/` conforme a descrição; procedimentos e
+gates detalhados ficam nelas. Antes da entrega, revise diff e escopo, faça varredura
+de segredos, execute `git diff --check`, rode gates aplicáveis e apresente ao
+Product Owner resultado, evidências, limitações e próxima ação humana, se houver.
