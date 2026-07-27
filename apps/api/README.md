@@ -38,3 +38,7 @@ the APP-003 rollback path against disposable PostgreSQL.
 The API imports only public symbols from `lvfi_pricing.models.method_one`.
 It exposes no pricing endpoint and does not execute `run_method_one` yet. Future
 use cases will supply normalized inputs and persist approved versions and hashes.
+
+## Historical query API
+
+The read-only API exposes `/competitions`, `/seasons`, `/teams` and `/matches` (including canonical match statistics). List endpoints use bounded offset pagination; match filters are exact and documented in the OpenAPI. See [historical match query API](../../docs/products/linha-de-valor-football-intelligence/31-historical-match-query-api.md).

@@ -45,6 +45,20 @@ def create_app(
     settings: Settings | None = None, database: ManagedDatabase | None = None
 ) -> FastAPI:
     """Build the configured API without starting external infrastructure eagerly."""
+    from fastapi.exceptions import RequestValidationError
+
+    from lvfi_api.domain.errors import (
+        InvalidQueryError,
+        ResourceNotFoundError,
+        StatisticsNotFoundError,
+    )
+    from lvfi_api.presentation.historical_errors import (
+        invalid_query_handler,
+        request_validation_handler,
+        resource_not_found_handler,
+    )
+    from lvfi_api.presentation.historical_routes import router as historical_router
+
     effective_settings = settings or get_settings()
     configure_logging(effective_settings)
     app = FastAPI(
@@ -62,6 +76,11 @@ def create_app(
     app.add_exception_handler(
         PersistenceUnavailableError, persistence_unavailable_handler
     )
+    app.add_exception_handler(InvalidQueryError, invalid_query_handler)
+    app.add_exception_handler(ResourceNotFoundError, resource_not_found_handler)
+    app.add_exception_handler(StatisticsNotFoundError, resource_not_found_handler)
+    app.add_exception_handler(RequestValidationError, request_validation_handler)
     app.add_exception_handler(Exception, unexpected_error_handler)
     app.include_router(router)
+    app.include_router(historical_router)
     return app
