@@ -3,14 +3,19 @@
 
 from __future__ import annotations
 
+import json
 from collections.abc import Callable
 from datetime import date, datetime
 from typing import Any, cast
 
 from fastapi import APIRouter, Depends, Path, Query, Request
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 from lvfi_api.application.historical_queries import HistoricalQueryService
+from lvfi_api.application.method_one_execution import (
+    MethodOneExecution,
+    MethodOneExecutionService,
+)
 from lvfi_api.application.method_one_samples import MethodOneSampleService
 from lvfi_api.domain.errors import InvalidQueryError, PersistenceUnavailableError
 from lvfi_api.domain.historical_queries import (
@@ -233,6 +238,30 @@ class MethodOneSampleResponse(BaseModel):
         )
 
 
+class MethodOnePricingResponse(BaseModel):
+    """Unchanged public Method One serialization with its public identity fields."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    content: dict[str, Any]
+    method_version: str
+    package_version: str
+    root_type: str
+    schema_version: int
+    content_hash: str
+    hash_algorithm: str
+
+    @classmethod
+    def from_execution(cls, execution: MethodOneExecution) -> MethodOnePricingResponse:
+        payload = execution.payload
+        value = cast(dict[str, Any], json.loads(payload.canonical_bytes))
+        return cls(
+            **value,
+            content_hash=payload.content_hash,
+            hash_algorithm=payload.hash_algorithm,
+        )
+
+
 class CompetitionPageResponse(PaginationResponse):
     items: list[ReferenceResponse]
 
@@ -294,8 +323,18 @@ async def get_method_one_sample_service(request: Request) -> MethodOneSampleServ
     )
 
 
-PageNumber = int
+async def get_method_one_execution_service(
+    request: Request,
+) -> MethodOneExecutionService:
+    """Obtain an injected executor or compose it from the APP-005 sample service."""
+    injected = getattr(request.app.state, "method_one_execution_service", None)
+    if injected is not None:
+        return cast(MethodOneExecutionService, injected)
+    return MethodOneExecutionService(await get_method_one_sample_service(request))  # pragma: no cover
+
+
 PageSize = int
+PageNumber = int
 
 
 @router.get(
@@ -547,6 +586,55 @@ async def get_method_one_sample(
     service: MethodOneSampleService = Depends(get_method_one_sample_service),
 ) -> MethodOneSampleResponse:
     return MethodOneSampleResponse.from_contract(await service.get_sample(match_id))
+
+
+@router.post(
+    "/matches/{match_id}/method-one/pricing",
+    response_model=MethodOnePricingResponse,
+    summary="Execute Method 1 pricing",
+    description=(
+        "Builds the deterministic APP-005 samples, blocks incomplete or invalid "
+        "samples, and returns the unmodified public Method 1 canonical payload."
+    ),
+    responses={
+        404: {"description": "Target match not found."},
+        422: {"description": "Method 1 sample or execution is unavailable."},
+    },
+    openapi_extra={
+        "responses": {
+            "200": {
+                "content": {
+                    "application/json": {
+                        "example": {
+                            "schema_version": 1,
+                            "root_type": "MethodOneFinalResult",
+                            "content": {
+                                "content": {
+                                    "fields": {"match_id": "101"},
+                                    "schema_version": 1,
+                                    "type": "MethodOneFinalResult",
+                                },
+                                "method_version": "1.0.0",
+                                "package_version": "1.1.1",
+                                "root_type": "MethodOneFinalResult",
+                                "schema_version": 1,
+                            },
+                            "content_hash": "0" * 64,
+                            "method_version": "1.0.0",
+                            "package_version": "1.1.1",
+                            "hash_algorithm": "sha256",
+                        }
+                    }
+                }
+            }
+        }
+    },
+)
+async def execute_method_one_pricing(
+    match_id: int = Path(ge=1, description="Stable target match identifier."),
+    service: MethodOneExecutionService = Depends(get_method_one_execution_service),
+) -> MethodOnePricingResponse:
+    return MethodOnePricingResponse.from_execution(await service.execute(match_id))
 
 
 @router.get(

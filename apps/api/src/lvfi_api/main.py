@@ -49,11 +49,16 @@ def create_app(
 
     from lvfi_api.domain.errors import (
         InvalidQueryError,
+        MethodOneEngineError,
+        MethodOneSampleIncompleteError,
+        MethodOneSampleInvalidError,
         ResourceNotFoundError,
         StatisticsNotFoundError,
     )
     from lvfi_api.presentation.historical_errors import (
         invalid_query_handler,
+        method_one_engine_error_handler,
+        method_one_sample_blocked_handler,
         request_validation_handler,
         resource_not_found_handler,
     )
@@ -77,6 +82,13 @@ def create_app(
         PersistenceUnavailableError, persistence_unavailable_handler
     )
     app.add_exception_handler(InvalidQueryError, invalid_query_handler)
+    app.add_exception_handler(
+        MethodOneSampleIncompleteError, method_one_sample_blocked_handler
+    )
+    app.add_exception_handler(
+        MethodOneSampleInvalidError, method_one_sample_blocked_handler
+    )
+    app.add_exception_handler(MethodOneEngineError, method_one_engine_error_handler)
     app.add_exception_handler(ResourceNotFoundError, resource_not_found_handler)
     app.add_exception_handler(StatisticsNotFoundError, resource_not_found_handler)
     app.add_exception_handler(RequestValidationError, request_validation_handler)
