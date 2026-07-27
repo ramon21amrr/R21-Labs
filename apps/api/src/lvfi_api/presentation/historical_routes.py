@@ -11,11 +11,16 @@ from fastapi import APIRouter, Depends, Path, Query, Request
 from pydantic import BaseModel
 
 from lvfi_api.application.historical_queries import HistoricalQueryService
+from lvfi_api.application.method_one_samples import MethodOneSampleService
 from lvfi_api.domain.errors import InvalidQueryError, PersistenceUnavailableError
 from lvfi_api.domain.historical_queries import (
     Match,
     MatchFilters,
     MatchStatistics,
+    MethodOneSample,
+    MethodOneSampleMatch,
+    MethodOneSampleParameters,
+    MethodOneTeamSample,
     Page,
     Reference,
     Season,
@@ -23,6 +28,7 @@ from lvfi_api.domain.historical_queries import (
     TeamStatistics,
 )
 from lvfi_api.persistence.historical_queries import SqlAlchemyHistoricalQueryRepository
+from lvfi_api.persistence.method_one_samples import SqlAlchemyMethodOneSampleRepository
 
 DEFAULT_PAGE_SIZE = 25
 MAX_PAGE_SIZE = 100
@@ -148,6 +154,85 @@ class MatchStatisticsResponse(BaseModel):
         )
 
 
+class MethodOneSampleParametersResponse(BaseModel):
+    """Safe, fixed selection parameters for the initial Method 1 sample."""
+
+    requested_count: int
+    competition_id: int
+    season_id: int
+    include_previous_season: bool
+    ordering: str
+    statistic_periods: list[str]
+
+    @classmethod
+    def from_contract(
+        cls, value: MethodOneSampleParameters
+    ) -> MethodOneSampleParametersResponse:
+        return cls(
+            requested_count=value.requested_count,
+            competition_id=value.competition_id,
+            season_id=value.season_id,
+            include_previous_season=value.include_previous_season,
+            ordering=value.ordering,
+            statistic_periods=list(value.statistic_periods),
+        )
+
+
+class MethodOneSampleMatchResponse(BaseModel):
+    match: MatchResponse
+    statistics: MatchStatisticsResponse
+
+    @classmethod
+    def from_contract(cls, value: MethodOneSampleMatch) -> MethodOneSampleMatchResponse:
+        return cls(
+            match=MatchResponse.from_contract(value.match),
+            statistics=MatchStatisticsResponse.from_contract(value.statistics),
+        )
+
+
+class MethodOneTeamSampleResponse(BaseModel):
+    venue_condition: str
+    expected_count: int
+    found_count: int
+    complete: bool
+    insufficient_reason: str | None
+    matches: list[MethodOneSampleMatchResponse]
+
+    @classmethod
+    def from_contract(cls, value: MethodOneTeamSample) -> MethodOneTeamSampleResponse:
+        return cls(
+            venue_condition=value.venue_condition,
+            expected_count=value.expected_count,
+            found_count=value.found_count,
+            complete=value.complete,
+            insufficient_reason=value.insufficient_reason,
+            matches=[
+                MethodOneSampleMatchResponse.from_contract(item)
+                for item in value.matches
+            ],
+        )
+
+
+class MethodOneSampleResponse(BaseModel):
+    target_match: MatchResponse
+    parameters: MethodOneSampleParametersResponse
+    home_sample: MethodOneTeamSampleResponse
+    away_sample: MethodOneTeamSampleResponse
+    warnings: list[str]
+
+    @classmethod
+    def from_contract(cls, value: MethodOneSample) -> MethodOneSampleResponse:
+        return cls(
+            target_match=MatchResponse.from_contract(value.target_match),
+            parameters=MethodOneSampleParametersResponse.from_contract(
+                value.parameters
+            ),
+            home_sample=MethodOneTeamSampleResponse.from_contract(value.home_sample),
+            away_sample=MethodOneTeamSampleResponse.from_contract(value.away_sample),
+            warnings=list(value.warnings),
+        )
+
+
 class CompetitionPageResponse(PaginationResponse):
     items: list[ReferenceResponse]
 
@@ -193,6 +278,20 @@ async def get_service(request: Request) -> HistoricalQueryService:
     if not hasattr(database, "session"):
         raise PersistenceUnavailableError("database query session unavailable")
     return HistoricalQueryService(SqlAlchemyHistoricalQueryRepository(database))
+
+
+async def get_method_one_sample_service(request: Request) -> MethodOneSampleService:
+    """Obtain an injected service or compose the read-only query boundaries."""
+    injected = getattr(request.app.state, "method_one_sample_service", None)
+    if injected is not None:
+        return cast(MethodOneSampleService, injected)
+    database = request.app.state.database
+    if not hasattr(database, "session"):
+        raise PersistenceUnavailableError("database query session unavailable")
+    return MethodOneSampleService(
+        HistoricalQueryService(SqlAlchemyHistoricalQueryRepository(database)),
+        SqlAlchemyMethodOneSampleRepository(database),
+    )
 
 
 PageNumber = int
@@ -360,6 +459,94 @@ async def list_matches(
         page_size,
     )
     return MatchPageResponse(**_page_response(page_result, MatchResponse.from_contract))
+
+
+@router.get(
+    "/matches/{match_id}/method-one/sample",
+    response_model=MethodOneSampleResponse,
+    summary="Build Method 1 historical samples",
+    description=(
+        "Builds deterministic home and away historical samples without executing "
+        "Method 1 or calculating pricing outputs."
+    ),
+    openapi_extra={
+        "responses": {
+            "200": {
+                "content": {
+                    "application/json": {
+                        "example": {
+                            "target_match": {
+                                "id": 101,
+                                "played_on": "2026-07-10",
+                                "competition": {
+                                    "id": 1,
+                                    "display_name": "Example League",
+                                    "created_at": "2026-01-01T00:00:00Z",
+                                },
+                                "season": {
+                                    "id": 2,
+                                    "competition": {
+                                        "id": 1,
+                                        "display_name": "Example League",
+                                        "created_at": "2026-01-01T00:00:00Z",
+                                    },
+                                    "label": "2026",
+                                    "created_at": "2026-01-01T00:00:00Z",
+                                },
+                                "home_team": {
+                                    "id": 3,
+                                    "display_name": "Example Home",
+                                    "created_at": "2026-01-01T00:00:00Z",
+                                },
+                                "away_team": {
+                                    "id": 4,
+                                    "display_name": "Example Away",
+                                    "created_at": "2026-01-01T00:00:00Z",
+                                },
+                                "has_statistics": True,
+                                "created_at": "2026-01-01T00:00:00Z",
+                            },
+                            "parameters": {
+                                "requested_count": 10,
+                                "competition_id": 1,
+                                "season_id": 2,
+                                "include_previous_season": False,
+                                "ordering": "played_on_desc_match_id_asc",
+                                "statistic_periods": [
+                                    "goals_first_half",
+                                    "goals_regulation_time",
+                                ],
+                            },
+                            "home_sample": {
+                                "venue_condition": "home",
+                                "expected_count": 10,
+                                "found_count": 10,
+                                "complete": True,
+                                "insufficient_reason": None,
+                                "matches": [],
+                            },
+                            "away_sample": {
+                                "venue_condition": "away",
+                                "expected_count": 8,
+                                "found_count": 8,
+                                "complete": False,
+                                "insufficient_reason": "insufficient_eligible_matches",
+                                "matches": [],
+                            },
+                            "warnings": ["away_sample_incomplete"],
+                        }
+                    }
+                }
+            }
+        }
+    },
+    responses={404: {"description": "Target match not found."}},
+)
+async def get_method_one_sample(
+    match_id: int = Path(ge=1, description="Stable target match identifier."),
+    service: MethodOneSampleService = Depends(get_method_one_sample_service),
+) -> MethodOneSampleResponse:
+    return MethodOneSampleResponse.from_contract(await service.get_sample(match_id))
 
 
 @router.get(

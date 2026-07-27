@@ -70,6 +70,49 @@ class MatchStatistics:
 
 
 @dataclass(frozen=True, slots=True)
+class MethodOneSampleParameters:
+    """Authoritative parameters used to select a Method 1 sample."""
+
+    requested_count: int
+    competition_id: int
+    season_id: int
+    include_previous_season: bool
+    ordering: str
+    statistic_periods: tuple[str, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class MethodOneSampleMatch:
+    """One eligible historical match and its normalized observations."""
+
+    match: Match
+    statistics: MatchStatistics
+
+
+@dataclass(frozen=True, slots=True)
+class MethodOneTeamSample:
+    """One independently selected home or away Method 1 series."""
+
+    venue_condition: str
+    expected_count: int
+    found_count: int
+    complete: bool
+    insufficient_reason: str | None
+    matches: tuple[MethodOneSampleMatch, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class MethodOneSample:
+    """Public-safe construction result; it intentionally contains no pricing."""
+
+    target_match: Match
+    parameters: MethodOneSampleParameters
+    home_sample: MethodOneTeamSample
+    away_sample: MethodOneTeamSample
+    warnings: tuple[str, ...]
+
+
+@dataclass(frozen=True, slots=True)
 class MatchFilters:
     """Supported, exact filters for historical match listing."""
 
