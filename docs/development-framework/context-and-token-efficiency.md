@@ -61,6 +61,7 @@ backend ou Pricing Engine em tarefas documentais e impedem publicação implíci
   contra branch e HEAD.
 - `bootstrap-graphify.ps1`: verifica/instala somente a versão testada no ambiente
   isolado de `uv`.
+- `codex-postgres/`: mantém o cluster local uma vez e reduz cada task de backend a criar, migrar/testar, validar e remover um banco `codex_task_*`, sem `connection.json` ou senha em contexto.
 
 Publicação não é automatizada: o checklist versionado exige ação explícita e evita
 push ou merge involuntário.

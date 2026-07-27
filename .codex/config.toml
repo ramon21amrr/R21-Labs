@@ -1,0 +1,9 @@
+# R21-DEV-002: project-scoped, least-privilege Codex settings.
+# Managed settings remain authoritative. This layer grants no network access and
+# no write access to the PostgreSQL cluster, binaries, or the existing instance.
+
+sandbox_mode = "workspace-write"
+
+[sandbox_workspace_write]
+writable_roots = ["C:\\ProgramData\\R21\\CodexPostgres16\\credentials"]
+network_access = false
