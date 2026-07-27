@@ -87,6 +87,7 @@ A aprovação deve ser explícita e vinculada ao objeto aprovado. Uma mudança m
 - [Colaboração com IA](ai-collaboration.md): responsabilidades e limites dos agentes.
 - [Git e GitHub](git-github.md): branches, commits, push e revisão.
 - [Qualidade](quality.md): critérios de revisão e definição de pronto.
+- [Eficiência de contexto e tokens](context-and-token-efficiency.md): navegação, gates e retomada compactas.
 - [Templates](templates/): modelos oficiais para execução do processo.
 
 ## Evolução do framework

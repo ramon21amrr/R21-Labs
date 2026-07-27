@@ -1,5 +1,27 @@
-# VCS, tooling environments, caches, builds and generated artifacts
+# Private inputs, credentials and local operational artifacts.
+inputs/
+**/*.xlsm
+**/*.xlsx
+**/*.csv
+**/*.sqlite
+**/*.db
+**/connection.json
+.env
+.env.*
+**/*credential*
+**/*secret*
+**/*.pem
+**/*.key
+**/*.p12
+**/*.pfx
+
+# Generated, cached, binary or disposable material.
 .git/
+graphify-out/
+.r21-artifacts/
+.agents/tmp/
+.agents/cache/
+.agents/state/
 **/.venv/
 **/venv/
 **/__pycache__/
@@ -7,28 +29,17 @@
 **/.hypothesis/
 **/.mypy_cache/
 **/.ruff_cache/
+**/node_modules/
 **/build/
 **/dist/
 **/*.egg-info/
-**/node_modules/
-graphify-out/
-
-# Proprietary inputs and local/temporary material
-inputs/
-**/backup/
-**/backups/
-**/tmp/
-**/temp/
-*.log
-
-# Secrets and credentials
-.env
-.env.*
-!.env.example
-**/auth.json
-**/*credential*
-**/*secret*
-**/*.pem
-**/*.key
-**/*.p12
-**/*.pfx
+**/*.whl
+**/*.log
+**/*.pdf
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.gif
+**/*.zip
+**/*.tar
+**/*.gz
