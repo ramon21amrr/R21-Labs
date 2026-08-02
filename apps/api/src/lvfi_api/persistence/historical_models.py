@@ -272,3 +272,59 @@ Index(
     import_issues.c.severity,
 )
 Index("ix_matches_played_on", matches.c.played_on)
+
+# An execution is a durable audit record, not a mutable work item. The migration
+# also installs a PostgreSQL trigger so append-only is enforced below the API.
+pricing_executions = Table(
+    "pricing_executions",
+    metadata,
+    Column("execution_id", String(36), primary_key=True),
+    Column(
+        "match_id",
+        BigInteger,
+        ForeignKey("matches.id", ondelete="RESTRICT"),
+        nullable=False,
+    ),
+    Column("status", String(32), nullable=False),
+    Column(
+        "created_at", DateTime(timezone=True), nullable=False, server_default=func.now()
+    ),
+    Column("finalized_at", DateTime(timezone=True), nullable=False),
+    Column("correlation_id", String(128), nullable=False),
+    Column("idempotency_key", String(128)),
+    Column("sample_fingerprint", String(64), nullable=False),
+    Column("input_fingerprint", String(64)),
+    Column("result_fingerprint", String(64)),
+    Column("pricing_engine_version", String(32), nullable=False),
+    Column("distribution_version", String(32), nullable=False),
+    Column("method_one_version", String(32), nullable=False),
+    Column("schema_version", Integer, nullable=False),
+    Column("public_parameters", JSON, nullable=False),
+    Column("canonical_input", Text),
+    Column("canonical_result", Text),
+    Column("failure_code", String(80)),
+    CheckConstraint(
+        "status IN ('completed', 'blocked_sample_incomplete', 'technical_failure')",
+        name="pricing_execution_status",
+    ),
+    CheckConstraint(
+        "(status = 'completed' AND result_fingerprint IS NOT NULL "
+        "AND canonical_input IS NOT NULL AND canonical_result IS NOT NULL "
+        "AND failure_code IS NULL) OR "
+        "(status = 'blocked_sample_incomplete' AND result_fingerprint IS NULL "
+        "AND canonical_result IS NULL AND failure_code = 'method_one_sample_incomplete') OR "
+        "(status = 'technical_failure' AND result_fingerprint IS NULL "
+        "AND canonical_result IS NULL AND failure_code = 'method_one_execution_failed')",
+        name="pricing_execution_status_shape",
+    ),
+    UniqueConstraint(
+        "match_id", "idempotency_key", name="execution_match_idempotency_key"
+    ),
+)
+
+Index(
+    "ix_pricing_executions_match_created_id",
+    pricing_executions.c.match_id,
+    pricing_executions.c.created_at.desc(),
+    pricing_executions.c.execution_id.desc(),
+)
