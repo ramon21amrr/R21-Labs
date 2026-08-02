@@ -63,6 +63,9 @@ def create_app(
         resource_not_found_handler,
     )
     from lvfi_api.presentation.historical_routes import router as historical_router
+    from lvfi_api.presentation.pricing_execution_routes import (
+        router as pricing_execution_router,
+    )
 
     effective_settings = settings or get_settings()
     configure_logging(effective_settings)
@@ -95,4 +98,5 @@ def create_app(
     app.add_exception_handler(Exception, unexpected_error_handler)
     app.include_router(router)
     app.include_router(historical_router)
+    app.include_router(pricing_execution_router)
     return app

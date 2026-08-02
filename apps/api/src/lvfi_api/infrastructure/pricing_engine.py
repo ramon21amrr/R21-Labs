@@ -6,6 +6,7 @@ from lvfi_pricing.models.method_one import (
     METHOD_ONE_CANONICAL_SCHEMA_VERSION,
     MethodOneFinalResult,
     MethodOneRequest,
+    method_one_canonical_bytes,
     method_one_sha256,
     run_method_one,
     serialize_method_one_final_result,
@@ -29,6 +30,10 @@ class PublicMethodOneFacade:
     def sha256(value: object) -> object:
         return method_one_sha256(value)
 
+    @staticmethod
+    def canonical_bytes(value: object) -> object:
+        return method_one_canonical_bytes(value)
+
 
 public_method_one = PublicMethodOneFacade()
 
@@ -39,5 +44,6 @@ def pricing_engine_is_available() -> bool:
         callable(public_method_one.run)
         and callable(public_method_one.serialize)
         and callable(public_method_one.sha256)
+        and callable(public_method_one.canonical_bytes)
         and PUBLIC_METHOD_ONE_SCHEMA_VERSION == 1
     )

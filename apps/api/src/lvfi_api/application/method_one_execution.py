@@ -64,6 +64,8 @@ class MethodOnePublicFacade(Protocol):
 
     def sha256(self, value: object) -> object: ...
 
+    def canonical_bytes(self, value: object) -> object: ...
+
 
 @dataclass(frozen=True, slots=True)
 class MethodOneExecution:
