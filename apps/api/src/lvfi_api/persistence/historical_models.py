@@ -328,3 +328,45 @@ Index(
     pricing_executions.c.created_at.desc(),
     pricing_executions.c.execution_id.desc(),
 )
+
+pricing_execution_reproductions = Table(
+    "pricing_execution_reproductions",
+    metadata,
+    Column("reproduction_id", String(36), primary_key=True),
+    Column(
+        "execution_id",
+        String(36),
+        ForeignKey("pricing_executions.execution_id", ondelete="RESTRICT"),
+        nullable=False,
+    ),
+    Column("outcome", String(32), nullable=False),
+    Column(
+        "created_at", DateTime(timezone=True), nullable=False, server_default=func.now()
+    ),
+    Column("finalized_at", DateTime(timezone=True), nullable=False),
+    Column("correlation_id", String(128), nullable=False),
+    Column("original_input_fingerprint", String(64)),
+    Column("reproduced_input_fingerprint", String(64)),
+    Column("original_result_fingerprint", String(64)),
+    Column("reproduced_result_fingerprint", String(64)),
+    Column("original_pricing_engine_version", String(32), nullable=False),
+    Column("current_pricing_engine_version", String(32), nullable=False),
+    Column("original_distribution_version", String(32), nullable=False),
+    Column("current_distribution_version", String(32), nullable=False),
+    Column("original_method_one_version", String(32), nullable=False),
+    Column("current_method_one_version", String(32), nullable=False),
+    Column("original_schema_version", Integer, nullable=False),
+    Column("current_schema_version", Integer, nullable=False),
+    Column("differences", JSON, nullable=False),
+    Column("failure_code", String(80)),
+    CheckConstraint(
+        "outcome IN ('exact_match', 'mismatch', 'incompatible_version', 'blocked', 'technical_failure')",
+        name="pricing_reproduction_outcome",
+    ),
+)
+Index(
+    "ix_pricing_reproductions_execution_created_id",
+    pricing_execution_reproductions.c.execution_id,
+    pricing_execution_reproductions.c.created_at.desc(),
+    pricing_execution_reproductions.c.reproduction_id.desc(),
+)
