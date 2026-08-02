@@ -15,6 +15,7 @@ from lvfi_api.domain.historical_queries import Page
 from lvfi_api.domain.pricing_executions import (
     PricingExecution,
     PricingExecutionDraft,
+    PricingExecutionHistoryFilters,
     PricingExecutionStatus,
 )
 from lvfi_api.persistence.historical_models import matches, pricing_executions
@@ -70,6 +71,21 @@ class SqlAlchemyPricingExecutionRepository:
         except SQLAlchemyError as exc:
             raise PersistenceUnavailableError("pricing execution query failed") from exc
         return _record(row) if row is not None else None
+
+    async def get_many(
+        self, execution_ids: tuple[str, ...]
+    ) -> tuple[PricingExecution, ...]:
+        if not execution_ids:
+            return ()
+        statement = select(pricing_executions).where(
+            pricing_executions.c.execution_id.in_(execution_ids)
+        )
+        try:
+            async with self._database.session() as session:
+                rows = (await session.execute(statement)).mappings().all()
+        except SQLAlchemyError as exc:
+            raise PersistenceUnavailableError("pricing execution query failed") from exc
+        return tuple(_record(row) for row in rows)
 
     async def get_by_idempotency_key(
         self, match_id: int, idempotency_key: str
@@ -133,15 +149,56 @@ class SqlAlchemyPricingExecutionRepository:
         return _record(row)
 
     async def list_by_match(
-        self, match_id: int, page: int, page_size: int
+        self,
+        match_id: int,
+        page: int,
+        page_size: int,
+        filters: PricingExecutionHistoryFilters | None = None,
     ) -> Page[PricingExecution] | None:
+        conditions = [pricing_executions.c.match_id == match_id]
+        if filters is not None:
+            if filters.status is not None:
+                conditions.append(pricing_executions.c.status == filters.status.value)
+            if filters.created_from is not None:
+                conditions.append(
+                    pricing_executions.c.created_at >= filters.created_from
+                )
+            if filters.created_to is not None:
+                conditions.append(pricing_executions.c.created_at <= filters.created_to)
+            if filters.pricing_engine_version is not None:
+                conditions.append(
+                    pricing_executions.c.pricing_engine_version
+                    == filters.pricing_engine_version
+                )
+            if filters.method_one_version is not None:
+                conditions.append(
+                    pricing_executions.c.method_one_version
+                    == filters.method_one_version
+                )
+            if filters.sample_fingerprint is not None:
+                conditions.append(
+                    pricing_executions.c.sample_fingerprint
+                    == filters.sample_fingerprint
+                )
+            if filters.correlation_id is not None:
+                conditions.append(
+                    pricing_executions.c.correlation_id == filters.correlation_id
+                )
+        descending = filters is None or filters.order == "created_at_desc"
+        created_order = (
+            pricing_executions.c.created_at.desc()
+            if descending
+            else pricing_executions.c.created_at.asc()
+        )
+        identifier_order = (
+            pricing_executions.c.execution_id.desc()
+            if descending
+            else pricing_executions.c.execution_id.asc()
+        )
         statement = (
             select(pricing_executions)
-            .where(pricing_executions.c.match_id == match_id)
-            .order_by(
-                pricing_executions.c.created_at.desc(),
-                pricing_executions.c.execution_id.desc(),
-            )
+            .where(*conditions)
+            .order_by(created_order, identifier_order)
         )
         try:
             async with self._database.session() as session:

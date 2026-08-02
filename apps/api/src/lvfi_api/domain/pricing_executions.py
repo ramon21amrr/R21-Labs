@@ -60,3 +60,17 @@ class PricingExecutionDraft:
     canonical_input: str | None
     canonical_result: str | None
     failure_code: str | None
+
+
+@dataclass(frozen=True, slots=True)
+class PricingExecutionHistoryFilters:
+    """Exact, public-safe filters for one match's immutable execution ledger."""
+
+    status: PricingExecutionStatus | None = None
+    created_from: datetime | None = None
+    created_to: datetime | None = None
+    pricing_engine_version: str | None = None
+    method_one_version: str | None = None
+    sample_fingerprint: str | None = None
+    correlation_id: str | None = None
+    order: str = "created_at_desc"

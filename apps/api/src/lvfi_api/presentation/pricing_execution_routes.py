@@ -9,12 +9,20 @@ from typing import Any, Literal, cast
 from fastapi import APIRouter, Depends, Header, Path, Query, Request
 from pydantic import BaseModel, ConfigDict
 
+from lvfi_api.application.pricing_execution_comparison import (
+    PricingExecutionComparison,
+    PricingExecutionComparisonService,
+)
 from lvfi_api.application.pricing_execution_persistence import (
     PricingExecutionPersistenceService,
 )
 from lvfi_api.domain.errors import PersistenceUnavailableError
 from lvfi_api.domain.historical_queries import Page
-from lvfi_api.domain.pricing_executions import PricingExecution
+from lvfi_api.domain.pricing_executions import (
+    PricingExecution,
+    PricingExecutionHistoryFilters,
+    PricingExecutionStatus,
+)
 from lvfi_api.infrastructure.observability import correlation_id
 from lvfi_api.persistence.pricing_executions import SqlAlchemyPricingExecutionRepository
 from lvfi_api.presentation.historical_routes import get_method_one_sample_service
@@ -92,6 +100,49 @@ class PricingExecutionPageResponse(BaseModel):
         )
 
 
+class PricingExecutionComparisonFieldResponse(BaseModel):
+    """Stable public projection of one compared scalar canonical field."""
+
+    path: str
+    left: Any
+    right: Any
+    equal: bool
+    delta: int | float | None
+
+
+class PricingExecutionComparisonResponse(BaseModel):
+    """Read-only comparison of two persisted Method 1 execution records."""
+
+    left_execution_id: str
+    right_execution_id: str
+    match_id: int
+    canonical_compatible: bool
+    incompatibilities: list[str]
+    fields: list[PricingExecutionComparisonFieldResponse]
+
+    @classmethod
+    def from_contract(
+        cls, value: PricingExecutionComparison
+    ) -> PricingExecutionComparisonResponse:
+        return cls(
+            left_execution_id=value.left_execution_id,
+            right_execution_id=value.right_execution_id,
+            match_id=value.match_id,
+            canonical_compatible=value.canonical_compatible,
+            incompatibilities=list(value.incompatibilities),
+            fields=[
+                PricingExecutionComparisonFieldResponse(
+                    path=field.path,
+                    left=field.left,
+                    right=field.right,
+                    equal=field.equal,
+                    delta=field.delta,
+                )
+                for field in value.fields
+            ],
+        )
+
+
 async def get_pricing_execution_service(
     request: Request,
 ) -> PricingExecutionPersistenceService:
@@ -105,6 +156,21 @@ async def get_pricing_execution_service(
     return PricingExecutionPersistenceService(
         await get_method_one_sample_service(request),
         SqlAlchemyPricingExecutionRepository(database),
+    )
+
+
+async def get_pricing_execution_comparison_service(
+    request: Request,
+) -> PricingExecutionComparisonService:
+    """Compose the comparison flow with the read-only execution repository."""
+    injected = getattr(request.app.state, "pricing_execution_comparison_service", None)
+    if injected is not None:
+        return cast(PricingExecutionComparisonService, injected)
+    database = request.app.state.database
+    if not hasattr(database, "session"):
+        raise PersistenceUnavailableError("database query session unavailable")
+    return PricingExecutionComparisonService(
+        SqlAlchemyPricingExecutionRepository(database)
     )
 
 
@@ -194,8 +260,8 @@ async def get_pricing_execution(
     response_model=PricingExecutionPageResponse,
     summary="List persisted Method 1 executions for a match",
     description=(
-        "Lists immutable records in deterministic created_at descending, execution_id "
-        "descending order using bounded offset pagination."
+        "Lists immutable records using exact public filters, stable created_at and "
+        "execution_id ordering, and bounded offset pagination."
     ),
     responses={404: {"description": "Target match not found."}},
 )
@@ -203,10 +269,57 @@ async def list_pricing_executions(
     match_id: int = Path(ge=1, description="Stable target match identifier."),
     page: int = Query(default=1, ge=1),
     page_size: int = Query(default=DEFAULT_PAGE_SIZE, ge=1, le=MAX_PAGE_SIZE),
+    status: PricingExecutionStatus | None = Query(default=None),
+    created_from: datetime | None = Query(default=None),
+    created_to: datetime | None = Query(default=None),
+    pricing_engine_version: str | None = Query(
+        default=None, min_length=1, max_length=32
+    ),
+    method_one_version: str | None = Query(default=None, min_length=1, max_length=32),
+    sample_fingerprint: str | None = Query(default=None, min_length=64, max_length=64),
+    correlation_id: str | None = Query(default=None, min_length=1, max_length=128),
+    order: Literal["created_at_desc", "created_at_asc"] = Query(
+        default="created_at_desc"
+    ),
     service: PricingExecutionPersistenceService = Depends(
         get_pricing_execution_service
     ),
 ) -> PricingExecutionPageResponse:
+    filters = PricingExecutionHistoryFilters(
+        status=status,
+        created_from=created_from,
+        created_to=created_to,
+        pricing_engine_version=pricing_engine_version,
+        method_one_version=method_one_version,
+        sample_fingerprint=sample_fingerprint,
+        correlation_id=correlation_id,
+        order=order,
+    )
     return PricingExecutionPageResponse.from_contract(
-        await service.list_by_match(match_id, page, page_size)
+        await service.list_by_match(match_id, page, page_size, filters)
+    )
+
+
+@router.get(
+    "/pricing-execution-comparisons",
+    response_model=PricingExecutionComparisonResponse,
+    summary="Compare two persisted Method 1 executions",
+    description=(
+        "Compares stored public canonical records only. It never replays or "
+        "recalculates the Pricing Engine."
+    ),
+    responses={
+        404: {"description": "Pricing execution not found."},
+        422: {"description": "Incompatible comparison request."},
+    },
+)
+async def compare_pricing_executions(
+    left_execution_id: str = Query(min_length=36, max_length=36),
+    right_execution_id: str = Query(min_length=36, max_length=36),
+    service: PricingExecutionComparisonService = Depends(
+        get_pricing_execution_comparison_service
+    ),
+) -> PricingExecutionComparisonResponse:
+    return PricingExecutionComparisonResponse.from_contract(
+        await service.compare(left_execution_id, right_execution_id)
     )
