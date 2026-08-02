@@ -32,6 +32,7 @@ from lvfi_api.domain.historical_queries import MethodOneSample, Page
 from lvfi_api.domain.pricing_executions import (
     PricingExecution,
     PricingExecutionDraft,
+    PricingExecutionHistoryFilters,
     PricingExecutionStatus,
 )
 from lvfi_api.infrastructure.pricing_engine import public_method_one
@@ -54,7 +55,11 @@ class PricingExecutionRepository(Protocol):
     async def create(self, draft: PricingExecutionDraft) -> PricingExecution: ...
 
     async def list_by_match(
-        self, match_id: int, page: int, page_size: int
+        self,
+        match_id: int,
+        page: int,
+        page_size: int,
+        filters: PricingExecutionHistoryFilters | None = None,
     ) -> Page[PricingExecution] | None: ...
 
 
@@ -153,9 +158,20 @@ class PricingExecutionPersistenceService:
         return execution
 
     async def list_by_match(
-        self, match_id: int, page: int, page_size: int
+        self,
+        match_id: int,
+        page: int,
+        page_size: int,
+        filters: PricingExecutionHistoryFilters | None = None,
     ) -> Page[PricingExecution]:
-        executions = await self._repository.list_by_match(match_id, page, page_size)
+        default_filters = PricingExecutionHistoryFilters()
+        executions = (
+            await self._repository.list_by_match(match_id, page, page_size)
+            if filters is None or filters == default_filters
+            else await self._repository.list_by_match(
+                match_id, page, page_size, filters
+            )
+        )
         if executions is None:
             raise ResourceNotFoundError("match")
         return executions
