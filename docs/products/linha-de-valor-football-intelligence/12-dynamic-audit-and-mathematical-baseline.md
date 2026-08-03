@@ -263,12 +263,16 @@ Uma precificação aprovada é imutável. Mudança de dados, filtros, amostra, p
 - O registro suspeito requer verificação manual antes de uso analítico.
 - A suíte deve permanecer como regressão versionada, não como snapshot de produção.
 
-## 17. Gate vigente
+## 17. Gate histórico encerrado
 
 **FATO OBSERVADO:** a `LVFI-ENG-001` concluiu o planejamento do Pricing Engine sem alterar as decisões `D-MATH-001` a `D-MATH-016`. A arquitetura e a sequência de implementação foram formalizadas no [plano técnico do Pricing Engine](13-pricing-engine-technical-plan.md) e nos ADRs `ADR-LVFI-001` a `ADR-LVFI-010`.
 
-**GO PARA IMPLEMENTAÇÃO CONTROLADA DA LVFI-ENG-002.**
+**GATE HISTÓRICO ENCERRADO — GO PARA IMPLEMENTAÇÃO CONTROLADA DA LVFI-ENG-002.**
 
-O GO autoriza somente a próxima Task com plano específico aprovado. A `LVFI-ENG-002` não inclui os Métodos 1, 2 e 3, banco de dados, front-end, back-end, PDF ou integrações.
+O GO autorizava somente a task subsequente com plano específico aprovado. A
+`LVFI-ENG-002` foi concluída; este texto não autoriza trabalho novo. Historicamente,
+seu escopo não incluía os Métodos 1, 2 e 3, banco de dados, front-end, back-end,
+PDF ou integrações. A próxima task oficial vigente é a `LVFI-APP-010`, conforme o
+controle institucional.
 
 As implicações para roadmap e aceite estão em [MVP, roadmap e estratégia de validação](11-mvp-roadmap-and-validation.md).

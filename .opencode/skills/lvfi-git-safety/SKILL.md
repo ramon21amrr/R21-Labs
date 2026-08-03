@@ -19,5 +19,9 @@ push exigem autorização. Como a versão atual do OpenCode não distingue com
 segurança um `git push` implícito em branch de um push implícito em `main`, todo
 push pelo agente está negado; o executor humano/auditado o realiza.
 
+Antes de qualquer publicação, valide que os artefatos obrigatórios em
+`docs/project-control/` foram atualizados conforme o checklist de encerramento.
+Publicação técnica não encerra institucionalmente uma task desatualizada.
+
 Recuperação começa por inventário e proposta por caminho. Nada é restaurado ou
 apagado sem autorização.

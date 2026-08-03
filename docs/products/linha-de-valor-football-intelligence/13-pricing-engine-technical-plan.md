@@ -55,14 +55,21 @@ flowchart LR
 - implantação, fila, cache, observabilidade de aplicação e microsserviços;
 - qualquer fixture privada completa ou evidência bruta no Git.
 
-## 6. Sequência LVFI-ENG-002 a LVFI-ENG-005
+## 6. Sequência das initiatives de Pricing
 
 | Initiative técnica | Resultado | Dependência | Limite principal |
 |---|---|---|---|
-| `LVFI-ENG-002` | Núcleo matemático, mercados, contratos e serialização do Pricing Engine | ADRs e este plano | Não implementa os Métodos 1, 2 e 3 |
-| `LVFI-ENG-003` | Método 1 — médias com contexto | Núcleo aceito da `LVFI-ENG-002` | Sem integração web, banco ou PDF |
-| `LVFI-ENG-004` | Método 2 — força relativa ao campeonato | Núcleo aceito e contratos de amostra | Sem integração web, banco ou PDF |
-| `LVFI-ENG-005` | Método 3 — frequência observada | Núcleo aceito e contratos de amostra | Sem ampliar o catálogo aprovado |
+| `LVFI-ENG-002` | Núcleo matemático, mercados, contratos e serialização do Pricing Engine | ADRs e este plano | Concluída; não implementou os Métodos 1, 2 e 3 |
+| `LVFI-ENG-003` | Método 1 — médias com contexto | Núcleo aceito da `LVFI-ENG-002` | Concluída; sem integração web, banco ou PDF |
+| sem ID | Método 2 — força relativa ao campeonato | Núcleo aceito, contratos de amostra e decisão futura do Product Owner | Planejado; não autorizado; não criar ID por inferência |
+| `LVFI-ENG-005` | Método 3 — frequência observada | Núcleo aceito e contratos de amostra | Planejado; sem ampliar o catálogo aprovado |
+| `LVFI-ENG-004` | Estabilidade numérica de totais e baseline versionada | Pricing Engine e Método 1 concluídos | Concluída e publicada pelo PR #4; não reutilizar para Método 2 |
+
+A tabela original reservava `LVFI-ENG-004` para o Método 2. O documento 29 e o
+histórico Git usaram o mesmo ID para a correção numérica publicada. O Product
+Owner resolveu o conflito na `R21-GOV-001`, preservando o histórico publicado e
+deixando o Método 2 sem ID. A resolução está no
+[registro de decisões](../../project-control/lvfi-decision-register.md).
 
 Cada etapa exige plano, aprovação, implementação, validação e aceite próprios. A separação evita incorporar regras dos modelos ao núcleo de mercados.
 
@@ -398,9 +405,11 @@ O gate de entrada desta Task era **GO COM CONDIÇÕES PARA IMPLEMENTAÇÃO DA LV
 
 Os ADRs obrigatórios foram formalizados com status `Aprovada`, o backlog antecipa fixtures seguras e este plano preserva as decisões matemáticas e os limites do produto. A revisão e o versionamento se completam com a validação e o commit desta entrega.
 
-**GO PARA IMPLEMENTAÇÃO CONTROLADA DA LVFI-ENG-002.**
+**GATE HISTÓRICO ENCERRADO — GO PARA IMPLEMENTAÇÃO CONTROLADA DA LVFI-ENG-002.**
 
-O GO autoriza iniciar somente a próxima Task aprovada, `LVFI-ENG-002-T02`, após seu plano específico e aprovação. Não autoriza Métodos 1, 2 e 3, aplicações, banco, API, front-end, PDF, integrações ou qualquer item fora do escopo.
+Este GO autorizava iniciar somente a `LVFI-ENG-002-T02`, após plano específico e
+aprovação. A ENG-002 está concluída e este gate não autoriza nova implementação.
+A próxima task oficial vigente é a `LVFI-APP-010`, conforme o controle institucional.
 
 ## Referências
 

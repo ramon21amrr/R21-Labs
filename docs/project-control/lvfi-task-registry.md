@@ -1,0 +1,88 @@
+# Registro institucional de tasks do LVFI
+
+## Regras de leitura
+
+`não localizado` significa ausência de evidência no documento ou histórico Git
+local consultado; não é preenchido por inferência. Datas são de commit quando
+disponíveis. `Commit` é o commit da branch/task; `merge` é o commit integrado em
+`main`. O registro foi auditado contra o repositório em
+`094b9ea51d6dabbac6154ec66e987d5fe83d8033`.
+
+## Initiatives, aplicação e governança
+
+| ID | Nome | Domínio | Status | Branch | Commit | PR | Merge | Dependências | Entrega | Documento | Marco | Data/observações |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `LVFI-DISC-002` | Auditoria dinâmica e baseline matemática | Discovery | Concluída tecnicamente | não localizado | não localizado | não localizado | não localizado | materiais legados autorizados | 14 fixtures; 350/350 comparações; 408/408 validações asiáticas | [12](../products/linha-de-valor-football-intelligence/12-dynamic-audit-and-mathematical-baseline.md) | Discovery | baseline `baseline_20260719T185339-0300_c1c0cffa` |
+| `LVFI-ENG-001` | Planejamento do Pricing Engine | Pricing | Concluída | não localizado | não localizado | não localizado | não localizado | discovery e decisões `D-MATH` | ADRs e plano técnico | [13](../products/linha-de-valor-football-intelligence/13-pricing-engine-technical-plan.md) | Pricing Engine | data não localizada |
+| `LVFI-ENG-002` | Pricing Engine | Pricing | Concluída | não localizado | não localizado | não localizado | não localizado | ENG-001 | núcleo matemático `1.0.0` | [14](../products/linha-de-valor-football-intelligence/14-pricing-engine-final-validation.md) | Pricing Engine | validação final na T13 |
+| `LVFI-ENG-003` | Método 1 — médias com contexto | Pricing | Concluída | não localizado | `cfeea198d2786cb175f8cdefca6869f9846ac03e` (T10) | #2 (T10) | `10093e3a8b7efe0f936f85c528d5cbb8f8a4f8aa` | ENG-002 | Método 1 `1.0.0`, distribuição `1.1.0` à época | [26](../products/linha-de-valor-football-intelligence/26-method-one-final-validation.md) | Método 1 | 2026-07-24 |
+| `LVFI-ENG-004` | Estabilidade numérica de totais e baseline versionada | Pricing | Concluída | `fix/lvfi-engine-total-market-numerical-stability` | `287c2c23868770ef92f0a3cbc1cd5327c01ec5d6` | #4 | `ff78d020fa682ae0d52b13c49a426d45b60920bf` | ENG-002/003 | Engine `1.0.1`, distribuição `1.1.1` | [29](../products/linha-de-valor-football-intelligence/29-lvfi-eng-004-total-market-numerical-stability.md) | Estabilidade numérica | 2026-07-24; ID preservado por decisão da R21-GOV-001 |
+| `LVFI-ENG-005` | Método 3 — frequência observada | Pricing | Planejada; não autorizada | não localizado | não localizado | não localizado | não localizado | núcleo e contratos de amostra | entrega futura | [13](../products/linha-de-valor-football-intelligence/13-pricing-engine-technical-plan.md) | MVP interno | ID documental preservado; nenhuma implementação autorizada |
+| `LVFI-DESIGN-001` | Catálogo operacional de mercados do MVP | Design/Pricing | Decisão documental aprovada | não localizado | não localizado | não localizado | não localizado | catálogo matemático | separação dos catálogos matemático e operacional | [21](../products/linha-de-valor-football-intelligence/21-market-operational-catalog-decision.md) | Método 1 | data/commit não localizados |
+| `LVFI-APP-001` | Arquitetura da aplicação | Aplicação | Concluída | `docs/lvfi-app-001-application-architecture` | `e4c1bf4797b0cb0a9acbcf7b2de1dd73a44d3497` | #3 | `a31141905156d0f4ac7569b2b1f6365617ac9561` | Pricing/Method 1 | stack e fronteiras | [27](../products/linha-de-valor-football-intelligence/27-application-architecture.md) | Arquitetura | 2026-07-24 |
+| `LVFI-APP-002` | Fundação do backend e banco | Backend/Data | Concluída | `feat/lvfi-app-002-backend-database-foundation` | `b9ce5defd9a7431d10f250dc73c28eca89c7a465` | #5 | `da6e67491c12f3420cc8d15a85872c665461276b` | APP-001 | FastAPI, PostgreSQL, Alembic e observabilidade | [28](../products/linha-de-valor-football-intelligence/28-backend-database-foundation.md) | Backend/PostgreSQL | 2026-07-24 |
+| `LVFI-APP-003` | Modelo e importação histórica | Backend/Data | Concluída | `feat/lvfi-app-003-historical-data-model-import` | `d187c6156e056b36a8e62df25bdb02afaae472ca` | #6 | `8eeea3a4f0b6af2edfe420e51216a2f3ae174059` | APP-002 | modelo canônico e importação controlada | [30](../products/linha-de-valor-football-intelligence/30-historical-data-model-and-import.md) | Dados históricos | 2026-07-27 |
+| `LVFI-APP-004` | Consultas históricas de partidas | Backend/Data | Concluída | `feat/lvfi-app-004-historical-match-queries` | `fa04dc8e9e11045ee965343f08eab298bf848ac0` | #9 | `2e261b11ba0cdb9805d6fef560c77b846fae2b2d` | APP-003 | API somente leitura | [31](../products/linha-de-valor-football-intelligence/31-historical-match-query-api.md) | Partidas | 2026-07-27 |
+| `LVFI-APP-005` | Construção de amostras do Método 1 | Backend/Pricing | Concluída | `feat/lvfi-app-005-method-one-sample-construction` | `6bcf1e1dd2af2774158dce5967b6ccee7118601b` | #10 | `207e6e5e693d2786a0d556dde4a4395b2fd7efad` | APP-003/004 | duas amostras determinísticas | [32](../products/linha-de-valor-football-intelligence/32-method-one-sample-construction.md) | Amostras | 2026-07-27 |
+| `LVFI-APP-006` | Execução do Método 1 pela aplicação | Backend/Pricing | Concluída | `feat/lvfi-app-006-method-one-execution` | `c828d7882e79ae700650f4625c391819710d1b30` | #11 | `bdead1b5ee465f7e033942812c0cbe05908cd419` | APP-005 | endpoint de execução não persistente | [33](../products/linha-de-valor-football-intelligence/33-method-one-application-execution.md) | Execução | 2026-07-27 |
+| `LVFI-APP-007` | Execuções de precificação auditáveis | Backend/Pricing | Concluída | `feat/lvfi-app-007-pricing-execution-persistence` | `777709eae7858b329b0c5d9cbff0cb06a05dc2ac` | #12 | `ecf10b8097bda0df5f292e87386ee4f538cd2ae1` | APP-006 | persistência append-only | [34](../products/linha-de-valor-football-intelligence/34-auditable-pricing-executions.md) | Execução persistida | 2026-08-02 |
+| `LVFI-APP-008` | Histórico e comparação de execuções | Backend/Pricing | Concluída | `feat/lvfi-app-008-pricing-execution-history-comparison` | `3ee7911d2f523d599cf04aab400d560414e1d39c` | não localizado | `bac69b8c7c3a97afa11ca6f2dd2868bb82538274` | APP-007 | histórico filtrável e comparação | [35](../products/linha-de-valor-football-intelligence/35-pricing-execution-history-and-comparison.md) | Histórico/comparação | 2026-08-02; número de PR não inferido |
+| `LVFI-APP-009` | Reprodução controlada de execuções | Backend/Pricing | Concluída | `feat/lvfi-app-009-controlled-pricing-reproduction` | `f01c0b915ba7fd9c9da29579fac69a8ad6fe54f9` | #14 | `094b9ea51d6dabbac6154ec66e987d5fe83d8033` | APP-007/008 | reprodução append-only | [36](../products/linha-de-valor-football-intelligence/36-controlled-pricing-execution-reproduction.md) | Reprodução | 2026-08-02; última task concluída |
+| `R21-DEV-001` | Eficiência de contexto e tokens | Institucional | Concluída | `chore/r21-dev-001-codex-context-efficiency` | `fa76c38ce6b38ab438cec5acb10ea65c53b74e14` | #7 | `b14fc72527ab35ab52cd2ba0a4a69af35e21a4fb` | framework | Graphify-first, scripts e skills | [eficiência](../development-framework/context-and-token-efficiency.md) | Desenvolvimento | 2026-07-27 |
+| `R21-DEV-002` | Ambiente PostgreSQL persistente do Codex | Institucional | Concluída | `chore/r21-dev-002-codex-postgres-test-environment` | `c3e2c13251856ec7076cb7a731f181cb8ebb2c96` | não localizado | `fe54855c8b8bce637017729df111a0e85438755b` | R21-DEV-001 | cluster local e bancos isolados por task | [ambiente](../development-framework/codex-postgres-test-environment.md) | Desenvolvimento | 2026-07-27; número de PR não inferido |
+| `R21-OPS-001` | Configuração OpenCode e navegação Graphify | Institucional | Concluída | não localizado | `38604593edcd4875a95ff5f1fdaf6a5b1f7b8947` | não localizado | não localizado | framework | agentes, comandos e grafo | [workflow](../development-framework/opencode-execution-workflow.md) | Operação | 2026-07-23 |
+| `R21-GOV-001` | Sistema permanente de continuidade | Governança | Em execução | `docs/r21-gov-001-project-continuity` | ainda não criado | ainda não aberto | ainda não integrado | APP-009 | controle, roadmap, registry, estado e handoff | [índice](README.md) | Governança | parar antes do commit |
+| `LVFI-APP-010` | Fundação do frontend e tela inicial de precificação | Frontend | Próxima task oficial; não iniciada | `feat/lvfi-app-010-pricing-screen-foundation` (prevista) | não localizado | não localizado | não localizado | integração da R21-GOV-001 | primeira interface utilizável | decisão do Product Owner na R21-GOV-001 | Interface | ação imediata após integração |
+| `LVFI-APP-011` | Entrada de mercado e comparação entre modelo e mercado | Mercado | Próxima etapa planejada; não iniciada | não localizado | não localizado | não localizado | APP-010 e plano próprio | entrada/comparação de mercado | decisão do Product Owner na R21-GOV-001 | Mercado | não detalhar nesta task |
+
+## Tasks do Pricing Engine (`LVFI-ENG-002`)
+
+Todas estão concluídas segundo a validação final. Branch, commit, PR, merge e
+data individuais não foram localizados; o registro não os infere.
+
+| ID | Nome | Domínio | Status | Branch/commit/PR/merge/data | Dependências | Entrega | Documento | Marco | Observações |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `LVFI-ENG-002-T01` | ADRs e plano técnico | Pricing | Concluída | não localizado | ENG-001 | plano e ADRs | [13](../products/linha-de-valor-football-intelligence/13-pricing-engine-technical-plan.md) | Pricing Engine | documental |
+| `LVFI-ENG-002-T02` | Fundação do pacote e ferramentas | Pricing | Concluída | não localizado | T01 | pacote inicial | [13](../products/linha-de-valor-football-intelligence/13-pricing-engine-technical-plan.md) | Pricing Engine | — |
+| `LVFI-ENG-002-T03` | Erros, números e tolerâncias | Pricing | Concluída | não localizado | T02 | política numérica e erros | [13](../products/linha-de-valor-football-intelligence/13-pricing-engine-technical-plan.md) | Pricing Engine | — |
+| `LVFI-ENG-002-T04` | Value objects e contratos fundamentais | Pricing | Concluída | não localizado | T03 | contratos fundamentais | [13](../products/linha-de-valor-football-intelligence/13-pricing-engine-technical-plan.md) | Pricing Engine | — |
+| `LVFI-ENG-002-T05` | Fixtures seguras e harness de regressão | Pricing | Concluída | não localizado | T04 | fixtures/harness | [13](../products/linha-de-valor-football-intelligence/13-pricing-engine-technical-plan.md) | Pricing Engine | — |
+| `LVFI-ENG-002-T06` | Distribuição Poisson | Pricing | Concluída | não localizado | T05 | Poisson | [13](../products/linha-de-valor-football-intelligence/13-pricing-engine-technical-plan.md) | Pricing Engine | — |
+| `LVFI-ENG-002-T07` | Diferença de gols e matriz auditável | Pricing | Concluída | não localizado | T06 | matriz | [13](../products/linha-de-valor-football-intelligence/13-pricing-engine-technical-plan.md) | Pricing Engine | — |
+| `LVFI-ENG-002-T08` | Mercados básicos | Pricing | Concluída | não localizado | T07 | mercados básicos | [13](../products/linha-de-valor-football-intelligence/13-pricing-engine-technical-plan.md) | Pricing Engine | — |
+| `LVFI-ENG-002-T09` | Liquidação asiática | Pricing | Concluída | não localizado | T07 | liquidação | [13](../products/linha-de-valor-football-intelligence/13-pricing-engine-technical-plan.md) | Pricing Engine | — |
+| `LVFI-ENG-002-T10` | Precificação asiática e linha principal | Pricing | Concluída | não localizado | T09 | preço/linha | [13](../products/linha-de-valor-football-intelligence/13-pricing-engine-technical-plan.md) | Pricing Engine | — |
+| `LVFI-ENG-002-T11` | Request, result e orquestração | Pricing | Concluída | não localizado | T08/T10 | fachada de execução | [13](../products/linha-de-valor-football-intelligence/13-pricing-engine-technical-plan.md) | Pricing Engine | — |
+| `LVFI-ENG-002-T12` | Serialização e `calculation_hash` | Pricing | Concluída | não localizado | T11 | serialização/hash | [13](../products/linha-de-valor-football-intelligence/13-pricing-engine-technical-plan.md) | Pricing Engine | — |
+| `LVFI-ENG-002-T13` | Validação final | Pricing | Concluída | não localizado | T12 | cobertura, tipagem, lint, desempenho e docs | [14](../products/linha-de-valor-football-intelligence/14-pricing-engine-final-validation.md) | Pricing Engine | 337 testes na validação histórica |
+
+## Tasks do Método 1 (`LVFI-ENG-003`)
+
+| ID | Nome | Domínio | Status | Branch | Commit | PR/merge | Dependências | Entrega/documento | Marco/data/observações |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `LVFI-ENG-003-T01` | Documentação e gate | Pricing | Concluída | não localizado | `18be07dd1a32957039a275b6b7fd216fc92c74a5` | não localizado | ENG-002 | [20](../products/linha-de-valor-football-intelligence/20-method-one-planning-gate.md) | Método 1; data não localizada |
+| `LVFI-ENG-003-T02` | Contratos de observação e amostra | Pricing | Concluída | não localizado | `9d4c2f1fe8ed9d917a92583e2a962ab350717223` | não localizado | T01 | schemas de amostra v1; [19](../products/linha-de-valor-football-intelligence/19-method-one-implementation-backlog.md) | 2026-07-22 |
+| `LVFI-ENG-003-T02-B01` | Diagnóstico do catálogo operacional | Pricing/Design | Diagnóstico concluído | não localizado | não localizado | não localizado | T02 | origem da decisão do [21](../products/linha-de-valor-football-intelligence/21-market-operational-catalog-decision.md) | data não localizada |
+| `LVFI-ENG-003-T02-B02` | Plano do catálogo operacional MVP | Pricing/Design | Plano pendente segundo o original | não localizado | não localizado | não localizado | B01/DESIGN-001 | [22](../products/linha-de-valor-football-intelligence/22-operational-catalog-implementation-plan.md) | estado não reconciliado pelo original posterior |
+| `LVFI-ENG-003-T02-B03` | Design do catálogo operacional MVP | Pricing/Design | Design registrado; implementação pendente no original | não localizado | não localizado | não localizado | B02 | [23](../products/linha-de-valor-football-intelligence/23-operational-catalog-implementation-design.md) | não inferir conclusão |
+| `LVFI-ENG-003-T02-C02` | Plano de contratos base | Pricing | Plano pendente segundo o original | não localizado | não localizado | não localizado | T02 e decisões | [24](../products/linha-de-valor-football-intelligence/24-method-one-contracts-implementation-plan.md) | não inferir conclusão |
+| `LVFI-ENG-003-T03` | Contratos e configuração do Método 1 | Pricing | Concluída | não localizado | `5d8a2f16bd5567b7459d3f0c48d60d32943f9c67` | não localizado | T02 | contratos/configuração; [19](../products/linha-de-valor-football-intelligence/19-method-one-implementation-backlog.md) | 2026-07-22 |
+| `LVFI-ENG-003-T04` | Médias contextuais uniformes | Pricing | Concluída | não localizado | `e9c55777822d289f102d251573dbf25097bfd40b` | não localizado | T03 | médias; [19](../products/linha-de-valor-football-intelligence/19-method-one-implementation-backlog.md) | 2026-07-22 |
+| `LVFI-ENG-003-T05` | Combinação produção/concessão | Pricing | Concluída | não localizado | `b093213e93a06e0d394b6579c800b6d26cac4172` | não localizado | T04 | taxas base; [19](../products/linha-de-valor-football-intelligence/19-method-one-implementation-backlog.md) | 2026-07-22 |
+| `LVFI-ENG-003-T06` | Ajustes, qualidade, erros e warnings | Pricing | Concluída | não localizado | `1e7e576551f1c79ed561e5b9ae36337e0d8b0947` | não localizado | T05 | multiplicadores; [25](../products/linha-de-valor-football-intelligence/25-method-one-adjustment-catalog-decision.md) | 2026-07-23 |
+| `LVFI-ENG-003-T07` | Integração controlada com engine | Pricing | Concluída | não localizado | `e46086651f9a2ec76c76254f391d4b62641f32d8` | não localizado | T06 | integração; [19](../products/linha-de-valor-football-intelligence/19-method-one-implementation-backlog.md) | 2026-07-23 |
+| `LVFI-ENG-003-T08` | Serialização e hashing | Pricing | Concluída | não localizado | `c45bfd801afd812313e35e42f5b1e6fab0676c71` | não localizado | T07 | orquestração/canonicalização; [19](../products/linha-de-valor-football-intelligence/19-method-one-implementation-backlog.md) | 2026-07-23 |
+| `LVFI-ENG-003-T09` | Fixtures e regressão consolidadas | Pricing | Concluída | `feat/lvfi-eng-003-t09-method-one-serialization` | `10ca277a7d6f727b161cb780a0ee2e17001c9901` | #1 / `50d88228f412ad7d34df67903dea1be2426f3777` | T08 | serialização/hashes e regressão; [19](../products/linha-de-valor-football-intelligence/19-method-one-implementation-backlog.md) | 2026-07-24 |
+| `LVFI-ENG-003-T10` | Validação final e release | Pricing | Concluída | `feat/lvfi-eng-003-t10-method-one-final-validation` | `cfeea198d2786cb175f8cdefca6869f9846ac03e` | #2 / `10093e3a8b7efe0f936f85c528d5cbb8f8a4f8aa` | T09 | [26](../products/linha-de-valor-football-intelligence/26-method-one-final-validation.md) | 2026-07-24 |
+
+## Lacunas e conflitos resolvidos
+
+- Números de PR de APP-008 e R21-DEV-002 não aparecem no histórico Git local e
+  foram mantidos como `não localizado`.
+- B02, B03 e C02 preservam os estados expressos nos próprios documentos; a
+  conclusão posterior da initiative não autoriza inventar seus fechamentos.
+- O backlog do Método 1 e os assuntos dos commits T08/T09 não usam descrições
+  idênticas; ambos foram preservados no registro, sem reatribuir entregas por
+  inferência.
+- A reserva antiga de `LVFI-ENG-004` para Método 2 foi revogada. O ID pertence à
+  correção numérica publicada. Método 2 permanece sem ID.

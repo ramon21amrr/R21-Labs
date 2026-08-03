@@ -23,3 +23,9 @@ Use Skills versionadas em `.agents/skills/` conforme a descrição; procedimento
 gates detalhados ficam nelas. Antes da entrega, revise diff e escopo, faça varredura
 de segredos, execute `git diff --check`, rode gates aplicáveis e apresente ao
 Product Owner resultado, evidências, limitações e próxima ação humana, se houver.
+
+Antes de iniciar qualquer task LVFI, leia `docs/project-control/lvfi-current-state.md`,
+valide `lvfi-project-state.yaml`, confirme o task registry e a próxima task oficial;
+nunca infira task ausente. Antes do encerramento institucional, atualize os
+artefatos obrigatórios de continuidade, gere os handoffs e registre a próxima task
+ou decisão e a ação imediata.

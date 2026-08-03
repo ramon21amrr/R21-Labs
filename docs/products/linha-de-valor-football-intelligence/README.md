@@ -10,8 +10,11 @@
 - **FATO OBSERVADO:** a `LVFI-ENG-001` foi concluída e seu planejamento foi consolidado no plano técnico do Pricing Engine.
 - **FATO OBSERVADO:** a `LVFI-ENG-002` foi concluída no Pricing Engine `1.0.0`, com validação final registrada no documento 14.
 - **FATO OBSERVADO:** a `LVFI-ENG-003` concluiu o Método 1 `1.0.0` na distribuição `lvfi-pricing-engine` `1.1.0`, com schemas canônicos v1 e integração controlada ao Pricing Engine `1.0.0`.
+- **FATO OBSERVADO:** a `LVFI-ENG-004` corrigiu a estabilidade numérica de totais no PR #4 e promoveu o Pricing Engine para `1.0.1` e a distribuição para `1.1.1`, preservando o Método 1 `1.0.0` e os schemas v1.
+- **FATO OBSERVADO:** `LVFI-APP-001` a `LVFI-APP-009` estão integradas. A aplicação possui arquitetura aprovada, API FastAPI, PostgreSQL, importação e consultas históricas, amostras do Método 1, execução, persistência append-only, histórico, comparação e reprodução controlada.
+- **DECISÃO APROVADA:** `LVFI-APP-010 — Fundação do frontend e tela inicial de precificação` é a próxima task oficial após a integração da `R21-GOV-001`; `LVFI-APP-011` é a etapa planejada seguinte, sem detalhamento nesta governança.
 - **DECISÃO APROVADA:** `M1-PEND-001–007` foram encerradas por `D-M1-001–007`, preservando a rastreabilidade integral.
-- **GATE:** a validação final da T10 define o estado de readiness no documento 26; ela não autoriza backend, banco, API, interface, Value Tracker, Método 2 ou Método 3.
+- **GATE HISTÓRICO:** a validação final da T10 definiu o readiness do Método 1; isoladamente, ela não autorizava backend, banco, API, interface, Value Tracker, Método 2 ou Método 3. As autorizações posteriores estão nos documentos 27–36 e no histórico Git.
 
 ## Propósito
 
@@ -108,7 +111,8 @@ As afirmações relevantes usam os seguintes estados:
 - **LIMITAÇÃO:** a baseline reproduz o comportamento observado nos fixtures; não certifica a planilha em todos os cenários.
 - **LIMITAÇÃO:** a procedência dos registros históricos não está completa no XLSM.
 - **LIMITAÇÃO:** fornecedores não foram selecionados ou contratados; o documento correspondente define critérios e processo de avaliação.
-- **LIMITAÇÃO:** o Pricing Engine `1.0.0` e o Método 1 `1.0.0` estão concluídos como núcleo matemático puro. Métodos 2 e 3, backend, banco, API, interface, PDF, dados externos e aplicações permanecem fora do escopo e exigem planejamento e aprovação próprios.
+- **LIMITAÇÃO:** Pricing Engine `1.0.1`, distribuição `1.1.1`, Método 1
+  `1.0.0`, backend, PostgreSQL e a API até reprodução controlada estão concluídos. Frontend, autenticação, workflow completo do MVP, Métodos 2 e 3, PDF, odds/dados externos automatizados, oportunidades, Value Tracker e deploy permanecem não concluídos e exigem tasks, decisões e aprovações próprias.
 
 O encerramento técnico, as limitações remanescentes e a referência ao arquivo privado estão em [Auditoria dinâmica e baseline matemático](12-dynamic-audit-and-mathematical-baseline.md).
 
@@ -121,3 +125,14 @@ O encerramento técnico, as limitações remanescentes e a referência ao arquiv
 - [30. Modelo e importação controlada da base histórica](30-historical-data-model-and-import.md) — contrato de origem, modelo canônico, migrations e validação controlada.
 
 - [31 — API de consultas históricas de partidas](31-historical-match-query-api.md)
+- [32 — Construção de amostras históricas do Método 1](32-method-one-sample-construction.md)
+- [33 — Execução do Método 1 pela aplicação](33-method-one-application-execution.md)
+- [34 — Execuções de precificação auditáveis](34-auditable-pricing-executions.md)
+- [35 — Histórico e comparação de execuções](35-pricing-execution-history-and-comparison.md)
+- [36 — Reprodução controlada de execuções](36-controlled-pricing-execution-reproduction.md)
+
+## Continuidade institucional
+
+O estado operacional, a próxima task, o roadmap consolidado e o handoff ficam em
+[docs/project-control](../../project-control/README.md). Conversas não substituem
+esses artefatos versionados.
