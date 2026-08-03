@@ -1,0 +1,81 @@
+schema_version: "1.0"
+project: "R21 Labs"
+product: "Linha de Valor Football Intelligence"
+updated_at: "2026-08-02T20:26:34-03:00"
+reference_commit: "094b9ea51d6dabbac6154ec66e987d5fe83d8033"
+reference_branch: "main"
+current_phase: "application_foundation"
+current_milestone: "controlled_pricing_execution_reproduction_complete"
+last_completed_task: "LVFI-APP-009"
+next_official_task: "LVFI-APP-010"
+next_planned_task: "LVFI-APP-011"
+next_required_decision: null
+immediate_action: "Executar LVFI-APP-010 após a integração da R21-GOV-001."
+completed_tasks:
+  - "LVFI-DISC-002"
+  - "LVFI-ENG-001"
+  - "LVFI-ENG-002"
+  - "LVFI-ENG-003"
+  - "LVFI-ENG-004"
+  - "LVFI-APP-001"
+  - "LVFI-APP-002"
+  - "LVFI-APP-003"
+  - "LVFI-APP-004"
+  - "LVFI-APP-005"
+  - "LVFI-APP-006"
+  - "LVFI-APP-007"
+  - "LVFI-APP-008"
+  - "LVFI-APP-009"
+active_tasks:
+  - "R21-GOV-001"
+planned_tasks:
+  - "LVFI-APP-010"
+  - "LVFI-APP-011"
+  - "LVFI-ENG-005"
+blocked_tasks: []
+versions:
+  api: "0.1.0"
+  python: ">=3.13,<3.14"
+  postgresql_validation: "16"
+  pricing_distribution: "1.1.1"
+  pricing_engine: "1.0.1"
+  method_one: "1.0.0"
+  method_one_canonical_schema: 1
+test_baseline:
+  api:
+    collected: 86
+    statements: "100%"
+    branches: "100%"
+    evidence: "../project-control/lvfi-current-state.md"
+  pricing_engine:
+    passed: 554
+    statements: "100%"
+    branches: "100%"
+    evidence: "../products/linha-de-valor-football-intelligence/29-lvfi-eng-004-total-market-numerical-stability.md"
+pending_decisions:
+  - "Atribuição futura de ID e plano ao Método 2."
+  - "Tecnologia, conteúdo e retenção do PDF."
+  - "Autenticação, perfis e dados pessoais do MVP."
+  - "Deploy, backup, restauração e objetivos de recuperação."
+  - "Fornecedores de dados e odds e seus contratos."
+  - "Evento de integração com Value Tracker e metodologia de CLV."
+  - "Critérios de sucesso do piloto e autoridade de cutover."
+audit_checkpoints:
+  - "Confirmar reference_commit em main e origin/main."
+  - "Validar current-state, YAML e task registry antes da task."
+  - "Usar Graphify-first e confirmar decisões nos originais."
+  - "Atualizar continuidade antes de publicação e encerramento institucional."
+authoritative_documents:
+  - "../company/company-context.md"
+  - "../development-framework/README.md"
+  - "README.md"
+  - "../products/linha-de-valor-football-intelligence/README.md"
+  - "../products/linha-de-valor-football-intelligence/11-mvp-roadmap-and-validation.md"
+  - "../products/linha-de-valor-football-intelligence/27-application-architecture.md"
+  - "../products/linha-de-valor-football-intelligence/36-controlled-pricing-execution-reproduction.md"
+handoff_documents:
+  - "lvfi-current-state.md"
+  - "lvfi-task-registry.md"
+  - "lvfi-decision-register.md"
+  - "lvfi-session-handoff.md"
+  - "LVFI-CHAT-HANDOFF.md"

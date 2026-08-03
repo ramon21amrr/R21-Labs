@@ -16,5 +16,9 @@ críticos; segurança e segredos; limitações; revisão do diff; `git diff --ch
 commit/hash/arquivos; status final; riscos; única ação manual restante; e gate do
 próximo marco.
 
+Inclua a consistência entre current-state, project-state YAML, task registry,
+roadmap, decision register e handoffs. Diferencie task tecnicamente pronta,
+publicada e institucionalmente encerrada.
+
 Diferencie aprovado, não executado, bloqueado e não aplicável. Não alegue sucesso
 sem evidência e nunca inclua segredo ou valor de credencial.

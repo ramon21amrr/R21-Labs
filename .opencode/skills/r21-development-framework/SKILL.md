@@ -16,3 +16,8 @@ Fluxo: objetivo e escopo aprovados; baseline limpa; branch da tarefa;
 implementação mínima; diff e testes; revisão; aceite; um commit coerente; push de
 branch somente autorizado; PR/CI; auditoria proporcional; merge pelo Product
 Owner. Mudança material de plano retorna à aprovação.
+
+Para LVFI, o início também exige ler current-state, validar project-state YAML e
+confirmar registry/próxima task. O encerramento exige cumprir
+`docs/project-control/lvfi-task-closure-checklist.md` e atualizar os handoffs antes
+da publicação institucional.

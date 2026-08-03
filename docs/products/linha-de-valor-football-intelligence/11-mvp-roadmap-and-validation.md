@@ -229,10 +229,17 @@ As decisões matemáticas `D-MATH-001` a `D-MATH-016` estão aprovadas. O planej
 
 **FATO OBSERVADO:** a `LVFI-ENG-001` foi concluída. A decomposição, os contratos, o mapeamento das decisões matemáticas, a estratégia de regressão e o backlog estão consolidados no [plano técnico do Pricing Engine](13-pricing-engine-technical-plan.md) e nos ADRs `ADR-LVFI-001` a `ADR-LVFI-010`.
 
-A `LVFI-ENG-002` implementará somente o núcleo matemático compartilhado, mercados, contratos e serialização. Os Métodos 1, 2 e 3 pertencem, respectivamente, às `LVFI-ENG-003`, `LVFI-ENG-004` e `LVFI-ENG-005`.
+A `LVFI-ENG-002` implementou o núcleo matemático compartilhado, mercados,
+contratos e serialização. O Método 1 pertence à `LVFI-ENG-003` e o Método 3
+permanece planejado como `LVFI-ENG-005`. A reserva histórica de
+`LVFI-ENG-004` para o Método 2 foi revogada pela decisão explícita do Product
+Owner na `R21-GOV-001`: esse ID pertence à correção de estabilidade numérica já
+publicada pelo PR #4. O Método 2 permanece planejado e sem novo ID até decisão
+específica do Product Owner.
 
 O backlog atualizado antecipa `LVFI-ENG-002-T05 — fixtures seguras e harness inicial de regressão` para antes da distribuição Poisson e dos mercados.
 
-**GO PARA IMPLEMENTAÇÃO CONTROLADA DA LVFI-ENG-002.**
+**GATE HISTÓRICO ENCERRADO — GO PARA IMPLEMENTAÇÃO CONTROLADA DA LVFI-ENG-002.**
 
-O GO autoriza iniciar somente a `LVFI-ENG-002-T02 — fundação do pacote e ferramentas`, após plano específico e aprovação. Não autoriza banco, front-end, back-end, PDF, integrações ou os Métodos 1, 2 e 3.
+Este GO autorizava iniciar somente a `LVFI-ENG-002-T02`, após plano específico e
+aprovação. A ENG-002 está concluída; o texto não autoriza trabalho novo. A próxima task oficial vigente é a `LVFI-APP-010`, conforme o controle institucional.

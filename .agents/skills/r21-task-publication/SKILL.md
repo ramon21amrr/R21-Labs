@@ -19,10 +19,11 @@ Approved task, branch, base commit, gate evidence and publication authorization.
 
 ## Steps
 
-1. Confirm a non-main branch, clean tree, authorized parent and completed gates.
-2. Review the scoped diff and secrets scan.
-3. Follow `docs/development-framework/templates/publication-checklist.md` one action at a time.
-4. Stop on ambiguous PR state, failed checks, conflict, force-push request or direct-main request.
+1. Validate the applicable continuity artifacts and institutional closure checklist.
+2. Confirm a non-main branch, clean tree, authorized parent and completed gates.
+3. Review the scoped diff and secrets scan.
+4. Follow `docs/development-framework/templates/publication-checklist.md` one action at a time.
+5. Stop on ambiguous PR state, failed checks, stale continuity, conflict, force-push request or direct-main request.
 
 ## Success
 
