@@ -25,12 +25,15 @@ PostgreSQL; worker Python e objetos S3-compatíveis futuros. Hoje `apps/api` exi
 fonte matemática. A aplicação já oferece dados históricos, amostras, execução,
 persistência append-only, histórico, comparação e reprodução controlada.
 
-- Referência: `094b9ea51d6dabbac6154ec66e987d5fe83d8033` em `main`.
+- Referência: `a1610c85282e5d46ffc2b8094462d00d5135ca01` em `main` / `origin/main`,
+  sincronizadas em `0/0`.
 - Pricing Engine `1.0.1`; distribuição `1.1.1`; Método 1 `1.0.0`; schema 1.
 - API: baseline 86 testes e cobertura integral.
 - Pricing Engine: 554 testes e cobertura integral.
-- Última task concluída: `LVFI-APP-009`.
-- Task institucional atual: `R21-GOV-001`, até sua integração.
+- Última task institucional concluída: `R21-GOV-001`, publicada e integrada pelo
+  PR #15 no merge `a1610c85282e5d46ffc2b8094462d00d5135ca01`.
+- Última task de produto concluída: `LVFI-APP-009`.
+- Tasks ativas: nenhuma.
 - Próxima task oficial: `LVFI-APP-010`.
 - Próxima etapa planejada: `LVFI-APP-011`.
 
@@ -62,5 +65,10 @@ e [reprodução](../products/linha-de-valor-football-intelligence/36-controlled-
 quando a próxima task exigir. Gates são proporcionais ao escopo e mantêm logs em
 `.r21-artifacts/quality/`.
 
-**Ação imediata:** após integrar R21-GOV-001, executar somente
+**Ação imediata:** após publicar este encerramento institucional, iniciar somente
 `LVFI-APP-010 — Fundação do frontend e tela inicial de precificação`.
+
+Este handoff não inicia APP-010 ou APP-011. O roadmap completo permanece em
+[roadmap institucional](lvfi-product-roadmap.md), inclusive MVP, piloto,
+operação de mercado, oportunidades, Value Tracker, preparação comercial e
+lançamento.
