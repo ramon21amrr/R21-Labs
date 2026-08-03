@@ -1,16 +1,18 @@
 schema_version: "1.0"
 project: "R21 Labs"
 product: "Linha de Valor Football Intelligence"
-updated_at: "2026-08-02T20:26:34-03:00"
-reference_commit: "094b9ea51d6dabbac6154ec66e987d5fe83d8033"
+updated_at: "2026-08-02T21:34:35-03:00"
+reference_commit: "a1610c85282e5d46ffc2b8094462d00d5135ca01"
 reference_branch: "main"
 current_phase: "application_foundation"
-current_milestone: "controlled_pricing_execution_reproduction_complete"
-last_completed_task: "LVFI-APP-009"
+current_milestone: "permanent_continuity_system_institutionally_closed"
+last_completed_task: "R21-GOV-001"
+last_completed_governance_task: "R21-GOV-001"
+last_completed_product_task: "LVFI-APP-009"
 next_official_task: "LVFI-APP-010"
 next_planned_task: "LVFI-APP-011"
 next_required_decision: null
-immediate_action: "Executar LVFI-APP-010 após a integração da R21-GOV-001."
+immediate_action: "Iniciar LVFI-APP-010 — Fundação do frontend e tela inicial de precificação."
 completed_tasks:
   - "LVFI-DISC-002"
   - "LVFI-ENG-001"
@@ -26,8 +28,8 @@ completed_tasks:
   - "LVFI-APP-007"
   - "LVFI-APP-008"
   - "LVFI-APP-009"
-active_tasks:
   - "R21-GOV-001"
+active_tasks: []
 planned_tasks:
   - "LVFI-APP-010"
   - "LVFI-APP-011"

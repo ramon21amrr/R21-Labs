@@ -6,12 +6,14 @@ R21 Labs transforma conhecimento em produtos digitais próprios. O LVFI é seu
 primeiro produto: plataforma auditável de dados e inteligência de futebol. Ramon
 é o Product Owner e usuário administrador inicial; decisões finais são humanas.
 
-- Referência integrada: `094b9ea51d6dabbac6154ec66e987d5fe83d8033` em `main`.
-- Última task concluída: `LVFI-APP-009` — reprodução controlada.
-- Task institucional atual: `R21-GOV-001`, até integração.
+- Referência integrada: `a1610c85282e5d46ffc2b8094462d00d5135ca01` em `main` / `origin/main`.
+- Última task institucional concluída: `R21-GOV-001` — continuidade permanente,
+  publicada e integrada pelo PR #15.
+- Última task de produto concluída: `LVFI-APP-009` — reprodução controlada.
+- Tasks ativas: nenhuma.
 - Próxima task oficial: `LVFI-APP-010` — frontend e tela inicial de precificação.
 - Próxima etapa planejada: `LVFI-APP-011` — entrada/comparação de mercado.
-- Ação imediata: executar APP-010 somente após integrar R21-GOV-001.
+- Ação imediata: iniciar APP-010 após publicar este encerramento institucional.
 
 Capacidades atuais: Pricing Engine `1.0.1`, distribuição `1.1.1`, Método 1
 `1.0.0`, schema 1; FastAPI/PostgreSQL; importação/consulta histórica; amostras;
@@ -28,6 +30,12 @@ APP-010 abre a interface; APP-011 é a etapa planejada de mercado. Depois, tasks
 decisões próprias completam o MVP utilizável, piloto, preparação comercial e
 lançamento. O Método 2 permanece sem ID. Mercado automatizado, oportunidades e
 Value Tracker estão fora do MVP/futuros conforme os documentos originais.
+
+O roadmap completo permanece preservado no
+[roadmap institucional](lvfi-product-roadmap.md): fundações concluídas; APP-010 e
+APP-011; MVP interno e utilizável; relatórios; deploy/recuperação; piloto;
+operação de mercado; oportunidades; Value Tracker/resultados; preparação
+comercial; lançamento e evolução.
 
 ## Decisões e regras
 

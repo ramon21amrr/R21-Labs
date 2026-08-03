@@ -1,11 +1,15 @@
 # Estado atual do LVFI
 
 - **Atualizado em:** 2026-08-02
-- **Referência integrada:** `094b9ea51d6dabbac6154ec66e987d5fe83d8033`
+- **Referência integrada:** `a1610c85282e5d46ffc2b8094462d00d5135ca01`
 - **Branch de referência:** `main` / `origin/main`, verificada em `0/0`
-- **Task institucional ativa:** `R21-GOV-001` — continuidade permanente
+- **Última task institucional concluída:** `R21-GOV-001` — sistema permanente de
+  continuidade, publicada e integrada pelo PR #15 no merge
+  `a1610c85282e5d46ffc2b8094462d00d5135ca01`
 - **Última task de produto concluída:** `LVFI-APP-009`
-- **Último marco:** reprodução controlada de execuções de precificação
+- **Tasks ativas:** nenhuma
+- **Último marco institucional:** continuidade permanente encerrada
+- **Último marco de produto:** reprodução controlada de execuções de precificação
 
 ## Capacidades disponíveis
 
@@ -39,7 +43,8 @@ e no [registro de decisões](lvfi-decision-register.md).
 
 - **Próxima task oficial:** `LVFI-APP-010 — Fundação do frontend e tela inicial de precificação`.
 - **Próxima etapa planejada:** `LVFI-APP-011 — Entrada de mercado e comparação entre modelo e mercado`.
-- **Ação imediata:** executar a APP-010 após a integração da R21-GOV-001.
+- **Ação imediata:** iniciar `LVFI-APP-010 — Fundação do frontend e tela inicial
+  de precificação` após a publicação deste encerramento institucional.
 
-Antes disso é proibido iniciar APP-010/011, alterar Pricing Engine, backend,
-PostgreSQL, APIs, matemática, frontend ou dependências dentro da R21-GOV-001.
+Este encerramento não iniciou APP-010/011 e não alterou Pricing Engine, backend,
+PostgreSQL, APIs, matemática, frontend, migrations, dependências ou lockfiles.

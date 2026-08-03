@@ -11,6 +11,7 @@ normativos.
 | `GOV-D-004` | Planejada | `LVFI-APP-011` é a próxima etapa planejada, sem detalhamento nesta task | Product Owner, 2026-08-02 | Preserva a direção mercado/comparação sem autorizar implementação | R21-GOV-001 |
 | `GOV-D-005` | Aprovada | `LVFI-ENG-004` permanece o ID oficial da correção de estabilidade numérica do PR #4; não será reutilizado para Método 2 | Product Owner, 2026-08-02 | Histórico publicado preservado; referências antigas corrigidas | [Documento 29](../products/linha-de-valor-football-intelligence/29-lvfi-eng-004-total-market-numerical-stability.md), Git e R21-GOV-001 |
 | `GOV-D-006` | Aprovada | Método 2 permanece sem novo ID nesta task | Product Owner, 2026-08-02 | Agentes não podem inferir ou criar identificador | R21-GOV-001 |
+| `GOV-D-007` | Aprovada | Encerrar institucionalmente a R21-GOV-001 após sua publicação e integração pelo PR #15 no merge `a1610c85282e5d46ffc2b8094462d00d5135ca01` | Product Owner, 2026-08-02 | Não há task ativa; APP-010 passa a ser a ação imediata após a publicação deste encerramento | R21-GOV-001 e histórico Git |
 | `ARCH-011` | Aprovada | Monólito modular com Next.js/TypeScript, FastAPI/Python, PostgreSQL, worker e objetos S3-compatíveis | Product Owner/ADR | Define a aplicação sem criar microsserviços | [ADR-LVFI-011](../architecture/decisions/ADR-LVFI-011-stack-e-monolito-modular-da-aplicacao.md) |
 | `ARCH-012` | Aprovada | Aplicação chama a fachada pública do Pricing Engine sem duplicar matemática | Product Owner/ADR | Preserva versões, schemas, hashes e isolamento | [ADR-LVFI-012](../architecture/decisions/ADR-LVFI-012-fronteira-da-aplicacao-com-o-pricing-engine.md) |
 | `ARCH-013` | Aprovada | PostgreSQL é fonte transacional; jobs persistidos e fornecedores isolados | Product Owner/ADR | Orienta persistência e integrações futuras | [ADR-LVFI-013](../architecture/decisions/ADR-LVFI-013-persistencia-jobs-e-integracoes-externas.md) |
@@ -24,6 +25,10 @@ reservavam `LVFI-ENG-004` para o Método 2. O
 e o Git registram o mesmo ID na correção numérica integrada pelo PR #4. O Product
 Owner resolveu o conflito em 2026-08-02 pelas decisões `GOV-D-005/006`; os
 documentos 11 e 13 foram corrigidos sem reescrever o histórico da correção.
+As correções, o sistema de continuidade e os handoffs foram publicados e
+integrados pelo PR #15 no merge
+`a1610c85282e5d46ffc2b8094462d00d5135ca01`; a decisão `GOV-D-007` registra o
+encerramento institucional da R21-GOV-001.
 
 O [README do produto](../products/linha-de-valor-football-intelligence/README.md)
 também declarava backend, banco e API ausentes apesar dos documentos 28–36 e dos
