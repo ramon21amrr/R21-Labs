@@ -16,7 +16,7 @@ dos documentos originais e da decisão do Product Owner na R21-GOV-001.
 | 9 | Execução persistida e auditável | Concluído | [Documento 34](../products/linha-de-valor-football-intelligence/34-auditable-pricing-executions.md), APP-007 | Snapshot de execução append-only |
 | 10 | Histórico e comparação | Concluído | [Documento 35](../products/linha-de-valor-football-intelligence/35-pricing-execution-history-and-comparison.md), APP-008 | Leitura filtrável e comparação compatível |
 | 11 | Reprodução controlada | Concluído | [Documento 36](../products/linha-de-valor-football-intelligence/36-controlled-pricing-execution-reproduction.md), APP-009 | Reprodução append-only e diferenças auditáveis |
-| 12 | Frontend e tela inicial de precificação | Próximo/aprovado | Decisão do Product Owner; `LVFI-APP-010` | Executar somente após integração da R21-GOV-001 |
+| 12 | Frontend e tela inicial de precificação | Concluído tecnicamente; publicação autorizada | `LVFI-APP-010`, ADR-014 e smoke integrado | Publicar e integrar sem iniciar APP-011 |
 | 13 | Entrada de mercado e comparação modelo versus mercado | Planejado | Decisão do Product Owner; `LVFI-APP-011` | Depende da APP-010 e plano próprio |
 | 14 | Métodos restantes e workflow completo do MVP | Dependente de decisão | [Requisitos](../products/linha-de-valor-football-intelligence/05-requirements.md) | Método 2 sem ID; tasks próprias para Método 3, aprovação e snapshot |
 | 15 | Autenticação e segurança de uso | Planejado no MVP | RF-001–004 e RNF-010–014 | Papéis, sessão e proteção server-side validados |

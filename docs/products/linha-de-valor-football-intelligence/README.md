@@ -12,7 +12,7 @@
 - **FATO OBSERVADO:** a `LVFI-ENG-003` concluiu o Método 1 `1.0.0` na distribuição `lvfi-pricing-engine` `1.1.0`, com schemas canônicos v1 e integração controlada ao Pricing Engine `1.0.0`.
 - **FATO OBSERVADO:** a `LVFI-ENG-004` corrigiu a estabilidade numérica de totais no PR #4 e promoveu o Pricing Engine para `1.0.1` e a distribuição para `1.1.1`, preservando o Método 1 `1.0.0` e os schemas v1.
 - **FATO OBSERVADO:** `LVFI-APP-001` a `LVFI-APP-009` estão integradas. A aplicação possui arquitetura aprovada, API FastAPI, PostgreSQL, importação e consultas históricas, amostras do Método 1, execução, persistência append-only, histórico, comparação e reprodução controlada.
-- **DECISÃO APROVADA:** `LVFI-APP-010 — Fundação do frontend e tela inicial de precificação` é a próxima task oficial após a integração da `R21-GOV-001`; `LVFI-APP-011` é a etapa planejada seguinte, sem detalhamento nesta governança.
+- **FATO OBSERVADO:** `LVFI-APP-010 — Fundação do frontend e tela inicial de precificação` está implementada e validada na branch oficial, aguardando autorização de publicação; `LVFI-APP-011` permanece etapa planejada, sem detalhamento ou implementação nesta task.
 - **DECISÃO APROVADA:** `M1-PEND-001–007` foram encerradas por `D-M1-001–007`, preservando a rastreabilidade integral.
 - **GATE HISTÓRICO:** a validação final da T10 definiu o readiness do Método 1; isoladamente, ela não autorizava backend, banco, API, interface, Value Tracker, Método 2 ou Método 3. As autorizações posteriores estão nos documentos 27–36 e no histórico Git.
 
@@ -92,6 +92,7 @@ As afirmações relevantes usam os seguintes estados:
 - [ADR-LVFI-011 — Stack e monólito modular da aplicação](../../architecture/decisions/ADR-LVFI-011-stack-e-monolito-modular-da-aplicacao.md)
 - [ADR-LVFI-012 — Fronteira da aplicação com o Pricing Engine](../../architecture/decisions/ADR-LVFI-012-fronteira-da-aplicacao-com-o-pricing-engine.md)
 - [ADR-LVFI-013 — Persistência, jobs e isolamento de fornecedores](../../architecture/decisions/ADR-LVFI-013-persistencia-jobs-e-integracoes-externas.md)
+- [ADR-LVFI-014 — Toolchain do frontend LVFI](../../architecture/decisions/ADR-LVFI-014-toolchain-frontend-lvfi.md)
 
 ## Síntese das decisões vigentes
 
@@ -130,6 +131,7 @@ O encerramento técnico, as limitações remanescentes e a referência ao arquiv
 - [34 — Execuções de precificação auditáveis](34-auditable-pricing-executions.md)
 - [35 — Histórico e comparação de execuções](35-pricing-execution-history-and-comparison.md)
 - [36 — Reprodução controlada de execuções](36-controlled-pricing-execution-reproduction.md)
+- [37 — Fundação do frontend e tela inicial de precificação](37-lvfi-app-010-frontend-pricing-screen.md)
 
 ## Continuidade institucional
 

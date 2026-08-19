@@ -10,10 +10,16 @@ primeiro produto: plataforma auditável de dados e inteligência de futebol. Ram
 - Última task institucional concluída: `R21-GOV-001` — continuidade permanente,
   publicada e integrada pelo PR #15.
 - Última task de produto concluída: `LVFI-APP-009` — reprodução controlada.
-- Tasks ativas: nenhuma.
-- Próxima task oficial: `LVFI-APP-010` — frontend e tela inicial de precificação.
+- Task em publicação: `LVFI-APP-010` na branch `feat/lvfi-app-010-pricing-screen-foundation`; gates e smoke integrado concluídos.
+- Próxima task oficial: nenhuma; APP-010 está na publicação autorizada.
 - Próxima etapa planejada: `LVFI-APP-011` — entrada/comparação de mercado.
-- Ação imediata: iniciar APP-010 após publicar este encerramento institucional.
+- Ação imediata: concluir a publicação autorizada da APP-010.
+
+O frontend está implementado e passou em lint, typecheck, testes e build. A
+incompatibilidade inicial entre ESLint `10.8.1` e os plugins transitivos do
+`eslint-config-next` `16.3.1` foi resolvida pelo pin estável `9.39.5`. O smoke
+frontend → API → PostgreSQL real passou com banco isolado removido; a publicação
+foi autorizada pelo Product Owner.
 
 Capacidades atuais: Pricing Engine `1.0.1`, distribuição `1.1.1`, Método 1
 `1.0.0`, schema 1; FastAPI/PostgreSQL; importação/consulta histórica; amostras;
@@ -26,7 +32,7 @@ Value Tracker e deploy permanecem não concluídos.
 
 `dados → modelo → preço → mercado → oportunidade → resultado → melhoria contínua`
 
-APP-010 abre a interface; APP-011 é a etapa planejada de mercado. Depois, tasks e
+APP-010 entrega a interface inicial e está em publicação autorizada; APP-011 é a etapa planejada de mercado. Depois, tasks e
 decisões próprias completam o MVP utilizável, piloto, preparação comercial e
 lançamento. O Método 2 permanece sem ID. Mercado automatizado, oportunidades e
 Value Tracker estão fora do MVP/futuros conforme os documentos originais.

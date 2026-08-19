@@ -19,9 +19,9 @@ como mapa local, confirme nos originais e mantenha saídas compactas.
 
 ## Arquitetura e estado técnico
 
-Monólito modular: frontend previsto em Next.js/TypeScript; API FastAPI/Python;
-PostgreSQL; worker Python e objetos S3-compatíveis futuros. Hoje `apps/api` existe;
-`apps/web` ainda não. Pricing Engine e Método 1 permanecem isolados e são a única
+Monólito modular: frontend Next.js/TypeScript, API FastAPI/Python; PostgreSQL;
+worker Python e objetos S3-compatíveis futuros. `apps/web` fornece a primeira
+interface utilizável; Pricing Engine e Método 1 permanecem isolados e são a única
 fonte matemática. A aplicação já oferece dados históricos, amostras, execução,
 persistência append-only, histórico, comparação e reprodução controlada.
 
@@ -33,8 +33,8 @@ persistência append-only, histórico, comparação e reprodução controlada.
 - Última task institucional concluída: `R21-GOV-001`, publicada e integrada pelo
   PR #15 no merge `a1610c85282e5d46ffc2b8094462d00d5135ca01`.
 - Última task de produto concluída: `LVFI-APP-009`.
-- Tasks ativas: nenhuma.
-- Próxima task oficial: `LVFI-APP-010`.
+- Task em publicação: `LVFI-APP-010` na branch `feat/lvfi-app-010-pricing-screen-foundation`; gates e smoke integrado concluídos.
+- Próxima task oficial: nenhuma; APP-010 está na publicação autorizada.
 - Próxima etapa planejada: `LVFI-APP-011`.
 
 ## Sequência macro
@@ -65,10 +65,11 @@ e [reprodução](../products/linha-de-valor-football-intelligence/36-controlled-
 quando a próxima task exigir. Gates são proporcionais ao escopo e mantêm logs em
 `.r21-artifacts/quality/`.
 
-**Ação imediata:** após publicar este encerramento institucional, iniciar somente
-`LVFI-APP-010 — Fundação do frontend e tela inicial de precificação`.
+**Ação imediata:** concluir a publicação autorizada da APP-010. O smoke frontend
+→ API → PostgreSQL passou com banco isolado removido; a incompatibilidade inicial
+do ESLint 10.8.1 foi resolvida pelo pin estável 9.39.5.
 
-Este handoff não inicia APP-010 ou APP-011. O roadmap completo permanece em
+APP-010 está em publicação autorizada; APP-011 não foi iniciada. O roadmap completo permanece em
 [roadmap institucional](lvfi-product-roadmap.md), inclusive MVP, piloto,
 operação de mercado, oportunidades, Value Tracker, preparação comercial e
 lançamento.
