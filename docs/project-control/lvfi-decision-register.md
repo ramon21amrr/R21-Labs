@@ -15,6 +15,7 @@ normativos.
 | `ARCH-011` | Aprovada | Monólito modular com Next.js/TypeScript, FastAPI/Python, PostgreSQL, worker e objetos S3-compatíveis | Product Owner/ADR | Define a aplicação sem criar microsserviços | [ADR-LVFI-011](../architecture/decisions/ADR-LVFI-011-stack-e-monolito-modular-da-aplicacao.md) |
 | `ARCH-012` | Aprovada | Aplicação chama a fachada pública do Pricing Engine sem duplicar matemática | Product Owner/ADR | Preserva versões, schemas, hashes e isolamento | [ADR-LVFI-012](../architecture/decisions/ADR-LVFI-012-fronteira-da-aplicacao-com-o-pricing-engine.md) |
 | `ARCH-013` | Aprovada | PostgreSQL é fonte transacional; jobs persistidos e fornecedores isolados | Product Owner/ADR | Orienta persistência e integrações futuras | [ADR-LVFI-013](../architecture/decisions/ADR-LVFI-013-persistencia-jobs-e-integracoes-externas.md) |
+| `ARCH-014` | Aprovada, emendada | Matriz reprodutível do frontend: Node 24.19.0, npm 11.17.0, Next 16.3.1/App Router, React 19.2.7, TypeScript 5.9.3, ESLint 9.39.5, Vitest e Playwright restrito a smoke/E2E | Product Owner, 2026-08-19 | ESLint 10.8.1 foi inviável com os plugins transitivos do eslint-config-next 16.3.1; a autorização para continuar aprovou a resolução estável compatível, sem ferramentas experimentais ou package managers alternativos | [ADR-LVFI-014](../architecture/decisions/ADR-LVFI-014-toolchain-frontend-lvfi.md) |
 
 ## Conflito documental R21-GOV-001
 

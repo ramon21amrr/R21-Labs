@@ -17,7 +17,7 @@ decisão**, **fora do MVP** e **futuro**.
 | Método 1 | Concluído | Amostras, contratos, médias, ajustes, integração, serialização e release | Pricing Engine aceito; `D-M1-001–007` | Método 1 `1.0.0`, schema canônico 1 e cobertura integral | Preservar fórmula, catálogo, versões e hashes |
 | Fundação da aplicação | Concluído | Arquitetura, FastAPI, PostgreSQL, importação histórica e consultas | ADRs 011–013 | APP-001 a APP-004 integradas | Autenticação, frontend e deploy ainda ausentes |
 | Precificação auditável na aplicação | Concluído | Amostras, execução, persistência append-only, histórico, comparação e reprodução | APP-003/004 e Método 1 | APP-005 a APP-009 integradas; reprodução controlada disponível | A API atual não representa workflow completo de aprovação do MVP |
-| Interface utilizável inicial | Aprovado | Fundação do frontend e tela inicial de precificação | APP-009; R21-GOV-001 integrada e encerrada institucionalmente | Critérios próprios da `LVFI-APP-010`, gates e encerramento institucional | Não duplicar matemática no frontend; manter DTOs autorizados |
+| Interface utilizável inicial | Concluída tecnicamente; publicação autorizada | Fundação do frontend e tela inicial de precificação | APP-009; R21-GOV-001 integrada e encerrada institucionalmente | `LVFI-APP-010` validada, com smoke frontend → API → PostgreSQL real | Não duplicar matemática no frontend; manter DTOs autorizados |
 | Entrada de mercado | Planejado | Entrada de odds/mercado e comparação entre modelo e mercado | APP-010; detalhamento e aprovação próprios | `LVFI-APP-011` aceita | Não ampliar para oportunidade automática sem decisão; não detalhada nesta governança |
 | MVP interno completo | Dependente de decisão | Completar Método 2, Método 3, configurações, revisão/aprovação, snapshot, auditoria, Match Center, PDF-resumo e autenticação básica | APP-010/011 quando aplicáveis; tasks ainda não aprovadas | Requisitos MVP e jornada ponta a ponta do documento 11 atendidos | Método 2 está deliberadamente sem ID; não inferir ordem ou task |
 | MVP utilizável | Planejado | Operação manual pelo administrador no Brasileirão Série A 2026 | MVP interno, dados reconciliados e UX validada | Usuário conclui importar, selecionar, precificar, revisar, aprovar e gerar PDF | Usabilidade, baixa amostra, rastreabilidade e proteção de conhecimento |
@@ -38,9 +38,9 @@ não antecipa oportunidades, Value Tracker, piloto ou comercialização.
 
 `R21-GOV-001` é a última task institucional concluída, publicada e integrada pelo
 PR #15 no merge `a1610c85282e5d46ffc2b8094462d00d5135ca01`.
-`LVFI-APP-009` permanece a última task de produto concluída; `LVFI-APP-010` é a
-próxima task oficial e `LVFI-APP-011` é a próxima etapa planejada. Este registro
-não inicia nenhuma delas e preserva integralmente os marcos posteriores abaixo.
+`LVFI-APP-009` permanece a última task de produto integrada; `LVFI-APP-010` está
+em publicação autorizada e `LVFI-APP-011` é a próxima etapa planejada. Este
+registro não inicia APP-011 e preserva integralmente os marcos posteriores abaixo.
 
 ## Escopo aprovado do MVP
 
