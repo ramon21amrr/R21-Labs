@@ -6,14 +6,15 @@ R21 Labs transforma conhecimento em produtos digitais próprios. O LVFI é seu
 primeiro produto: plataforma auditável de dados e inteligência de futebol. Ramon
 é o Product Owner e usuário administrador inicial; decisões finais são humanas.
 
-- Referência integrada: `2c2f34e7059c69d904250e4d0f5caa62ab36543d` em `main` / `origin/main`, PR #17.
+- Referência integrada: `449fde5e7279818c72a549b8c51d740ba45dc60d` em `main` / `origin/main`, PR #18.
 - Última task institucional concluída: `R21-GOV-001` — continuidade permanente,
   publicada e integrada pelo PR #15.
 - Última task de produto concluída: `LVFI-APP-010` — frontend e tela inicial de precificação, integrada pelo PR #17.
 - Task ativa: nenhuma.
-- Próxima task oficial planejada: `LVFI-APP-011`; não iniciada.
-- Próxima etapa planejada: `LVFI-APP-011` — entrada/comparação de mercado.
-- Ação imediata: aguardar detalhamento e autorização próprios para APP-011.
+- Próxima task oficial: `LVFI-ENG-006 — Camada versionada de precificação de mercados`; aprovada e ainda não implementada, base `449fde5e7279818c72a549b8c51d740ba45dc60d`.
+- `LVFI-ENG-005` permanece Método 3 — frequência observada.
+- `LVFI-APP-011` permanece planejada/bloqueada até a conclusão da ENG-006.
+- Ação imediata: aguardar autorização própria para iniciar ENG-006.
 
 O frontend está implementado e passou em lint, typecheck, testes e build. A
 incompatibilidade inicial entre ESLint `10.8.1` e os plugins transitivos do
@@ -32,7 +33,11 @@ Value Tracker e deploy permanecem não concluídos.
 
 `dados → modelo → preço → mercado → oportunidade → resultado → melhoria contínua`
 
-APP-010 entregou a interface inicial e está encerrada institucionalmente; APP-011 é a etapa planejada de mercado. Depois, tasks e
+APP-010 entregou a interface inicial e está encerrada institucionalmente; ENG-006
+é a camada pós-Método 1 aprovada para precificação por mercado, com
+versionamento, snapshot, hashes e persistência/auditoria próprios, sem alterar a
+matemática. APP-011 depende de sua conclusão e permanece sem detalhamento além
+dessa dependência. Depois, tasks e
 decisões próprias completam o MVP utilizável, piloto, preparação comercial e
 lançamento. O Método 2 permanece sem ID. Mercado automatizado, oportunidades e
 Value Tracker estão fora do MVP/futuros conforme os documentos originais.
@@ -53,7 +58,7 @@ comercial; lançamento e evolução.
 - Branch não-main, gates, diff/segredos e autorização separada para commit, push,
   PR e merge. Nunca force-push ou reescreva histórico.
 
-Decisões pendentes: ID/plano do Método 2; detalhamento APP-011; PDF; autenticação;
+Decisões pendentes: ID/plano do Método 2; detalhamento APP-011 após ENG-006; PDF; autenticação;
 retenção/recuperação; deploy; fornecedores; evento/CLV do Value Tracker; piloto.
 
 ## Bootstrap

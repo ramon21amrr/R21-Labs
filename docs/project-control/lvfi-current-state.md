@@ -1,13 +1,13 @@
 # Estado atual do LVFI
 
 - **Atualizado em:** 2026-08-19
-- **Referência integrada:** `2c2f34e7059c69d904250e4d0f5caa62ab36543d`
-- **Branch de referência:** `main` / `origin/main`, integrada pelo PR #17
+- **Referência integrada:** `449fde5e7279818c72a549b8c51d740ba45dc60d`
+- **Branch de referência:** `main` / `origin/main`, integrada pelo PR #18
 - **Última task institucional concluída:** `R21-GOV-001` — sistema permanente de
   continuidade, publicada e integrada pelo PR #15 no merge
   `a1610c85282e5d46ffc2b8094462d00d5135ca01`
 - **Última task de produto concluída:** `LVFI-APP-010`
-- **Task ativa:** nenhuma
+- **Task ativa:** nenhuma; `LVFI-ENG-006` aprovada e ainda não implementada
 - **Último marco institucional:** continuidade permanente encerrada
 - **Último marco de produto:** frontend e tela inicial de precificação
 
@@ -43,12 +43,16 @@ e no [registro de decisões](lvfi-decision-register.md).
 ## Próxima sequência oficial
 
 - **Última task encerrada:** `LVFI-APP-010 — Fundação do frontend e tela inicial de precificação`, PR #17, merge `2c2f34e7059c69d904250e4d0f5caa62ab36543d`.
-- **Próxima task oficial planejada:** `LVFI-APP-011 — Entrada de mercado e comparação entre modelo e mercado`; não iniciada.
-- **Ação imediata:** aguardar detalhamento e autorização próprios antes de iniciar APP-011.
+- **Próxima task oficial:** `LVFI-ENG-006 — Camada versionada de precificação de mercados`; aprovada, ainda não implementada, a partir da base `449fde5e7279818c72a549b8c51d740ba45dc60d`.
+- **Dependência subsequente:** `LVFI-APP-011` permanece planejada e bloqueada até a conclusão da ENG-006; não iniciada e sem detalhamento adicional.
+- **Ação imediata:** aguardar autorização própria para iniciar a ENG-006.
 
-A APP-010 foi iniciada a partir da base autorizada `2c2c46447698de2641efe23b9a8491b2d6a7086d`.
-Ela não autoriza alterações em APP-011, Pricing Engine, matemática, schemas, hashes
-ou contratos públicos sem incompatibilidade demonstrada.
+A ENG-006 receberá taxas imutáveis produzidas pelo Método 1 e usará capacidades
+existentes do Pricing Engine, sem alterar a matemática congelada. Terá
+versionamento, snapshot, hashes e persistência/auditoria próprios e viabilizará
+posteriormente Handicap Asiático e Totais para comparação com mercado. Ela não
+autoriza alterações no Método 1 `1.0.0`, Pricing Engine, matemática, schemas,
+hashes ou contratos públicos.
 
 ## Validação integrada da APP-010
 
