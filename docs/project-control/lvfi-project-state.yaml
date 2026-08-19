@@ -2,17 +2,17 @@ schema_version: "1.0"
 project: "R21 Labs"
 product: "Linha de Valor Football Intelligence"
 updated_at: "2026-08-19T00:00:00-03:00"
-reference_commit: "2c2f34e7059c69d904250e4d0f5caa62ab36543d"
+reference_commit: "449fde5e7279818c72a549b8c51d740ba45dc60d"
 reference_branch: "main"
 current_phase: "application_foundation"
 current_milestone: "permanent_continuity_system_institutionally_closed"
 last_completed_task: "LVFI-APP-010"
 last_completed_governance_task: "R21-GOV-001"
 last_completed_product_task: "LVFI-APP-010"
-next_official_task: "LVFI-APP-011"
-next_planned_task: "LVFI-APP-011"
-next_required_decision: "Detalhar e autorizar a LVFI-APP-011 antes de seu início."
-immediate_action: "Não iniciar APP-011 sem escopo e autorização próprios."
+next_official_task: "LVFI-ENG-006"
+next_planned_task: "LVFI-ENG-006"
+next_required_decision: "Autorizar o início da LVFI-ENG-006 a partir da base 449fde5e7279818c72a549b8c51d740ba45dc60d."
+immediate_action: "Não iniciar ENG-006 sem autorização própria; APP-011 permanece bloqueada até sua conclusão."
 completed_tasks:
   - "LVFI-DISC-002"
   - "LVFI-ENG-001"
@@ -32,9 +32,13 @@ completed_tasks:
   - "R21-GOV-001"
 active_tasks: []
 planned_tasks:
-  - "LVFI-APP-011"
+  - "LVFI-ENG-006"
   - "LVFI-ENG-005"
-blocked_tasks: []
+  - "LVFI-APP-011"
+approved_not_implemented_tasks:
+  - "LVFI-ENG-006"
+blocked_tasks:
+  - "LVFI-APP-011 (depende da conclusão da LVFI-ENG-006)"
 versions:
   api: "0.1.0"
   python: ">=3.13,<3.14"
