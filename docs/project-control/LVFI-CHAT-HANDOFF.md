@@ -82,3 +82,9 @@ Fontes: [índice de controle](README.md), [estado](lvfi-current-state.md),
 [tasks](lvfi-task-registry.md), [decisões](lvfi-decision-register.md),
 [Company Context](../company/company-context.md) e
 [produto](../products/linha-de-valor-football-intelligence/README.md).
+
+## Atualização APP-011
+
+`LVFI-APP-011` foi publicada, integrada e encerrada pelo PR #22, merge
+`7ef9e0a7a4146637e3121196c6cc743590ddcc4b`; feature commit `8dac389`. A ação
+imediata é aguardar decisão explícita do Product Owner sobre a próxima task.

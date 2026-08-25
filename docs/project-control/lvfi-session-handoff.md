@@ -84,3 +84,10 @@ em
 [roadmap institucional](lvfi-product-roadmap.md), inclusive MVP, piloto,
 operação de mercado, oportunidades, Value Tracker, preparação comercial e
 lançamento.
+
+## Atualização de encerramento APP-011
+
+APP-011 foi integrada pelo PR #22, merge `7ef9e0a7a4146637e3121196c6cc743590ddcc4b`.
+O feature commit é `8dac389`; backend 103 testes PostgreSQL/100% de cobertura,
+frontend lint, typecheck, testes e build aprovados. Método 1 e Pricing Engine não
+mudaram. Não há task ativa: aguardar decisão explícita do Product Owner.
