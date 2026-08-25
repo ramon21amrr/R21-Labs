@@ -18,8 +18,8 @@ decisão**, **fora do MVP** e **futuro**.
 | Fundação da aplicação | Concluído | Arquitetura, FastAPI, PostgreSQL, importação histórica e consultas | ADRs 011–013 | APP-001 a APP-004 integradas | Autenticação, frontend e deploy ainda ausentes |
 | Precificação auditável na aplicação | Concluído | Amostras, execução, persistência append-only, histórico, comparação e reprodução | APP-003/004 e Método 1 | APP-005 a APP-009 integradas; reprodução controlada disponível | A API atual não representa workflow completo de aprovação do MVP |
 | Interface utilizável inicial | Concluído | Fundação do frontend e tela inicial de precificação | APP-009; R21-GOV-001 integrada e encerrada institucionalmente | `LVFI-APP-010` integrada pelo PR #17, com smoke frontend → API → PostgreSQL real | Não duplicar matemática no frontend; manter DTOs autorizados |
-| Camada versionada de precificação de mercados | Implementada localmente; aguarda autorização de commit | Camada pós-Método 1 para taxas imutáveis, com versionamento, snapshot, hashes e persistência/auditoria próprios | Método 1 `1.0.0` e Pricing Engine `1.0.1` preservados; base `bde1a362801658543ad9b2c3c9085aa10f0fcd04` | `LVFI-ENG-006` revisada/aceita sem alterar Método 1, Engine ou sua matemática | Usar somente capacidades existentes do Engine; preparar Handicap Asiático e Totais para comparação futura |
-| Entrada de mercado | Planejado; bloqueado | Entrada de odds/mercado e comparação entre modelo e mercado | conclusão da `LVFI-ENG-006`; plano próprio | `LVFI-APP-011` aceita | Não ampliar para oportunidade automática sem decisão; não detalhar além da dependência |
+| Camada versionada de precificação de mercados | Concluído, publicado, integrado e encerrado institucionalmente | Camada pós-Método 1 para taxas imutáveis, com versionamento, snapshot, hashes e persistência/auditoria próprios | Método 1 `1.0.0` e Pricing Engine `1.0.1` preservados; PR #20, merge `0d59956283f8efcab4f04e372ffe95cadaab9deb` | `LVFI-ENG-006` integrada sem alterar Método 1, Engine ou sua matemática | Usar somente capacidades existentes do Engine; preparar Handicap Asiático e Totais para comparação futura |
+| Entrada de mercado | Próxima task oficial; planejada e não iniciada | Entrada de odds/mercado e comparação entre modelo e mercado | ENG-006 concluída; plano e autorização próprios | `LVFI-APP-011` aceita | Não ampliar para oportunidade automática sem decisão; não detalhar além da dependência |
 | MVP interno completo | Dependente de decisão | Completar Método 2, Método 3, configurações, revisão/aprovação, snapshot, auditoria, Match Center, PDF-resumo e autenticação básica | APP-010/011 quando aplicáveis; tasks ainda não aprovadas | Requisitos MVP e jornada ponta a ponta do documento 11 atendidos | Método 2 está deliberadamente sem ID; não inferir ordem ou task |
 | MVP utilizável | Planejado | Operação manual pelo administrador no Brasileirão Série A 2026 | MVP interno, dados reconciliados e UX validada | Usuário conclui importar, selecionar, precificar, revisar, aprovar e gerar PDF | Usabilidade, baixa amostra, rastreabilidade e proteção de conhecimento |
 | Relatórios ampliados | Planejado/Futuro | PDF-resumo no MVP; PDF analítico após capacidades correspondentes | Snapshot aprovado, storage e tecnologia de PDF decidida | Legibilidade, rastreabilidade, autorização e retenção validadas | Exposição de conhecimento, paginação e armazenamento |
@@ -41,8 +41,8 @@ comercialização.
 `R21-GOV-001` é a última task institucional concluída, publicada e integrada pelo
 PR #15 no merge `a1610c85282e5d46ffc2b8094462d00d5135ca01`.
 `LVFI-APP-010` é a última task de produto integrada; `LVFI-ENG-006` é a próxima
-task tecnicamente pronta e aguardando autorização de commit. A APP-011 permanece
-planejada e bloqueada até o encerramento da ENG-006. Este registro não inicia
+task encerrada institucionalmente pelo PR #20. A APP-011 é a próxima task oficial,
+planejada e ainda não iniciada. Este registro não inicia
 nenhuma delas e preserva
 integralmente os marcos posteriores abaixo.
 
@@ -65,8 +65,8 @@ criar telas vazias, serviços ou integrações antecipadas.
 ## Decisões que ainda condicionam o caminho
 
 - O Método 2 permanece planejado e sem ID por decisão do Product Owner.
-- A ENG-006 está implementada localmente e aguarda autorização de commit; APP-011
-  permanece planejada e bloqueada até seu encerramento.
+- A ENG-006 está concluída, publicada, integrada e encerrada institucionalmente;
+  APP-011 é a próxima task oficial, planejada e não iniciada.
 - Tecnologia/escopo do PDF, retenção, backup/recuperação, autenticação, deploy,
   fornecedor de dados/odds, evento do Value Tracker, CLV e critérios do piloto
   exigem decisões próprias nas etapas aplicáveis.

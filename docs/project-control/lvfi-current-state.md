@@ -1,17 +1,14 @@
 # Estado atual do LVFI
 
 - **Atualizado em:** 2026-08-25
-- **Baseline da task:** `bde1a362801658543ad9b2c3c9085aa10f0fcd04`
-- **Branch da task:** `codex/lvfi-eng-006-market-pricing` (local; sem commit,
-  push, PR ou merge)
-- **Última task institucional concluída:** `R21-GOV-001` — sistema permanente de
-  continuidade, publicada e integrada pelo PR #15 no merge
-  `a1610c85282e5d46ffc2b8094462d00d5135ca01`
-- **Última task de produto concluída:** `LVFI-APP-010`
-- **Task ativa:** `LVFI-ENG-006`, implementada e tecnicamente validada; aguarda
-  revisão/autorização do Product Owner
-- **Último marco institucional:** continuidade permanente encerrada
-- **Último marco de produto:** frontend e tela inicial de precificação
+- **Referência integrada:** `0d59956283f8efcab4f04e372ffe95cadaab9deb`
+- **Branch de referência:** `main` / `origin/main`, integrada pelo PR #20
+- **Última task institucional concluída:** `LVFI-ENG-006` — camada versionada de
+  precificação de mercados, publicada e integrada pelo PR #20
+- **Última task de produto concluída:** `LVFI-ENG-006`
+- **Task ativa:** nenhuma
+- **Último marco institucional:** ENG-006 encerrada institucionalmente
+- **Último marco de produto:** precificação de mercados versionada e auditável
 
 ## Capacidades disponíveis
 
@@ -46,12 +43,10 @@ e no [registro de decisões](lvfi-decision-register.md).
 
 ## Próxima sequência oficial
 
-- **Última task encerrada:** `LVFI-APP-010 — Fundação do frontend e tela inicial de precificação`, PR #17, merge `2c2f34e7059c69d904250e4d0f5caa62ab36543d`.
-- **Task em revisão:** `LVFI-ENG-006 — Camada versionada de precificação de mercados`,
-  implementada localmente a partir de `bde1a362801658543ad9b2c3c9085aa10f0fcd04`.
-- **Dependência subsequente:** `LVFI-APP-011` permanece planejada e bloqueada até a conclusão da ENG-006; não iniciada e sem detalhamento adicional.
-- **Ação imediata:** Product Owner revisar a implementação/gates e autorizar ou
-  rejeitar o commit; APP-011 continua fora do escopo desta task.
+- **Última task encerrada:** `LVFI-ENG-006 — Camada versionada de precificação de mercados`, feature commit `5cd76cebc5b5bfc25f804f53fe7f315c03fc209d`, PR #20, merge `0d59956283f8efcab4f04e372ffe95cadaab9deb`.
+- **Próxima task oficial:** `LVFI-APP-011 — Entrada de mercado e comparação entre
+  modelo e mercado`; planejada, ainda não iniciada e dependente de autorização própria.
+- **Ação imediata:** aguardar autorização própria para iniciar a APP-011.
 
 A ENG-006 receberá taxas imutáveis produzidas pelo Método 1 e usará capacidades
 existentes do Pricing Engine, sem alterar a matemática congelada. Terá
