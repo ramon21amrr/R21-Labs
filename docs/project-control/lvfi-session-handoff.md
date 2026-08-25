@@ -26,18 +26,20 @@ fonte matemática. A aplicação já oferece dados históricos, amostras, execu�
 persistência append-only, histórico, comparação, reprodução controlada e a camada
 local ENG-006 de snapshots teóricos de mercado.
 
-- Baseline ENG-006: `bde1a362801658543ad9b2c3c9085aa10f0fcd04`; branch local
-  `codex/lvfi-eng-006-market-pricing`, sem commit/push/PR/merge.
+- Referência integrada: `0d59956283f8efcab4f04e372ffe95cadaab9deb` em `main` /
+  `origin/main`, merge do PR #20.
 - Pricing Engine `1.0.1`; distribuição `1.1.1`; Método 1 `1.0.0`; schema 1.
 - API: 96 testes no PostgreSQL institucional isolado e cobertura integral; banco
   descartável removido ao final.
 - Pricing Engine: 554 testes e cobertura integral.
 - Última task institucional concluída: `R21-GOV-001`, publicada e integrada pelo
   PR #15 no merge `a1610c85282e5d46ffc2b8094462d00d5135ca01`.
-- Última task de produto concluída: `LVFI-APP-010`, publicada pelo PR #17 no merge `2c2f34e7059c69d904250e4d0f5caa62ab36543d`.
-- Task ativa: `LVFI-ENG-006`, implementada e tecnicamente pronta, aguardando
-  revisão/autorização de commit do Product Owner.
-- Próxima decisão: autorizar ou rejeitar o commit da ENG-006; não iniciar nova task.
+- Última task de produto concluída: `LVFI-ENG-006`, feature commit
+  `5cd76cebc5b5bfc25f804f53fe7f315c03fc209d`, PR #20, merge
+  `0d59956283f8efcab4f04e372ffe95cadaab9deb`.
+- Task ativa: nenhuma.
+- Próxima task oficial: `LVFI-APP-011`, planejada e não iniciada; requer
+  autorização própria.
 - `LVFI-ENG-005` permanece Método 3 — frequência observada.
 - `LVFI-APP-011` permanece planejada e bloqueada pela conclusão da ENG-006.
 
@@ -45,11 +47,11 @@ local ENG-006 de snapshots teóricos de mercado.
 
 `dados → modelo → preço → mercado → oportunidade → resultado → melhoria contínua`
 
-APP-010 inicia a interface utilizável. A ENG-006 local recebe taxas imutáveis,
+APP-010 inicia a interface utilizável. A ENG-006 integrada recebe taxas imutáveis,
 chama apenas APIs públicas do Engine e persiste snapshots de mercados com schema,
 serialização canônica, SHA-256 e trigger append-only. Preserva linhas/estados
-asiáticos e não altera matemática. APP-011 só poderá seguir após o encerramento
-da ENG-006. O MVP ainda exige capacidades aprovadas nos documentos de produto,
+asiáticos e não altera matemática. APP-011 é a próxima task oficial, mas não foi
+iniciada. O MVP ainda exige capacidades aprovadas nos documentos de produto,
 incluindo Métodos restantes, autenticação, workflow de aprovação, Match Center e
 PDF. Mercado automatizado, oportunidades e Value Tracker permanecem fora do MVP
 ou futuros conforme o [roadmap](lvfi-product-roadmap.md).
@@ -72,13 +74,13 @@ e [reprodução](../products/linha-de-valor-football-intelligence/36-controlled-
 quando a próxima task exigir. Gates são proporcionais ao escopo e mantêm logs em
 `.r21-artifacts/quality/`.
 
-**Ação imediata:** Product Owner revisar a ENG-006 e autorizar ou rejeitar o
-commit. Método 1 `1.0.0`, Pricing Engine `1.0.1` e sua matemática permanecem
-congelados. A APP-011 segue planejada/bloqueada e não foi alterada.
+**Ação imediata:** aguardar autorização própria para iniciar APP-011. Método 1
+`1.0.0`, Pricing Engine `1.0.1` e sua matemática permanecem congelados. APP-011
+segue planejada e não foi iniciada.
 
-APP-010 está encerrada institucionalmente; ENG-006 está tecnicamente pronta, mas
-não publicada nem institucionalmente encerrada; APP-011 não foi iniciada. O
-roadmap completo permanece em
+ENG-006 está concluída, publicada, integrada e encerrada institucionalmente;
+APP-011 é a próxima task oficial e não foi iniciada. O roadmap completo permanece
+em
 [roadmap institucional](lvfi-product-roadmap.md), inclusive MVP, piloto,
 operação de mercado, oportunidades, Value Tracker, preparação comercial e
 lançamento.

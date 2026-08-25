@@ -17,8 +17,8 @@ dos documentos originais e da decisão do Product Owner na R21-GOV-001.
 | 10 | Histórico e comparação | Concluído | [Documento 35](../products/linha-de-valor-football-intelligence/35-pricing-execution-history-and-comparison.md), APP-008 | Leitura filtrável e comparação compatível |
 | 11 | Reprodução controlada | Concluído | [Documento 36](../products/linha-de-valor-football-intelligence/36-controlled-pricing-execution-reproduction.md), APP-009 | Reprodução append-only e diferenças auditáveis |
 | 12 | Frontend e tela inicial de precificação | Concluído | `LVFI-APP-010`, PR #17, ADR-014 e smoke integrado | APP-011 permanece planejada e não iniciada |
-| 13 | Camada versionada de precificação de mercados | Implementada localmente; aguarda autorização de commit | `LVFI-ENG-006`; API 96/96 no PostgreSQL isolado; Pricing 554/554 | Commit/revisão autorizados; Método 1 e Engine preservados |
-| 14 | Entrada de mercado e comparação modelo versus mercado | Planejado | Decisão do Product Owner; `LVFI-APP-011` | Depende do encerramento da ENG-006 e plano próprio |
+| 13 | Camada versionada de precificação de mercados | Concluído, publicado, integrado e encerrado institucionalmente | `LVFI-ENG-006`; feature `5cd76cebc5b5bfc25f804f53fe7f315c03fc209d`; PR #20; merge `0d59956283f8efcab4f04e372ffe95cadaab9deb` | Método 1 `1.0.0` e Engine `1.0.1` preservados |
+| 14 | Entrada de mercado e comparação modelo versus mercado | Próxima task oficial; planejado e não iniciado | Decisão do Product Owner; `LVFI-APP-011` | Requer plano e autorização próprios |
 | 15 | Métodos restantes e workflow completo do MVP | Dependente de decisão | [Requisitos](../products/linha-de-valor-football-intelligence/05-requirements.md) | Método 2 sem ID; tasks próprias para Método 3, aprovação e snapshot |
 | 16 | Autenticação e segurança de uso | Planejado no MVP | RF-001–004 e RNF-010–014 | Papéis, sessão e proteção server-side validados |
 | 17 | Relatórios | Planejado no MVP/futuro | [UX e PDF](../products/linha-de-valor-football-intelligence/09-user-experience-and-pdf.md) | PDF-resumo primeiro; analítico somente depois |

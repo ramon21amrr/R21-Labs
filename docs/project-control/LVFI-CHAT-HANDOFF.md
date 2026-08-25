@@ -6,17 +6,18 @@ R21 Labs transforma conhecimento em produtos digitais próprios. O LVFI é seu
 primeiro produto: plataforma auditável de dados e inteligência de futebol. Ramon
 é o Product Owner e usuário administrador inicial; decisões finais são humanas.
 
-- Baseline ENG-006: `bde1a362801658543ad9b2c3c9085aa10f0fcd04`; branch local
-  `codex/lvfi-eng-006-market-pricing`, sem commit/push/PR/merge.
+- Referência integrada: `0d59956283f8efcab4f04e372ffe95cadaab9deb` em `main` /
+  `origin/main`, merge do PR #20.
 - Última task institucional concluída: `R21-GOV-001` — continuidade permanente,
   publicada e integrada pelo PR #15.
-- Última task de produto concluída: `LVFI-APP-010` — frontend e tela inicial de precificação, integrada pelo PR #17.
-- Task ativa: `LVFI-ENG-006`, implementada e tecnicamente validada; aguarda
-  revisão/autorização de commit.
-- Próxima decisão: autorizar ou rejeitar o commit da ENG-006; não iniciar task nova.
+- Última task de produto concluída: `LVFI-ENG-006` — feature
+  `5cd76cebc5b5bfc25f804f53fe7f315c03fc209d`, integrada pelo PR #20.
+- Task ativa: nenhuma.
+- Próxima task oficial: `LVFI-APP-011`, planejada e não iniciada; requer
+  autorização própria.
 - `LVFI-ENG-005` permanece Método 3 — frequência observada.
 - `LVFI-APP-011` permanece planejada/bloqueada até a conclusão da ENG-006.
-- Ação imediata: revisar a ENG-006 e autorizar ou rejeitar o commit.
+- Ação imediata: aguardar autorização própria para iniciar APP-011.
 
 O frontend está implementado e passou em lint, typecheck, testes e build. A
 incompatibilidade inicial entre ESLint `10.8.1` e os plugins transitivos do
@@ -37,9 +38,9 @@ Value Tracker e deploy permanecem não concluídos.
 `dados → modelo → preço → mercado → oportunidade → resultado → melhoria contínua`
 
 APP-010 entregou a interface inicial e está encerrada institucionalmente; ENG-006
-está implementada localmente como camada pós-Método 1, com versionamento,
-snapshot, hashes e persistência/auditoria próprios, sem alterar a matemática.
-Ela aguarda autorização de commit. APP-011 depende de seu encerramento e permanece
+está concluída, publicada, integrada e encerrada institucionalmente como camada
+pós-Método 1, com versionamento, snapshot, hashes e persistência/auditoria próprios,
+sem alterar a matemática. APP-011 é a próxima task oficial, planejada e não iniciada,
 sem detalhamento além
 dessa dependência. Depois, tasks e
 decisões próprias completam o MVP utilizável, piloto, preparação comercial e
