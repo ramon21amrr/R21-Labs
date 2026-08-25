@@ -35,3 +35,7 @@ class MarketPricingValidationError(InvalidQueryError):
 
 class MarketPricingEngineError(InvalidQueryError):
     """Raised when the public Pricing Engine cannot price a valid market request."""
+
+
+class MarketReferenceValidationError(InvalidQueryError):
+    """Raised when a manual reference does not exactly match its snapshot contract."""

@@ -1,11 +1,11 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { createPricingExecution, getMatch, getMethodOneSample, getPricingExecution, listPricingExecutions } from "@/lib/api";
+import { createPricingExecution, getMatch, getMethodOneSample, getPricingExecution, listMarketPricings, listPricingExecutions } from "@/lib/api";
 import { PricingWorkspace } from "@/components/pricing-workspace";
 
 vi.mock("next/link", () => ({ default: ({ children, ...props }: React.ComponentProps<"a">) => <a {...props}>{children}</a> }));
-vi.mock("@/lib/api", async (importOriginal) => ({ ...(await importOriginal<typeof import("@/lib/api")>()), createPricingExecution: vi.fn(), getMatch: vi.fn(), getMethodOneSample: vi.fn(), getPricingExecution: vi.fn(), listPricingExecutions: vi.fn() }));
+vi.mock("@/lib/api", async (importOriginal) => ({ ...(await importOriginal<typeof import("@/lib/api")>()), createPricingExecution: vi.fn(), getMatch: vi.fn(), getMethodOneSample: vi.fn(), getPricingExecution: vi.fn(), listMarketPricings: vi.fn(), listPricingExecutions: vi.fn() }));
 
 const ref = (id: number, display_name: string) => ({ id, display_name, created_at: "2026-01-01T00:00:00Z" });
 const match = { id: 11, played_on: "2026-08-01", competition: ref(1, "Liga"), season: { id: 2, label: "2026", competition: ref(1, "Liga"), created_at: "2026-01-01T00:00:00Z" }, home_team: ref(3, "Casa"), away_team: ref(4, "Fora"), has_statistics: true, created_at: "2026-01-01T00:00:00Z" };
@@ -18,6 +18,7 @@ describe("PricingWorkspace", () => {
     vi.mocked(getMatch).mockResolvedValue(match);
     vi.mocked(getMethodOneSample).mockResolvedValue(completeSample);
     vi.mocked(listPricingExecutions).mockResolvedValue({ items: [execution], page: 1, page_size: 25, total: 1 });
+    vi.mocked(listMarketPricings).mockResolvedValue({ items: [], page: 1, page_size: 25, total: 0 });
   });
   afterEach(() => vi.restoreAllMocks());
 

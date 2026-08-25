@@ -18,6 +18,9 @@ from lvfi_api.presentation.errors import (
     unexpected_error_handler,
 )
 from lvfi_api.presentation.market_pricing_routes import router as market_pricing_router
+from lvfi_api.presentation.market_reference_routes import (
+    router as market_reference_router,
+)
 from lvfi_api.presentation.middleware import CorrelationMiddleware
 from lvfi_api.presentation.pricing_execution_reproduction_routes import (
     router as pricing_execution_reproduction_router,
@@ -105,4 +108,5 @@ def create_app(
     app.include_router(pricing_execution_router)
     app.include_router(pricing_execution_reproduction_router)
     app.include_router(market_pricing_router)
+    app.include_router(market_reference_router)
     return app
