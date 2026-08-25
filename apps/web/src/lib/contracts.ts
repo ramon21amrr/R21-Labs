@@ -77,3 +77,34 @@ export interface PricingExecution {
   canonical_result: Record<string, unknown> | null;
   failure_code: string | null;
 }
+
+export interface MarketPricing {
+  market_pricing_id: string;
+  match_id: number;
+  created_at: string;
+  finalized_at: string;
+  correlation_id: string;
+  pricing_engine_version: string;
+  canonical_input: Record<string, unknown>;
+  canonical_result: Record<string, unknown>;
+}
+
+export interface MarketReferenceObservation {
+  observation_id: string;
+  match_id: number;
+  market_pricing_id: string;
+  market_code: string;
+  selection: string;
+  model_line_quarters: number | null;
+  reference_line_quarters: number | null;
+  reference_value: number;
+  observed_at: string;
+  created_at: string;
+  correlation_id: string;
+}
+
+export interface ModelReferenceComparison {
+  observation: MarketReferenceObservation;
+  model_value: number;
+  line_difference_quarters: number | null;
+}

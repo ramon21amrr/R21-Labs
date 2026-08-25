@@ -6,7 +6,7 @@
 - **Última task institucional concluída:** `LVFI-ENG-006` — camada versionada de
   precificação de mercados, publicada e integrada pelo PR #20
 - **Última task de produto concluída:** `LVFI-ENG-006`
-- **Task ativa:** nenhuma
+- **Task ativa:** `LVFI-APP-011` — implementação e validação pré-publicação em andamento
 - **Último marco institucional:** ENG-006 encerrada institucionalmente
 - **Último marco de produto:** precificação de mercados versionada e auditável
 
@@ -46,7 +46,7 @@ e no [registro de decisões](lvfi-decision-register.md).
 - **Última task encerrada:** `LVFI-ENG-006 — Camada versionada de precificação de mercados`, feature commit `5cd76cebc5b5bfc25f804f53fe7f315c03fc209d`, PR #20, merge `0d59956283f8efcab4f04e372ffe95cadaab9deb`.
 - **Próxima task oficial:** `LVFI-APP-011 — Entrada de mercado e comparação entre
   modelo e mercado`; planejada, ainda não iniciada e dependente de autorização própria.
-- **Ação imediata:** aguardar autorização própria para iniciar a APP-011.
+- **Ação imediata:** concluir revisão de escopo e publicação autorizada da APP-011.
 
 A ENG-006 receberá taxas imutáveis produzidas pelo Método 1 e usará capacidades
 existentes do Pricing Engine, sem alterar a matemática congelada. Terá

@@ -1,4 +1,4 @@
-import type { Match, MethodOneSample, Page, PricingExecution } from "@/lib/contracts";
+import type { MarketPricing, MarketReferenceObservation, Match, MethodOneSample, ModelReferenceComparison, Page, PricingExecution } from "@/lib/contracts";
 
 const defaultApiUrl = "/api";
 
@@ -53,3 +53,21 @@ export const createPricingExecution = (matchId: number, idempotencyKey: string) 
     method: "POST",
     headers: { "Idempotency-Key": idempotencyKey }
   });
+export const listMarketPricings = (matchId: number) =>
+  request<Page<MarketPricing>>(`/matches/${matchId}/market-pricings`);
+export const listMarketReferences = (matchId: number, marketPricingId: string) =>
+  request<Page<MarketReferenceObservation>>(
+    `/matches/${matchId}/market-pricings/${marketPricingId}/market-references`
+  );
+export const createMarketReference = (
+  matchId: number,
+  payload: Omit<MarketReferenceObservation, "observation_id" | "match_id" | "created_at" | "correlation_id">,
+  idempotencyKey: string
+) =>
+  request<MarketReferenceObservation>(`/matches/${matchId}/market-references`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Idempotency-Key": idempotencyKey },
+    body: JSON.stringify(payload)
+  });
+export const getMarketReferenceComparison = (observationId: string) =>
+  request<ModelReferenceComparison>(`/market-references/${observationId}/comparison`);

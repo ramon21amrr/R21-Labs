@@ -10,6 +10,7 @@ from sqlalchemy import (
     Column,
     Date,
     DateTime,
+    Float,
     ForeignKey,
     Index,
     Integer,
@@ -413,4 +414,50 @@ Index(
     market_pricings.c.match_id,
     market_pricings.c.created_at.desc(),
     market_pricings.c.market_pricing_id.desc(),
+)
+
+# External references are distinct, immutable observations tied to one stored
+# theoretical snapshot. Lines use canonical integer quarter units throughout.
+market_reference_observations = Table(
+    "market_reference_observations",
+    metadata,
+    Column("observation_id", String(36), primary_key=True),
+    Column(
+        "match_id",
+        BigInteger,
+        ForeignKey("matches.id", ondelete="RESTRICT"),
+        nullable=False,
+    ),
+    Column(
+        "market_pricing_id",
+        String(36),
+        ForeignKey("market_pricings.market_pricing_id", ondelete="RESTRICT"),
+        nullable=False,
+    ),
+    Column("market_code", String(64), nullable=False),
+    Column("selection", String(64), nullable=False),
+    Column("model_line_quarters", Integer),
+    Column("reference_line_quarters", Integer),
+    Column("reference_value", Float, nullable=False),
+    Column("observed_at", DateTime(timezone=True), nullable=False),
+    Column(
+        "created_at", DateTime(timezone=True), nullable=False, server_default=func.now()
+    ),
+    Column("correlation_id", String(128), nullable=False),
+    Column("idempotency_key", String(128)),
+    CheckConstraint(
+        "(model_line_quarters IS NULL AND reference_line_quarters IS NULL) OR "
+        "(model_line_quarters IS NOT NULL AND reference_line_quarters IS NOT NULL)",
+        name="market_reference_line_shape",
+    ),
+    UniqueConstraint(
+        "match_id", "idempotency_key", name="market_reference_match_idempotency_key"
+    ),
+)
+Index(
+    "ix_market_references_match_snapshot_observed_id",
+    market_reference_observations.c.match_id,
+    market_reference_observations.c.market_pricing_id,
+    market_reference_observations.c.observed_at.desc(),
+    market_reference_observations.c.observation_id.desc(),
 )
