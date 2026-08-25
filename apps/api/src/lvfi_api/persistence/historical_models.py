@@ -370,3 +370,47 @@ Index(
     pricing_execution_reproductions.c.created_at.desc(),
     pricing_execution_reproductions.c.reproduction_id.desc(),
 )
+
+# A market-pricing snapshot is distinct from a Method One execution. It consumes
+# frozen rates and preserves the Engine's canonical output without rewriting it.
+market_pricings = Table(
+    "market_pricings",
+    metadata,
+    Column("market_pricing_id", String(36), primary_key=True),
+    Column(
+        "match_id",
+        BigInteger,
+        ForeignKey("matches.id", ondelete="RESTRICT"),
+        nullable=False,
+    ),
+    Column(
+        "created_at", DateTime(timezone=True), nullable=False, server_default=func.now()
+    ),
+    Column("finalized_at", DateTime(timezone=True), nullable=False),
+    Column("correlation_id", String(128), nullable=False),
+    Column("idempotency_key", String(128)),
+    Column("source_model_version", String(32), nullable=False),
+    Column("source_execution_id", String(36)),
+    Column("rate_snapshot_schema_version", Integer, nullable=False),
+    Column("rates_fingerprint", String(64), nullable=False),
+    Column("pricing_engine_version", String(32), nullable=False),
+    Column("schema_version", Integer, nullable=False),
+    Column("input_fingerprint", String(64), nullable=False),
+    Column("result_fingerprint", String(64), nullable=False),
+    Column("engine_result_fingerprint", String(64), nullable=False),
+    Column("canonical_input", Text, nullable=False),
+    Column("canonical_result", Text, nullable=False),
+    CheckConstraint(
+        "rate_snapshot_schema_version = 1 AND schema_version = 1",
+        name="market_pricing_schema_version",
+    ),
+    UniqueConstraint(
+        "match_id", "idempotency_key", name="market_pricing_match_idempotency_key"
+    ),
+)
+Index(
+    "ix_market_pricings_match_created_id",
+    market_pricings.c.match_id,
+    market_pricings.c.created_at.desc(),
+    market_pricings.c.market_pricing_id.desc(),
+)

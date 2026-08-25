@@ -6,15 +6,17 @@ R21 Labs transforma conhecimento em produtos digitais próprios. O LVFI é seu
 primeiro produto: plataforma auditável de dados e inteligência de futebol. Ramon
 é o Product Owner e usuário administrador inicial; decisões finais são humanas.
 
-- Referência integrada: `449fde5e7279818c72a549b8c51d740ba45dc60d` em `main` / `origin/main`, PR #18.
+- Baseline ENG-006: `bde1a362801658543ad9b2c3c9085aa10f0fcd04`; branch local
+  `codex/lvfi-eng-006-market-pricing`, sem commit/push/PR/merge.
 - Última task institucional concluída: `R21-GOV-001` — continuidade permanente,
   publicada e integrada pelo PR #15.
 - Última task de produto concluída: `LVFI-APP-010` — frontend e tela inicial de precificação, integrada pelo PR #17.
-- Task ativa: nenhuma.
-- Próxima task oficial: `LVFI-ENG-006 — Camada versionada de precificação de mercados`; aprovada e ainda não implementada, base `449fde5e7279818c72a549b8c51d740ba45dc60d`.
+- Task ativa: `LVFI-ENG-006`, implementada e tecnicamente validada; aguarda
+  revisão/autorização de commit.
+- Próxima decisão: autorizar ou rejeitar o commit da ENG-006; não iniciar task nova.
 - `LVFI-ENG-005` permanece Método 3 — frequência observada.
 - `LVFI-APP-011` permanece planejada/bloqueada até a conclusão da ENG-006.
-- Ação imediata: aguardar autorização própria para iniciar ENG-006.
+- Ação imediata: revisar a ENG-006 e autorizar ou rejeitar o commit.
 
 O frontend está implementado e passou em lint, typecheck, testes e build. A
 incompatibilidade inicial entre ESLint `10.8.1` e os plugins transitivos do
@@ -24,8 +26,9 @@ foi concluída no PR #17 pelo merge `2c2f34e7059c69d904250e4d0f5caa62ab36543d`.
 
 Capacidades atuais: Pricing Engine `1.0.1`, distribuição `1.1.1`, Método 1
 `1.0.0`, schema 1; FastAPI/PostgreSQL; importação/consulta histórica; amostras;
-execução; persistência append-only; histórico; comparação; reprodução. Baseline:
-API 86 testes e Pricing Engine 554, ambos com cobertura integral. Frontend,
+execução; persistência append-only; histórico; comparação; reprodução; e snapshots
+teóricos de mercado da ENG-006. Validação local: API 96 testes no PostgreSQL
+isolado e Pricing Engine 554, ambos com cobertura integral. Frontend,
 autenticação, workflow completo do MVP, Métodos 2/3, PDF, odds, oportunidades,
 Value Tracker e deploy permanecem não concluídos.
 
@@ -34,9 +37,10 @@ Value Tracker e deploy permanecem não concluídos.
 `dados → modelo → preço → mercado → oportunidade → resultado → melhoria contínua`
 
 APP-010 entregou a interface inicial e está encerrada institucionalmente; ENG-006
-é a camada pós-Método 1 aprovada para precificação por mercado, com
-versionamento, snapshot, hashes e persistência/auditoria próprios, sem alterar a
-matemática. APP-011 depende de sua conclusão e permanece sem detalhamento além
+está implementada localmente como camada pós-Método 1, com versionamento,
+snapshot, hashes e persistência/auditoria próprios, sem alterar a matemática.
+Ela aguarda autorização de commit. APP-011 depende de seu encerramento e permanece
+sem detalhamento além
 dessa dependência. Depois, tasks e
 decisões próprias completam o MVP utilizável, piloto, preparação comercial e
 lançamento. O Método 2 permanece sem ID. Mercado automatizado, oportunidades e

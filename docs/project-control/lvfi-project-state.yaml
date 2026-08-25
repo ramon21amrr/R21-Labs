@@ -1,18 +1,18 @@
 schema_version: "1.0"
 project: "R21 Labs"
 product: "Linha de Valor Football Intelligence"
-updated_at: "2026-08-19T00:00:00-03:00"
-reference_commit: "449fde5e7279818c72a549b8c51d740ba45dc60d"
-reference_branch: "main"
-current_phase: "application_foundation"
-current_milestone: "permanent_continuity_system_institutionally_closed"
+updated_at: "2026-08-25T00:00:00-03:00"
+reference_commit: "bde1a362801658543ad9b2c3c9085aa10f0fcd04"
+reference_branch: "codex/lvfi-eng-006-market-pricing"
+current_phase: "market_pricing_implementation_pending_product_owner_authorization"
+current_milestone: "lvfi_eng_006_technically_ready_not_published"
 last_completed_task: "LVFI-APP-010"
 last_completed_governance_task: "R21-GOV-001"
 last_completed_product_task: "LVFI-APP-010"
 next_official_task: "LVFI-ENG-006"
-next_planned_task: "LVFI-ENG-006"
-next_required_decision: "Autorizar o início da LVFI-ENG-006 a partir da base 449fde5e7279818c72a549b8c51d740ba45dc60d."
-immediate_action: "Não iniciar ENG-006 sem autorização própria; APP-011 permanece bloqueada até sua conclusão."
+next_planned_task: "LVFI-APP-011 (somente após encerramento/autorização própria da ENG-006)"
+next_required_decision: "Revisar a implementação local da LVFI-ENG-006 e autorizar ou rejeitar o commit."
+immediate_action: "Aguardar autorização do Product Owner para commit da ENG-006; não iniciar APP-011."
 completed_tasks:
   - "LVFI-DISC-002"
   - "LVFI-ENG-001"
@@ -30,13 +30,13 @@ completed_tasks:
   - "LVFI-APP-009"
   - "LVFI-APP-010"
   - "R21-GOV-001"
-active_tasks: []
+active_tasks:
+  - "LVFI-ENG-006 (implementada localmente; aguardando autorização de commit)"
 planned_tasks:
   - "LVFI-ENG-006"
   - "LVFI-ENG-005"
   - "LVFI-APP-011"
-approved_not_implemented_tasks:
-  - "LVFI-ENG-006"
+approved_not_implemented_tasks: []
 blocked_tasks:
   - "LVFI-APP-011 (depende da conclusão da LVFI-ENG-006)"
 versions:
@@ -49,7 +49,7 @@ versions:
   method_one_canonical_schema: 1
 test_baseline:
   api:
-    collected: 86
+    collected: 96
     statements: "100%"
     branches: "100%"
     evidence: "../project-control/lvfi-current-state.md"
