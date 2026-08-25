@@ -77,3 +77,7 @@ Fontes: [visão](../products/linha-de-valor-football-intelligence/01-product-vis
 [Value Tracker](../products/linha-de-valor-football-intelligence/10-value-tracker-integration.md),
 [roadmap do MVP](../products/linha-de-valor-football-intelligence/11-mvp-roadmap-and-validation.md)
 e [arquitetura da aplicação](../products/linha-de-valor-football-intelligence/27-application-architecture.md).
+
+Atualização de encerramento: `LVFI-APP-011` foi publicada e integrada pelo PR #22
+(merge `7ef9e0a7a4146637e3121196c6cc743590ddcc4b`). Nenhuma task sucessora é
+inferida; o MVP interno continua dependente de decisão própria do Product Owner.

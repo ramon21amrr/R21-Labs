@@ -34,3 +34,7 @@ antecipa oportunidades, Value Tracker, piloto ou comercialização.
 O identificador `LVFI-ENG-004` pertence exclusivamente à correção numérica já
 publicada. A reserva histórica desse ID para o Método 2 foi revogada; nenhum novo
 ID foi criado para o Método 2.
+
+Atualização: a ordem 14 (`LVFI-APP-011`) foi concluída, publicada, integrada e
+encerrada institucionalmente pelo PR #22, merge
+`7ef9e0a7a4146637e3121196c6cc743590ddcc4b`. Nenhum marco posterior foi iniciado.

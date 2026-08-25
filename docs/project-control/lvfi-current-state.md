@@ -1,14 +1,14 @@
 # Estado atual do LVFI
 
 - **Atualizado em:** 2026-08-25
-- **Referência integrada:** `0d59956283f8efcab4f04e372ffe95cadaab9deb`
+- **Referência integrada:** `7ef9e0a7a4146637e3121196c6cc743590ddcc4b`
 - **Branch de referência:** `main` / `origin/main`, integrada pelo PR #20
-- **Última task institucional concluída:** `LVFI-ENG-006` — camada versionada de
-  precificação de mercados, publicada e integrada pelo PR #20
-- **Última task de produto concluída:** `LVFI-ENG-006`
-- **Task ativa:** `LVFI-APP-011` — implementação e validação pré-publicação em andamento
-- **Último marco institucional:** ENG-006 encerrada institucionalmente
-- **Último marco de produto:** precificação de mercados versionada e auditável
+- **Última task institucional concluída:** `LVFI-APP-011` — referência externa e
+  comparação Modelo × Referência, integrada pelo PR #22
+- **Última task de produto concluída:** `LVFI-APP-011`
+- **Task ativa:** nenhuma
+- **Último marco institucional:** APP-011 encerrada institucionalmente
+- **Último marco de produto:** referência externa manual e comparação auditável
 
 ## Capacidades disponíveis
 
@@ -43,10 +43,10 @@ e no [registro de decisões](lvfi-decision-register.md).
 
 ## Próxima sequência oficial
 
-- **Última task encerrada:** `LVFI-ENG-006 — Camada versionada de precificação de mercados`, feature commit `5cd76cebc5b5bfc25f804f53fe7f315c03fc209d`, PR #20, merge `0d59956283f8efcab4f04e372ffe95cadaab9deb`.
-- **Próxima task oficial:** `LVFI-APP-011 — Entrada de mercado e comparação entre
-  modelo e mercado`; planejada, ainda não iniciada e dependente de autorização própria.
-- **Ação imediata:** concluir revisão de escopo e publicação autorizada da APP-011.
+- **Última task encerrada:** `LVFI-APP-011`, feature `8dac389`, PR #22, merge
+  `7ef9e0a7a4146637e3121196c6cc743590ddcc4b`.
+- **Próxima task oficial:** nenhuma; não inferir ID ou ordem sem decisão do Product Owner.
+- **Ação imediata:** aguardar decisão explícita do Product Owner sobre a próxima task.
 
 A ENG-006 receberá taxas imutáveis produzidas pelo Método 1 e usará capacidades
 existentes do Pricing Engine, sem alterar a matemática congelada. Terá
