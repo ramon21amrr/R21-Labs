@@ -27,3 +27,11 @@ class MethodOneSampleInvalidError(ValueError):
 
 class MethodOneEngineError(RuntimeError):
     """Raised when the public Pricing Engine facade cannot produce a final payload."""
+
+
+class MarketPricingValidationError(InvalidQueryError):
+    """Raised when a post-Method-One rate snapshot or market contract is invalid."""
+
+
+class MarketPricingEngineError(InvalidQueryError):
+    """Raised when the public Pricing Engine cannot price a valid market request."""

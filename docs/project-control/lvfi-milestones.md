@@ -17,17 +17,18 @@ dos documentos originais e da decisão do Product Owner na R21-GOV-001.
 | 10 | Histórico e comparação | Concluído | [Documento 35](../products/linha-de-valor-football-intelligence/35-pricing-execution-history-and-comparison.md), APP-008 | Leitura filtrável e comparação compatível |
 | 11 | Reprodução controlada | Concluído | [Documento 36](../products/linha-de-valor-football-intelligence/36-controlled-pricing-execution-reproduction.md), APP-009 | Reprodução append-only e diferenças auditáveis |
 | 12 | Frontend e tela inicial de precificação | Concluído | `LVFI-APP-010`, PR #17, ADR-014 e smoke integrado | APP-011 permanece planejada e não iniciada |
-| 13 | Entrada de mercado e comparação modelo versus mercado | Planejado | Decisão do Product Owner; `LVFI-APP-011` | Depende da APP-010 e plano próprio |
-| 14 | Métodos restantes e workflow completo do MVP | Dependente de decisão | [Requisitos](../products/linha-de-valor-football-intelligence/05-requirements.md) | Método 2 sem ID; tasks próprias para Método 3, aprovação e snapshot |
-| 15 | Autenticação e segurança de uso | Planejado no MVP | RF-001–004 e RNF-010–014 | Papéis, sessão e proteção server-side validados |
-| 16 | Relatórios | Planejado no MVP/futuro | [UX e PDF](../products/linha-de-valor-football-intelligence/09-user-experience-and-pdf.md) | PDF-resumo primeiro; analítico somente depois |
-| 17 | Deploy e recuperação | Dependente de decisão | ADRs 011–013 e RNF-030–032 | Ambiente, backup e restauração ensaiados |
-| 18 | Piloto | Planejado | Critérios do documento 11 | MVP utilizável e aceite operacional |
-| 19 | Oportunidades | Fora do MVP | [Roadmap](../products/linha-de-valor-football-intelligence/11-mvp-roadmap-and-validation.md) | Mercado auditável e decisão de elegibilidade |
-| 20 | Value Tracker, resultados e desempenho | Futuro | [Integração futura](../products/linha-de-valor-football-intelligence/10-value-tracker-integration.md) | Contratos, identidade, evento e CLV decididos |
-| 21 | Preparação comercial e lançamento | Futuro | Etapa 4 do documento 11 | Piloto aceito, segurança, suporte, planos e cobrança decididos |
+| 13 | Camada versionada de precificação de mercados | Implementada localmente; aguarda autorização de commit | `LVFI-ENG-006`; API 96/96 no PostgreSQL isolado; Pricing 554/554 | Commit/revisão autorizados; Método 1 e Engine preservados |
+| 14 | Entrada de mercado e comparação modelo versus mercado | Planejado | Decisão do Product Owner; `LVFI-APP-011` | Depende do encerramento da ENG-006 e plano próprio |
+| 15 | Métodos restantes e workflow completo do MVP | Dependente de decisão | [Requisitos](../products/linha-de-valor-football-intelligence/05-requirements.md) | Método 2 sem ID; tasks próprias para Método 3, aprovação e snapshot |
+| 16 | Autenticação e segurança de uso | Planejado no MVP | RF-001–004 e RNF-010–014 | Papéis, sessão e proteção server-side validados |
+| 17 | Relatórios | Planejado no MVP/futuro | [UX e PDF](../products/linha-de-valor-football-intelligence/09-user-experience-and-pdf.md) | PDF-resumo primeiro; analítico somente depois |
+| 18 | Deploy e recuperação | Dependente de decisão | ADRs 011–013 e RNF-030–032 | Ambiente, backup e restauração ensaiados |
+| 19 | Piloto | Planejado | Critérios do documento 11 | MVP utilizável e aceite operacional |
+| 20 | Oportunidades | Fora do MVP | [Roadmap](../products/linha-de-valor-football-intelligence/11-mvp-roadmap-and-validation.md) | Mercado auditável e decisão de elegibilidade |
+| 21 | Value Tracker, resultados e desempenho | Futuro | [Integração futura](../products/linha-de-valor-football-intelligence/10-value-tracker-integration.md) | Contratos, identidade, evento e CLV decididos |
+| 22 | Preparação comercial e lançamento | Futuro | Etapa 4 do documento 11 | Piloto aceito, segurança, suporte, planos e cobrança decididos |
 
-A APP-011 permanece na ordem 13 por decisão explícita do Product Owner, mas não
+A APP-011 permanece na ordem 14 por decisão explícita do Product Owner, mas não
 antecipa oportunidades, Value Tracker, piloto ou comercialização.
 
 O identificador `LVFI-ENG-004` pertence exclusivamente à correção numérica já
