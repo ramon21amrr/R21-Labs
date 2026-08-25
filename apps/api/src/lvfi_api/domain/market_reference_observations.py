@@ -41,4 +41,3 @@ class ModelReferenceComparison:
     observation: MarketReferenceObservation
     model_value: float
     line_difference_quarters: int | None
-
