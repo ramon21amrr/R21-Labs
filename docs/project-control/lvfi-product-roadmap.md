@@ -5,8 +5,8 @@
 `dados → modelo → preço → mercado → oportunidade → resultado → melhoria contínua`
 
 O roadmap consolida decisões existentes; não cria autorização de implementação.
-Estados usados: **concluído**, **aprovado**, **planejado**, **dependente de
-decisão**, **fora do MVP** e **futuro**.
+Estados usados: **concluído**, **tecnicamente pronto**, **programa aprovado**,
+**planejado**, **dependente de decisão**, **fora do MVP** e **futuro**.
 
 ## Jornada consolidada
 
@@ -19,8 +19,10 @@ decisão**, **fora do MVP** e **futuro**.
 | Precificação auditável na aplicação | Concluído | Amostras, execução, persistência append-only, histórico, comparação e reprodução | APP-003/004 e Método 1 | APP-005 a APP-009 integradas; reprodução controlada disponível | A API atual não representa workflow completo de aprovação do MVP |
 | Interface utilizável inicial | Concluído | Fundação do frontend e tela inicial de precificação | APP-009; R21-GOV-001 integrada e encerrada institucionalmente | `LVFI-APP-010` integrada pelo PR #17, com smoke frontend → API → PostgreSQL real | Não duplicar matemática no frontend; manter DTOs autorizados |
 | Camada versionada de precificação de mercados | Concluído, publicado, integrado e encerrado institucionalmente | Camada pós-Método 1 para taxas imutáveis, com versionamento, snapshot, hashes e persistência/auditoria próprios | Método 1 `1.0.0` e Pricing Engine `1.0.1` preservados; PR #20, merge `0d59956283f8efcab4f04e372ffe95cadaab9deb` | `LVFI-ENG-006` integrada sem alterar Método 1, Engine ou sua matemática | Usar somente capacidades existentes do Engine; preparar Handicap Asiático e Totais para comparação futura |
-| Entrada de mercado | Próxima task oficial; planejada e não iniciada | Entrada de odds/mercado e comparação entre modelo e mercado | ENG-006 concluída; plano e autorização próprios | `LVFI-APP-011` aceita | Não ampliar para oportunidade automática sem decisão; não detalhar além da dependência |
-| MVP interno completo | Dependente de decisão | Completar Método 2, Método 3, configurações, revisão/aprovação, snapshot, auditoria, Match Center, PDF-resumo e autenticação básica | APP-010/011 quando aplicáveis; tasks ainda não aprovadas | Requisitos MVP e jornada ponta a ponta do documento 11 atendidos | Método 2 está deliberadamente sem ID; não inferir ordem ou task |
+| Entrada de mercado | Concluído, publicado, integrado e encerrado institucionalmente | Entrada manual de referência e comparação entre modelo e mercado | ENG-006 concluída | `LVFI-APP-011`, PR #22 e merge `7ef9e0a7a4146637e3121196c6cc743590ddcc4b` | Não ampliar para oportunidade automática sem decisão |
+| Plano mestre e rebaseline | Aceito; commit local autorizado; publicação pendente | Reconciliar estado, registrar fingerprints e organizar a primeira versão local | APP-011 encerrada e autorização do Product Owner | `R21-GOV-002` publicada | Não iniciar código nem inferir task sucessora |
+| Fundação operacional de dados | Programa aprovado; sem task autorizada | Prévia/confirmação de Excel/CSV, cadastro de partida e revisão estatística auditável | R21-GOV-002 publicada; ID e plano próprios | Fluxo de dados aceito, idempotente e sem ausência convertida em zero | Dado legado inconsistente e proveniência incompleta |
+| MVP interno completo | Programa aprovado; dividido em tasks futuras | Camada estatística, Métodos 2/3, configurações, revisão/aprovação, snapshot, auditoria, Match Center, PDF-resumo e autenticação local | Fundação operacional de dados e autorizações incrementais | Requisitos e jornada ponta a ponta do documento 39 atendidos | Método 2 sem ID; ENG-005 não autorizada; preservar Método 1 |
 | MVP utilizável | Planejado | Operação manual pelo administrador no Brasileirão Série A 2026 | MVP interno, dados reconciliados e UX validada | Usuário conclui importar, selecionar, precificar, revisar, aprovar e gerar PDF | Usabilidade, baixa amostra, rastreabilidade e proteção de conhecimento |
 | Relatórios ampliados | Planejado/Futuro | PDF-resumo no MVP; PDF analítico após capacidades correspondentes | Snapshot aprovado, storage e tecnologia de PDF decidida | Legibilidade, rastreabilidade, autorização e retenção validadas | Exposição de conhecimento, paginação e armazenamento |
 | Deploy e recuperação | Dependente de decisão | Preparar ambiente, backup e restauração antes de uso real | MVP utilizável, ADRs 011–013 e decisões operacionais | Ambiente aprovado e restauração ensaiada | Disponibilidade, custo, segurança e perda de dados |
@@ -31,20 +33,16 @@ decisão**, **fora do MVP** e **futuro**.
 | Preparação comercial | Futuro | Multiusuário, planos, limites, cobrança, suporte e controles ampliados | Piloto aceito e critérios comerciais definidos | Readiness comercial e operacional aprovada | Segurança, privacidade, regulação e custo |
 | Lançamento e evolução | Futuro | Produto comercial, métricas de adoção/retenção e expansão analítica | Preparação comercial aceita | Release e operação autorizadas | Evitar expansão sem evidência e preservar baixo acoplamento |
 
-A `LVFI-ENG-006` ocupa a etapa imediatamente posterior ao Método 1 e anterior à
-entrada de mercado. A APP-011 permanece planejada, mas depende da conclusão da
-ENG-006; nenhuma das duas antecipa oportunidades, Value Tracker, piloto ou
-comercialização.
+A `LVFI-ENG-006` e a `LVFI-APP-011` completaram a camada de mercado manual. Elas
+não antecipam oportunidades, Value Tracker, piloto ou comercialização.
 
 ## Transição institucional vigente
 
-`R21-GOV-001` é a última task institucional concluída, publicada e integrada pelo
-PR #15 no merge `a1610c85282e5d46ffc2b8094462d00d5135ca01`.
-`LVFI-APP-010` é a última task de produto integrada; `LVFI-ENG-006` é a próxima
-task encerrada institucionalmente pelo PR #20. A APP-011 é a próxima task oficial,
-planejada e ainda não iniciada. Este registro não inicia
-nenhuma delas e preserva
-integralmente os marcos posteriores abaixo.
+`LVFI-APP-011` é a última task de produto concluída, publicada e integrada pelo
+PR #22. O merge de encerramento institucional é
+`7552e73091f7e9f639873b259ebbb2b33ca74ed0` no PR #23. `R21-GOV-002` está
+aceita na branch `codex/r21-gov-002-lvfi-master-plan`, com commit local
+autorizado e publicação pendente. Nenhuma task sucessora está autorizada.
 
 ## Escopo aprovado do MVP
 
@@ -65,11 +63,12 @@ criar telas vazias, serviços ou integrações antecipadas.
 ## Decisões que ainda condicionam o caminho
 
 - O Método 2 permanece planejado e sem ID por decisão do Product Owner.
-- A ENG-006 está concluída, publicada, integrada e encerrada institucionalmente;
-  APP-011 é a próxima task oficial, planejada e não iniciada.
-- Tecnologia/escopo do PDF, retenção, backup/recuperação, autenticação, deploy,
-  fornecedor de dados/odds, evento do Value Tracker, CLV e critérios do piloto
-  exigem decisões próprias nas etapas aplicáveis.
+- APP-011 está concluída, publicada, integrada e encerrada institucionalmente.
+- A primeira versão local, os sete grupos estatísticos, a entrada manual/revisada,
+  o PDF programático e o gate mínimo do piloto estão aprovados pela R21-GOV-002.
+- O ID da fundação operacional de dados, o ID do Método 2, a implementação
+  concreta do PDF/autenticação/backup e fornecedores futuros exigem decisões nas
+  respectivas tasks.
 
 Fontes: [visão](../products/linha-de-valor-football-intelligence/01-product-vision.md),
 [requisitos](../products/linha-de-valor-football-intelligence/05-requirements.md),
@@ -78,6 +77,6 @@ Fontes: [visão](../products/linha-de-valor-football-intelligence/01-product-vis
 [roadmap do MVP](../products/linha-de-valor-football-intelligence/11-mvp-roadmap-and-validation.md)
 e [arquitetura da aplicação](../products/linha-de-valor-football-intelligence/27-application-architecture.md).
 
-Atualização de encerramento: `LVFI-APP-011` foi publicada e integrada pelo PR #22
-(merge `7ef9e0a7a4146637e3121196c6cc743590ddcc4b`). Nenhuma task sucessora é
-inferida; o MVP interno continua dependente de decisão própria do Product Owner.
+O plano consolidado e seus gates estão no
+[documento 39](../products/linha-de-valor-football-intelligence/39-lvfi-master-plan-rebaseline.md).
+Nenhuma task sucessora é inferida.

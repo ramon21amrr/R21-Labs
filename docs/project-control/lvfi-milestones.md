@@ -1,7 +1,8 @@
 # Mapa de marcos do LVFI
 
 Este mapa separa capacidade entregue de trabalho apenas planejado. A ordem vem
-dos documentos originais e da decisão do Product Owner na R21-GOV-001.
+dos documentos originais e das decisões do Product Owner em R21-GOV-001 e
+R21-GOV-002.
 
 | Ordem | Marco | Estado | Evidência principal | Dependência/saída |
 | ---: | --- | --- | --- | --- |
@@ -16,25 +17,28 @@ dos documentos originais e da decisão do Product Owner na R21-GOV-001.
 | 9 | Execução persistida e auditável | Concluído | [Documento 34](../products/linha-de-valor-football-intelligence/34-auditable-pricing-executions.md), APP-007 | Snapshot de execução append-only |
 | 10 | Histórico e comparação | Concluído | [Documento 35](../products/linha-de-valor-football-intelligence/35-pricing-execution-history-and-comparison.md), APP-008 | Leitura filtrável e comparação compatível |
 | 11 | Reprodução controlada | Concluído | [Documento 36](../products/linha-de-valor-football-intelligence/36-controlled-pricing-execution-reproduction.md), APP-009 | Reprodução append-only e diferenças auditáveis |
-| 12 | Frontend e tela inicial de precificação | Concluído | `LVFI-APP-010`, PR #17, ADR-014 e smoke integrado | APP-011 permanece planejada e não iniciada |
+| 12 | Frontend e tela inicial de precificação | Concluído | `LVFI-APP-010`, PR #17, ADR-014 e smoke integrado | Interface inicial disponível |
 | 13 | Camada versionada de precificação de mercados | Concluído, publicado, integrado e encerrado institucionalmente | `LVFI-ENG-006`; feature `5cd76cebc5b5bfc25f804f53fe7f315c03fc209d`; PR #20; merge `0d59956283f8efcab4f04e372ffe95cadaab9deb` | Método 1 `1.0.0` e Engine `1.0.1` preservados |
-| 14 | Entrada de mercado e comparação modelo versus mercado | Próxima task oficial; planejado e não iniciado | Decisão do Product Owner; `LVFI-APP-011` | Requer plano e autorização próprios |
-| 15 | Métodos restantes e workflow completo do MVP | Dependente de decisão | [Requisitos](../products/linha-de-valor-football-intelligence/05-requirements.md) | Método 2 sem ID; tasks próprias para Método 3, aprovação e snapshot |
-| 16 | Autenticação e segurança de uso | Planejado no MVP | RF-001–004 e RNF-010–014 | Papéis, sessão e proteção server-side validados |
-| 17 | Relatórios | Planejado no MVP/futuro | [UX e PDF](../products/linha-de-valor-football-intelligence/09-user-experience-and-pdf.md) | PDF-resumo primeiro; analítico somente depois |
-| 18 | Deploy e recuperação | Dependente de decisão | ADRs 011–013 e RNF-030–032 | Ambiente, backup e restauração ensaiados |
-| 19 | Piloto | Planejado | Critérios do documento 11 | MVP utilizável e aceite operacional |
-| 20 | Oportunidades | Fora do MVP | [Roadmap](../products/linha-de-valor-football-intelligence/11-mvp-roadmap-and-validation.md) | Mercado auditável e decisão de elegibilidade |
-| 21 | Value Tracker, resultados e desempenho | Futuro | [Integração futura](../products/linha-de-valor-football-intelligence/10-value-tracker-integration.md) | Contratos, identidade, evento e CLV decididos |
-| 22 | Preparação comercial e lançamento | Futuro | Etapa 4 do documento 11 | Piloto aceito, segurança, suporte, planos e cobrança decididos |
+| 14 | Entrada de mercado e comparação modelo versus mercado | Concluído, publicado, integrado e encerrado institucionalmente | `LVFI-APP-011`; feature `8dac389`; PR #22; merge `7ef9e0a7a4146637e3121196c6cc743590ddcc4b` | Referência externa manual e comparação auditável disponíveis |
+| 15 | Plano mestre e rebaseline | Aceito; commit local autorizado; publicação pendente | `R21-GOV-002`; [Documento 39](../products/linha-de-valor-football-intelligence/39-lvfi-master-plan-rebaseline.md) | Estado reconciliado; próxima task ainda exige ID e autorização |
+| 16 | Fundação operacional de dados | Próxima capacidade; sem task autorizada | [Documento 39](../products/linha-de-valor-football-intelligence/39-lvfi-master-plan-rebaseline.md) | Importação revisada e manutenção web de partidas/estatísticas |
+| 17 | Camada estatística e métodos restantes | Programa aprovado; tasks dependentes de decisão | [Requisitos](../products/linha-de-valor-football-intelligence/05-requirements.md) e Documento 39 | Método 2 sem ID; `LVFI-ENG-005` reservada e não autorizada |
+| 18 | Configuração, aprovação e snapshots | Programa aprovado; sem task autorizada | Documento 39 | Configuração versionada e análise aprovada imutável |
+| 19 | Match Center e autenticação local | Programa aprovado; sem task autorizada | RF-001–004, RNF-010–014 e Documento 39 | Jornada pessoal ponta a ponta e proteção server-side validadas |
+| 20 | PDF-resumo e operação local | Programa aprovado; sem task autorizada | [UX e PDF](../products/linha-de-valor-football-intelligence/09-user-experience-and-pdf.md) e Documento 39 | PDF legível; launcher; backup e restauração ensaiados |
+| 21 | Piloto e corte | Programa aprovado; sem task autorizada | Documento 39 e critérios do documento 11 | 20 análises em cinco competições e aceite operacional |
+| 22 | Oportunidades | Fora do MVP | [Roadmap](../products/linha-de-valor-football-intelligence/11-mvp-roadmap-and-validation.md) | Mercado auditável e decisão de elegibilidade |
+| 23 | Value Tracker, resultados e desempenho | Futuro | [Integração futura](../products/linha-de-valor-football-intelligence/10-value-tracker-integration.md) | Contratos, identidade, evento e CLV decididos |
+| 24 | Preparação comercial e lançamento | Futuro | Etapa 4 do documento 11 | Piloto aceito, segurança, suporte, planos e cobrança decididos |
 
-A APP-011 permanece na ordem 14 por decisão explícita do Product Owner, mas não
-antecipa oportunidades, Value Tracker, piloto ou comercialização.
+A APP-011 foi concluída na ordem 14. A R21-GOV-002 organiza as capacidades 16–21,
+mas não antecipa oportunidades, Value Tracker ou comercialização e não autoriza
+uma task sucessora.
 
 O identificador `LVFI-ENG-004` pertence exclusivamente à correção numérica já
 publicada. A reserva histórica desse ID para o Método 2 foi revogada; nenhum novo
 ID foi criado para o Método 2.
 
-Atualização: a ordem 14 (`LVFI-APP-011`) foi concluída, publicada, integrada e
-encerrada institucionalmente pelo PR #22, merge
-`7ef9e0a7a4146637e3121196c6cc743590ddcc4b`. Nenhum marco posterior foi iniciado.
+O próximo passo é registrar o commit local autorizado e publicar a R21-GOV-002
+somente por ações separadas. Depois disso, o Product Owner deverá nomear uma única
+task para a fundação operacional de dados.

@@ -12,7 +12,9 @@
 - **FATO OBSERVADO:** a `LVFI-ENG-003` concluiu o Método 1 `1.0.0` na distribuição `lvfi-pricing-engine` `1.1.0`, com schemas canônicos v1 e integração controlada ao Pricing Engine `1.0.0`.
 - **FATO OBSERVADO:** a `LVFI-ENG-004` corrigiu a estabilidade numérica de totais no PR #4 e promoveu o Pricing Engine para `1.0.1` e a distribuição para `1.1.1`, preservando o Método 1 `1.0.0` e os schemas v1.
 - **FATO OBSERVADO:** `LVFI-APP-001` a `LVFI-APP-009` estão integradas. A aplicação possui arquitetura aprovada, API FastAPI, PostgreSQL, importação e consultas históricas, amostras do Método 1, execução, persistência append-only, histórico, comparação e reprodução controlada.
-- **FATO OBSERVADO:** `LVFI-APP-010 — Fundação do frontend e tela inicial de precificação` está implementada e validada na branch oficial, aguardando autorização de publicação; `LVFI-APP-011` permanece etapa planejada, sem detalhamento ou implementação nesta task.
+- **FATO OBSERVADO:** `LVFI-APP-010` e `LVFI-APP-011` estão publicadas,
+  integradas e encerradas institucionalmente. O plano mestre aprovado em
+  `R21-GOV-002` organiza as capacidades restantes sem autorizar tasks sucessoras.
 - **DECISÃO APROVADA:** `M1-PEND-001–007` foram encerradas por `D-M1-001–007`, preservando a rastreabilidade integral.
 - **GATE HISTÓRICO:** a validação final da T10 definiu o readiness do Método 1; isoladamente, ela não autorizava backend, banco, API, interface, Value Tracker, Método 2 ou Método 3. As autorizações posteriores estão nos documentos 27–36 e no histórico Git.
 
@@ -76,6 +78,9 @@ As afirmações relevantes usam os seguintes estados:
 25. [Decisão do catálogo de ajustes do Método 1](25-method-one-adjustment-catalog-decision.md) — categorias, destinos, ordem, escopos, precedência, faixa e composição matemática da T06.
 26. [Validação final do Método 1](26-method-one-final-validation.md) — auditoria T02–T10, contratos, versões, schemas, hashes, gates, wheel e readiness.
 27. [Arquitetura da aplicação](27-application-architecture.md) — decisão oficial de stack, fronteiras, dados, jobs, segurança e sequência.
+39. [Plano mestre e rebaseline do LVFI](39-lvfi-master-plan-rebaseline.md) —
+    baseline de 2026-09-06, fontes privadas por fingerprint, primeira versão,
+    sequência, contratos orientadores e gates do programa.
 
 ## ADRs do Pricing Engine
 
@@ -132,6 +137,8 @@ O encerramento técnico, as limitações remanescentes e a referência ao arquiv
 - [35 — Histórico e comparação de execuções](35-pricing-execution-history-and-comparison.md)
 - [36 — Reprodução controlada de execuções](36-controlled-pricing-execution-reproduction.md)
 - [37 — Fundação do frontend e tela inicial de precificação](37-lvfi-app-010-frontend-pricing-screen.md)
+- [38 — Referência externa e comparação Modelo × Referência](38-lvfi-app-011-reference-comparison.md)
+- [39 — Plano mestre e rebaseline do LVFI](39-lvfi-master-plan-rebaseline.md)
 
 ## Continuidade institucional
 
