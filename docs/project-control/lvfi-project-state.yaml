@@ -1,18 +1,18 @@
 schema_version: "1.0"
 project: "R21 Labs"
 product: "Linha de Valor Football Intelligence"
-updated_at: "2026-08-25T00:00:00-03:00"
-reference_commit: "7ef9e0a7a4146637e3121196c6cc743590ddcc4b"
+updated_at: "2026-09-06T18:16:30-03:00"
+reference_commit: "7552e73091f7e9f639873b259ebbb2b33ca74ed0"
 reference_branch: "main"
-current_phase: "market_reference_comparison_institutionally_closed"
-current_milestone: "lvfi_app_011_published_integrated_and_closed"
+current_phase: "lvfi_master_plan_rebaseline_accepted_pending_publication"
+current_milestone: "r21_gov_002_accepted_and_local_commit_authorized"
 last_completed_task: "LVFI-APP-011"
 last_completed_governance_task: "R21-GOV-001"
 last_completed_product_task: "LVFI-APP-011"
 next_official_task: null
 next_planned_task: null
-next_required_decision: "Product Owner deve autorizar e priorizar a próxima task do MVP; não inferir ID ou ordem."
-immediate_action: "Aguardar decisão explícita do Product Owner sobre a próxima task."
+next_required_decision: "Após o commit local autorizado, Product Owner deve autorizar separadamente o push da branch; PR e merge continuam pendentes."
+immediate_action: "Criar o commit local autorizado de R21-GOV-002 e então aguardar autorização explícita para push."
 completed_tasks:
   - "LVFI-DISC-002"
   - "LVFI-ENG-001"
@@ -30,11 +30,12 @@ completed_tasks:
   - "LVFI-APP-009"
   - "LVFI-APP-010"
   - "LVFI-ENG-006"
+  - "LVFI-APP-011"
   - "R21-GOV-001"
-active_tasks: []
+active_tasks:
+  - "R21-GOV-002"
 planned_tasks:
   - "LVFI-ENG-005"
-  - "LVFI-APP-011"
 approved_not_implemented_tasks: []
 blocked_tasks: []
 versions:
@@ -47,7 +48,7 @@ versions:
   method_one_canonical_schema: 1
 test_baseline:
   api:
-    collected: 96
+    collected: 103
     statements: "100%"
     branches: "100%"
     evidence: "../project-control/lvfi-current-state.md"
@@ -56,19 +57,28 @@ test_baseline:
     statements: "100%"
     branches: "100%"
     evidence: "../products/linha-de-valor-football-intelligence/29-lvfi-eng-004-total-market-numerical-stability.md"
+approved_program_decisions:
+  - "Primeira versão local, para um administrador e sem Docker como requisito diário."
+  - "Importação revisada por Excel/CSV e manutenção manual de partidas e estatísticas pela web."
+  - "Sete grupos estatísticos por time; jogadores, membros, odds automáticas e Value Tracker fora da primeira versão."
+  - "Métodos apresentados separadamente; Método 1 congelado; mercados adicionais experimentais até calibração."
+  - "PDF-resumo programático gerado de snapshot aprovado e imutável."
+  - "Corte após pelo menos 20 análises paralelas em cinco competições e aceite do Product Owner."
 pending_decisions:
   - "Atribuição futura de ID e plano ao Método 2."
-  - "Tecnologia, conteúdo e retenção do PDF."
-  - "Autenticação, perfis e dados pessoais do MVP."
-  - "Deploy, backup, restauração e objetivos de recuperação."
+  - "ID e autorização da primeira task sucessora para fundação operacional de dados."
+  - "Tecnologia concreta e política de retenção do PDF-resumo."
+  - "Implementação concreta da autenticação local de administrador."
+  - "Detalhes de backup, restauração e objetivos de recuperação."
   - "Fornecedores de dados e odds e seus contratos."
   - "Evento de integração com Value Tracker e metodologia de CLV."
-  - "Critérios de sucesso do piloto e autoridade de cutover."
+  - "Critérios quantitativos adicionais e autoridade final de cutover."
 audit_checkpoints:
   - "Confirmar reference_commit em main e origin/main."
   - "Validar current-state, YAML e task registry antes da task."
   - "Usar Graphify-first e confirmar decisões nos originais."
   - "Atualizar continuidade antes de publicação e encerramento institucional."
+  - "Confirmar que o Graphify reconstruído em 2026-09-06 continua atual antes da próxima task."
 authoritative_documents:
   - "../company/company-context.md"
   - "../development-framework/README.md"
@@ -77,6 +87,7 @@ authoritative_documents:
   - "../products/linha-de-valor-football-intelligence/11-mvp-roadmap-and-validation.md"
   - "../products/linha-de-valor-football-intelligence/27-application-architecture.md"
   - "../products/linha-de-valor-football-intelligence/36-controlled-pricing-execution-reproduction.md"
+  - "../products/linha-de-valor-football-intelligence/39-lvfi-master-plan-rebaseline.md"
 handoff_documents:
   - "lvfi-current-state.md"
   - "lvfi-task-registry.md"

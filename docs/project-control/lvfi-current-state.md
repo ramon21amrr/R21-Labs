@@ -1,14 +1,14 @@
 # Estado atual do LVFI
 
-- **Atualizado em:** 2026-08-25
-- **Referência integrada:** `7ef9e0a7a4146637e3121196c6cc743590ddcc4b`
-- **Branch de referência:** `main` / `origin/main`, integrada pelo PR #20
-- **Última task institucional concluída:** `LVFI-APP-011` — referência externa e
-  comparação Modelo × Referência, integrada pelo PR #22
+- **Atualizado em:** 2026-09-06
+- **Referência integrada:** `7552e73091f7e9f639873b259ebbb2b33ca74ed0`
+- **Branch de referência:** `main` / `origin/main`, merge do PR #23
+- **Última task institucional concluída:** `R21-GOV-001`
 - **Última task de produto concluída:** `LVFI-APP-011`
-- **Task ativa:** nenhuma
-- **Último marco institucional:** APP-011 encerrada institucionalmente
-- **Último marco de produto:** referência externa manual e comparação auditável
+- **Task ativa:** `R21-GOV-002 — Plano mestre e rebaseline do LVFI`
+- **Branch ativa:** `codex/r21-gov-002-lvfi-master-plan`
+- **Estado da task:** aceita pelo Product Owner; commit local autorizado;
+  publicação pendente
 
 ## Capacidades disponíveis
 
@@ -16,61 +16,69 @@ Pricing Engine e Método 1 versionados; monólito modular FastAPI; PostgreSQL e
 migrations; importação histórica controlada; consultas de competições, temporadas,
 times, partidas e estatísticas; amostras determinísticas; execução do Método 1;
 execuções persistidas append-only; histórico filtrável; comparação compatível; e
-reprodução controlada append-only. A ENG-006 acrescenta snapshots teóricos de
-mercado versionados, canônicos e append-only, recebendo taxas imutáveis sem
-reexecutar o Método 1. `apps/web` fornece a interface inicial de
-consulta e precificação auditável, sem reproduzir matemática no navegador.
+reprodução controlada append-only. A ENG-006 fornece snapshots teóricos de
+mercado versionados e a APP-011 acrescenta referência externa manual e comparação
+Modelo × Referência. `apps/web` fornece a interface inicial sem reproduzir
+matemática no navegador.
 
 ## Versões e baseline
 
 - API `0.1.0`; Python `>=3.13,<3.14`; PostgreSQL 16 na validação isolada.
 - Distribuição `lvfi-pricing-engine` `1.1.1`; Pricing Engine `1.0.1`.
 - Método 1 `1.0.0`; schema canônico do Método 1 `1`.
-- API: 96 testes aprovados no PostgreSQL isolado da task, com 100% de statements
-  e branches; banco `codex_task_lvfi_eng_006` removido após a validação.
-- Pricing Engine: 554 testes aprovados, 100% de statements e branches, sem diff
-  no pacote, Método 1 ou matemática.
-- Gates institucionais `api` e `pricing` aprovados; logs em
-  `.r21-artifacts/quality/`.
+- APP-011: 103 testes de backend no PostgreSQL isolado com 100% de cobertura;
+  frontend com lint, typecheck, testes e build aprovados.
+- Pricing Engine: 554 testes e cobertura integral no último gate aplicável.
+- A `R21-GOV-002` é documental e não altera aplicação, contratos, schemas,
+  versões, hashes, fixtures ou matemática.
 
-## Limitações e decisões pendentes
+## R21-GOV-002
 
-Autenticação, workflow completo de revisão/aprovação do MVP, Métodos 2 e 3,
-Match Center, PDF, odds externas, oportunidades, Value Tracker e deploy não estão
-concluídos. O Método 2 permanece sem ID. Decisões de PDF, retenção,
-recuperação, identidade, fornecedores, evento/CLV e piloto continuam nos originais
-e no [registro de decisões](lvfi-decision-register.md).
+O Product Owner autorizou em 2026-09-06 o ID `R21-GOV-002` para regularizar o
+estado institucional e consolidar o plano mestre. O documento
+[39](../products/linha-de-valor-football-intelligence/39-lvfi-master-plan-rebaseline.md)
+registra:
+
+- fingerprints dos quatro materiais privados auditados, sem incorporá-los ao Git;
+- primeira versão local para um administrador e sete grupos estatísticos;
+- importação revisada por Excel/CSV e manutenção manual pela web;
+- Métodos 1, 2 e 3 separados, com o Método 1 congelado;
+- workflow de análise, Match Center, PDF-resumo, operação local e gates de piloto;
+- sequência econômica de tasks, sem autorizar ou inferir uma task sucessora.
+
+A revisão corrigida do XLSM tem SHA-256
+`FDCA46B855CC3FA28A34F622D282221F9B8E3EA41B0B6664432D9614D45D3924`.
+As 2.694 linhas foram revalidadas sem inconsistência relacional, valor negativo
+ou chave duplicada; a divergência anteriormente registrada na linha 2224 foi
+resolvida na origem pelo Product Owner.
+
+O Graphify local foi identificado como desatualizado no início da task e
+reconstruído em 2026-09-06 no modo local `code-only`: 1.078 nós e 2.998 relações.
+A varredura dos artefatos principais não encontrou caminhos pessoais, arquivos
+privados ou padrões de credenciais. O grafo permanece apenas um índice; decisões
+materiais foram confirmadas nos originais.
+
+Na mesma data, o Product Owner confirmou a correção da fonte XLSM, aceitou a
+entrega da `R21-GOV-002` e autorizou o commit local. Push, PR e merge permanecem
+sem autorização.
+
+## Limitações vigentes
+
+Autenticação, administração visual de importações, manutenção web de partidas e
+estatísticas, amostras generalizadas, Métodos 2 e 3, configurações, workflow
+completo, Match Center, PDF, launcher, backup/restauração, odds automáticas,
+oportunidades, Value Tracker e deploy remoto não estão concluídos.
+
+O Método 2 permanece sem ID. `LVFI-ENG-005` permanece reservado ao Método 3 e não
+está autorizado como task ativa. Os mercados estatísticos adicionais serão
+experimentais até calibração.
 
 ## Próxima sequência oficial
 
-- **Última task encerrada:** `LVFI-APP-011`, feature `8dac389`, PR #22, merge
-  `7ef9e0a7a4146637e3121196c6cc743590ddcc4b`.
-- **Próxima task oficial:** nenhuma; não inferir ID ou ordem sem decisão do Product Owner.
-- **Ação imediata:** aguardar decisão explícita do Product Owner sobre a próxima task.
-
-A ENG-006 receberá taxas imutáveis produzidas pelo Método 1 e usará capacidades
-existentes do Pricing Engine, sem alterar a matemática congelada. Terá
-versionamento, snapshot, hashes e persistência/auditoria próprios e viabilizará
-posteriormente Handicap Asiático e Totais para comparação com mercado. Ela não
-autoriza alterações no Método 1 `1.0.0`, Pricing Engine, matemática, schemas,
-hashes ou contratos públicos.
-
-## Validação da ENG-006
-
-A API pública cria e lê snapshots de precificação por mercado; os contratos de
-taxas e mercados têm schema próprio `1`, serialização canônica e fingerprints
-SHA-256. A migration `20260825_05` cria o ledger `market_pricings` com trigger
-PostgreSQL que impede update/delete. Os resultados canônicos preservam a saída do
-Pricing Engine para `three_way_result`, Totais, Asian Total, Asian Handicap e os
-demais mercados públicos, incluindo push e liquidações parciais. Não houve
-alteração de `packages/pricing-engine`, Método 1, hashes, baselines ou APP-011.
-
-## Validação integrada da APP-010
-
-A matriz inicial com ESLint `10.8.1` era incompatível com os plugins transitivos
-de `eslint-config-next` `16.3.1`. Com a autorização do Product Owner para
-continuar, ESLint `9.39.5` foi fixado e o lint passou limpo. Typecheck, Vitest,
-build, documentação, API e Pricing Engine foram validados. O smoke frontend →
-API → PostgreSQL real passou em `127.0.0.1:55432` com banco descartável removido
-ao final. A feature foi publicada no PR #17 e integrada por merge commit
-`2c2f34e7059c69d904250e4d0f5caa62ab36543d`; APP-011 não foi iniciada.
+- **Task em revisão:** `R21-GOV-002`, baseada em
+  `7552e73091f7e9f639873b259ebbb2b33ca74ed0`.
+- **Próxima task sucessora:** nenhuma; não inferir ID ou autorização.
+- **Ação imediata:** após o commit local autorizado, aguardar autorização
+  explícita para o push da branch; PR e merge continuam sendo ações separadas.
+- **Decisão posterior:** depois da publicação, o Product Owner deverá nomear uma
+  única task para a fundação operacional de dados.

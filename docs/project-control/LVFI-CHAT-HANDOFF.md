@@ -1,90 +1,61 @@
 # LVFI — handoff único para novo chat
 
-## Estado
+## Estado verificável
 
-R21 Labs transforma conhecimento em produtos digitais próprios. O LVFI é seu
-primeiro produto: plataforma auditável de dados e inteligência de futebol. Ramon
-é o Product Owner e usuário administrador inicial; decisões finais são humanas.
+- Produto: plataforma auditável de dados, análise e precificação de futebol.
+- Product Owner e usuário inicial: Ramon.
+- `main` / `origin/main`: `7552e73091f7e9f639873b259ebbb2b33ca74ed0`,
+  PR #23.
+- Última task de produto concluída: `LVFI-APP-011`, PR #22.
+- Última task institucional concluída: `R21-GOV-001`.
+- Task ativa: `R21-GOV-002 — Plano mestre e rebaseline do LVFI`.
+- Branch ativa: `codex/r21-gov-002-lvfi-master-plan`.
+- Estado: aceita; commit local autorizado; push, PR e merge pendentes.
+- Próxima task sucessora: nenhuma; não inferir ID ou autorização.
 
-- Referência integrada: `0d59956283f8efcab4f04e372ffe95cadaab9deb` em `main` /
-  `origin/main`, merge do PR #20.
-- Última task institucional concluída: `R21-GOV-001` — continuidade permanente,
-  publicada e integrada pelo PR #15.
-- Última task de produto concluída: `LVFI-ENG-006` — feature
-  `5cd76cebc5b5bfc25f804f53fe7f315c03fc209d`, integrada pelo PR #20.
-- Task ativa: nenhuma.
-- Próxima task oficial: `LVFI-APP-011`, planejada e não iniciada; requer
-  autorização própria.
-- `LVFI-ENG-005` permanece Método 3 — frequência observada.
-- `LVFI-APP-011` permanece planejada/bloqueada até a conclusão da ENG-006.
-- Ação imediata: aguardar autorização própria para iniciar APP-011.
+Capacidades atuais: FastAPI/PostgreSQL, importação e consultas históricas,
+amostras, Método 1, execuções append-only, histórico, comparação, reprodução,
+snapshots teóricos de mercado, referência externa manual e interface inicial.
+Pricing Engine `1.0.1`, distribuição `1.1.1`, Método 1 `1.0.0` e schema 1 estão
+congelados.
 
-O frontend está implementado e passou em lint, typecheck, testes e build. A
-incompatibilidade inicial entre ESLint `10.8.1` e os plugins transitivos do
-`eslint-config-next` `16.3.1` foi resolvida pelo pin estável `9.39.5`. O smoke
-frontend → API → PostgreSQL real passou com banco isolado removido; a publicação
-foi concluída no PR #17 pelo merge `2c2f34e7059c69d904250e4d0f5caa62ab36543d`.
+## Decisão de 2026-09-06
 
-Capacidades atuais: Pricing Engine `1.0.1`, distribuição `1.1.1`, Método 1
-`1.0.0`, schema 1; FastAPI/PostgreSQL; importação/consulta histórica; amostras;
-execução; persistência append-only; histórico; comparação; reprodução; e snapshots
-teóricos de mercado da ENG-006. Validação local: API 96 testes no PostgreSQL
-isolado e Pricing Engine 554, ambos com cobertura integral. Frontend,
-autenticação, workflow completo do MVP, Métodos 2/3, PDF, odds, oportunidades,
-Value Tracker e deploy permanecem não concluídos.
+O Product Owner aprovou o
+[plano mestre](../products/linha-de-valor-football-intelligence/39-lvfi-master-plan-rebaseline.md):
+primeira versão local para um administrador; entrada revisada por Excel/CSV e web;
+sete grupos estatísticos por time; Métodos 1, 2 e 3 separados; configuração,
+aprovação e snapshots; Match Center; PDF-resumo; launcher e recuperação.
 
-## Roadmap compacto
+Jogadores, membros, publicação remota, fornecedores automáticos, oportunidades e
+Value Tracker permanecem fora da primeira versão. Método 2 não possui ID.
+`LVFI-ENG-005` permanece Método 3 e não está autorizada. Os arquivos privados não
+estão no Git; seus fingerprints estão no documento 39. A revisão corrigida do
+XLSM termina em `D45D3924` e suas 2.694 linhas passaram na revalidação estrutural.
 
-`dados → modelo → preço → mercado → oportunidade → resultado → melhoria contínua`
+## Regras para continuar
 
-APP-010 entregou a interface inicial e está encerrada institucionalmente; ENG-006
-está concluída, publicada, integrada e encerrada institucionalmente como camada
-pós-Método 1, com versionamento, snapshot, hashes e persistência/auditoria próprios,
-sem alterar a matemática. APP-011 é a próxima task oficial, planejada e não iniciada,
-sem detalhamento além
-dessa dependência. Depois, tasks e
-decisões próprias completam o MVP utilizável, piloto, preparação comercial e
-lançamento. O Método 2 permanece sem ID. Mercado automatizado, oportunidades e
-Value Tracker estão fora do MVP/futuros conforme os documentos originais.
+1. Leia [estado](lvfi-current-state.md),
+   [YAML](lvfi-project-state.yaml), [tasks](lvfi-task-registry.md) e
+   [decisões](lvfi-decision-register.md).
+2. Confirme branch, HEAD, origin/main e árvore antes de agir.
+3. Use Graphify-first; o grafo foi reconstruído em 2026-09-06 no modo local
+   `code-only`, mas continua sendo apenas um índice.
+4. Nunca modifique Método 1, schemas, hashes, fixtures ou contratos para esconder
+   divergência.
+5. Execute uma task por vez e publique somente com autorização explícita.
 
-O roadmap completo permanece preservado no
-[roadmap institucional](lvfi-product-roadmap.md): fundações concluídas; APP-010 e
-APP-011; MVP interno e utilizável; relatórios; deploy/recuperação; piloto;
-operação de mercado; oportunidades; Value Tracker/resultados; preparação
-comercial; lançamento e evolução.
+## Ação única
 
-## Decisões e regras
-
-- Git e documentos versionados são a memória oficial.
-- Não inferir próxima task, ID, decisão ou roadmap.
-- `LVFI-ENG-004` é a correção numérica publicada no PR #4, nunca Método 2.
-- Toda task atualiza continuidade antes de encerramento institucional.
-- Graphify é mapa; fatos críticos vêm dos originais.
-- Branch não-main, gates, diff/segredos e autorização separada para commit, push,
-  PR e merge. Nunca force-push ou reescreva histórico.
-
-Decisões pendentes: ID/plano do Método 2; detalhamento APP-011 após ENG-006; PDF; autenticação;
-retenção/recuperação; deploy; fornecedores; evento/CLV do Value Tracker; piloto.
+Criar o commit local autorizado de `R21-GOV-002` e aguardar autorização separada
+para o push. PR e merge continuam pendentes. Após publicação, o Product Owner
+deverá nomear a task da fundação operacional de dados.
 
 ## Bootstrap
 
 ```text
-Trate este handoff e o Git como fontes de verdade. Comece por
-docs/project-control/lvfi-current-state.md e valide lvfi-project-state.yaml contra
-o reference_commit. Não infira a próxima task, não replaneje o produto e não
-sobrescreva decisões aprovadas. Consulte os documentos originais em caso de dúvida
-e apresente uma ação imediata por vez. Sempre informe: Modelo, Esforço, Agente,
-Modo, Onde, Mesma tarefa ou nova tarefa, Ação única, O que conclui e Próximo passo.
+Trate Git e este handoff como fontes de verdade. Valide current-state, YAML,
+registry, branch e reference_commit. Não infira próxima task. Preserve Método 1
+e o Pricing Engine. Use Graphify como índice e confirme decisões nas fontes
+originais. Apresente uma ação por vez em linguagem simples.
 ```
-
-Fontes: [índice de controle](README.md), [estado](lvfi-current-state.md),
-[YAML](lvfi-project-state.yaml), [roadmap](lvfi-product-roadmap.md),
-[tasks](lvfi-task-registry.md), [decisões](lvfi-decision-register.md),
-[Company Context](../company/company-context.md) e
-[produto](../products/linha-de-valor-football-intelligence/README.md).
-
-## Atualização APP-011
-
-`LVFI-APP-011` foi publicada, integrada e encerrada pelo PR #22, merge
-`7ef9e0a7a4146637e3121196c6cc743590ddcc4b`; feature commit `8dac389`. A ação
-imediata é aguardar decisão explícita do Product Owner sobre a próxima task.
