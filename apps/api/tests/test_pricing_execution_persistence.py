@@ -440,6 +440,8 @@ async def test_postgresql_institutional_append_only_trigger() -> None:
     database_url = os.environ.get("LVFI_DATABASE_URL")
     if database_url is None or "127.0.0.1:55432" not in database_url:
         pytest.skip("requires the isolated Codex PostgreSQL task database")
+    fixture_id = 900001
+    away_team_id = 900002
     engine = create_async_engine(database_url)
     try:
         async with engine.begin() as connection:
@@ -457,7 +459,7 @@ async def test_postgresql_institutional_append_only_trigger() -> None:
 
             await connection.execute(
                 insert(import_batches).values(
-                    id=1,
+                    id=fixture_id,
                     source_filename="synthetic",
                     source_sha256="0" * 64,
                     sheet_name="synthetic",
@@ -466,8 +468,8 @@ async def test_postgresql_institutional_append_only_trigger() -> None:
             )
             await connection.execute(
                 insert(source_records).values(
-                    id=1,
-                    batch_id=1,
+                    id=fixture_id,
+                    batch_id=fixture_id,
                     source_line=1,
                     row_sha256="0" * 64,
                     raw_values={},
@@ -476,32 +478,44 @@ async def test_postgresql_institutional_append_only_trigger() -> None:
             )
             await connection.execute(
                 insert(competitions).values(
-                    id=1, display_name="Synthetic", normalized_name="synthetic"
+                    id=fixture_id,
+                    display_name="Synthetic Trigger",
+                    normalized_name="synthetic-trigger",
                 )
             )
             await connection.execute(
-                insert(seasons).values(id=1, competition_id=1, label="2026")
+                insert(seasons).values(
+                    id=fixture_id, competition_id=fixture_id, label="2026"
+                )
             )
             await connection.execute(
-                insert(teams).values(id=1, display_name="Home", normalized_name="home")
+                insert(teams).values(
+                    id=fixture_id,
+                    display_name="Trigger Home",
+                    normalized_name="trigger-home",
+                )
             )
             await connection.execute(
-                insert(teams).values(id=2, display_name="Away", normalized_name="away")
+                insert(teams).values(
+                    id=away_team_id,
+                    display_name="Trigger Away",
+                    normalized_name="trigger-away",
+                )
             )
             await connection.execute(
                 insert(matches).values(
-                    id=1,
-                    season_id=1,
+                    id=fixture_id,
+                    season_id=fixture_id,
                     played_on=date(2026, 8, 2),
-                    home_team_id=1,
-                    away_team_id=2,
-                    source_record_id=1,
+                    home_team_id=fixture_id,
+                    away_team_id=away_team_id,
+                    source_record_id=fixture_id,
                 )
             )
             await connection.execute(
                 insert(execution_table).values(
                     execution_id="c4f8bf4e-5995-4c01-a85f-403218ce0101",
-                    match_id=1,
+                    match_id=fixture_id,
                     status="completed",
                     finalized_at=NOW,
                     correlation_id="postgres",

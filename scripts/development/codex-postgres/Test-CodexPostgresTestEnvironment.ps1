@@ -35,7 +35,7 @@ $database = "codex_task_validation_$([Guid]::NewGuid().ToString('N').Substring(0
 $resolvedApiPath = (Resolve-Path -LiteralPath $ApiPath).Path
 $created = $false
 try {
-    if (-not (Test-CodexPostgresService)) { throw 'Codex PostgreSQL service is not ready on 127.0.0.1:55432.' }
+    [void](Start-CodexPostgresService)
     New-CodexPostgresTaskDatabase -Database $database
     $created = $true
     Invoke-CodexPostgresMigration -Database $database -Target 'head' -ApiPath $resolvedApiPath

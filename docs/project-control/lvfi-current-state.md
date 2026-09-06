@@ -1,13 +1,13 @@
 # Estado atual do LVFI
 
 - **Atualizado em:** 2026-09-06
-- **Referência integrada:** `7819f3fc1a2c76d196c51584c0027cec65e7a67e`
-- **Branch de referência:** `main` / `origin/main`, merge do PR #24
+- **Referência integrada:** `1bd965545de45fa478e1b10e8625ddad3a6ede11`
+- **Branch de referência:** `main` / `origin/main`, merge do PR #25
 - **Última task institucional concluída:** `R21-GOV-002`
 - **Última task de produto concluída:** `LVFI-APP-011`
-- **Task ativa:** nenhuma
-- **Estado da última task:** concluída, publicada, integrada e encerrada
-  institucionalmente
+- **Task ativa:** `LVFI-APP-012 — Fundação Operacional de Dados`
+- **Branch ativa:** `codex/lvfi-app-012-data-foundation`
+- **Estado da task:** validação integral aprovada; pronta para publicação
 
 ## Capacidades disponíveis
 
@@ -27,6 +27,9 @@ matemática no navegador.
 - Método 1 `1.0.0`; schema canônico do Método 1 `1`.
 - APP-011: 103 testes de backend no PostgreSQL isolado com 100% de cobertura;
   frontend com lint, typecheck, testes e build aprovados.
+- APP-012: 116 testes de backend no PostgreSQL isolado com 100% de cobertura;
+  lint, typecheck, 9 testes e build do frontend aprovados; smoke frontend → API
+  → PostgreSQL isolado aprovado.
 - Pricing Engine: 554 testes e cobertura integral no último gate aplicável.
 - A `R21-GOV-002` é documental e não altera aplicação, contratos, schemas,
   versões, hashes, fixtures ou matemática.
@@ -64,8 +67,7 @@ em `main` no merge `7819f3fc1a2c76d196c51584c0027cec65e7a67e`.
 
 ## Limitações vigentes
 
-Autenticação, administração visual de importações, manutenção web de partidas e
-estatísticas, amostras generalizadas, Métodos 2 e 3, configurações, workflow
+Autenticação, amostras generalizadas, Métodos 2 e 3, configurações, workflow
 completo, Match Center, PDF, launcher, backup/restauração, odds automáticas,
 oportunidades, Value Tracker e deploy remoto não estão concluídos.
 
@@ -73,9 +75,26 @@ O Método 2 permanece sem ID. `LVFI-ENG-005` permanece reservado ao Método 3 e 
 está autorizado como task ativa. Os mercados estatísticos adicionais serão
 experimentais até calibração.
 
+## LVFI-APP-012
+
+O Product Owner confirmou em 2026-09-06 a task `LVFI-APP-012 — Fundação
+Operacional de Dados`. Ela implementa prévia/confirmação de importações,
+partidas futuras e revisões estatísticas auditáveis, sem alterar a matemática
+congelada. O contrato completo está no
+[documento 40](../products/linha-de-valor-football-intelligence/40-lvfi-app-012-operational-data-foundation.md).
+
+A validação final confirmou, em banco PostgreSQL 16 descartável recém-criado,
+migrations até `20260906_07`, prévia/confirmação idempotente, duplicidade,
+partida futura, revisão disponível e ausente, e trigger append-only. O banco
+`codex_task_lvfi_app_012` foi removido ao final e a instância permanente em
+`5432` não foi acessada. A instabilidade observada era o encerramento
+intermitente `0xC000013A` do processo da tarefa isolada; o harness agora inicia
+a tarefa oficial e aguarda `55432` antes de operar, sem alterar serviço,
+cluster, credenciais ou configuração institucional.
+
 ## Próxima sequência oficial
 
-- **Task ativa:** nenhuma.
+- **Task ativa:** `LVFI-APP-012`.
 - **Próxima task sucessora:** nenhuma; não inferir ID ou autorização.
-- **Ação imediata:** o Product Owner deve nomear e autorizar uma única task para
-  a fundação operacional de dados.
+- **Ação imediata:** revisar o diff da APP-012 e seguir a publicação já
+  autorizada pelo Product Owner.

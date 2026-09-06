@@ -156,7 +156,7 @@ matches = Table(
         "source_record_id",
         BigInteger,
         ForeignKey("source_records.id", ondelete="RESTRICT"),
-        nullable=False,
+        nullable=True,
         unique=True,
     ),
     Column(
@@ -262,6 +262,51 @@ match_statistics = Table(
             "away_cards_full_match",
         )
     ],
+)
+
+# Corrections are never destructive.  The existing wide table remains the current
+# compatibility projection consumed by Method One, while this ledger preserves
+# every previous value, reason and local operator identity.
+statistic_revisions = Table(
+    "statistic_revisions",
+    metadata,
+    Column("id", BigInteger, primary_key=True),
+    Column(
+        "match_id",
+        BigInteger,
+        ForeignKey("matches.id", ondelete="RESTRICT"),
+        nullable=False,
+    ),
+    Column("statistic_field", String(80), nullable=False),
+    Column("previous_value", Integer),
+    Column("new_value", Integer),
+    Column("availability", String(16), nullable=False),
+    Column("source", String(32), nullable=False),
+    Column("actor", String(128), nullable=False),
+    Column("reason", Text, nullable=False),
+    Column(
+        "created_at", DateTime(timezone=True), nullable=False, server_default=func.now()
+    ),
+    CheckConstraint(
+        "availability IN ('available', 'missing')", name="statistic_revision_availability"
+    ),
+    CheckConstraint(
+        "source IN ('manual_correction', 'controlled_import')",
+        name="statistic_revision_source",
+    ),
+    CheckConstraint(
+        "(availability = 'available' AND new_value IS NOT NULL AND new_value >= 0) OR "
+        "(availability = 'missing' AND new_value IS NULL)",
+        name="statistic_revision_value_shape",
+    ),
+)
+
+Index(
+    "ix_statistic_revisions_match_field_created",
+    statistic_revisions.c.match_id,
+    statistic_revisions.c.statistic_field,
+    statistic_revisions.c.created_at.desc(),
+    statistic_revisions.c.id.desc(),
 )
 
 Index(

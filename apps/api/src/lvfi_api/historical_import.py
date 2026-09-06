@@ -7,6 +7,7 @@ import json
 import re
 import unicodedata
 from collections.abc import Iterable, Sequence
+from csv import reader
 from dataclasses import dataclass
 from datetime import date, datetime
 from hashlib import sha256
@@ -314,13 +315,35 @@ def normalize_row(
 def read_source(
     path: Path, sheet_name: str, expected_sha256: str | None = None
 ) -> tuple[str, Iterable[tuple[int, tuple[object, ...]]]]:
-    """Verify an XLSM source and return a streaming row iterator in safe read mode."""
+    """Verify a controlled workbook or CSV and return streaming source rows."""
 
-    if path.suffix.lower() not in {".xlsx", ".xlsm"}:
-        raise SourceValidationError("source must be an .xlsx or .xlsm file")
+    extension = path.suffix.lower()
+    if extension not in {".csv", ".xlsx", ".xlsm"}:
+        raise SourceValidationError("source must be a .csv, .xlsx or .xlsm file")
     actual_hash = source_sha256(path)
     if expected_sha256 is not None and actual_hash != expected_sha256.upper():
         raise SourceValidationError("source SHA-256 does not match the approved value")
+    if extension == ".csv":
+        with path.open("r", encoding="utf-8-sig", newline="") as source:
+            csv_reader = reader(source)
+            header_row = tuple(next(csv_reader, ()))
+        if header_row != HISTORICAL_HEADERS:
+            raise SourceValidationError(
+                "source headers do not match the historical contract"
+            )
+
+        def csv_rows() -> Iterable[tuple[int, tuple[object, ...]]]:
+            try:
+                with path.open("r", encoding="utf-8-sig", newline="") as source:
+                    csv_reader = reader(source)
+                    next(csv_reader, None)
+                    for line, row in enumerate(csv_reader, start=2):
+                        yield line, tuple(row)
+            finally:
+                if source_sha256(path) != actual_hash:
+                    raise SourceValidationError("source changed during safe reading")
+
+        return actual_hash, csv_rows()
     workbook = load_workbook(path, read_only=True, data_only=True, keep_vba=False)
     if sheet_name not in workbook.sheetnames:
         workbook.close()

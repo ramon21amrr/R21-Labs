@@ -70,6 +70,9 @@ def create_app(
         resource_not_found_handler,
     )
     from lvfi_api.presentation.historical_routes import router as historical_router
+    from lvfi_api.presentation.operational_data_routes import (
+        router as operational_data_router,
+    )
     from lvfi_api.presentation.pricing_execution_routes import (
         router as pricing_execution_router,
     )
@@ -105,6 +108,7 @@ def create_app(
     app.add_exception_handler(Exception, unexpected_error_handler)
     app.include_router(router)
     app.include_router(historical_router)
+    app.include_router(operational_data_router)
     app.include_router(pricing_execution_router)
     app.include_router(pricing_execution_reproduction_router)
     app.include_router(market_pricing_router)
