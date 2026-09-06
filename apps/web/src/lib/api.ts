@@ -1,4 +1,4 @@
-import type { MarketPricing, MarketReferenceObservation, Match, MethodOneSample, ModelReferenceComparison, Page, PricingExecution } from "@/lib/contracts";
+import type { FutureMatch, FutureMatchDraft, ImportPreview, MarketPricing, MarketReferenceObservation, Match, MethodOneSample, ModelReferenceComparison, Page, PricingExecution, StatisticRevision, StatisticRevisionDraft } from "@/lib/contracts";
 
 const defaultApiUrl = "/api";
 
@@ -71,3 +71,22 @@ export const createMarketReference = (
   });
 export const getMarketReferenceComparison = (observationId: string) =>
   request<ModelReferenceComparison>(`/market-references/${observationId}/comparison`);
+
+async function importRequest(path: string, file: File): Promise<ImportPreview> {
+  const params = new URLSearchParams({ filename: file.name });
+  let response: Response;
+  try {
+    response = await fetch(apiUrl(path, params), { method: "POST", headers: { Accept: "application/json", "Content-Type": file.type || "application/octet-stream" }, body: file });
+  } catch {
+    throw new ApiError(0, "Não foi possível conectar à API do LVFI.");
+  }
+  if (!response.ok) throw new ApiError(response.status, sanitizedMessage(response.status));
+  return response.json() as Promise<ImportPreview>;
+}
+
+export const previewImport = (file: File) => importRequest("/administration/imports/preview", file);
+export const confirmImport = (file: File) => importRequest("/administration/imports/confirm", file);
+export const createFutureMatch = (payload: FutureMatchDraft) =>
+  request<FutureMatch>("/administration/matches", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+export const createStatisticRevision = (matchId: number, payload: StatisticRevisionDraft) =>
+  request<StatisticRevision>(`/administration/matches/${matchId}/statistic-revisions`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });

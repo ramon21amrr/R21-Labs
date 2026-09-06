@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from csv import writer
 from datetime import date
 from pathlib import Path
 
@@ -57,6 +58,14 @@ def _workbook(path: Path, headers: tuple[str, ...] = HISTORICAL_HEADERS) -> Path
     worksheet.append(headers)
     worksheet.append(_row())
     workbook.save(path)
+    return path
+
+
+def _csv(path: Path, headers: tuple[str, ...] = HISTORICAL_HEADERS) -> Path:
+    with path.open("w", encoding="utf-8", newline="") as source:
+        csv_writer = writer(source)
+        csv_writer.writerow(headers)
+        csv_writer.writerow(_row())
     return path
 
 
@@ -123,11 +132,32 @@ def test_read_source_validates_hash_headers_sheet_and_extension(tmp_path: Path) 
         read_source(source, "JOGOS", "0" * 64)
     with pytest.raises(SourceValidationError, match="sheet"):
         read_source(source, "missing", digest)
-    with pytest.raises(SourceValidationError, match="xlsx"):
-        read_source(tmp_path / "source.csv", "JOGOS")
+    with pytest.raises(SourceValidationError, match="csv"):
+        read_source(tmp_path / "source.txt", "JOGOS")
     invalid_headers = _workbook(tmp_path / "headers.xlsx", ("invalid",))
     with pytest.raises(SourceValidationError, match="headers"):
         read_source(invalid_headers, "JOGOS")
+
+
+def test_read_source_accepts_the_same_controlled_contract_as_csv(
+    tmp_path: Path,
+) -> None:
+    source = _csv(tmp_path / "source.csv")
+
+    observed_hash, rows = read_source(source, "JOGOS", source_sha256(source))
+
+    assert observed_hash == source_sha256(source)
+    assert list(rows) == [(2, tuple(str(value) for value in _row()))]
+
+
+def test_csv_reader_detects_source_change_during_iteration(tmp_path: Path) -> None:
+    source = _csv(tmp_path / "source.csv")
+    digest = source_sha256(source)
+    _, rows = read_source(source, "JOGOS", digest)
+    _csv(source, ("invalid",))
+
+    with pytest.raises(SourceValidationError, match="changed"):
+        list(rows)
 
 
 @pytest.mark.asyncio

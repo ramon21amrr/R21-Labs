@@ -166,13 +166,28 @@ function Test-CodexPostgresService {
     return $LASTEXITCODE -eq 0
 }
 
+function Start-CodexPostgresService {
+    [OutputType([bool])]
+    param()
+
+    if (Test-CodexPostgresService) {
+        return $true
+    }
+    Start-ScheduledTask -TaskName $script:CodexPostgres.TaskName
+    for ($attempt = 0; $attempt -lt 50; $attempt++) {
+        if (Test-CodexPostgresService) {
+            return $true
+        }
+        Start-Sleep -Milliseconds 200
+    }
+    throw 'The Codex PostgreSQL test service did not become ready on 127.0.0.1:55432.'
+}
+
 function New-CodexPostgresTaskDatabase {
     param([Parameter(Mandatory)][string]$Database)
 
     Assert-CodexPostgresTaskDatabaseName -Database $Database
-    if (-not (Test-CodexPostgresService)) {
-        throw 'The Codex PostgreSQL test service is not ready on 127.0.0.1:55432.'
-    }
+    [void](Start-CodexPostgresService)
     $createdb = Get-CodexPostgresExecutable -Name 'createdb.exe'
     Invoke-WithCodexPostgresPassword {
         & $createdb '-h' $script:CodexPostgres.Host '-p' $script:CodexPostgres.Port '-U' $script:CodexPostgres.Role '-T' 'template0' $Database
@@ -194,6 +209,7 @@ function Remove-CodexPostgresTaskDatabase {
     param([Parameter(Mandatory)][string]$Database)
 
     Assert-CodexPostgresTaskDatabaseName -Database $Database
+    [void](Start-CodexPostgresService)
     Stop-CodexPostgresTaskSessions -Database $Database
     $dropdb = Get-CodexPostgresExecutable -Name 'dropdb.exe'
     Invoke-WithCodexPostgresPassword {
@@ -270,6 +286,7 @@ Export-ModuleMember -Function @(
     'Test-CodexPostgresNoTaskDatabases',
     'Invoke-CodexPostgresPsql',
     'Test-CodexPostgresService',
+    'Start-CodexPostgresService',
     'New-CodexPostgresTaskDatabase',
     'Stop-CodexPostgresTaskSessions',
     'Remove-CodexPostgresTaskDatabase',

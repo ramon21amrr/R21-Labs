@@ -1,18 +1,18 @@
 schema_version: "1.0"
 project: "R21 Labs"
 product: "Linha de Valor Football Intelligence"
-updated_at: "2026-09-06T21:52:57-03:00"
-reference_commit: "7819f3fc1a2c76d196c51584c0027cec65e7a67e"
+updated_at: "2026-09-06T20:25:00-03:00"
+reference_commit: "1bd965545de45fa478e1b10e8625ddad3a6ede11"
 reference_branch: "main"
-current_phase: "lvfi_master_plan_rebaseline_institutionally_closed"
-current_milestone: "r21_gov_002_published_integrated_and_closed"
+current_phase: "lvfi_operational_data_foundation_validated"
+current_milestone: "lvfi_app_012_ready_for_publication"
 last_completed_task: "R21-GOV-002"
 last_completed_governance_task: "R21-GOV-002"
 last_completed_product_task: "LVFI-APP-011"
 next_official_task: null
 next_planned_task: null
-next_required_decision: "Product Owner deve atribuir ID e autorizar uma única task para a fundação operacional de dados."
-immediate_action: "Aguardar o Product Owner nomear e autorizar a primeira task da fundação operacional de dados."
+next_required_decision: "Nenhuma enquanto a LVFI-APP-012 estiver em execução; não iniciar task paralela."
+immediate_action: "Revisar o diff e seguir a publicação autorizada da LVFI-APP-012."
 completed_tasks:
   - "LVFI-DISC-002"
   - "LVFI-ENG-001"
@@ -33,7 +33,8 @@ completed_tasks:
   - "LVFI-APP-011"
   - "R21-GOV-001"
   - "R21-GOV-002"
-active_tasks: []
+active_tasks:
+  - "LVFI-APP-012"
 planned_tasks:
   - "LVFI-ENG-005"
 approved_not_implemented_tasks: []
@@ -48,7 +49,7 @@ versions:
   method_one_canonical_schema: 1
 test_baseline:
   api:
-    collected: 103
+    collected: 116
     statements: "100%"
     branches: "100%"
     evidence: "../project-control/lvfi-current-state.md"

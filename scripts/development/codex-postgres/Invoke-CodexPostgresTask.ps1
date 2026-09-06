@@ -12,6 +12,7 @@ $ErrorActionPreference = 'Stop'
 Import-Module (Join-Path $PSScriptRoot 'CodexPostgresTest.psm1') -Force
 $resolvedApiPath = (Resolve-Path -LiteralPath $ApiPath).Path
 
+[void](Start-CodexPostgresService)
 Invoke-CodexPostgresMigration -Database $Database -Target $UpgradeTo -ApiPath $resolvedApiPath
 if ($DowngradeTo) {
     Invoke-CodexPostgresDowngrade -Database $Database -Target $DowngradeTo -ApiPath $resolvedApiPath

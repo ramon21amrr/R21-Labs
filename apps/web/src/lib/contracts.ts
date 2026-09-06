@@ -108,3 +108,43 @@ export interface ModelReferenceComparison {
   model_value: number;
   line_difference_quarters: number | null;
 }
+
+export interface ImportPreview {
+  source_sha256: string;
+  sheet_name: string;
+  total_records: number;
+  accepted_records: number;
+  rejected_records: number;
+  warning_records: number;
+  dry_run: boolean;
+  already_imported: boolean;
+}
+
+export interface FutureMatchDraft {
+  played_on: string;
+  competition: string;
+  season: string;
+  home_team: string;
+  away_team: string;
+  actor?: string;
+}
+
+export interface FutureMatch extends Required<FutureMatchDraft> {
+  match_id: number;
+  created_at: string;
+}
+
+export interface StatisticRevisionDraft {
+  statistic_field: string;
+  availability: "available" | "missing";
+  new_value: number | null;
+  actor?: string;
+  reason: string;
+}
+
+export interface StatisticRevision extends Required<StatisticRevisionDraft> {
+  revision_id: number;
+  match_id: number;
+  previous_value: number | null;
+  created_at: string;
+}
