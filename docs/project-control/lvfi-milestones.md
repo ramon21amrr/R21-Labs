@@ -20,7 +20,7 @@ R21-GOV-002.
 | 12 | Frontend e tela inicial de precificação | Concluído | `LVFI-APP-010`, PR #17, ADR-014 e smoke integrado | Interface inicial disponível |
 | 13 | Camada versionada de precificação de mercados | Concluído, publicado, integrado e encerrado institucionalmente | `LVFI-ENG-006`; feature `5cd76cebc5b5bfc25f804f53fe7f315c03fc209d`; PR #20; merge `0d59956283f8efcab4f04e372ffe95cadaab9deb` | Método 1 `1.0.0` e Engine `1.0.1` preservados |
 | 14 | Entrada de mercado e comparação modelo versus mercado | Concluído, publicado, integrado e encerrado institucionalmente | `LVFI-APP-011`; feature `8dac389`; PR #22; merge `7ef9e0a7a4146637e3121196c6cc743590ddcc4b` | Referência externa manual e comparação auditável disponíveis |
-| 15 | Plano mestre e rebaseline | Aceito; commit local autorizado; publicação pendente | `R21-GOV-002`; [Documento 39](../products/linha-de-valor-football-intelligence/39-lvfi-master-plan-rebaseline.md) | Estado reconciliado; próxima task ainda exige ID e autorização |
+| 15 | Plano mestre e rebaseline | Concluído, publicado, integrado e encerrado institucionalmente | `R21-GOV-002`; PR #24; merge `7819f3fc1a2c76d196c51584c0027cec65e7a67e`; [Documento 39](../products/linha-de-valor-football-intelligence/39-lvfi-master-plan-rebaseline.md) | Estado reconciliado; próxima task ainda exige ID e autorização |
 | 16 | Fundação operacional de dados | Próxima capacidade; sem task autorizada | [Documento 39](../products/linha-de-valor-football-intelligence/39-lvfi-master-plan-rebaseline.md) | Importação revisada e manutenção web de partidas/estatísticas |
 | 17 | Camada estatística e métodos restantes | Programa aprovado; tasks dependentes de decisão | [Requisitos](../products/linha-de-valor-football-intelligence/05-requirements.md) e Documento 39 | Método 2 sem ID; `LVFI-ENG-005` reservada e não autorizada |
 | 18 | Configuração, aprovação e snapshots | Programa aprovado; sem task autorizada | Documento 39 | Configuração versionada e análise aprovada imutável |
@@ -39,6 +39,5 @@ O identificador `LVFI-ENG-004` pertence exclusivamente à correção numérica j
 publicada. A reserva histórica desse ID para o Método 2 foi revogada; nenhum novo
 ID foi criado para o Método 2.
 
-O próximo passo é registrar o commit local autorizado e publicar a R21-GOV-002
-somente por ações separadas. Depois disso, o Product Owner deverá nomear uma única
-task para a fundação operacional de dados.
+O próximo passo é o Product Owner nomear e autorizar uma única task para a
+fundação operacional de dados.

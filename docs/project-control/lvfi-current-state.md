@@ -1,14 +1,13 @@
 # Estado atual do LVFI
 
 - **Atualizado em:** 2026-09-06
-- **Referência integrada:** `7552e73091f7e9f639873b259ebbb2b33ca74ed0`
-- **Branch de referência:** `main` / `origin/main`, merge do PR #23
-- **Última task institucional concluída:** `R21-GOV-001`
+- **Referência integrada:** `7819f3fc1a2c76d196c51584c0027cec65e7a67e`
+- **Branch de referência:** `main` / `origin/main`, merge do PR #24
+- **Última task institucional concluída:** `R21-GOV-002`
 - **Última task de produto concluída:** `LVFI-APP-011`
-- **Task ativa:** `R21-GOV-002 — Plano mestre e rebaseline do LVFI`
-- **Branch ativa:** `codex/r21-gov-002-lvfi-master-plan`
-- **Estado da task:** aceita pelo Product Owner; commit local autorizado;
-  publicação pendente
+- **Task ativa:** nenhuma
+- **Estado da última task:** concluída, publicada, integrada e encerrada
+  institucionalmente
 
 ## Capacidades disponíveis
 
@@ -58,9 +57,10 @@ A varredura dos artefatos principais não encontrou caminhos pessoais, arquivos
 privados ou padrões de credenciais. O grafo permanece apenas um índice; decisões
 materiais foram confirmadas nos originais.
 
-Na mesma data, o Product Owner confirmou a correção da fonte XLSM, aceitou a
-entrega da `R21-GOV-002` e autorizou o commit local. Push, PR e merge permanecem
-sem autorização.
+O Product Owner confirmou a correção da fonte XLSM, aceitou a entrega e autorizou
+a publicação. A unidade documental foi registrada no commit
+`1134f683f414cb16af0880386c078ea1d0c3c95c`, publicada pelo PR #24 e integrada
+em `main` no merge `7819f3fc1a2c76d196c51584c0027cec65e7a67e`.
 
 ## Limitações vigentes
 
@@ -75,10 +75,7 @@ experimentais até calibração.
 
 ## Próxima sequência oficial
 
-- **Task em revisão:** `R21-GOV-002`, baseada em
-  `7552e73091f7e9f639873b259ebbb2b33ca74ed0`.
+- **Task ativa:** nenhuma.
 - **Próxima task sucessora:** nenhuma; não inferir ID ou autorização.
-- **Ação imediata:** após o commit local autorizado, aguardar autorização
-  explícita para o push da branch; PR e merge continuam sendo ações separadas.
-- **Decisão posterior:** depois da publicação, o Product Owner deverá nomear uma
-  única task para a fundação operacional de dados.
+- **Ação imediata:** o Product Owner deve nomear e autorizar uma única task para
+  a fundação operacional de dados.
