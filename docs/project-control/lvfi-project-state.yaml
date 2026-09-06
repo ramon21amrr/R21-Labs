@@ -1,18 +1,18 @@
 schema_version: "1.0"
 project: "R21 Labs"
 product: "Linha de Valor Football Intelligence"
-updated_at: "2026-09-06T18:16:30-03:00"
-reference_commit: "7552e73091f7e9f639873b259ebbb2b33ca74ed0"
+updated_at: "2026-09-06T21:52:57-03:00"
+reference_commit: "7819f3fc1a2c76d196c51584c0027cec65e7a67e"
 reference_branch: "main"
-current_phase: "lvfi_master_plan_rebaseline_accepted_pending_publication"
-current_milestone: "r21_gov_002_accepted_and_local_commit_authorized"
-last_completed_task: "LVFI-APP-011"
-last_completed_governance_task: "R21-GOV-001"
+current_phase: "lvfi_master_plan_rebaseline_institutionally_closed"
+current_milestone: "r21_gov_002_published_integrated_and_closed"
+last_completed_task: "R21-GOV-002"
+last_completed_governance_task: "R21-GOV-002"
 last_completed_product_task: "LVFI-APP-011"
 next_official_task: null
 next_planned_task: null
-next_required_decision: "Após o commit local autorizado, Product Owner deve autorizar separadamente o push da branch; PR e merge continuam pendentes."
-immediate_action: "Criar o commit local autorizado de R21-GOV-002 e então aguardar autorização explícita para push."
+next_required_decision: "Product Owner deve atribuir ID e autorizar uma única task para a fundação operacional de dados."
+immediate_action: "Aguardar o Product Owner nomear e autorizar a primeira task da fundação operacional de dados."
 completed_tasks:
   - "LVFI-DISC-002"
   - "LVFI-ENG-001"
@@ -32,8 +32,8 @@ completed_tasks:
   - "LVFI-ENG-006"
   - "LVFI-APP-011"
   - "R21-GOV-001"
-active_tasks:
   - "R21-GOV-002"
+active_tasks: []
 planned_tasks:
   - "LVFI-ENG-005"
 approved_not_implemented_tasks: []

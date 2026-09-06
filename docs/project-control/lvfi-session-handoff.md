@@ -11,27 +11,22 @@ versionados são a memória oficial. Antes de qualquer task, leia
 
 ## Baseline integrado
 
-- `main` / `origin/main`: `7552e73091f7e9f639873b259ebbb2b33ca74ed0`,
-  merge do PR #23.
+- `main` / `origin/main`: `7819f3fc1a2c76d196c51584c0027cec65e7a67e`,
+  merge do PR #24.
 - Última task de produto concluída: `LVFI-APP-011`, feature `8dac389`, PR #22,
   merge `7ef9e0a7a4146637e3121196c6cc743590ddcc4b`.
-- Última task institucional concluída: `R21-GOV-001`.
+- Última task institucional concluída: `R21-GOV-002`.
 - Pricing Engine `1.0.1`; distribuição `1.1.1`; Método 1 `1.0.0`; schema 1.
 - APP-011 validou 103 testes de backend/100% de cobertura e frontend com lint,
   typecheck, testes e build.
 
 ## Task ativa
 
-`R21-GOV-002 — Plano mestre e rebaseline do LVFI` foi autorizada pelo Product
-Owner em 2026-09-06.
-
-- Branch: `codex/r21-gov-002-lvfi-master-plan`.
-- Base: `7552e73091f7e9f639873b259ebbb2b33ca74ed0`.
-- Escopo: documentação e continuidade; sem alteração de código, banco, contratos,
-  schemas, hashes, fixtures, versões ou matemática.
-- Estado: aceita pelo Product Owner; commit local autorizado; push, PR e merge
-  não autorizados.
-- Documento principal: [Plano mestre e rebaseline](../products/linha-de-valor-football-intelligence/39-lvfi-master-plan-rebaseline.md).
+Não há task ativa. `R21-GOV-002 — Plano mestre e rebaseline do LVFI` foi concluída
+em 2026-09-06: commit `1134f683f414cb16af0880386c078ea1d0c3c95c`, PR #24 e merge
+`7819f3fc1a2c76d196c51584c0027cec65e7a67e`. Seu escopo foi somente documentação
+e continuidade; não alterou código, banco, contratos, schemas, hashes, fixtures,
+versões ou matemática.
 
 ## Plano aprovado
 
@@ -63,7 +58,5 @@ pessoais, arquivos privados ou padrões de credenciais. Ele permanece somente um
 Gate atual: perfil `docs`, seguido de `git diff --check`, revisão de escopo e
 varredura de segredos. Publicação usa autorização e fluxo próprios.
 
-**Ação imediata:** criar o commit local autorizado e aguardar autorização
-explícita para o push da branch. PR e merge são ações posteriores e separadas. Só
-após a publicação deverá ser nomeada uma task da fundação operacional de dados;
-nenhuma sucessora está autorizada.
+**Ação imediata:** o Product Owner deve nomear e autorizar uma única task da
+fundação operacional de dados; nenhuma sucessora está autorizada até essa decisão.

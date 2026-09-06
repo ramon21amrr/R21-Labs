@@ -4,13 +4,13 @@
 
 - Produto: plataforma auditável de dados, análise e precificação de futebol.
 - Product Owner e usuário inicial: Ramon.
-- `main` / `origin/main`: `7552e73091f7e9f639873b259ebbb2b33ca74ed0`,
-  PR #23.
+- `main` / `origin/main`: `7819f3fc1a2c76d196c51584c0027cec65e7a67e`,
+  merge do PR #24.
 - Última task de produto concluída: `LVFI-APP-011`, PR #22.
-- Última task institucional concluída: `R21-GOV-001`.
-- Task ativa: `R21-GOV-002 — Plano mestre e rebaseline do LVFI`.
-- Branch ativa: `codex/r21-gov-002-lvfi-master-plan`.
-- Estado: aceita; commit local autorizado; push, PR e merge pendentes.
+- Última task institucional concluída: `R21-GOV-002`.
+- Task ativa: nenhuma.
+- Estado: plano mestre concluído, publicado, integrado e encerrado
+  institucionalmente pelo PR #24.
 - Próxima task sucessora: nenhuma; não inferir ID ou autorização.
 
 Capacidades atuais: FastAPI/PostgreSQL, importação e consultas históricas,
@@ -47,9 +47,8 @@ XLSM termina em `D45D3924` e suas 2.694 linhas passaram na revalidação estrutu
 
 ## Ação única
 
-Criar o commit local autorizado de `R21-GOV-002` e aguardar autorização separada
-para o push. PR e merge continuam pendentes. Após publicação, o Product Owner
-deverá nomear a task da fundação operacional de dados.
+O Product Owner deve nomear e autorizar uma única task para a fundação
+operacional de dados. Não inferir seu ID, escopo ou autorização.
 
 ## Bootstrap
 
