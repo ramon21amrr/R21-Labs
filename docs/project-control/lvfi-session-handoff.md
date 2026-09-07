@@ -11,12 +11,14 @@ versionados são a memória oficial. Antes de qualquer task, leia
 
 ## Baseline integrado
 
-- `main` / `origin/main`: `242375ac68236ba56307821afc267d871092423f`,
-  merge do PR #27.
+- `main` / `origin/main`: `62b3791e55aca8df501943dfe7fef9f6a27e8bd2`,
+  merge do PR #28.
 - Última task de produto concluída: `LVFI-APP-012`, commit
   `0bec8682912ebfd6c2e597dbda56b6edd34555bd`, PR #26 e merge
   `88d7ab486f007d946a053adba4a8ab552b78ee35`.
-- Última task institucional concluída: `R21-GOV-002`.
+- Última task institucional concluída: `R21-DEV-003`, commit
+  `522bbbfb96e3c9835c5f1e43e8b295c605cc4650`, PR #28 e merge
+  `62b3791e55aca8df501943dfe7fef9f6a27e8bd2`.
 - Pricing Engine `1.0.1`; distribuição `1.1.1`; Método 1 `1.0.0`; schema 1.
 - APP-012 validou 116 testes de backend PostgreSQL isolado/100% de cobertura;
   lint, typecheck, 9 testes e build do frontend, além do smoke frontend → API →
@@ -24,11 +26,11 @@ versionados são a memória oficial. Antes de qualquer task, leia
 
 ## Task ativa
 
-`R21-DEV-003 — Orquestração Multiagente do Codex` está tecnicamente pronta
-na branch `codex/R21-DEV-003`, baseada em
-`242375ac68236ba56307821afc267d871092423f`. O Product Owner autorizou Skill,
-documentação, templates e simulação controlada, sem feature de produto e sem
-commit, push, PR ou merge nesta execução. A entrega preserva o Pricing Engine,
+Não há task ativa. `R21-DEV-003 — Orquestração Multiagente do Codex` foi
+concluída, publicada e integrada: commit
+`522bbbfb96e3c9835c5f1e43e8b295c605cc4650`, PR #28 e merge
+`62b3791e55aca8df501943dfe7fef9f6a27e8bd2`. A Skill central, documentação e
+templates estão prontos para reutilização. A entrega preservou o Pricing Engine,
 Método 1, schemas, hashes, fixtures, versões e roadmap funcional.
 
 ## Plano aprovado
@@ -62,6 +64,5 @@ não encontrou os padrões sensíveis verificados.
 Gate atual: perfil `docs`, seguido de `git diff --check`, revisão de escopo e
 varredura de segredos. Publicação usa autorização e fluxo próprios.
 
-**Ação imediata:** o Product Owner deve revisar a entrega tecnicamente pronta da
-`R21-DEV-003` e decidir sobre publicação. Nenhuma task funcional sucessora está
-autorizada.
+**Ação imediata:** aguardar o Product Owner nomear e autorizar uma única task
+posterior. Nenhuma task funcional sucessora está autorizada.

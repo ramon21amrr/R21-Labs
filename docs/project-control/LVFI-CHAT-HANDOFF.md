@@ -4,12 +4,13 @@
 
 - Produto: plataforma auditável de dados, análise e precificação de futebol.
 - Product Owner e usuário inicial: Ramon.
-- `main` / `origin/main`: `242375ac68236ba56307821afc267d871092423f`,
-  merge do PR #27.
+- `main` / `origin/main`: `62b3791e55aca8df501943dfe7fef9f6a27e8bd2`,
+  merge do PR #28.
 - Última task de produto concluída: `LVFI-APP-012`, PR #26.
-- Última task institucional concluída: `R21-GOV-002`.
-- Task ativa: `R21-DEV-003 — Orquestração Multiagente do Codex`.
-- Estado: tecnicamente pronta, sem publicação; branch `codex/R21-DEV-003`.
+- Última task institucional concluída: `R21-DEV-003`, PR #28.
+- Task ativa: nenhuma.
+- Estado: `R21-DEV-003` concluída, publicada, integrada e encerrada
+  institucionalmente; a Skill multiagente está pronta para reutilização.
 - Próxima task sucessora: nenhuma; não inferir ID ou autorização.
 
 Capacidades atuais: FastAPI/PostgreSQL, importação histórica revisada e
@@ -47,8 +48,8 @@ XLSM termina em `D45D3924` e suas 2.694 linhas passaram na revalidação estrutu
 
 ## Ação única
 
-O Product Owner deve revisar a entrega tecnicamente pronta da `R21-DEV-003` e
-decidir sobre publicação. Não inferir task funcional sucessora.
+O Product Owner deve nomear e autorizar uma única task posterior. Não inferir seu
+ID, escopo ou autorização.
 
 ## Bootstrap
 

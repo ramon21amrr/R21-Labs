@@ -1,13 +1,13 @@
 # Estado atual do LVFI
 
 - **Atualizado em:** 2026-09-07
-- **Referência integrada:** `242375ac68236ba56307821afc267d871092423f`
-- **Branch de referência:** `main` / `origin/main`, merge do PR #27
-- **Última task institucional concluída:** `R21-GOV-002`
+- **Referência integrada:** `62b3791e55aca8df501943dfe7fef9f6a27e8bd2`
+- **Branch de referência:** `main` / `origin/main`, merge do PR #28
+- **Última task institucional concluída:** `R21-DEV-003`
 - **Última task de produto concluída:** `LVFI-APP-012`
-- **Task ativa:** `R21-DEV-003 — Orquestração Multiagente do Codex`
-- **Estado da task ativa:** tecnicamente pronta em `codex/R21-DEV-003`;
-  publicação não autorizada
+- **Task ativa:** nenhuma
+- **Estado da última task:** concluída, publicada, integrada e encerrada
+  institucionalmente
 
 ## Capacidades disponíveis
 
@@ -112,17 +112,22 @@ branches temporárias separadas. No checkpoint inicial, os sete arquivos integra
 coincidiram por hash, sem conflito ou retrabalho; a extensão posterior do Lead
 explica a medição final 6/7. A task não altera `apps/`, `packages/`, migrations,
 contratos, schemas, hashes, fixtures, versões, matemática ou roadmap funcional do
-LVFI. Commit, push, PR e merge permanecem pendentes de autorização do Product
-Owner.
+LVFI.
 
 O Graphify, anterior ao HEAD no início, foi reconstruído localmente em modo
 `code-only`: 316 nós e 663 relações. A consulta de código voltou a responder e a
 varredura dos artefatos principais não encontrou caminhos pessoais, attachments,
 XLSM, `connection.json` ou URLs PostgreSQL com valores.
 
+O Product Owner autorizou publicação e encerramento institucional. A entrega foi
+registrada no commit `522bbbfb96e3c9835c5f1e43e8b295c605cc4650`, publicada
+pelo PR #28 e integrada em `main` pelo merge commit
+`62b3791e55aca8df501943dfe7fef9f6a27e8bd2`. A Skill
+`r21-multi-agent-orchestration` está disponível para as próximas tasks aprovadas.
+
 ## Próxima sequência oficial
 
-- **Task ativa:** `R21-DEV-003`.
+- **Task ativa:** nenhuma.
 - **Próxima task funcional sucessora:** nenhuma; não inferir ID ou autorização.
-- **Ação imediata:** o Product Owner deve revisar a entrega tecnicamente pronta e
-  decidir sobre publicação; nenhuma task funcional sucessora é inferida.
+- **Ação imediata:** aguardar o Product Owner nomear e autorizar uma única task
+  posterior.
