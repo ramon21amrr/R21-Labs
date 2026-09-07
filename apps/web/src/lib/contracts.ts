@@ -148,3 +148,78 @@ export interface StatisticRevision extends Required<StatisticRevisionDraft> {
   previous_value: number | null;
   created_at: string;
 }
+
+export type StatisticsSampleSize = 5 | 10 | 15 | 20;
+export type StatisticsVenue = "home" | "away" | "overall";
+export type StatisticsCompetitionScope = "target_competition" | "all_eligible";
+export type StatisticsSeasonScope = "current" | "current_and_previous";
+export type StatisticsMetric = "goals" | "corners" | "shots_on_target" | "shots" | "cards" | "fouls";
+export type StatisticsAchievementComparator = "gte" | "gt" | "lte" | "lt" | "eq";
+
+export interface StatisticsSampleRequest {
+  team_id: number;
+  sample_size: StatisticsSampleSize;
+  venue: StatisticsVenue;
+  competition_scope: StatisticsCompetitionScope;
+  season_scope: StatisticsSeasonScope;
+  previous_season_id?: number;
+  metric: StatisticsMetric;
+  achievement_comparator?: StatisticsAchievementComparator;
+  achievement_target?: number;
+}
+
+export interface StatisticsSampleMatch {
+  match_id: number;
+  played_on: string;
+  competition_id: number;
+  season_id: number;
+  venue: StatisticsVenue;
+  value: number | null;
+  availability: "available" | "missing" | "no_statistics";
+}
+
+export interface StatisticsUnavailableValue {
+  match_id: number;
+  availability: "missing" | "no_statistics";
+}
+
+export interface StatisticsFrequency {
+  value: number;
+  count: number;
+  rate: number | null;
+}
+
+export interface StatisticsAchievement {
+  comparator: StatisticsAchievementComparator;
+  target: number;
+  count: number;
+  rate: number | null;
+}
+
+export interface StatisticsSummary {
+  available_count: number;
+  mean: number | null;
+  standard_deviation: number | null;
+  coefficient_of_variation: number | null;
+  frequencies: StatisticsFrequency[];
+  achievement: StatisticsAchievement | null;
+}
+
+export interface StatisticsSample {
+  target_match_id: number;
+  team_id: number;
+  configuration: StatisticsSampleRequest & {
+    current_season_label: string;
+    previous_season_label: string | null;
+    ordering: string;
+  };
+  candidate_count: number;
+  used_count: number;
+  candidate_match_ids: number[];
+  used_match_ids: number[];
+  candidates: StatisticsSampleMatch[];
+  valid_values: number[];
+  unavailable_values: StatisticsUnavailableValue[];
+  summary: StatisticsSummary;
+  warnings: string[];
+}

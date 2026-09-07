@@ -1,4 +1,4 @@
-import type { FutureMatch, FutureMatchDraft, ImportPreview, MarketPricing, MarketReferenceObservation, Match, MethodOneSample, ModelReferenceComparison, Page, PricingExecution, StatisticRevision, StatisticRevisionDraft } from "@/lib/contracts";
+import type { FutureMatch, FutureMatchDraft, ImportPreview, MarketPricing, MarketReferenceObservation, Match, MethodOneSample, ModelReferenceComparison, Page, PricingExecution, StatisticRevision, StatisticRevisionDraft, StatisticsSample, StatisticsSampleRequest } from "@/lib/contracts";
 
 const defaultApiUrl = "/api";
 
@@ -44,6 +44,13 @@ export function listMatches(filters: Record<string, string | number | undefined>
 }
 
 export const getMatch = (matchId: number) => request<Match>(`/matches/${matchId}`);
+export function getStatisticsSample(matchId: number, sample: StatisticsSampleRequest): Promise<StatisticsSample> {
+  const params = new URLSearchParams();
+  for (const [key, value] of Object.entries(sample)) {
+    if (value !== undefined) params.set(key, String(value));
+  }
+  return request<StatisticsSample>(`/matches/${matchId}/statistics/sample`, undefined, params);
+}
 export const getMethodOneSample = (matchId: number) => request<MethodOneSample>(`/matches/${matchId}/method-one/sample`);
 export const listPricingExecutions = (matchId: number) =>
   request<Page<PricingExecution>>(`/matches/${matchId}/method-one/pricing-executions`);
