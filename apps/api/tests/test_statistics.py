@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from contextlib import asynccontextmanager
 from datetime import date
-from typing import Any
+from typing import Any, Literal, cast
 
 import pytest
 from sqlalchemy.exc import SQLAlchemyError
@@ -33,7 +33,7 @@ TARGET = StatisticsTarget(
 
 
 def request(**changes: object) -> StatisticsSampleRequest:
-    values: dict[str, object] = {
+    values: dict[str, Any] = {
         "team_id": 7,
         "sample_size": 5,
         "venue": "overall",
@@ -45,7 +45,7 @@ def request(**changes: object) -> StatisticsSampleRequest:
         "achievement_target": 2,
     }
     values.update(changes)
-    return StatisticsSampleRequest(**values)  # type: ignore[arg-type]
+    return StatisticsSampleRequest(**values)
 
 
 def candidate(
@@ -67,7 +67,7 @@ def candidate(
         home_team_name="Home" if venue == "home" else "Other",
         away_team_id=9 if venue == "home" else 7,
         away_team_name="Other" if venue == "home" else "Home",
-        venue=venue,  # type: ignore[arg-type]
+        venue=cast(Literal["home", "away"], venue),
         value=value,
         unavailable_reason=reason,
     )
@@ -367,6 +367,63 @@ async def test_repository_uses_bounded_temporal_deterministic_revision_query() -
     assert "statistic_revisions.id DESC" in rendered
     assert "availability" in rendered and "new_value" in rendered
     assert "method_one" not in rendered.lower()
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    ("metric", "expected_fields"),
+    [
+        ("goals_scored", ("home_goals_full_match", "away_goals_full_match")),
+        ("goals_conceded", ("home_goals_full_match", "away_goals_full_match")),
+        ("result_win", ("home_goals_full_match", "away_goals_full_match")),
+        ("corners", ("home_corners_full_match", "away_corners_full_match")),
+        (
+            "shots_on_target",
+            ("home_shots_on_target_full_match", "away_shots_on_target_full_match"),
+        ),
+        ("shots", ("home_shots_full_match", "away_shots_full_match")),
+        ("cards", ("home_cards_full_match", "away_cards_full_match")),
+        ("fouls", ("home_fouls_full_match", "away_fouls_full_match")),
+    ],
+)
+async def test_repository_supports_all_statistic_groups(
+    metric: str, expected_fields: tuple[str, str]
+) -> None:
+    session = SessionFake([MappingResult([])])
+    repository = SqlAlchemyStatisticsSampleRepository(ProviderFake(session))
+
+    assert await repository.list_candidates(TARGET, request(metric=metric)) == ()
+
+    rendered = str(session.statements[0])
+    assert all(field in rendered for field in expected_fields)
+
+
+@pytest.mark.asyncio
+async def test_repository_compiles_scope_and_previous_season_filters() -> None:
+    session = SessionFake([MappingResult([]), MappingResult([])])
+    repository = SqlAlchemyStatisticsSampleRepository(ProviderFake(session))
+
+    await repository.list_candidates(
+        TARGET,
+        request(
+            competition_scope="target_competition",
+            season_scope="current",
+        ),
+    )
+    await repository.list_candidates(
+        TARGET,
+        request(
+            competition_scope="all_eligible",
+            season_scope="current_and_previous",
+            previous_season_id=9,
+        ),
+    )
+
+    current_rendered, previous_rendered = map(str, session.statements)
+    current_where = current_rendered.split("WHERE", maxsplit=1)[1]
+    assert "statistics_candidate_seasons.competition_id" in current_where
+    assert "statistics_candidate_seasons.label" in current_where
+    assert "SELECT seasons.label" in previous_rendered
 
 
 @pytest.mark.asyncio

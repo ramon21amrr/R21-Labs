@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from dataclasses import replace
 from datetime import date
 from typing import Any
@@ -103,7 +104,7 @@ class MethodOneMustNotBeRead:
 
 
 @pytest.fixture
-def statistics_client(settings: Any) -> tuple[TestClient, ServiceFake]:
+def statistics_client(settings: Any) -> Iterator[tuple[TestClient, ServiceFake]]:
     service = ServiceFake()
     app = create_app(settings, FakeDatabase())
     app.state.statistics_sample_service = service
