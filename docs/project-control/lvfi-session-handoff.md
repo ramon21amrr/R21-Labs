@@ -11,22 +11,25 @@ versionados são a memória oficial. Antes de qualquer task, leia
 
 ## Baseline integrado
 
-- `main` / `origin/main`: `7819f3fc1a2c76d196c51584c0027cec65e7a67e`,
-  merge do PR #24.
-- Última task de produto concluída: `LVFI-APP-011`, feature `8dac389`, PR #22,
-  merge `7ef9e0a7a4146637e3121196c6cc743590ddcc4b`.
+- `main` / `origin/main`: `88d7ab486f007d946a053adba4a8ab552b78ee35`,
+  merge do PR #26.
+- Última task de produto concluída: `LVFI-APP-012`, commit
+  `0bec8682912ebfd6c2e597dbda56b6edd34555bd`, PR #26 e merge
+  `88d7ab486f007d946a053adba4a8ab552b78ee35`.
 - Última task institucional concluída: `R21-GOV-002`.
 - Pricing Engine `1.0.1`; distribuição `1.1.1`; Método 1 `1.0.0`; schema 1.
-- APP-011 validou 103 testes de backend/100% de cobertura e frontend com lint,
-  typecheck, testes e build.
+- APP-012 validou 116 testes de backend PostgreSQL isolado/100% de cobertura;
+  lint, typecheck, 9 testes e build do frontend, além do smoke frontend → API →
+  PostgreSQL isolado.
 
 ## Task ativa
 
-Não há task ativa. `R21-GOV-002 — Plano mestre e rebaseline do LVFI` foi concluída
-em 2026-09-06: commit `1134f683f414cb16af0880386c078ea1d0c3c95c`, PR #24 e merge
-`7819f3fc1a2c76d196c51584c0027cec65e7a67e`. Seu escopo foi somente documentação
-e continuidade; não alterou código, banco, contratos, schemas, hashes, fixtures,
-versões ou matemática.
+Não há task ativa. `LVFI-APP-012 — Fundação Operacional de Dados` foi concluída,
+publicada, integrada e encerrada institucionalmente em 2026-09-06: commit
+`0bec8682912ebfd6c2e597dbda56b6edd34555bd`, PR #26 e merge
+`88d7ab486f007d946a053adba4a8ab552b78ee35`. Ela acrescentou prévia/confirmação
+de importação, partidas futuras e revisões estatísticas auditáveis, sem alterar
+o Pricing Engine, Método 1, seus schemas, hashes, fixtures ou fórmulas.
 
 ## Plano aprovado
 
@@ -58,5 +61,5 @@ pessoais, arquivos privados ou padrões de credenciais. Ele permanece somente um
 Gate atual: perfil `docs`, seguido de `git diff --check`, revisão de escopo e
 varredura de segredos. Publicação usa autorização e fluxo próprios.
 
-**Ação imediata:** o Product Owner deve nomear e autorizar uma única task da
-fundação operacional de dados; nenhuma sucessora está autorizada até essa decisão.
+**Ação imediata:** o Product Owner deve nomear e autorizar uma única task
+posterior; nenhuma sucessora está autorizada até essa decisão.
