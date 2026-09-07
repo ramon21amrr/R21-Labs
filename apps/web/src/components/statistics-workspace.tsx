@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { ApiError, getMatch, getStatisticsSample } from "@/lib/api";
-import type { Match, StatisticsAchievementComparator, StatisticsCompetitionScope, StatisticsMetric, StatisticsSample, StatisticsSampleRequest, StatisticsSampleSize, StatisticsSeasonScope, StatisticsVenue } from "@/lib/contracts";
+import type { Match, StatisticsComparator, StatisticsCompetitionScope, StatisticsMetric, StatisticsSample, StatisticsSampleRequest, StatisticsSampleSize, StatisticsSeasonScope, StatisticsVenue } from "@/lib/contracts";
 
 type Draft = {
   team_id: number | null;
@@ -13,7 +13,7 @@ type Draft = {
   season_scope: StatisticsSeasonScope;
   previous_season_id: string;
   metric: StatisticsMetric;
-  achievement_comparator: "" | StatisticsAchievementComparator;
+  comparator: "" | StatisticsComparator;
   achievement_target: string;
 };
 
@@ -24,8 +24,8 @@ const initialDraft: Draft = {
   competition_scope: "target_competition",
   season_scope: "current",
   previous_season_id: "",
-  metric: "goals",
-  achievement_comparator: "",
+  metric: "goals_scored",
+  comparator: "",
   achievement_target: ""
 };
 
@@ -45,31 +45,31 @@ function asRequest(draft: Draft): StatisticsSampleRequest | null {
     season_scope: draft.season_scope,
     ...(draft.season_scope === "current_and_previous" && Number.isSafeInteger(previousSeason) && previousSeason > 0 ? { previous_season_id: previousSeason } : {}),
     metric: draft.metric,
-    ...(draft.achievement_comparator && Number.isFinite(achievementTarget) ? { achievement_comparator: draft.achievement_comparator, achievement_target: achievementTarget } : {})
+    ...(draft.comparator && Number.isFinite(achievementTarget) ? { comparator: draft.comparator, achievement_target: achievementTarget } : {})
   };
 }
 
 function SampleResults({ sample }: { sample: StatisticsSample }) {
-  const { configuration, summary } = sample;
+  const { filters, target_match } = sample;
   return <section className="panel" aria-labelledby="statistics-result-title">
     <div className="section-heading"><div><p className="eyebrow">Resposta pública da API</p><h2 id="statistics-result-title">Resultado da amostra</h2></div></div>
     <p className="hint">Os indicadores abaixo são fornecidos pela API; esta interface não recalcula estatísticas.</p>
     <dl className="metadata">
-      <dt>Filtros aplicados</dt><dd>Time {sample.team_id} · {configuration.venue} · {configuration.sample_size} jogos · {configuration.competition_scope} · {configuration.season_scope} · {configuration.metric}</dd>
-      <dt>Temporada atual</dt><dd>{configuration.current_season_label}</dd>
-      {configuration.previous_season_label && <><dt>Temporada anterior</dt><dd>{configuration.previous_season_label}</dd></>}
-      <dt>Ordenação</dt><dd>{configuration.ordering}</dd>
+      <dt>Filtros aplicados</dt><dd>Time {filters.team_id} · {filters.venue} · {filters.sample_size} jogos · {filters.competition_scope} · {filters.season_scope} · {filters.metric}</dd>
+      <dt>Partida analisada</dt><dd>{target_match.home_team_name} × {target_match.away_team_name} · temporada {target_match.season_label}</dd>
+      {filters.previous_season_id && <><dt>Temporada anterior</dt><dd>ID {filters.previous_season_id}</dd></>}
+      <dt>Ordenação</dt><dd>{sample.ordering}</dd>
       <dt>Partidas candidatas</dt><dd>{sample.candidate_count}</dd>
       <dt>Partidas efetivamente usadas</dt><dd>{sample.used_count}</dd>
-      <dt>Valores disponíveis</dt><dd>{summary.available_count}</dd>
-      <dt>Média</dt><dd>{formatValue(summary.mean)}</dd>
-      <dt>Desvio-padrão</dt><dd>{formatValue(summary.standard_deviation)}</dd>
-      <dt>Coeficiente de variação</dt><dd>{formatValue(summary.coefficient_of_variation)}</dd>
+      <dt>Valores disponíveis</dt><dd>{sample.available_count}</dd>
+      <dt>Média</dt><dd>{formatValue(sample.mean)}</dd>
+      <dt>Desvio-padrão</dt><dd>{formatValue(sample.standard_deviation)}</dd>
+      <dt>Coeficiente de variação</dt><dd>{formatValue(sample.coefficient_of_variation)}</dd>
     </dl>
     <section aria-labelledby="statistics-ids-title"><h3 id="statistics-ids-title">Partidas usadas</h3><p>{sample.used_match_ids.length === 0 ? "Nenhuma partida foi usada." : sample.used_match_ids.map((id) => `ID ${id}`).join(" · ")}</p></section>
-    <section aria-labelledby="statistics-frequencies-title"><h3 id="statistics-frequencies-title">Frequências</h3>{summary.frequencies.length === 0 ? <p className="empty">Não há frequências para os valores disponíveis.</p> : <div className="table-wrap"><table><caption className="sr-only">Frequências fornecidas pela amostra estatística</caption><thead><tr><th>Valor</th><th>Atingimentos</th><th>Frequência</th></tr></thead><tbody>{summary.frequencies.map((frequency) => <tr key={frequency.value}><td>{frequency.value}</td><td>{frequency.count}</td><td>{formatValue(frequency.rate)}</td></tr>)}</tbody></table></div>}{summary.achievement && <p>Atingimento configurado: {summary.achievement.comparator} {summary.achievement.target} · {summary.achievement.count} · {formatValue(summary.achievement.rate)}</p>}</section>
-    <section aria-labelledby="statistics-candidates-title"><h3 id="statistics-candidates-title">Partidas consideradas</h3>{sample.candidates.length === 0 ? <p className="empty">Nenhuma partida elegível foi encontrada antes da partida analisada.</p> : <div className="table-wrap"><table><caption className="sr-only">Partidas candidatas e disponibilidade dos valores</caption><thead><tr><th>ID</th><th>Data</th><th>Condição</th><th>Valor</th><th>Disponibilidade</th></tr></thead><tbody>{sample.candidates.map((candidate) => <tr key={candidate.match_id}><td>{candidate.match_id}</td><td>{candidate.played_on}</td><td>{candidate.venue}</td><td>{formatValue(candidate.value)}</td><td>{candidate.availability}</td></tr>)}</tbody></table></div>}</section>
-    {sample.unavailable_values.length > 0 && <p className="warning">Valores indisponíveis: {sample.unavailable_values.map(({ match_id, availability }) => `ID ${match_id} (${availability})`).join(" · ")}</p>}
+    <section aria-labelledby="statistics-frequencies-title"><h3 id="statistics-frequencies-title">Frequências</h3>{sample.frequencies.length === 0 ? <p className="empty">Não há frequências para os valores disponíveis.</p> : <div className="table-wrap"><table><caption className="sr-only">Frequências fornecidas pela amostra estatística</caption><thead><tr><th>Valor</th><th>Atingimentos</th></tr></thead><tbody>{sample.frequencies.map((frequency) => <tr key={frequency.value}><td>{frequency.value}</td><td>{frequency.count}</td></tr>)}</tbody></table></div>}{sample.achievement_count !== null && <p>Atingimento configurado: {filters.comparator} {filters.achievement_target} · {sample.achievement_count} · {formatValue(sample.achievement_rate)}</p>}</section>
+    <section aria-labelledby="statistics-candidates-title"><h3 id="statistics-candidates-title">Partidas consideradas</h3>{sample.candidates.length === 0 ? <p className="empty">Nenhuma partida elegível foi encontrada antes da partida analisada.</p> : <div className="table-wrap"><table><caption className="sr-only">Partidas candidatas e disponibilidade dos valores</caption><thead><tr><th>ID</th><th>Data</th><th>Condição</th><th>Valor</th><th>Disponibilidade</th></tr></thead><tbody>{sample.candidates.map((candidate) => <tr key={candidate.match_id}><td>{candidate.match_id}</td><td>{candidate.played_on}</td><td>{candidate.venue}</td><td>{formatValue(candidate.value)}</td><td>{candidate.unavailable_reason ?? "Disponível"}</td></tr>)}</tbody></table></div>}</section>
+    {sample.unavailable_values.length > 0 && <p className="warning">Valores indisponíveis: {sample.unavailable_values.map(({ match_id, reason }) => `ID ${match_id} (${reason})`).join(" · ")}</p>}
     {sample.warnings.length > 0 && <aside className="warnings" aria-label="Avisos e completude da amostra"><h3>Avisos e completude</h3><ul>{sample.warnings.map((warning, index) => <li key={`${warning}-${index}`}>{warning}</li>)}</ul></aside>}
   </section>;
 }
@@ -127,9 +127,9 @@ export function StatisticsWorkspace({ matchId }: { matchId: number }) {
           <label>Competição<select aria-label="Competição" value={draft.competition_scope} onChange={(event) => update("competition_scope", event.target.value as StatisticsCompetitionScope)}><option value="target_competition">Competição da partida</option><option value="all_eligible">Todos os jogos elegíveis</option></select></label>
           <label>Temporada<select aria-label="Temporada" value={draft.season_scope} onChange={(event) => update("season_scope", event.target.value as StatisticsSeasonScope)}><option value="current">Temporada atual</option><option value="current_and_previous">Atual e anterior</option></select></label>
           {draft.season_scope === "current_and_previous" && <label>ID da temporada anterior<input aria-label="ID da temporada anterior" inputMode="numeric" min="1" required value={draft.previous_season_id} onChange={(event) => update("previous_season_id", event.target.value)} /></label>}
-          <label>Métrica<select aria-label="Métrica" value={draft.metric} onChange={(event) => update("metric", event.target.value as StatisticsMetric)}><option value="goals">Gols</option><option value="corners">Escanteios</option><option value="shots_on_target">Chutes no gol</option><option value="shots">Finalizações</option><option value="cards">Cartões</option><option value="fouls">Faltas</option></select></label>
-          <label>Atingimento<select aria-label="Comparador de atingimento" value={draft.achievement_comparator} onChange={(event) => update("achievement_comparator", event.target.value as Draft["achievement_comparator"])}><option value="">Não configurar</option><option value="gte">Maior ou igual</option><option value="gt">Maior que</option><option value="lte">Menor ou igual</option><option value="lt">Menor que</option><option value="eq">Igual</option></select></label>
-          {draft.achievement_comparator && <label>Valor do atingimento<input aria-label="Valor do atingimento" type="number" required value={draft.achievement_target} onChange={(event) => update("achievement_target", event.target.value)} /></label>}
+          <label>Métrica<select aria-label="Métrica" value={draft.metric} onChange={(event) => update("metric", event.target.value as StatisticsMetric)}><option value="goals_scored">Gols marcados</option><option value="goals_conceded">Gols sofridos</option><option value="result_win">Vitórias</option><option value="corners">Escanteios</option><option value="shots_on_target">Chutes no gol</option><option value="shots">Finalizações</option><option value="cards">Cartões</option><option value="fouls">Faltas</option></select></label>
+          <label>Atingimento<select aria-label="Comparador de atingimento" value={draft.comparator} onChange={(event) => update("comparator", event.target.value as Draft["comparator"])}><option value="">Não configurar</option><option value="at_least">Maior ou igual</option><option value="at_most">Menor ou igual</option><option value="equal">Igual</option></select></label>
+          {draft.comparator && <label>Valor do atingimento<input aria-label="Valor do atingimento" type="number" min="0" required value={draft.achievement_target} onChange={(event) => update("achievement_target", event.target.value)} /></label>}
         </div>
         <button type="submit" disabled={loadingSample}>{loadingSample ? "Consultando…" : "Consultar amostra"}</button>
       </form>}
