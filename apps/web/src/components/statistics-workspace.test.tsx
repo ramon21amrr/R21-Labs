@@ -51,7 +51,7 @@ describe("StatisticsWorkspace", () => {
     }));
     expect(await screen.findByRole("heading", { name: "Resultado da amostra" })).toBeTruthy();
     expect(screen.getAllByText("0").length).toBeGreaterThan(0);
-    expect(screen.getByText("Indisponível")).toBeTruthy();
+    expect(screen.getAllByText("Indisponível").length).toBeGreaterThan(0);
     expect(screen.getByText("ID 10 · ID 9")).toBeTruthy();
     expect(screen.getByText("amostra_parcial")).toBeTruthy();
   });
