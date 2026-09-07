@@ -1,13 +1,13 @@
 # Estado atual do LVFI
 
-- **Atualizado em:** 2026-09-06
-- **Referência integrada:** `88d7ab486f007d946a053adba4a8ab552b78ee35`
-- **Branch de referência:** `main` / `origin/main`, merge do PR #26
+- **Atualizado em:** 2026-09-07
+- **Referência integrada:** `242375ac68236ba56307821afc267d871092423f`
+- **Branch de referência:** `main` / `origin/main`, merge do PR #27
 - **Última task institucional concluída:** `R21-GOV-002`
 - **Última task de produto concluída:** `LVFI-APP-012`
-- **Task ativa:** nenhuma
-- **Estado da última task:** concluída, publicada, integrada e encerrada
-  institucionalmente
+- **Task ativa:** `R21-DEV-003 — Orquestração Multiagente do Codex`
+- **Estado da task ativa:** tecnicamente pronta em `codex/R21-DEV-003`;
+  publicação não autorizada
 
 ## Capacidades disponíveis
 
@@ -99,9 +99,30 @@ integrada em `main` pelo merge commit
 `88d7ab486f007d946a053adba4a8ab552b78ee35`. O escopo, o Pricing Engine e o
 Método 1 permaneceram preservados.
 
+## R21-DEV-003
+
+O Product Owner autorizou em 2026-09-07 a task institucional `R21-DEV-003 —
+Orquestração Multiagente do Codex`, baseada em
+`242375ac68236ba56307821afc267d871092423f`. O escopo cria um pool seletivo de
+nove papéis, a Skill central `r21-multi-agent-orchestration`, documentação,
+templates, worktrees com ownership disjunto, handoff compacto e gates.
+
+A simulação documental executou Scout read-only e dois executores em worktrees e
+branches temporárias separadas. No checkpoint inicial, os sete arquivos integrados
+coincidiram por hash, sem conflito ou retrabalho; a extensão posterior do Lead
+explica a medição final 6/7. A task não altera `apps/`, `packages/`, migrations,
+contratos, schemas, hashes, fixtures, versões, matemática ou roadmap funcional do
+LVFI. Commit, push, PR e merge permanecem pendentes de autorização do Product
+Owner.
+
+O Graphify, anterior ao HEAD no início, foi reconstruído localmente em modo
+`code-only`: 316 nós e 663 relações. A consulta de código voltou a responder e a
+varredura dos artefatos principais não encontrou caminhos pessoais, attachments,
+XLSM, `connection.json` ou URLs PostgreSQL com valores.
+
 ## Próxima sequência oficial
 
-- **Task ativa:** nenhuma.
-- **Próxima task sucessora:** nenhuma; não inferir ID ou autorização.
-- **Ação imediata:** aguardar o Product Owner nomear e autorizar uma única task
-  posterior.
+- **Task ativa:** `R21-DEV-003`.
+- **Próxima task funcional sucessora:** nenhuma; não inferir ID ou autorização.
+- **Ação imediata:** o Product Owner deve revisar a entrega tecnicamente pronta e
+  decidir sobre publicação; nenhuma task funcional sucessora é inferida.

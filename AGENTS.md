@@ -24,6 +24,9 @@ gates detalhados ficam nelas. Antes da entrega, revise diff e escopo, faça varr
 de segredos, execute `git diff --check`, rode gates aplicáveis e apresente ao
 Product Owner resultado, evidências, limitações e próxima ação humana, se houver.
 
+Para trabalho multiagente, use `r21-multi-agent-orchestration` e defina ownership
+sem sobreposição antes de criar agentes, branches ou worktrees.
+
 Antes de iniciar qualquer task LVFI, leia `docs/project-control/lvfi-current-state.md`,
 valide `lvfi-project-state.yaml`, confirme o task registry e a próxima task oficial;
 nunca infira task ausente. Antes do encerramento institucional, atualize os

@@ -11,8 +11,8 @@ versionados são a memória oficial. Antes de qualquer task, leia
 
 ## Baseline integrado
 
-- `main` / `origin/main`: `88d7ab486f007d946a053adba4a8ab552b78ee35`,
-  merge do PR #26.
+- `main` / `origin/main`: `242375ac68236ba56307821afc267d871092423f`,
+  merge do PR #27.
 - Última task de produto concluída: `LVFI-APP-012`, commit
   `0bec8682912ebfd6c2e597dbda56b6edd34555bd`, PR #26 e merge
   `88d7ab486f007d946a053adba4a8ab552b78ee35`.
@@ -24,12 +24,12 @@ versionados são a memória oficial. Antes de qualquer task, leia
 
 ## Task ativa
 
-Não há task ativa. `LVFI-APP-012 — Fundação Operacional de Dados` foi concluída,
-publicada, integrada e encerrada institucionalmente em 2026-09-06: commit
-`0bec8682912ebfd6c2e597dbda56b6edd34555bd`, PR #26 e merge
-`88d7ab486f007d946a053adba4a8ab552b78ee35`. Ela acrescentou prévia/confirmação
-de importação, partidas futuras e revisões estatísticas auditáveis, sem alterar
-o Pricing Engine, Método 1, seus schemas, hashes, fixtures ou fórmulas.
+`R21-DEV-003 — Orquestração Multiagente do Codex` está tecnicamente pronta
+na branch `codex/R21-DEV-003`, baseada em
+`242375ac68236ba56307821afc267d871092423f`. O Product Owner autorizou Skill,
+documentação, templates e simulação controlada, sem feature de produto e sem
+commit, push, PR ou merge nesta execução. A entrega preserva o Pricing Engine,
+Método 1, schemas, hashes, fixtures, versões e roadmap funcional.
 
 ## Plano aprovado
 
@@ -53,13 +53,15 @@ ou chave duplicada; a divergência anterior da linha 2224 foi resolvida na orige
 
 ## Navegação, gates e ação imediata
 
-O Graphify foi reconstruído em 2026-09-06 no modo `code-only`, com 1.078 nós e
-2.998 relações. A varredura dos artefatos principais não encontrou caminhos
-pessoais, arquivos privados ou padrões de credenciais. Ele permanece somente um
-índice; confirme originais quando for insuficiente.
+O Graphify disponível no início da R21-DEV-003 estava anterior ao HEAD e foi usado
+somente como índice parcial, com fallback dirigido e confirmação nos originais.
+Ele foi reconstruído no gate final em modo local `code-only`, com 316 nós e 663
+relações; a consulta de código respondeu e a varredura dos artefatos principais
+não encontrou os padrões sensíveis verificados.
 
 Gate atual: perfil `docs`, seguido de `git diff --check`, revisão de escopo e
 varredura de segredos. Publicação usa autorização e fluxo próprios.
 
-**Ação imediata:** o Product Owner deve nomear e autorizar uma única task
-posterior; nenhuma sucessora está autorizada até essa decisão.
+**Ação imediata:** o Product Owner deve revisar a entrega tecnicamente pronta da
+`R21-DEV-003` e decidir sobre publicação. Nenhuma task funcional sucessora está
+autorizada.

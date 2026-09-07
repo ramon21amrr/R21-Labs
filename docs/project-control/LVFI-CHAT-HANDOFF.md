@@ -4,13 +4,12 @@
 
 - Produto: plataforma auditável de dados, análise e precificação de futebol.
 - Product Owner e usuário inicial: Ramon.
-- `main` / `origin/main`: `88d7ab486f007d946a053adba4a8ab552b78ee35`,
-  merge do PR #26.
+- `main` / `origin/main`: `242375ac68236ba56307821afc267d871092423f`,
+  merge do PR #27.
 - Última task de produto concluída: `LVFI-APP-012`, PR #26.
 - Última task institucional concluída: `R21-GOV-002`.
-- Task ativa: nenhuma.
-- Estado: `LVFI-APP-012` concluída, publicada, integrada e encerrada
-  institucionalmente pelo PR #26.
+- Task ativa: `R21-DEV-003 — Orquestração Multiagente do Codex`.
+- Estado: tecnicamente pronta, sem publicação; branch `codex/R21-DEV-003`.
 - Próxima task sucessora: nenhuma; não inferir ID ou autorização.
 
 Capacidades atuais: FastAPI/PostgreSQL, importação histórica revisada e
@@ -40,16 +39,16 @@ XLSM termina em `D45D3924` e suas 2.694 linhas passaram na revalidação estrutu
    [YAML](lvfi-project-state.yaml), [tasks](lvfi-task-registry.md) e
    [decisões](lvfi-decision-register.md).
 2. Confirme branch, HEAD, origin/main e árvore antes de agir.
-3. Use Graphify-first; o grafo foi reconstruído em 2026-09-06 no modo local
-   `code-only`, mas continua sendo apenas um índice.
+3. Use Graphify-first; o grafo foi reconstruído em 2026-09-07 no modo local
+   `code-only` (316 nós/663 relações), mas continua sendo apenas um índice.
 4. Nunca modifique Método 1, schemas, hashes, fixtures ou contratos para esconder
    divergência.
 5. Execute uma task por vez e publique somente com autorização explícita.
 
 ## Ação única
 
-O Product Owner deve nomear e autorizar uma única task posterior. Não inferir
-seu ID, escopo ou autorização.
+O Product Owner deve revisar a entrega tecnicamente pronta da `R21-DEV-003` e
+decidir sobre publicação. Não inferir task funcional sucessora.
 
 ## Bootstrap
 
