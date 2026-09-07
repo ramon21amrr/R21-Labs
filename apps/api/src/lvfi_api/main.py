@@ -26,6 +26,7 @@ from lvfi_api.presentation.pricing_execution_reproduction_routes import (
     router as pricing_execution_reproduction_router,
 )
 from lvfi_api.presentation.routes import router
+from lvfi_api.presentation.statistics_routes import router as statistics_router
 
 
 class ManagedDatabase(Protocol):
@@ -108,6 +109,7 @@ def create_app(
     app.add_exception_handler(Exception, unexpected_error_handler)
     app.include_router(router)
     app.include_router(historical_router)
+    app.include_router(statistics_router)
     app.include_router(operational_data_router)
     app.include_router(pricing_execution_router)
     app.include_router(pricing_execution_reproduction_router)
