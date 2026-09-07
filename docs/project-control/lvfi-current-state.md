@@ -1,13 +1,13 @@
 # Estado atual do LVFI
 
 - **Atualizado em:** 2026-09-06
-- **Referência integrada:** `1bd965545de45fa478e1b10e8625ddad3a6ede11`
-- **Branch de referência:** `main` / `origin/main`, merge do PR #25
+- **Referência integrada:** `88d7ab486f007d946a053adba4a8ab552b78ee35`
+- **Branch de referência:** `main` / `origin/main`, merge do PR #26
 - **Última task institucional concluída:** `R21-GOV-002`
-- **Última task de produto concluída:** `LVFI-APP-011`
-- **Task ativa:** `LVFI-APP-012 — Fundação Operacional de Dados`
-- **Branch ativa:** `codex/lvfi-app-012-data-foundation`
-- **Estado da task:** validação integral aprovada; pronta para publicação
+- **Última task de produto concluída:** `LVFI-APP-012`
+- **Task ativa:** nenhuma
+- **Estado da última task:** concluída, publicada, integrada e encerrada
+  institucionalmente
 
 ## Capacidades disponíveis
 
@@ -16,9 +16,10 @@ migrations; importação histórica controlada; consultas de competições, temp
 times, partidas e estatísticas; amostras determinísticas; execução do Método 1;
 execuções persistidas append-only; histórico filtrável; comparação compatível; e
 reprodução controlada append-only. A ENG-006 fornece snapshots teóricos de
-mercado versionados e a APP-011 acrescenta referência externa manual e comparação
-Modelo × Referência. `apps/web` fornece a interface inicial sem reproduzir
-matemática no navegador.
+mercado versionados, a APP-011 acrescenta referência externa manual e comparação
+Modelo × Referência, e a APP-012 acrescenta prévia/confirmação idempotente de
+importação, partidas futuras e revisões estatísticas auditáveis. `apps/web`
+fornece interfaces iniciais sem reproduzir matemática no navegador.
 
 ## Versões e baseline
 
@@ -92,9 +93,15 @@ intermitente `0xC000013A` do processo da tarefa isolada; o harness agora inicia
 a tarefa oficial e aguarda `55432` antes de operar, sem alterar serviço,
 cluster, credenciais ou configuração institucional.
 
+O Product Owner autorizou a publicação técnica. A entrega foi registrada no
+commit `0bec8682912ebfd6c2e597dbda56b6edd34555bd`, publicada pelo PR #26 e
+integrada em `main` pelo merge commit
+`88d7ab486f007d946a053adba4a8ab552b78ee35`. O escopo, o Pricing Engine e o
+Método 1 permaneceram preservados.
+
 ## Próxima sequência oficial
 
-- **Task ativa:** `LVFI-APP-012`.
+- **Task ativa:** nenhuma.
 - **Próxima task sucessora:** nenhuma; não inferir ID ou autorização.
-- **Ação imediata:** revisar o diff da APP-012 e seguir a publicação já
-  autorizada pelo Product Owner.
+- **Ação imediata:** aguardar o Product Owner nomear e autorizar uma única task
+  posterior.

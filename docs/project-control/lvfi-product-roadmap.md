@@ -21,7 +21,7 @@ Estados usados: **concluído**, **tecnicamente pronto**, **programa aprovado**,
 | Camada versionada de precificação de mercados | Concluído, publicado, integrado e encerrado institucionalmente | Camada pós-Método 1 para taxas imutáveis, com versionamento, snapshot, hashes e persistência/auditoria próprios | Método 1 `1.0.0` e Pricing Engine `1.0.1` preservados; PR #20, merge `0d59956283f8efcab4f04e372ffe95cadaab9deb` | `LVFI-ENG-006` integrada sem alterar Método 1, Engine ou sua matemática | Usar somente capacidades existentes do Engine; preparar Handicap Asiático e Totais para comparação futura |
 | Entrada de mercado | Concluído, publicado, integrado e encerrado institucionalmente | Entrada manual de referência e comparação entre modelo e mercado | ENG-006 concluída | `LVFI-APP-011`, PR #22 e merge `7ef9e0a7a4146637e3121196c6cc743590ddcc4b` | Não ampliar para oportunidade automática sem decisão |
 | Plano mestre e rebaseline | Concluído, publicado, integrado e encerrado institucionalmente | Reconciliar estado, registrar fingerprints e organizar a primeira versão local | APP-011 encerrada e autorização do Product Owner | `R21-GOV-002`, PR #24, merge `7819f3fc1a2c76d196c51584c0027cec65e7a67e` | Não iniciar código nem inferir task sucessora |
-| Fundação operacional de dados | Programa aprovado; sem task autorizada | Prévia/confirmação de Excel/CSV, cadastro de partida e revisão estatística auditável | R21-GOV-002 integrada; ID e plano próprios | Fluxo de dados aceito, idempotente e sem ausência convertida em zero | Dado legado inconsistente e proveniência incompleta |
+| Fundação operacional de dados | Concluído, publicado, integrado e encerrado institucionalmente | Prévia/confirmação de Excel/CSV, cadastro de partida e revisão estatística auditável | R21-GOV-002 integrada | `LVFI-APP-012`, commit `0bec8682912ebfd6c2e597dbda56b6edd34555bd`, PR #26 e merge `88d7ab486f007d946a053adba4a8ab552b78ee35` | Proveniência e revisão auditável preservadas; ausência não equivale a zero |
 | MVP interno completo | Programa aprovado; dividido em tasks futuras | Camada estatística, Métodos 2/3, configurações, revisão/aprovação, snapshot, auditoria, Match Center, PDF-resumo e autenticação local | Fundação operacional de dados e autorizações incrementais | Requisitos e jornada ponta a ponta do documento 39 atendidos | Método 2 sem ID; ENG-005 não autorizada; preservar Método 1 |
 | MVP utilizável | Planejado | Operação manual pelo administrador no Brasileirão Série A 2026 | MVP interno, dados reconciliados e UX validada | Usuário conclui importar, selecionar, precificar, revisar, aprovar e gerar PDF | Usabilidade, baixa amostra, rastreabilidade e proteção de conhecimento |
 | Relatórios ampliados | Planejado/Futuro | PDF-resumo no MVP; PDF analítico após capacidades correspondentes | Snapshot aprovado, storage e tecnologia de PDF decidida | Legibilidade, rastreabilidade, autorização e retenção validadas | Exposição de conhecimento, paginação e armazenamento |
@@ -38,10 +38,9 @@ não antecipam oportunidades, Value Tracker, piloto ou comercialização.
 
 ## Transição institucional vigente
 
-`LVFI-APP-011` é a última task de produto concluída, publicada e integrada pelo
-PR #22. `R21-GOV-002` foi publicada pelo PR #24 e integrada no merge
-`7819f3fc1a2c76d196c51584c0027cec65e7a67e`. Nenhuma task sucessora está
-autorizada.
+`LVFI-APP-012` é a última task de produto concluída, publicada e integrada pelo
+PR #26 no merge `88d7ab486f007d946a053adba4a8ab552b78ee35`. Nenhuma task
+sucessora está autorizada.
 
 ## Escopo aprovado do MVP
 
@@ -62,12 +61,12 @@ criar telas vazias, serviços ou integrações antecipadas.
 ## Decisões que ainda condicionam o caminho
 
 - O Método 2 permanece planejado e sem ID por decisão do Product Owner.
-- APP-011 está concluída, publicada, integrada e encerrada institucionalmente.
+- APP-012 está concluída, publicada, integrada e encerrada institucionalmente.
 - A primeira versão local, os sete grupos estatísticos, a entrada manual/revisada,
   o PDF programático e o gate mínimo do piloto estão aprovados pela R21-GOV-002.
-- O ID da fundação operacional de dados, o ID do Método 2, a implementação
-  concreta do PDF/autenticação/backup e fornecedores futuros exigem decisões nas
-  respectivas tasks.
+- O ID da próxima task, o ID do Método 2, a implementação concreta do
+  PDF/autenticação/backup e fornecedores futuros exigem decisões nas respectivas
+  tasks.
 
 Fontes: [visão](../products/linha-de-valor-football-intelligence/01-product-vision.md),
 [requisitos](../products/linha-de-valor-football-intelligence/05-requirements.md),

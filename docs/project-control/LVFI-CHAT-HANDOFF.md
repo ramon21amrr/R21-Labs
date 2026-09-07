@@ -4,20 +4,21 @@
 
 - Produto: plataforma auditável de dados, análise e precificação de futebol.
 - Product Owner e usuário inicial: Ramon.
-- `main` / `origin/main`: `7819f3fc1a2c76d196c51584c0027cec65e7a67e`,
-  merge do PR #24.
-- Última task de produto concluída: `LVFI-APP-011`, PR #22.
+- `main` / `origin/main`: `88d7ab486f007d946a053adba4a8ab552b78ee35`,
+  merge do PR #26.
+- Última task de produto concluída: `LVFI-APP-012`, PR #26.
 - Última task institucional concluída: `R21-GOV-002`.
 - Task ativa: nenhuma.
-- Estado: plano mestre concluído, publicado, integrado e encerrado
-  institucionalmente pelo PR #24.
+- Estado: `LVFI-APP-012` concluída, publicada, integrada e encerrada
+  institucionalmente pelo PR #26.
 - Próxima task sucessora: nenhuma; não inferir ID ou autorização.
 
-Capacidades atuais: FastAPI/PostgreSQL, importação e consultas históricas,
+Capacidades atuais: FastAPI/PostgreSQL, importação histórica revisada e
+idempotente, partidas futuras, revisões estatísticas append-only, consultas,
 amostras, Método 1, execuções append-only, histórico, comparação, reprodução,
-snapshots teóricos de mercado, referência externa manual e interface inicial.
-Pricing Engine `1.0.1`, distribuição `1.1.1`, Método 1 `1.0.0` e schema 1 estão
-congelados.
+snapshots teóricos de mercado, referência externa manual e interfaces iniciais.
+Pricing Engine `1.0.1`, distribuição `1.1.1`, Método 1 `1.0.0` e schema 1
+permanecem congelados.
 
 ## Decisão de 2026-09-06
 
@@ -47,8 +48,8 @@ XLSM termina em `D45D3924` e suas 2.694 linhas passaram na revalidação estrutu
 
 ## Ação única
 
-O Product Owner deve nomear e autorizar uma única task para a fundação
-operacional de dados. Não inferir seu ID, escopo ou autorização.
+O Product Owner deve nomear e autorizar uma única task posterior. Não inferir
+seu ID, escopo ou autorização.
 
 ## Bootstrap
 
