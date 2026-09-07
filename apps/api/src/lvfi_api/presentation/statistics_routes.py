@@ -224,7 +224,7 @@ def _only_query_parameters(*allowed: str) -> Callable[[Request], Awaitable[None]
 async def get_statistics_sample(
     match_id: int = Path(ge=1, description="Stable target match identifier."),
     team_id: int = Query(ge=1),
-    sample_size: Literal[5, 10, 15, 20] = Query(default=10),
+    sample_size: int = Query(default=10, ge=5, le=20),
     venue: Literal["home", "away", "overall"] = Query(default="overall"),
     competition_scope: Literal["target_competition", "all_eligible"] = Query(
         default="target_competition"
@@ -247,6 +247,8 @@ async def get_statistics_sample(
     achievement_target: int | None = Query(default=None, ge=0),
     service: StatisticsSampleService = Depends(get_statistics_sample_service),
 ) -> StatisticsSampleResponse:
+    if sample_size not in {5, 10, 15, 20}:
+        raise InvalidQueryError("unsupported sample size")
     if (comparator is None) != (achievement_target is None):
         raise InvalidQueryError("achievement fields must be paired")
     if season_scope == "current_and_previous" and previous_season_id is None:
@@ -258,7 +260,7 @@ async def get_statistics_sample(
             match_id,
             StatisticsSampleRequest(
                 team_id=team_id,
-                sample_size=sample_size,
+                sample_size=cast(Literal[5, 10, 15, 20], sample_size),
                 venue=venue,
                 competition_scope=competition_scope,
                 season_scope=season_scope,
