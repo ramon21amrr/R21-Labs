@@ -59,4 +59,4 @@ A entrega técnica foi consolidada no commit
 `4a28bd4d5b3e7b9cfb75c1a94834c078d5e55641`, publicada pelo PR #30 e integrada
 em `main` exclusivamente por merge commit
 `4d9c481627c0447e30ef794cf8645b677441c027`. A task está encerrada
-institucionalmente; `LVFI-ENG-005` não foi iniciada.
+institucionalmente pelo PR documental #31; `LVFI-ENG-005` não foi iniciada.

@@ -144,8 +144,8 @@ smoke frontend → API → PostgreSQL passou via proxy local. O banco isolado se
 removido após o gate. A entrega técnica foi registrada no commit
 `4a28bd4d5b3e7b9cfb75c1a94834c078d5e55641`, publicada pelo PR #30 e integrada
 em `main` pelo merge commit `4d9c481627c0447e30ef794cf8645b677441c027`.
-O encerramento documental confirma que a task está concluída sem iniciar
-`LVFI-ENG-005`.
+O encerramento documental pelo PR #31 confirma que a task está concluída sem
+iniciar `LVFI-ENG-005`.
 
 ## Próxima sequência oficial
 
