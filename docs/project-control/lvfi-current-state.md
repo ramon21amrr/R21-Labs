@@ -1,13 +1,13 @@
 # Estado atual do LVFI
 
 - **Atualizado em:** 2026-09-07
-- **Referência integrada:** `62b3791e55aca8df501943dfe7fef9f6a27e8bd2`
-- **Branch de referência:** `main` / `origin/main`, merge do PR #28
+- **Referência integrada:** `4d9c481627c0447e30ef794cf8645b677441c027`
+- **Branch de referência:** `main` / `origin/main`, merge do PR #30
 - **Última task institucional concluída:** `R21-DEV-003`
-- **Última task de produto concluída:** `LVFI-APP-012`
-- **Task ativa:** `LVFI-APP-013 — Camada Estatística Comum`
-- **Estado da task ativa:** validada tecnicamente; publicação e encerramento
-  institucional pendentes
+- **Última task de produto concluída:** `LVFI-APP-013`
+- **Task ativa:** nenhuma
+- **Estado da última task:** concluída, publicada, integrada e encerrada
+  institucionalmente
 
 ## Capacidades disponíveis
 
@@ -22,7 +22,7 @@ importação, partidas futuras e revisões estatísticas auditáveis. `apps/web`
 fornece interfaces iniciais sem reproduzir matemática no navegador. A
 `LVFI-APP-013` acrescenta uma camada estatística comum somente leitura, com
 amostras configuráveis e evidência pública de valores, agregados, frequências,
-IDs e completude; sua publicação ainda é pendente.
+IDs e completude; a task está publicada e integrada.
 
 ## Versões e baseline
 
@@ -141,12 +141,15 @@ O PostgreSQL institucional em `127.0.0.1:55432` validou migrations até
 `20260906_07`, 174 testes da API sem skips por indisponibilidade e cobertura de
 statements/branches em 100%. Vitest (11), lint, typecheck e build passaram; o
 smoke frontend → API → PostgreSQL passou via proxy local. O banco isolado será
-removido antes do encerramento. A task está tecnicamente validada e aguarda o
-fluxo autorizado de commit, PR, merge commit e encerramento documental.
+removido após o gate. A entrega técnica foi registrada no commit
+`4a28bd4d5b3e7b9cfb75c1a94834c078d5e55641`, publicada pelo PR #30 e integrada
+em `main` pelo merge commit `4d9c481627c0447e30ef794cf8645b677441c027`.
+O encerramento documental confirma que a task está concluída sem iniciar
+`LVFI-ENG-005`.
 
 ## Próxima sequência oficial
 
-- **Task ativa:** `LVFI-APP-013` até sua publicação e encerramento documental.
+- **Task ativa:** nenhuma.
 - **Próxima task funcional sucessora:** nenhuma; não inferir ID ou autorização.
-- **Ação imediata:** concluir apenas a publicação e o encerramento institucional
-  da `LVFI-APP-013`; `LVFI-ENG-005` continua não autorizada.
+- **Ação imediata:** aguardar o Product Owner nomear e autorizar uma única task
+  posterior; `LVFI-ENG-005` continua não autorizada.
