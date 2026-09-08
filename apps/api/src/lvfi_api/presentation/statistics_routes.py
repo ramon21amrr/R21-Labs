@@ -12,12 +12,17 @@ from pydantic import BaseModel, ConfigDict
 from lvfi_api.application.statistics import StatisticsSampleService
 from lvfi_api.domain.errors import InvalidQueryError, PersistenceUnavailableError
 from lvfi_api.domain.statistics import (
+    AchievementComparator,
+    CompetitionScope,
+    Metric,
+    SeasonScope,
     StatisticsCandidate,
     StatisticsSample,
     StatisticsSampleRequest,
     StatisticsTarget,
     UnavailableValue,
     ValueFrequency,
+    Venue,
 )
 from lvfi_api.persistence.statistics import SqlAlchemyStatisticsSampleRepository
 
@@ -108,12 +113,43 @@ class UnavailableValueResponse(BaseModel):
         return cls(match_id=value.match_id, reason=value.reason)
 
 
+class StatisticsSampleFiltersResponse(BaseModel):
+    """Explicit, typed public representation of the sample configuration."""
+
+    model_config = ConfigDict(extra="forbid")
+    team_id: int
+    sample_size: Literal[5, 10, 15, 20]
+    venue: Venue
+    competition_scope: CompetitionScope
+    season_scope: SeasonScope
+    previous_season_id: int | None
+    metric: Metric
+    comparator: AchievementComparator | None
+    achievement_target: int | None
+
+    @classmethod
+    def from_contract(
+        cls, value: StatisticsSampleRequest
+    ) -> StatisticsSampleFiltersResponse:
+        return cls(
+            team_id=value.team_id,
+            sample_size=value.sample_size,
+            venue=value.venue,
+            competition_scope=value.competition_scope,
+            season_scope=value.season_scope,
+            previous_season_id=value.previous_season_id,
+            metric=value.metric,
+            comparator=value.comparator,
+            achievement_target=value.achievement_target,
+        )
+
+
 class StatisticsSampleResponse(BaseModel):
     """Complete public evidence for one configured historical sample."""
 
     model_config = ConfigDict(extra="forbid")
     target_match: TargetResponse
-    filters: dict[str, object]
+    filters: StatisticsSampleFiltersResponse
     ordering: str
     candidate_count: int
     used_count: int
@@ -134,20 +170,9 @@ class StatisticsSampleResponse(BaseModel):
 
     @classmethod
     def from_contract(cls, value: StatisticsSample) -> StatisticsSampleResponse:
-        request = value.request
         return cls(
             target_match=TargetResponse.from_contract(value.target),
-            filters={
-                "team_id": request.team_id,
-                "sample_size": request.sample_size,
-                "venue": request.venue,
-                "competition_scope": request.competition_scope,
-                "season_scope": request.season_scope,
-                "previous_season_id": request.previous_season_id,
-                "metric": request.metric,
-                "comparator": request.comparator,
-                "achievement_target": request.achievement_target,
-            },
+            filters=StatisticsSampleFiltersResponse.from_contract(value.request),
             ordering=value.ordering,
             candidate_count=value.candidate_count,
             used_count=value.used_count,

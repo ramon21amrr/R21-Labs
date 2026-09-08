@@ -10,7 +10,7 @@ const ref = (id: number, display_name: string) => ({ id, display_name, created_a
 const match = { id: 11, played_on: "2026-08-01", competition: ref(1, "Liga"), season: { id: 2, label: "2026", competition: ref(1, "Liga"), created_at: "2026-01-01T00:00:00Z" }, home_team: ref(3, "Casa"), away_team: ref(4, "Fora"), has_statistics: true, created_at: "2026-01-01T00:00:00Z" };
 const sample = {
   target_match: { match_id: 11, played_on: "2026-08-01", competition_id: 1, competition_name: "Liga", season_id: 2, season_label: "2026", home_team_id: 3, home_team_name: "Casa", away_team_id: 4, away_team_name: "Fora" },
-  filters: { team_id: 3, sample_size: 10 as const, venue: "overall" as const, competition_scope: "target_competition" as const, season_scope: "current" as const, metric: "goals_scored" as const },
+  filters: { team_id: 3, sample_size: 10 as const, venue: "overall" as const, competition_scope: "target_competition" as const, season_scope: "current" as const, previous_season_id: null, metric: "goals_scored" as const, comparator: null, achievement_target: null },
   ordering: "played_on DESC, match_id DESC",
   candidate_count: 2,
   used_count: 2,

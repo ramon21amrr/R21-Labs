@@ -2,19 +2,31 @@
 
 from __future__ import annotations
 
+import os
 from contextlib import asynccontextmanager
 from datetime import date
 from typing import Any, Literal, cast
 
 import pytest
+from sqlalchemy import insert
 from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.ext.asyncio import create_async_engine
 
 from lvfi_api.application.statistics import StatisticsSampleService
+from lvfi_api.config import Settings
 from lvfi_api.domain.errors import InvalidQueryError, ResourceNotFoundError
 from lvfi_api.domain.statistics import (
     StatisticsCandidate,
     StatisticsSampleRequest,
     StatisticsTarget,
+)
+from lvfi_api.infrastructure.database import Database
+from lvfi_api.persistence.historical_models import (
+    competitions,
+    match_statistics,
+    matches,
+    seasons,
+    teams,
 )
 from lvfi_api.persistence.statistics import SqlAlchemyStatisticsSampleRepository
 
@@ -127,6 +139,18 @@ async def test_service_preserves_configurable_sample_dimensions(
     assert sample.candidate_match_ids == (1,)
     assert sample.valid_values == (0,)
     assert sample.mean == 0
+
+
+@pytest.mark.asyncio
+async def test_service_does_not_mark_a_full_candidate_sample_as_partial() -> None:
+    candidates = tuple(candidate(match_id, 1) for match_id in range(5, 0, -1))
+
+    sample = await StatisticsSampleService(RepositoryFake(candidates)).get_sample(
+        100, request(sample_size=5)
+    )
+
+    assert sample.candidate_count == 5
+    assert "sample_partial" not in sample.warnings
 
 
 @pytest.mark.asyncio
@@ -279,9 +303,16 @@ class MappingResult:
 
 
 class SessionFake:
-    def __init__(self, results: list[MappingResult], *, fail: bool = False) -> None:
+    def __init__(
+        self,
+        results: list[MappingResult],
+        *,
+        fail: bool = False,
+        scalar_value: int | None = 1,
+    ) -> None:
         self.results = results
         self.fail = fail
+        self.scalar_value = scalar_value
         self.statements: list[Any] = []
 
     async def execute(self, statement: Any) -> MappingResult:
@@ -289,6 +320,12 @@ class SessionFake:
         if self.fail:
             raise SQLAlchemyError("synthetic persistence failure")
         return self.results.pop(0)
+
+    async def scalar(self, statement: Any) -> int | None:
+        self.statements.append(statement)
+        if self.fail:
+            raise SQLAlchemyError("synthetic persistence failure")
+        return self.scalar_value
 
 
 class ProviderFake:
@@ -427,6 +464,30 @@ async def test_repository_compiles_scope_and_previous_season_filters() -> None:
 
 
 @pytest.mark.asyncio
+async def test_repository_resolves_previous_season_and_compiles_venue_filters() -> None:
+    session = SessionFake([MappingResult([]), MappingResult([])], scalar_value=1)
+    repository = SqlAlchemyStatisticsSampleRepository(ProviderFake(session))
+
+    assert await repository.get_previous_season_competition(9) == 1
+    await repository.list_candidates(TARGET, request(venue="home"))
+    await repository.list_candidates(TARGET, request(venue="away"))
+
+    home_rendered, away_rendered = map(str, session.statements[1:])
+    assert "matches.home_team_id = :home_team_id_2" in home_rendered
+    assert "matches.away_team_id = :away_team_id_2" in away_rendered
+
+
+@pytest.mark.asyncio
+async def test_repository_sanitizes_previous_season_lookup_failure() -> None:
+    repository = SqlAlchemyStatisticsSampleRepository(
+        ProviderFake(SessionFake([], fail=True))
+    )
+
+    with pytest.raises(Exception, match="statistics query failed"):
+        await repository.get_previous_season_competition(9)
+
+
+@pytest.mark.asyncio
 async def test_repository_sanitizes_target_and_candidate_persistence_failures() -> None:
     failing_target = SqlAlchemyStatisticsSampleRepository(
         ProviderFake(SessionFake([], fail=True))
@@ -439,3 +500,115 @@ async def test_repository_sanitizes_target_and_candidate_persistence_failures() 
     )
     with pytest.raises(Exception, match="statistics query failed"):
         await failing_candidates.list_candidates(TARGET, request())
+
+
+@pytest.mark.asyncio
+async def test_postgresql_goals_conceded_uses_the_opponent_value_for_each_venue(
+) -> None:
+    """Verify the public semantic rather than only the generated SQL fields."""
+    database_url = os.environ.get("LVFI_DATABASE_URL")
+    if database_url is None or "127.0.0.1:55432" not in database_url:
+        pytest.skip("requires the isolated Codex PostgreSQL task database")
+
+    engine = create_async_engine(database_url)
+    try:
+        async with engine.begin() as connection:
+            await connection.execute(
+                insert(competitions).values(
+                    id=801,
+                    display_name="Statistics Synthetic",
+                    normalized_name="statistics-synthetic",
+                )
+            )
+            await connection.execute(
+                insert(seasons).values(id=801, competition_id=801, label="2026")
+            )
+            await connection.execute(
+                insert(teams),
+                [
+                    {
+                        "id": 801,
+                        "display_name": "Statistics Home",
+                        "normalized_name": "statistics-home",
+                    },
+                    {
+                        "id": 802,
+                        "display_name": "Statistics Away",
+                        "normalized_name": "statistics-away",
+                    },
+                ],
+            )
+            await connection.execute(
+                insert(matches),
+                [
+                    {
+                        "id": 801,
+                        "season_id": 801,
+                        "played_on": date(2026, 1, 1),
+                        "home_team_id": 801,
+                        "away_team_id": 802,
+                    },
+                    {
+                        "id": 802,
+                        "season_id": 801,
+                        "played_on": date(2026, 1, 2),
+                        "home_team_id": 801,
+                        "away_team_id": 802,
+                    },
+                ],
+            )
+            await connection.execute(
+                insert(match_statistics),
+                [
+                    {
+                        "match_id": match_id,
+                        "home_goals_first_half": 0,
+                        "away_goals_first_half": 0,
+                        "home_goals_full_match": home_goals,
+                        "away_goals_full_match": away_goals,
+                        "home_shots_first_half": 0,
+                        "away_shots_first_half": 0,
+                        "home_shots_full_match": 0,
+                        "away_shots_full_match": 0,
+                        "home_shots_on_target_first_half": 0,
+                        "away_shots_on_target_first_half": 0,
+                        "home_shots_on_target_full_match": 0,
+                        "away_shots_on_target_full_match": 0,
+                        "home_corners_first_half": 0,
+                        "away_corners_first_half": 0,
+                        "home_corners_full_match": 0,
+                        "away_corners_full_match": 0,
+                        "home_fouls_full_match": 0,
+                        "away_fouls_full_match": 0,
+                        "home_cards_full_match": 0,
+                        "away_cards_full_match": 0,
+                    }
+                    for match_id, home_goals, away_goals in ((801, 3, 1), (802, 0, 0))
+                ],
+            )
+
+        database = Database(
+            Settings(
+                environment="test",
+                app_name="lvfi-postgresql-statistics-test",
+                database_url=database_url,
+            )
+        )
+        await database.start()
+        try:
+            repository = SqlAlchemyStatisticsSampleRepository(database)
+            target = await repository.get_target(802)
+            assert target is not None
+            home = await repository.list_candidates(
+                target, request(team_id=801, metric="goals_conceded")
+            )
+            away = await repository.list_candidates(
+                target, request(team_id=802, metric="goals_conceded")
+            )
+        finally:
+            await database.stop()
+    finally:
+        await engine.dispose()
+
+    assert [(item.match_id, item.value) for item in home] == [(801, 1)]
+    assert [(item.match_id, item.value) for item in away] == [(801, 3)]

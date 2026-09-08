@@ -5,9 +5,9 @@
 - **Branch de referência:** `main` / `origin/main`, merge do PR #28
 - **Última task institucional concluída:** `R21-DEV-003`
 - **Última task de produto concluída:** `LVFI-APP-012`
-- **Task ativa:** nenhuma
-- **Estado da última task:** concluída, publicada, integrada e encerrada
-  institucionalmente
+- **Task ativa:** `LVFI-APP-013 — Camada Estatística Comum`
+- **Estado da task ativa:** validada tecnicamente; publicação e encerramento
+  institucional pendentes
 
 ## Capacidades disponíveis
 
@@ -19,7 +19,10 @@ reprodução controlada append-only. A ENG-006 fornece snapshots teóricos de
 mercado versionados, a APP-011 acrescenta referência externa manual e comparação
 Modelo × Referência, e a APP-012 acrescenta prévia/confirmação idempotente de
 importação, partidas futuras e revisões estatísticas auditáveis. `apps/web`
-fornece interfaces iniciais sem reproduzir matemática no navegador.
+fornece interfaces iniciais sem reproduzir matemática no navegador. A
+`LVFI-APP-013` acrescenta uma camada estatística comum somente leitura, com
+amostras configuráveis e evidência pública de valores, agregados, frequências,
+IDs e completude; sua publicação ainda é pendente.
 
 ## Versões e baseline
 
@@ -68,7 +71,7 @@ em `main` no merge `7819f3fc1a2c76d196c51584c0027cec65e7a67e`.
 
 ## Limitações vigentes
 
-Autenticação, amostras generalizadas, Métodos 2 e 3, configurações, workflow
+Autenticação, Métodos 2 e 3, configurações, workflow
 completo, Match Center, PDF, launcher, backup/restauração, odds automáticas,
 oportunidades, Value Tracker e deploy remoto não estão concluídos.
 
@@ -125,9 +128,25 @@ pelo PR #28 e integrada em `main` pelo merge commit
 `62b3791e55aca8df501943dfe7fef9f6a27e8bd2`. A Skill
 `r21-multi-agent-orchestration` está disponível para as próximas tasks aprovadas.
 
+## LVFI-APP-013
+
+O Product Owner autorizou em 2026-09-07 a `LVFI-APP-013 — Camada Estatística
+Comum`, baseada em `2aad5b82359ef0cabcadc66ce9e40583ff033175`. A entrega cria
+contratos e endpoint reutilizáveis para amostras históricas configuráveis, sem
+alterar o Pricing Engine, o Método 1 ou APP-007 a APP-012. O documento de
+contrato e aceite está em
+[41](../products/linha-de-valor-football-intelligence/41-lvfi-app-013-statistics-layer.md).
+
+O PostgreSQL institucional em `127.0.0.1:55432` validou migrations até
+`20260906_07`, 174 testes da API sem skips por indisponibilidade e cobertura de
+statements/branches em 100%. Vitest (11), lint, typecheck e build passaram; o
+smoke frontend → API → PostgreSQL passou via proxy local. O banco isolado será
+removido antes do encerramento. A task está tecnicamente validada e aguarda o
+fluxo autorizado de commit, PR, merge commit e encerramento documental.
+
 ## Próxima sequência oficial
 
-- **Task ativa:** nenhuma.
+- **Task ativa:** `LVFI-APP-013` até sua publicação e encerramento documental.
 - **Próxima task funcional sucessora:** nenhuma; não inferir ID ou autorização.
-- **Ação imediata:** aguardar o Product Owner nomear e autorizar uma única task
-  posterior.
+- **Ação imediata:** concluir apenas a publicação e o encerramento institucional
+  da `LVFI-APP-013`; `LVFI-ENG-005` continua não autorizada.

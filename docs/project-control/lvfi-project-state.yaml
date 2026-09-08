@@ -1,11 +1,11 @@
 schema_version: "1.0"
 project: "R21 Labs"
 product: "Linha de Valor Football Intelligence"
-updated_at: "2026-09-07T15:15:00-03:00"
+updated_at: "2026-09-07T22:40:00-03:00"
 reference_commit: "62b3791e55aca8df501943dfe7fef9f6a27e8bd2"
 reference_branch: "main"
-current_phase: "development_framework_multi_agent_orchestration_institutionally_closed"
-current_milestone: "r21_dev_003_published_integrated_and_closed"
+current_phase: "lvfi_app_013_validated_pending_publication"
+current_milestone: "lvfi_app_013_statistics_layer"
 last_completed_task: "R21-DEV-003"
 last_completed_governance_task: "R21-GOV-002"
 last_completed_product_task: "LVFI-APP-012"
@@ -35,7 +35,8 @@ completed_tasks:
   - "R21-GOV-002"
   - "LVFI-APP-012"
   - "R21-DEV-003"
-active_tasks: []
+active_tasks:
+  - "LVFI-APP-013"
 planned_tasks:
   - "LVFI-ENG-005"
 approved_not_implemented_tasks: []
@@ -50,7 +51,7 @@ versions:
   method_one_canonical_schema: 1
 test_baseline:
   api:
-    collected: 116
+    collected: 174
     statements: "100%"
     branches: "100%"
     evidence: "../project-control/lvfi-current-state.md"

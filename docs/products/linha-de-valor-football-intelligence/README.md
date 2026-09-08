@@ -139,6 +139,7 @@ O encerramento técnico, as limitações remanescentes e a referência ao arquiv
 - [37 — Fundação do frontend e tela inicial de precificação](37-lvfi-app-010-frontend-pricing-screen.md)
 - [38 — Referência externa e comparação Modelo × Referência](38-lvfi-app-011-reference-comparison.md)
 - [39 — Plano mestre e rebaseline do LVFI](39-lvfi-master-plan-rebaseline.md)
+- [41 — Camada Estatística Comum](41-lvfi-app-013-statistics-layer.md)
 
 ## Continuidade institucional
 

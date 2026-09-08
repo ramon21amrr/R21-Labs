@@ -187,10 +187,16 @@ class SqlAlchemyStatisticsSampleRepository(StatisticsSampleRepository):
             unavailable_reason = case((unavailable, "goals_unavailable"), else_=None)
         else:
             home_field, away_field = fields
-            own_value = case(
-                (matches.c.home_team_id == request.team_id, value_for(home_field)),
-                else_=value_for(away_field),
-            )
+            if request.metric == "goals_conceded":
+                own_value = case(
+                    (matches.c.home_team_id == request.team_id, value_for(away_field)),
+                    else_=value_for(home_field),
+                )
+            else:
+                own_value = case(
+                    (matches.c.home_team_id == request.team_id, value_for(home_field)),
+                    else_=value_for(away_field),
+                )
             observed_value = own_value
             unavailable_reason = case(
                 (own_value.is_(None), "statistic_unavailable"), else_=None

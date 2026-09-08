@@ -26,12 +26,13 @@ versionados são a memória oficial. Antes de qualquer task, leia
 
 ## Task ativa
 
-Não há task ativa. `R21-DEV-003 — Orquestração Multiagente do Codex` foi
-concluída, publicada e integrada: commit
-`522bbbfb96e3c9835c5f1e43e8b295c605cc4650`, PR #28 e merge
-`62b3791e55aca8df501943dfe7fef9f6a27e8bd2`. A Skill central, documentação e
-templates estão prontos para reutilização. A entrega preservou o Pricing Engine,
-Método 1, schemas, hashes, fixtures, versões e roadmap funcional.
+`LVFI-APP-013 — Camada Estatística Comum` está validada tecnicamente na branch
+`codex/LVFI-APP-013-statistics-layer`, com publicação e encerramento documental
+pendentes. A entrega acrescenta endpoint e DTOs públicos reutilizáveis para
+amostras configuráveis, evidência, agregados, frequências e completude; preserva
+Pricing Engine, Método 1, APP-007 a APP-012 e o roadmap. O PostgreSQL isolado
+validou 174 testes sem skips indevidos e 100% de statements/branches; Vitest (11),
+lint, typecheck, build e smoke frontend → API → PostgreSQL passaram.
 
 ## Plano aprovado
 
@@ -62,7 +63,9 @@ relações; a consulta de código respondeu e a varredura dos artefatos principa
 não encontrou os padrões sensíveis verificados.
 
 Gate atual: perfil `docs`, seguido de `git diff --check`, revisão de escopo e
-varredura de segredos. Publicação usa autorização e fluxo próprios.
+varredura de segredos. A publicação autorizada deve usar somente a branch da
+APP-013, PR contra `main` e merge commit; depois, atualizar o encerramento
+documental. Não iniciar `LVFI-ENG-005`.
 
-**Ação imediata:** aguardar o Product Owner nomear e autorizar uma única task
-posterior. Nenhuma task funcional sucessora está autorizada.
+**Ação imediata:** concluir apenas a publicação e o encerramento institucional da
+`LVFI-APP-013`; nenhuma task funcional sucessora está autorizada.

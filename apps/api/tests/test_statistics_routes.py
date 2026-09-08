@@ -9,6 +9,7 @@ from typing import Any
 
 import pytest
 from fastapi.testclient import TestClient
+from starlette.requests import Request
 
 from lvfi_api.domain.errors import ResourceNotFoundError
 from lvfi_api.domain.statistics import (
@@ -20,6 +21,7 @@ from lvfi_api.domain.statistics import (
     ValueFrequency,
 )
 from lvfi_api.main import create_app
+from lvfi_api.presentation.statistics_routes import get_statistics_sample_service
 
 from .conftest import FakeDatabase
 
@@ -101,6 +103,11 @@ class ServiceFake:
 class MethodOneMustNotBeRead:
     def __getattr__(self, _: str) -> object:
         raise AssertionError("statistics endpoint must not access Method 1")
+
+
+class DatabaseWithSession(FakeDatabase):
+    def session(self) -> object:
+        return object()
 
 
 @pytest.fixture
@@ -186,6 +193,7 @@ def test_statistics_endpoint_exposes_public_dto_and_explicit_filters(
         "/matches/100/statistics/sample?team_id=7&previous_season_id=9",
         "/matches/100/statistics/sample?team_id=7&comparator=equal",
         "/matches/100/statistics/sample?team_id=7&achievement_target=1",
+        "/matches/100/statistics/sample?team_id=7&unsupported=x",
     ],
 )
 def test_statistics_endpoint_validates_all_public_filters(
@@ -217,6 +225,16 @@ def test_statistics_endpoint_sanitizes_absence_and_missing_dependency(
     assert unavailable.json()["code"] == "dependency_unavailable"
 
 
+@pytest.mark.asyncio
+async def test_statistics_dependency_builds_sqlalchemy_service(settings: Any) -> None:
+    app = create_app(settings, DatabaseWithSession())
+    request = Request({"type": "http", "app": app})
+
+    service = await get_statistics_sample_service(request)
+
+    assert service.__class__.__name__ == "StatisticsSampleService"
+
+
 def test_statistics_endpoint_is_present_in_openapi(
     statistics_client: tuple[TestClient, ServiceFake],
 ) -> None:
@@ -231,3 +249,11 @@ def test_statistics_endpoint_is_present_in_openapi(
     )
     parameter_names = {item["name"] for item in operation["parameters"]}
     assert {"team_id", "sample_size", "venue", "metric"} <= parameter_names
+    response_schema = operation["responses"]["200"]["content"]["application/json"][
+        "schema"
+    ]
+    response_name = response_schema["$ref"].rsplit("/", maxsplit=1)[1]
+    filters_schema = client.get("/openapi.json").json()["components"]["schemas"][
+        response_name
+    ]["properties"]["filters"]
+    assert filters_schema["$ref"].endswith("/StatisticsSampleFiltersResponse")

@@ -168,6 +168,18 @@ export interface StatisticsSampleRequest {
   achievement_target?: number;
 }
 
+export interface StatisticsSampleFilters {
+  team_id: number;
+  sample_size: StatisticsSampleSize;
+  venue: StatisticsVenue;
+  competition_scope: StatisticsCompetitionScope;
+  season_scope: StatisticsSeasonScope;
+  previous_season_id: number | null;
+  metric: StatisticsMetric;
+  comparator: StatisticsComparator | null;
+  achievement_target: number | null;
+}
+
 export interface StatisticsSampleTarget {
   match_id: number;
   played_on: string;
@@ -209,7 +221,7 @@ export interface StatisticsFrequency {
 
 export interface StatisticsSample {
   target_match: StatisticsSampleTarget;
-  filters: StatisticsSampleRequest;
+  filters: StatisticsSampleFilters;
   ordering: string;
   candidate_count: number;
   used_count: number;
