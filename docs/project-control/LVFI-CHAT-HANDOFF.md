@@ -8,14 +8,14 @@
   merge do PR #28.
 - Última task de produto concluída: `LVFI-APP-012`, PR #26.
 - Última task institucional concluída: `R21-DEV-003`, PR #28.
-- Task ativa: nenhuma.
-- Estado: `R21-DEV-003` concluída, publicada, integrada e encerrada
-  institucionalmente; a Skill multiagente está pronta para reutilização.
+- Task ativa: `LVFI-APP-013 — Camada Estatística Comum`.
+- Estado: validada tecnicamente; publicação e encerramento documental pendentes.
 - Próxima task sucessora: nenhuma; não inferir ID ou autorização.
 
 Capacidades atuais: FastAPI/PostgreSQL, importação histórica revisada e
 idempotente, partidas futuras, revisões estatísticas append-only, consultas,
-amostras, Método 1, execuções append-only, histórico, comparação, reprodução,
+amostras, camada estatística comum configurável, Método 1, execuções append-only,
+histórico, comparação, reprodução,
 snapshots teóricos de mercado, referência externa manual e interfaces iniciais.
 Pricing Engine `1.0.1`, distribuição `1.1.1`, Método 1 `1.0.0` e schema 1
 permanecem congelados.
@@ -48,8 +48,8 @@ XLSM termina em `D45D3924` e suas 2.694 linhas passaram na revalidação estrutu
 
 ## Ação única
 
-O Product Owner deve nomear e autorizar uma única task posterior. Não inferir seu
-ID, escopo ou autorização.
+Concluir a publicação e o encerramento da `LVFI-APP-013`; não iniciar
+`LVFI-ENG-005` nem inferir task posterior.
 
 ## Bootstrap
 

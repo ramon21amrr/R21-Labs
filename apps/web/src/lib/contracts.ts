@@ -148,3 +148,95 @@ export interface StatisticRevision extends Required<StatisticRevisionDraft> {
   previous_value: number | null;
   created_at: string;
 }
+
+export type StatisticsSampleSize = 5 | 10 | 15 | 20;
+export type StatisticsVenue = "home" | "away" | "overall";
+export type StatisticsCompetitionScope = "target_competition" | "all_eligible";
+export type StatisticsSeasonScope = "current" | "current_and_previous";
+export type StatisticsMetric = "goals_scored" | "goals_conceded" | "result_win" | "corners" | "shots_on_target" | "shots" | "cards" | "fouls";
+export type StatisticsComparator = "at_least" | "at_most" | "equal";
+
+export interface StatisticsSampleRequest {
+  team_id: number;
+  sample_size: StatisticsSampleSize;
+  venue: StatisticsVenue;
+  competition_scope: StatisticsCompetitionScope;
+  season_scope: StatisticsSeasonScope;
+  previous_season_id?: number;
+  metric: StatisticsMetric;
+  comparator?: StatisticsComparator;
+  achievement_target?: number;
+}
+
+export interface StatisticsSampleFilters {
+  team_id: number;
+  sample_size: StatisticsSampleSize;
+  venue: StatisticsVenue;
+  competition_scope: StatisticsCompetitionScope;
+  season_scope: StatisticsSeasonScope;
+  previous_season_id: number | null;
+  metric: StatisticsMetric;
+  comparator: StatisticsComparator | null;
+  achievement_target: number | null;
+}
+
+export interface StatisticsSampleTarget {
+  match_id: number;
+  played_on: string;
+  competition_id: number;
+  competition_name: string;
+  season_id: number;
+  season_label: string;
+  home_team_id: number;
+  home_team_name: string;
+  away_team_id: number;
+  away_team_name: string;
+}
+
+export interface StatisticsSampleMatch {
+  match_id: number;
+  played_on: string;
+  competition_id: number;
+  competition_name: string;
+  season_id: number;
+  season_label: string;
+  home_team_id: number;
+  home_team_name: string;
+  away_team_id: number;
+  away_team_name: string;
+  venue: Exclude<StatisticsVenue, "overall">;
+  value: number | null;
+  unavailable_reason: string | null;
+}
+
+export interface StatisticsUnavailableValue {
+  match_id: number;
+  reason: string;
+}
+
+export interface StatisticsFrequency {
+  value: number;
+  count: number;
+}
+
+export interface StatisticsSample {
+  target_match: StatisticsSampleTarget;
+  filters: StatisticsSampleFilters;
+  ordering: string;
+  candidate_count: number;
+  used_count: number;
+  candidate_match_ids: number[];
+  used_match_ids: number[];
+  candidates: StatisticsSampleMatch[];
+  used_matches: StatisticsSampleMatch[];
+  valid_values: number[];
+  unavailable_values: StatisticsUnavailableValue[];
+  available_count: number;
+  mean: number | null;
+  standard_deviation: number | null;
+  coefficient_of_variation: number | null;
+  frequencies: StatisticsFrequency[];
+  achievement_count: number | null;
+  achievement_rate: number | null;
+  warnings: string[];
+}
