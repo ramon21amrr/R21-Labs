@@ -4,12 +4,13 @@
 
 - Produto: plataforma auditável de dados, análise e precificação de futebol.
 - Product Owner e usuário inicial: Ramon.
-- `main` / `origin/main`: `62b3791e55aca8df501943dfe7fef9f6a27e8bd2`,
-  merge do PR #28.
-- Última task de produto concluída: `LVFI-APP-012`, PR #26.
+- `main` / `origin/main`: `4d9c481627c0447e30ef794cf8645b677441c027`,
+  merge técnico do PR #30.
+- Última task de produto concluída: `LVFI-APP-013`, PR #30.
 - Última task institucional concluída: `R21-DEV-003`, PR #28.
-- Task ativa: `LVFI-APP-013 — Camada Estatística Comum`.
-- Estado: validada tecnicamente; publicação e encerramento documental pendentes.
+- Task ativa: nenhuma.
+- Estado: `LVFI-APP-013` concluída, publicada, integrada e encerrada
+  institucionalmente.
 - Próxima task sucessora: nenhuma; não inferir ID ou autorização.
 
 Capacidades atuais: FastAPI/PostgreSQL, importação histórica revisada e
@@ -48,8 +49,8 @@ XLSM termina em `D45D3924` e suas 2.694 linhas passaram na revalidação estrutu
 
 ## Ação única
 
-Concluir a publicação e o encerramento da `LVFI-APP-013`; não iniciar
-`LVFI-ENG-005` nem inferir task posterior.
+O Product Owner deve nomear e autorizar uma única task posterior. Não iniciar
+`LVFI-ENG-005` nem inferir ID, escopo ou autorização.
 
 ## Bootstrap
 

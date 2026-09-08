@@ -13,9 +13,9 @@ versionados são a memória oficial. Antes de qualquer task, leia
 
 - `main` / `origin/main`: `62b3791e55aca8df501943dfe7fef9f6a27e8bd2`,
   merge do PR #28.
-- Última task de produto concluída: `LVFI-APP-012`, commit
-  `0bec8682912ebfd6c2e597dbda56b6edd34555bd`, PR #26 e merge
-  `88d7ab486f007d946a053adba4a8ab552b78ee35`.
+- Última task de produto concluída: `LVFI-APP-013`, commit
+  `4a28bd4d5b3e7b9cfb75c1a94834c078d5e55641`, PR #30 e merge
+  `4d9c481627c0447e30ef794cf8645b677441c027`.
 - Última task institucional concluída: `R21-DEV-003`, commit
   `522bbbfb96e3c9835c5f1e43e8b295c605cc4650`, PR #28 e merge
   `62b3791e55aca8df501943dfe7fef9f6a27e8bd2`.
@@ -26,13 +26,13 @@ versionados são a memória oficial. Antes de qualquer task, leia
 
 ## Task ativa
 
-`LVFI-APP-013 — Camada Estatística Comum` está validada tecnicamente na branch
-`codex/LVFI-APP-013-statistics-layer`, com publicação e encerramento documental
-pendentes. A entrega acrescenta endpoint e DTOs públicos reutilizáveis para
-amostras configuráveis, evidência, agregados, frequências e completude; preserva
-Pricing Engine, Método 1, APP-007 a APP-012 e o roadmap. O PostgreSQL isolado
-validou 174 testes sem skips indevidos e 100% de statements/branches; Vitest (11),
-lint, typecheck, build e smoke frontend → API → PostgreSQL passaram.
+Não há task ativa. `LVFI-APP-013 — Camada Estatística Comum` foi publicada pelo
+PR #30 e integrada pelo merge commit
+`4d9c481627c0447e30ef794cf8645b677441c027`. A entrega acrescenta endpoint e
+DTOs públicos reutilizáveis para amostras configuráveis, evidência, agregados,
+frequências e completude; preserva Pricing Engine, Método 1, APP-007 a APP-012 e
+o roadmap. O PostgreSQL isolado validou 174 testes sem skips indevidos e 100% de
+statements/branches; Vitest (11), lint, typecheck, build e smoke passaram.
 
 ## Plano aprovado
 
@@ -62,10 +62,8 @@ Ele foi reconstruído no gate final em modo local `code-only`, com 316 nós e 66
 relações; a consulta de código respondeu e a varredura dos artefatos principais
 não encontrou os padrões sensíveis verificados.
 
-Gate atual: perfil `docs`, seguido de `git diff --check`, revisão de escopo e
-varredura de segredos. A publicação autorizada deve usar somente a branch da
-APP-013, PR contra `main` e merge commit; depois, atualizar o encerramento
-documental. Não iniciar `LVFI-ENG-005`.
+Gate atual: encerramento documental da APP-013 concluído. Nenhuma task funcional
+sucessora está autorizada; não iniciar `LVFI-ENG-005`.
 
-**Ação imediata:** concluir apenas a publicação e o encerramento institucional da
-`LVFI-APP-013`; nenhuma task funcional sucessora está autorizada.
+**Ação imediata:** aguardar o Product Owner nomear e autorizar uma única task
+posterior.

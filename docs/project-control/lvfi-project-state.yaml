@@ -1,18 +1,18 @@
 schema_version: "1.0"
 project: "R21 Labs"
 product: "Linha de Valor Football Intelligence"
-updated_at: "2026-09-07T22:40:00-03:00"
-reference_commit: "62b3791e55aca8df501943dfe7fef9f6a27e8bd2"
+updated_at: "2026-09-07T22:55:00-03:00"
+reference_commit: "4d9c481627c0447e30ef794cf8645b677441c027"
 reference_branch: "main"
-current_phase: "lvfi_app_013_validated_pending_publication"
-current_milestone: "lvfi_app_013_statistics_layer"
-last_completed_task: "R21-DEV-003"
+current_phase: "lvfi_app_013_institutionally_closed"
+current_milestone: "lvfi_app_013_statistics_layer_published_integrated_and_closed"
+last_completed_task: "LVFI-APP-013"
 last_completed_governance_task: "R21-GOV-002"
-last_completed_product_task: "LVFI-APP-012"
+last_completed_product_task: "LVFI-APP-013"
 next_official_task: null
 next_planned_task: null
 next_required_decision: "Product Owner deve nomear e autorizar uma única task posterior; nenhuma sucessora é inferida."
-immediate_action: "Aguardar o Product Owner nomear e autorizar uma única task posterior."
+immediate_action: "Aguardar o Product Owner nomear e autorizar uma única task posterior; LVFI-ENG-005 permanece não autorizada."
 completed_tasks:
   - "LVFI-DISC-002"
   - "LVFI-ENG-001"
@@ -35,8 +35,8 @@ completed_tasks:
   - "R21-GOV-002"
   - "LVFI-APP-012"
   - "R21-DEV-003"
-active_tasks:
   - "LVFI-APP-013"
+active_tasks: []
 planned_tasks:
   - "LVFI-ENG-005"
 approved_not_implemented_tasks: []

@@ -40,7 +40,7 @@ filtros, agregados, frequências, partidas usadas e warnings. Não reproduz cál
 estatístico ou de precificação no navegador. Erros permanecem sanitizados e a
 observabilidade preserva correlation ID quando aplicável.
 
-## Validação técnica antes da publicação
+## Validação e integração
 
 No PostgreSQL 16 institucional isolado em `127.0.0.1:55432`, o banco descartável
 `codex_task_lvfi_app_013` recebeu todas as migrations vigentes até
@@ -54,3 +54,9 @@ Vitest (11), lint, typecheck e build do frontend passaram. O smoke pelo proxy do
 Next alcançou frontend → API → PostgreSQL e recebeu o DTO público. O banco isolado
 foi removido no encerramento do gate PostgreSQL; a porta 5432, cluster, roles,
 credenciais e bancos permanentes permaneceram fora do fluxo.
+
+A entrega técnica foi consolidada no commit
+`4a28bd4d5b3e7b9cfb75c1a94834c078d5e55641`, publicada pelo PR #30 e integrada
+em `main` exclusivamente por merge commit
+`4d9c481627c0447e30ef794cf8645b677441c027`. A task está encerrada
+institucionalmente pelo PR documental #31; `LVFI-ENG-005` não foi iniciada.
