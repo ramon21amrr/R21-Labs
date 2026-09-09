@@ -1,8 +1,8 @@
 # Estado atual do LVFI
 
-- **Atualizado em:** 2026-09-07
-- **Referência integrada:** `4d9c481627c0447e30ef794cf8645b677441c027`
-- **Branch de referência:** `main` / `origin/main`, merge do PR #30
+- **Atualizado em:** 2026-09-09
+- **Referência integrada:** `6e620f778bed4871961425f639a9b4617e75964c`
+- **Branch de referência:** `main` / `origin/main`, merge documental do PR #31
 - **Última task institucional concluída:** `R21-DEV-003`
 - **Última task de produto concluída:** `LVFI-APP-013`
 - **Task ativa:** nenhuma
@@ -140,12 +140,13 @@ contrato e aceite está em
 O PostgreSQL institucional em `127.0.0.1:55432` validou migrations até
 `20260906_07`, 174 testes da API sem skips por indisponibilidade e cobertura de
 statements/branches em 100%. Vitest (11), lint, typecheck e build passaram; o
-smoke frontend → API → PostgreSQL passou via proxy local. O banco isolado será
+smoke frontend → API → PostgreSQL passou via proxy local. O banco isolado foi
 removido após o gate. A entrega técnica foi registrada no commit
 `4a28bd4d5b3e7b9cfb75c1a94834c078d5e55641`, publicada pelo PR #30 e integrada
 em `main` pelo merge commit `4d9c481627c0447e30ef794cf8645b677441c027`.
 O encerramento documental pelo PR #31 confirma que a task está concluída sem
-iniciar `LVFI-ENG-005`.
+iniciar `LVFI-ENG-005`; o merge commit final é
+`6e620f778bed4871961425f639a9b4617e75964c`.
 
 ## Próxima sequência oficial
 

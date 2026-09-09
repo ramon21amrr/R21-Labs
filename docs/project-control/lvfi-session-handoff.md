@@ -11,8 +11,8 @@ versionados são a memória oficial. Antes de qualquer task, leia
 
 ## Baseline integrado
 
-- `main` / `origin/main`: `62b3791e55aca8df501943dfe7fef9f6a27e8bd2`,
-  merge do PR #28.
+- `main` / `origin/main`: `6e620f778bed4871961425f639a9b4617e75964c`,
+  merge documental do PR #31 após a integração técnica do PR #30.
 - Última task de produto concluída: `LVFI-APP-013`, commit
   `4a28bd4d5b3e7b9cfb75c1a94834c078d5e55641`, PR #30 e merge
   `4d9c481627c0447e30ef794cf8645b677441c027`.
@@ -31,8 +31,10 @@ PR #30 e integrada pelo merge commit
 `4d9c481627c0447e30ef794cf8645b677441c027`. A entrega acrescenta endpoint e
 DTOs públicos reutilizáveis para amostras configuráveis, evidência, agregados,
 frequências e completude; preserva Pricing Engine, Método 1, APP-007 a APP-012 e
-o roadmap. O PostgreSQL isolado validou 174 testes sem skips indevidos e 100% de
-statements/branches; Vitest (11), lint, typecheck, build e smoke passaram.
+o roadmap. O encerramento documental foi integrado pelo PR #31 no merge
+`6e620f778bed4871961425f639a9b4617e75964c`. O PostgreSQL isolado validou 174
+testes sem skips indevidos e 100% de statements/branches; Vitest (11), lint,
+typecheck, build e smoke passaram.
 
 ## Plano aprovado
 

@@ -4,8 +4,8 @@
 
 - Produto: plataforma auditável de dados, análise e precificação de futebol.
 - Product Owner e usuário inicial: Ramon.
-- `main` / `origin/main`: `4d9c481627c0447e30ef794cf8645b677441c027`,
-  merge técnico do PR #30.
+- `main` / `origin/main`: `6e620f778bed4871961425f639a9b4617e75964c`,
+  merge documental do PR #31 após a integração técnica do PR #30.
 - Última task de produto concluída: `LVFI-APP-013`, PR #30.
 - Última task institucional concluída: `R21-DEV-003`, PR #28.
 - Task ativa: nenhuma.
