@@ -8,11 +8,9 @@
   merge documental do PR #31 após a integração técnica do PR #30.
 - Última task de produto concluída: `LVFI-APP-013`, PR #30.
 - Última task institucional concluída: `R21-DEV-003`, PR #28.
-- Task ativa: `LVFI-ENG-005 — Método 3 — frequência observada`, autorizada nesta
-  sessão na branch `codex/lvfi-eng-005-method-3-observed-frequency`.
-- Estado: `LVFI-APP-013` concluída, publicada, integrada e encerrada
-  institucionalmente; `LVFI-ENG-005` tecnicamente pronta e sem publicação
-  autorizada.
+- Task ativa: nenhuma.
+- Estado: `LVFI-ENG-005` publicada e integrada pelo PR #33, com encerramento
+  institucional documental em preparação.
 - Próxima task sucessora: nenhuma; não inferir ID ou autorização.
 
 Capacidades atuais: FastAPI/PostgreSQL, importação histórica revisada e
