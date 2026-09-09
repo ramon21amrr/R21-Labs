@@ -2,14 +2,14 @@ schema_version: "1.0"
 project: "R21 Labs"
 product: "Linha de Valor Football Intelligence"
 updated_at: "2026-09-09T14:51:23-03:00"
-reference_commit: "6e620f778bed4871961425f639a9b4617e75964c"
+reference_commit: "9998319b4fd9920fbe8bc54623155ea7352b0d84"
 reference_branch: "main"
-current_phase: "lvfi_eng_005_method_three_technically_ready_unpublished"
-current_milestone: "lvfi_eng_005_method_three_observed_frequency_validated"
-last_completed_task: "LVFI-APP-013"
+current_phase: "lvfi_eng_005_published_integrated_institutional_closure_pending"
+current_milestone: "lvfi_eng_005_method_three_published_integrated"
+last_completed_task: "LVFI-ENG-005"
 last_completed_governance_task: "R21-GOV-002"
-last_completed_product_task: "LVFI-APP-013"
-next_official_task: "LVFI-ENG-005"
+last_completed_product_task: "LVFI-ENG-005"
+next_official_task: null
 next_planned_task: null
 next_required_decision: "Autorizações de publicação de LVFI-ENG-005 permanecem separadas; nenhuma task sucessora é inferida."
 immediate_action: "Aguardar autorização explícita para commit e publicação de LVFI-ENG-005; nenhuma task sucessora é inferida."
@@ -36,8 +36,7 @@ completed_tasks:
   - "LVFI-APP-012"
   - "R21-DEV-003"
   - "LVFI-APP-013"
-active_tasks:
-  - "LVFI-ENG-005"
+active_tasks: []
 planned_tasks:
   - "LVFI-ENG-005"
 approved_not_implemented_tasks: []

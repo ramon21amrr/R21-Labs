@@ -1,13 +1,13 @@
 # Estado atual do LVFI
 
 - **Atualizado em:** 2026-09-09
-- **Referência integrada:** `6e620f778bed4871961425f639a9b4617e75964c`
-- **Branch de referência:** `main` / `origin/main`, merge documental do PR #31
-- **Última task institucional concluída:** `R21-DEV-003`
-- **Última task de produto concluída:** `LVFI-APP-013`
-- **Task ativa:** `LVFI-ENG-005 — Método 3 — frequência observada`
-- **Estado da task ativa:** tecnicamente pronta na branch
-  `codex/lvfi-eng-005-method-3-observed-frequency`; publicação não autorizada
+- **Referência integrada:** `9998319b4fd9920fbe8bc54623155ea7352b0d84`
+- **Branch de referência:** `main` / `origin/main`, merge do PR #33
+- **Última task institucional concluída:** `LVFI-ENG-005`
+- **Última task de produto concluída:** `LVFI-ENG-005`
+- **Task ativa:** nenhuma
+- **Estado da última task:** concluída, publicada e integrada; encerramento
+  institucional documental em preparação
 
 ## Capacidades disponíveis
 
@@ -148,9 +148,20 @@ O encerramento documental pelo PR #31 confirma que a task está concluída sem
 iniciar `LVFI-ENG-005`; o merge commit final é
 `6e620f778bed4871961425f639a9b4617e75964c`.
 
+## LVFI-ENG-005
+
+O Product Owner autorizou a publicação da `LVFI-ENG-005 — Método 3 — frequência
+observada`. O núcleo, contrato e testes foram publicados no commit
+`8f55ecdd62d71d4439a6c082b0571cbbd8f0f709`, PR #33, e integrados por merge
+commit `9998319b4fd9920fbe8bc54623155ea7352b0d84`. Os gates finais aprovados
+foram documentação, API (190 testes, 100% statements/branches) e Pricing (554
+testes, 100% coverage). Método 1 `1.0.0` e Pricing Engine `1.0.1` permaneceram
+preservados. O XLSM local divergente não foi usado; a paridade numérica continua
+indisponível sem a revisão com fingerprint aprovado.
+
 ## Próxima sequência oficial
 
-- **Task ativa:** `LVFI-ENG-005 — Método 3 — frequência observada`.
+- **Task ativa:** nenhuma.
 - **Próxima task funcional sucessora:** nenhuma; não inferir ID ou autorização.
-- **Ação imediata:** aguardar autorização explícita para commit e publicação de
-  `LVFI-ENG-005`; nenhuma task sucessora é inferida.
+- **Ação imediata:** aguardar o Product Owner nomear e autorizar uma única task
+  posterior; nenhuma sucessora é inferida.

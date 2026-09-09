@@ -26,10 +26,9 @@ versionados são a memória oficial. Antes de qualquer task, leia
 
 ## Task ativa
 
-`LVFI-ENG-005 — Método 3 — frequência observada` foi explicitamente autorizada
-nesta sessão sobre a base `9dc6bed0c8ef9303dccbf4f6ded5bd45294cc694`, na branch
-`codex/lvfi-eng-005-method-3-observed-frequency`. A publicação permanece não
-autorizada. A `LVFI-APP-013 — Camada Estatística Comum` foi publicada pelo
+`LVFI-ENG-005 — Método 3 — frequência observada` foi publicada no commit
+`8f55ecdd62d71d4439a6c082b0571cbbd8f0f709`, PR #33, e integrada no merge
+`9998319b4fd9920fbe8bc54623155ea7352b0d84`. A `LVFI-APP-013 — Camada Estatística Comum` foi publicada pelo
 PR #30 e integrada pelo merge commit
 `4d9c481627c0447e30ef794cf8645b677441c027`. A entrega acrescenta endpoint e
 DTOs públicos reutilizáveis para amostras configuráveis, evidência, agregados,
@@ -67,9 +66,8 @@ Ele foi reconstruído no gate final em modo local `code-only`, com 316 nós e 66
 relações; a consulta de código respondeu e a varredura dos artefatos principais
 não encontrou os padrões sensíveis verificados.
 
-Gate atual: `LVFI-ENG-005` tecnicamente pronta: API 190 testes e 100% de
-cobertura, testes focados, Ruff e mypy aprovados; publicação não autorizada.
-Nenhuma task funcional sucessora está autorizada.
+Gate atual: ENG-005 publicada e integrada; docs PASS, API 190/100% e Pricing
+554/100%. Nenhuma task funcional sucessora está autorizada.
 
-**Ação imediata:** aguardar autorização explícita de commit e publicação de
-`LVFI-ENG-005`.
+**Ação imediata:** concluir o encerramento institucional documental e aguardar o
+Product Owner nomear e autorizar uma única task posterior.
