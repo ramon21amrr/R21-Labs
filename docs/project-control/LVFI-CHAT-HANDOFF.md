@@ -8,9 +8,11 @@
   merge documental do PR #31 após a integração técnica do PR #30.
 - Última task de produto concluída: `LVFI-APP-013`, PR #30.
 - Última task institucional concluída: `R21-DEV-003`, PR #28.
-- Task ativa: nenhuma.
+- Task ativa: `LVFI-ENG-005 — Método 3 — frequência observada`, autorizada nesta
+  sessão na branch `codex/lvfi-eng-005-method-3-observed-frequency`.
 - Estado: `LVFI-APP-013` concluída, publicada, integrada e encerrada
-  institucionalmente.
+  institucionalmente; `LVFI-ENG-005` tecnicamente pronta e sem publicação
+  autorizada.
 - Próxima task sucessora: nenhuma; não inferir ID ou autorização.
 
 Capacidades atuais: FastAPI/PostgreSQL, importação histórica revisada e
@@ -31,7 +33,7 @@ aprovação e snapshots; Match Center; PDF-resumo; launcher e recuperação.
 
 Jogadores, membros, publicação remota, fornecedores automáticos, oportunidades e
 Value Tracker permanecem fora da primeira versão. Método 2 não possui ID.
-`LVFI-ENG-005` permanece Método 3 e não está autorizada. Os arquivos privados não
+`LVFI-ENG-005` é Método 3 e está autorizada somente nesta execução. Os arquivos privados não
 estão no Git; seus fingerprints estão no documento 39. A revisão corrigida do
 XLSM termina em `D45D3924` e suas 2.694 linhas passaram na revalidação estrutural.
 
@@ -45,12 +47,12 @@ XLSM termina em `D45D3924` e suas 2.694 linhas passaram na revalidação estrutu
    `code-only` (316 nós/663 relações), mas continua sendo apenas um índice.
 4. Nunca modifique Método 1, schemas, hashes, fixtures ou contratos para esconder
    divergência.
-5. Execute uma task por vez e publique somente com autorização explícita.
+5. Execute exclusivamente ENG-005 e publique somente com autorização explícita.
 
 ## Ação única
 
-O Product Owner deve nomear e autorizar uma única task posterior. Não iniciar
-`LVFI-ENG-005` nem inferir ID, escopo ou autorização.
+Concluir exclusivamente `LVFI-ENG-005`; nenhuma task posterior é inferida e a
+publicação requer nova autorização explícita do Product Owner.
 
 ## Bootstrap
 

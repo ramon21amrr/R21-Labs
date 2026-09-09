@@ -5,9 +5,9 @@
 - **Branch de referência:** `main` / `origin/main`, merge documental do PR #31
 - **Última task institucional concluída:** `R21-DEV-003`
 - **Última task de produto concluída:** `LVFI-APP-013`
-- **Task ativa:** nenhuma
-- **Estado da última task:** concluída, publicada, integrada e encerrada
-  institucionalmente
+- **Task ativa:** `LVFI-ENG-005 — Método 3 — frequência observada`
+- **Estado da task ativa:** tecnicamente pronta na branch
+  `codex/lvfi-eng-005-method-3-observed-frequency`; publicação não autorizada
 
 ## Capacidades disponíveis
 
@@ -75,8 +75,8 @@ Autenticação, Métodos 2 e 3, configurações, workflow
 completo, Match Center, PDF, launcher, backup/restauração, odds automáticas,
 oportunidades, Value Tracker e deploy remoto não estão concluídos.
 
-O Método 2 permanece sem ID. `LVFI-ENG-005` permanece reservado ao Método 3 e não
-está autorizado como task ativa. Os mercados estatísticos adicionais serão
+O Método 2 permanece sem ID. `LVFI-ENG-005` está autorizada exclusivamente para
+o Método 3 — frequência observada; os mercados estatísticos adicionais serão
 experimentais até calibração.
 
 ## LVFI-APP-012
@@ -150,7 +150,7 @@ iniciar `LVFI-ENG-005`; o merge commit final é
 
 ## Próxima sequência oficial
 
-- **Task ativa:** nenhuma.
+- **Task ativa:** `LVFI-ENG-005 — Método 3 — frequência observada`.
 - **Próxima task funcional sucessora:** nenhuma; não inferir ID ou autorização.
-- **Ação imediata:** aguardar o Product Owner nomear e autorizar uma única task
-  posterior; `LVFI-ENG-005` continua não autorizada.
+- **Ação imediata:** aguardar autorização explícita para commit e publicação de
+  `LVFI-ENG-005`; nenhuma task sucessora é inferida.

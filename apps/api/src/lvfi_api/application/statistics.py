@@ -35,10 +35,14 @@ class StatisticsSampleService:
     def __init__(self, repository: StatisticsSampleRepository) -> None:
         self._repository = repository
 
+    async def get_target(self, match_id: int) -> StatisticsTarget | None:
+        """Expose the read-only target context for a composed statistics method."""
+        return await self._repository.get_target(match_id)
+
     async def get_sample(
         self, match_id: int, request: StatisticsSampleRequest
     ) -> StatisticsSample:
-        target = await self._repository.get_target(match_id)
+        target = await self.get_target(match_id)
         if target is None:
             raise ResourceNotFoundError("match")
         if request.team_id not in {target.home_team_id, target.away_team_id}:
