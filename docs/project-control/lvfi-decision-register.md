@@ -53,7 +53,7 @@ merges de APP-002 a APP-009. O Product Owner autorizou sua atualização factual
 | Tema | Estado | Responsável | Impacto | Fonte |
 | --- | --- | --- | --- | --- |
 | ID e plano do Método 2 | Pendente; deliberadamente adiada | Product Owner/CTO | Bloqueia nomear/iniciar a task | `GOV-D-006` |
-| Próxima task oficial após a fundação operacional de dados | Pendente; nenhuma sucessora possui ID ou autorização | Product Owner/CTO | Bloqueia iniciar qualquer novo escopo | `GOV-D-018`; [documento 39](../products/linha-de-valor-football-intelligence/39-lvfi-master-plan-rebaseline.md) |
+| Próxima task oficial após a `LVFI-APP-013` | Pendente; nenhuma sucessora possui ID ou autorização | Product Owner/CTO | Bloqueia iniciar qualquer novo escopo | PRs #30/#31; [current state](lvfi-current-state.md); [documento 39](../products/linha-de-valor-football-intelligence/39-lvfi-master-plan-rebaseline.md) |
 | PDF-resumo: tecnologia concreta, retenção e marca | Parcialmente decidida; será programático e derivado de snapshot aprovado | Product Owner/CTO | MVP e relatórios | `GOV-D-014`; [UX/PDF](../products/linha-de-valor-football-intelligence/09-user-experience-and-pdf.md) |
 | Autenticação e proteção concreta do administrador local | Parcialmente decidida; um administrador no MVP pessoal | Product Owner/CTO | MVP e operação local | `GOV-D-011`; [requisitos](../products/linha-de-valor-football-intelligence/05-requirements.md) |
 | Backup, restauração e RPO/RTO | Parcialmente decidida; ensaio obrigatório antes do corte | Product Owner/CTO | Piloto e operação | `GOV-D-014/015`; ADRs 011–013 |
