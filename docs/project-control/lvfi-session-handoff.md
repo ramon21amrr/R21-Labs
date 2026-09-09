@@ -26,7 +26,10 @@ versionados são a memória oficial. Antes de qualquer task, leia
 
 ## Task ativa
 
-Não há task ativa. `LVFI-APP-013 — Camada Estatística Comum` foi publicada pelo
+`LVFI-ENG-005 — Método 3 — frequência observada` foi explicitamente autorizada
+nesta sessão sobre a base `9dc6bed0c8ef9303dccbf4f6ded5bd45294cc694`, na branch
+`codex/lvfi-eng-005-method-3-observed-frequency`. A publicação permanece não
+autorizada. A `LVFI-APP-013 — Camada Estatística Comum` foi publicada pelo
 PR #30 e integrada pelo merge commit
 `4d9c481627c0447e30ef794cf8645b677441c027`. A entrega acrescenta endpoint e
 DTOs públicos reutilizáveis para amostras configuráveis, evidência, agregados,
@@ -44,9 +47,9 @@ escanteios, chutes no gol, finalizações, cartões e faltas; Métodos 1, 2 e 3
 separados; configurações versionadas; aprovação e snapshot; Match Center;
 PDF-resumo; launcher, backup e restauração.
 
-Método 1 permanece congelado. Método 2 continua sem ID. `LVFI-ENG-005` continua
-reservado ao Método 3 e não está autorizado. Mercados estatísticos adicionais
-serão experimentais até calibração. Jogadores, membros, deploy remoto, dados/odds
+Método 1 permanece congelado. Método 2 continua sem ID. `LVFI-ENG-005` está
+autorizada somente para Método 3. Mercados estatísticos adicionais serão
+experimentais até calibração. Jogadores, membros, deploy remoto, dados/odds
 automáticos, oportunidades e Value Tracker estão fora da primeira versão.
 
 Os quatro materiais privados estão registrados apenas por SHA-256 no documento
@@ -64,8 +67,9 @@ Ele foi reconstruído no gate final em modo local `code-only`, com 316 nós e 66
 relações; a consulta de código respondeu e a varredura dos artefatos principais
 não encontrou os padrões sensíveis verificados.
 
-Gate atual: encerramento documental da APP-013 concluído. Nenhuma task funcional
-sucessora está autorizada; não iniciar `LVFI-ENG-005`.
+Gate atual: `LVFI-ENG-005` tecnicamente pronta: API 190 testes e 100% de
+cobertura, testes focados, Ruff e mypy aprovados; publicação não autorizada.
+Nenhuma task funcional sucessora está autorizada.
 
-**Ação imediata:** aguardar o Product Owner nomear e autorizar uma única task
-posterior.
+**Ação imediata:** aguardar autorização explícita de commit e publicação de
+`LVFI-ENG-005`.
