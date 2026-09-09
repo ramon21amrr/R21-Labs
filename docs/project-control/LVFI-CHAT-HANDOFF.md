@@ -9,8 +9,8 @@
 - Última task de produto concluída: `LVFI-APP-013`, PR #30.
 - Última task institucional concluída: `R21-DEV-003`, PR #28.
 - Task ativa: nenhuma.
-- Estado: `LVFI-ENG-005` publicada e integrada pelo PR #33, com encerramento
-  institucional documental em preparação.
+- Estado: `LVFI-ENG-005` concluída, publicada, integrada e encerrada
+  institucionalmente pelos PRs #33 e #34.
 - Próxima task sucessora: nenhuma; não inferir ID ou autorização.
 
 Capacidades atuais: FastAPI/PostgreSQL, importação histórica revisada e
@@ -31,7 +31,7 @@ aprovação e snapshots; Match Center; PDF-resumo; launcher e recuperação.
 
 Jogadores, membros, publicação remota, fornecedores automáticos, oportunidades e
 Value Tracker permanecem fora da primeira versão. Método 2 não possui ID.
-`LVFI-ENG-005` é Método 3 e está autorizada somente nesta execução. Os arquivos privados não
+`LVFI-ENG-005` é Método 3 e está encerrada institucionalmente. Os arquivos privados não
 estão no Git; seus fingerprints estão no documento 39. A revisão corrigida do
 XLSM termina em `D45D3924` e suas 2.694 linhas passaram na revalidação estrutural.
 
@@ -45,12 +45,12 @@ XLSM termina em `D45D3924` e suas 2.694 linhas passaram na revalidação estrutu
    `code-only` (316 nós/663 relações), mas continua sendo apenas um índice.
 4. Nunca modifique Método 1, schemas, hashes, fixtures ou contratos para esconder
    divergência.
-5. Execute exclusivamente ENG-005 e publique somente com autorização explícita.
+5. Não inicie task sucessora sem autorização explícita do Product Owner.
 
 ## Ação única
 
-Concluir exclusivamente `LVFI-ENG-005`; nenhuma task posterior é inferida e a
-publicação requer nova autorização explícita do Product Owner.
+Aguardar o Product Owner nomear e autorizar uma única task posterior; nenhuma
+sucessora é inferida.
 
 ## Bootstrap
 

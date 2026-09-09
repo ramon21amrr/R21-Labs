@@ -75,8 +75,8 @@ Autenticação, Métodos 2 e 3, configurações, workflow
 completo, Match Center, PDF, launcher, backup/restauração, odds automáticas,
 oportunidades, Value Tracker e deploy remoto não estão concluídos.
 
-O Método 2 permanece sem ID. `LVFI-ENG-005` está autorizada exclusivamente para
-o Método 3 — frequência observada; os mercados estatísticos adicionais serão
+O Método 2 permanece sem ID. `LVFI-ENG-005` entregou exclusivamente o Método 3
+— frequência observada; os mercados estatísticos adicionais serão
 experimentais até calibração.
 
 ## LVFI-APP-012
