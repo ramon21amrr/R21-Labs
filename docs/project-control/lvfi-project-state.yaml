@@ -4,15 +4,15 @@ product: "Linha de Valor Football Intelligence"
 updated_at: "2026-09-09T14:51:23-03:00"
 reference_commit: "9998319b4fd9920fbe8bc54623155ea7352b0d84"
 reference_branch: "main"
-current_phase: "lvfi_eng_005_published_integrated_institutional_closure_pending"
-current_milestone: "lvfi_eng_005_method_three_published_integrated"
+current_phase: "lvfi_eng_005_institutionally_closed"
+current_milestone: "lvfi_eng_005_method_three_published_integrated_and_closed"
 last_completed_task: "LVFI-ENG-005"
 last_completed_governance_task: "R21-GOV-002"
 last_completed_product_task: "LVFI-ENG-005"
 next_official_task: null
 next_planned_task: null
-next_required_decision: "Autorizações de publicação de LVFI-ENG-005 permanecem separadas; nenhuma task sucessora é inferida."
-immediate_action: "Aguardar autorização explícita para commit e publicação de LVFI-ENG-005; nenhuma task sucessora é inferida."
+next_required_decision: "Product Owner deve nomear e autorizar uma única task posterior; nenhuma sucessora é inferida."
+immediate_action: "Aguardar o Product Owner nomear e autorizar uma única task posterior; nenhuma sucessora é inferida."
 completed_tasks:
   - "LVFI-DISC-002"
   - "LVFI-ENG-001"
@@ -36,6 +36,7 @@ completed_tasks:
   - "LVFI-APP-012"
   - "R21-DEV-003"
   - "LVFI-APP-013"
+  - "LVFI-ENG-005"
 active_tasks: []
 planned_tasks:
   - "LVFI-ENG-005"
