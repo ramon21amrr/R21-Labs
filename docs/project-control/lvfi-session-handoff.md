@@ -27,10 +27,12 @@ versionados são a memória oficial. Antes de qualquer task, leia
 
 ## Task ativa
 
-Nenhuma task está ativa. `R21-GOV-003 — Referência Git não autorreferencial` foi
-publicada pelo PR #36 e integrada pelo merge
-`c9726fae50bb3b355800e83d1ad9fb8f77216536`; o encerramento institucional
-documental desta sequência não inicia Método 2 nem qualquer sucessora funcional.
+`LVFI-ENG-007 — Método 2 — Poisson ajustado` está ativa na branch
+`codex/lvfi-eng-007-poisson-adjusted`, implementada e pronta para publicação.
+O adaptador concreto APP-013 compartilha a seleção de jogos por pares de
+produção/complemento, registra evidência e usa o predicado canônico de
+concluída. Método 1, Método 3, APP-013 público e Pricing Engine seguem
+intactos. Não houve autorização de publicação.
 
 ## Plano aprovado
 
@@ -40,8 +42,9 @@ escanteios, chutes no gol, finalizações, cartões e faltas; Métodos 1, 2 e 3
 separados; configurações versionadas; aprovação e snapshot; Match Center;
 PDF-resumo; launcher, backup e restauração.
 
-Método 1 permanece congelado. Método 2 continua sem ID. `LVFI-ENG-005` foi
-concluída exclusivamente como Método 3. Mercados estatísticos adicionais serão
+Método 1 permanece congelado. Método 2 possui agora o ID `LVFI-ENG-007` e a
+versão `method_two_adjusted_poisson` `1.0.0`, com schemas 1. `LVFI-ENG-005` foi concluída exclusivamente
+como Método 3. Mercados estatísticos adicionais serão
 experimentais até calibração. Jogadores, membros, deploy remoto, dados/odds
 automáticos, oportunidades e Value Tracker estão fora da primeira versão.
 
@@ -60,8 +63,10 @@ Ele foi reconstruído no gate final em modo local `code-only`, com 316 nós e 66
 relações; a consulta de código respondeu e a varredura dos artefatos principais
 não encontrou os padrões sensíveis verificados.
 
-Gate atual: R21-GOV-003 passou gates de documentação, diff/check, links, secrets
-e QA. Nenhuma task funcional sucessora está autorizada.
+Gates atuais: API 221 testes, 4 skips condicionais e 100% de statements/branches
+(`gates-20260910-082525-api.log`); Pricing 554 testes e 100%
+(`gates-20260910-081242-pricing.log`); QA independente PASS após correção do
+seletor compartilhado.
 
-**Ação imediata:** aguardar o Product Owner nomear e autorizar uma única task
-posterior; nenhuma sucessora é inferida.
+**Ação imediata:** aguardar autorização explícita de publicação, sem iniciar
+task posterior.

@@ -11,10 +11,13 @@
 - Última task de produto concluída: `LVFI-ENG-005`, PR #33.
 - Última task institucional concluída: `R21-GOV-003`, PR #36 e merge histórico
   `c9726fae50bb3b355800e83d1ad9fb8f77216536`.
-- Task ativa: nenhuma.
-- Estado: continuidade corrigida e R21-GOV-003 encerrada institucionalmente, sem
-  alteração de produto ou sucessora autorizada.
-- Próxima task sucessora: nenhuma; não inferir ID ou autorização.
+- Task ativa: `LVFI-ENG-007 — Método 2 — Poisson ajustado`, implementada e
+  pronta para publicação, sem autorização de publicação nesta sessão.
+- Estado: adaptador interno APP-013, evidência auditável, predicado canônico de
+  concluída e complementos reais foram validados; Método 1, Método 3 e Pricing
+  Engine permanecem preservados.
+- Próxima ação: aguardar autorização explícita de publicação; não iniciar task
+  sucessora.
 
 Capacidades atuais: FastAPI/PostgreSQL, importação histórica revisada e
 idempotente, partidas futuras, revisões estatísticas append-only, consultas,
@@ -33,7 +36,9 @@ sete grupos estatísticos por time; Métodos 1, 2 e 3 separados; configuração,
 aprovação e snapshots; Match Center; PDF-resumo; launcher e recuperação.
 
 Jogadores, membros, publicação remota, fornecedores automáticos, oportunidades e
-Value Tracker permanecem fora da primeira versão. Método 2 não possui ID.
+Value Tracker permanecem fora da primeira versão. Método 2 é `LVFI-ENG-007`,
+implementado como `method_two_adjusted_poisson` `1.0.0`, com schemas 1 e
+evidência SHA-256; sua publicação ainda requer autorização explícita.
 `LVFI-ENG-005` é Método 3 e está encerrada institucionalmente. Os arquivos privados não
 estão no Git; seus fingerprints estão no documento 39. A revisão corrigida do
 XLSM termina em `D45D3924` e suas 2.694 linhas passaram na revalidação estrutural.
@@ -49,12 +54,11 @@ XLSM termina em `D45D3924` e suas 2.694 linhas passaram na revalidação estrutu
    `code-only` (316 nós/663 relações), mas continua sendo apenas um índice.
 4. Nunca modifique Método 1, schemas, hashes, fixtures ou contratos para esconder
    divergência.
-5. Não inicie task sucessora sem autorização explícita do Product Owner.
+5. Não publique nem inicie task sucessora sem nova autorização explícita.
 
 ## Ação única
 
-Aguardar o Product Owner nomear e autorizar uma única task posterior; nenhuma
-sucessora é inferida.
+Aguardar autorização explícita de publicação da `LVFI-ENG-007`.
 
 ## Bootstrap
 
