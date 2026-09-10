@@ -63,6 +63,15 @@ def create_app(
         ResourceNotFoundError,
         StatisticsNotFoundError,
     )
+    from lvfi_api.presentation.configuration_routes import (
+        administration_router as configuration_administration_router,
+    )
+    from lvfi_api.presentation.configuration_routes import (
+        catalog_router as configuration_catalog_router,
+    )
+    from lvfi_api.presentation.configuration_routes import (
+        match_router as configuration_match_router,
+    )
     from lvfi_api.presentation.historical_errors import (
         invalid_query_handler,
         method_one_engine_error_handler,
@@ -110,6 +119,9 @@ def create_app(
     app.include_router(router)
     app.include_router(historical_router)
     app.include_router(statistics_router)
+    app.include_router(configuration_catalog_router)
+    app.include_router(configuration_administration_router)
+    app.include_router(configuration_match_router)
     app.include_router(operational_data_router)
     app.include_router(pricing_execution_router)
     app.include_router(pricing_execution_reproduction_router)
