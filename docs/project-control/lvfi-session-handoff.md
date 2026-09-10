@@ -11,7 +11,7 @@ versionados são a memória oficial. Antes de qualquer task, leia
 
 ## Baseline e estado corrente
 
-- Base estável da task ativa `R21-GOV-003`:
+- Base estável histórica da última task `R21-GOV-003`:
   `0b012291e78fb3b20eb887964ebc26d170e0a81c`.
 - `reference_commit` significa exclusivamente essa base aprovada. Não deve ser
   trocado pelo commit ou merge produzido pela própria task.
@@ -20,16 +20,17 @@ versionados são a memória oficial. Antes de qualquer task, leia
 - Última task de produto concluída: `LVFI-ENG-005`, commit
   `8f55ecdd62d71d4439a6c082b0571cbbd8f0f709`, PR #33 e merge histórico
   `9998319b4fd9920fbe8bc54623155ea7352b0d84`.
-- Última task institucional concluída: `R21-GOV-002`.
+- Última task institucional concluída: `R21-GOV-003`, commit
+  `39a1122b34ff467924962ec4320c0d77c065d0df`, PR #36 e merge histórico
+  `c9726fae50bb3b355800e83d1ad9fb8f77216536`.
 - Pricing Engine `1.0.1`; distribuição `1.1.1`; Método 1 `1.0.0`; schema 1.
 
 ## Task ativa
 
-`R21-GOV-003 — Referência Git não autorreferencial` está em execução, sem
-autorização de commit, push, PR ou merge. O escopo é somente continuidade:
-estabilizar a semântica de `reference_commit`, obter HEAD/main/origin/main em
-runtime e retirar ENG-005 de `planned_tasks`. Não iniciar Método 2 nem qualquer
-sucessora funcional.
+Nenhuma task está ativa. `R21-GOV-003 — Referência Git não autorreferencial` foi
+publicada pelo PR #36 e integrada pelo merge
+`c9726fae50bb3b355800e83d1ad9fb8f77216536`; o encerramento institucional
+documental desta sequência não inicia Método 2 nem qualquer sucessora funcional.
 
 ## Plano aprovado
 
@@ -59,8 +60,8 @@ Ele foi reconstruído no gate final em modo local `code-only`, com 316 nós e 66
 relações; a consulta de código respondeu e a varredura dos artefatos principais
 não encontrou os padrões sensíveis verificados.
 
-Gate atual: R21-GOV-003 requer gates de documentação, diff/check, links, secrets
+Gate atual: R21-GOV-003 passou gates de documentação, diff/check, links, secrets
 e QA. Nenhuma task funcional sucessora está autorizada.
 
-**Ação imediata:** concluir somente R21-GOV-003; depois, aguardar o Product
-Owner nomear e autorizar uma única task posterior.
+**Ação imediata:** aguardar o Product Owner nomear e autorizar uma única task
+posterior; nenhuma sucessora é inferida.

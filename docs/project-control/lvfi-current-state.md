@@ -1,15 +1,15 @@
 # Estado atual do LVFI
 
 - **Atualizado em:** 2026-09-09
-- **Referência-base estável da task ativa:** `0b012291e78fb3b20eb887964ebc26d170e0a81c`
+- **Referência-base estável registrada:** `0b012291e78fb3b20eb887964ebc26d170e0a81c`
 - **Branch de referência:** `main`; o SHA corrente de `HEAD`, `main` e
   `origin/main` é sempre resolvido no runtime por Git, não registrado como valor
   corrente neste handoff.
-- **Última task institucional concluída:** `R21-GOV-002`
+- **Última task institucional concluída:** `R21-GOV-003`
 - **Última task de produto concluída:** `LVFI-ENG-005`
-- **Task ativa:** `R21-GOV-003 — Referência Git não autorreferencial`
-- **Estado da task ativa:** em execução; correção documental de continuidade,
-  sem alteração de produto e sem publicação autorizada.
+- **Task ativa:** nenhuma
+- **Estado da última task:** `R21-GOV-003` publicada, integrada e encerrada
+  institucionalmente; sem alteração de produto.
 
 ## Capacidades disponíveis
 
@@ -175,9 +175,15 @@ mesma criar. Os valores correntes são obtidos no momento da verificação com
 iniciado. Esta task não altera `apps/`, `packages/`, migrations ou roadmap
 funcional.
 
+A entrega foi registrada no commit `39a1122b34ff467924962ec4320c0d77c065d0df`,
+publicada pelo PR #36 e integrada por merge commit
+`c9726fae50bb3b355800e83d1ad9fb8f77216536`. O encerramento institucional é
+registrado separadamente para manter o merge histórico fora de
+`reference_commit`.
+
 ## Próxima sequência oficial
 
-- **Task ativa:** `R21-GOV-003 — Referência Git não autorreferencial`.
+- **Task ativa:** nenhuma.
 - **Próxima task funcional sucessora:** nenhuma; não inferir ID ou autorização.
-- **Ação imediata:** concluir somente a correção de continuidade da R21-GOV-003;
-  após isso, aguardar o Product Owner nomear e autorizar uma única task posterior.
+- **Ação imediata:** aguardar o Product Owner nomear e autorizar uma única task
+  posterior; nenhuma sucessora é inferida.

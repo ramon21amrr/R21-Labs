@@ -1,17 +1,17 @@
 schema_version: "1.0"
 project: "R21 Labs"
 product: "Linha de Valor Football Intelligence"
-updated_at: "2026-09-09T15:00:00-03:00"
+updated_at: "2026-09-09T21:25:00-03:00"
 reference_commit: "0b012291e78fb3b20eb887964ebc26d170e0a81c"
 reference_branch: "main"
 reference_commit_semantics: "Base estável aprovada da task ativa; nunca substituir pelo HEAD ou merge produzido pela própria task."
 head_resolution_command: "git rev-parse HEAD"
 main_resolution_command: "git rev-parse main"
 origin_main_resolution_command: "git rev-parse origin/main"
-current_phase: "r21_gov_003_in_progress"
-current_milestone: "r21_gov_003_non_self_referential_git_reference"
-last_completed_task: "LVFI-ENG-005"
-last_completed_governance_task: "R21-GOV-002"
+current_phase: "r21_gov_003_institutionally_closed"
+current_milestone: "r21_gov_003_published_integrated_and_closed"
+last_completed_task: "R21-GOV-003"
+last_completed_governance_task: "R21-GOV-003"
 last_completed_product_task: "LVFI-ENG-005"
 next_official_task: null
 next_planned_task: null
@@ -41,8 +41,8 @@ completed_tasks:
   - "R21-DEV-003"
   - "LVFI-APP-013"
   - "LVFI-ENG-005"
-active_tasks:
   - "R21-GOV-003"
+active_tasks: []
 planned_tasks: []
 approved_not_implemented_tasks: []
 blocked_tasks: []
