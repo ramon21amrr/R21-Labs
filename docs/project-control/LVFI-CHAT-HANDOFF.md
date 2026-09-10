@@ -8,14 +8,16 @@
   Não representa o SHA corrente.
 - Estado corrente: resolver com `git rev-parse HEAD`, `git rev-parse main` e
   `git rev-parse origin/main`; SHAs textuais são apenas evidência histórica.
-- Última task de produto concluída: `LVFI-ENG-007`, PR #38 e merge histórico
-  `842eb955a367d3c1e3e2e45d61057ae8c298475a`.
+- Última task de produto concluída: `LVFI-APP-014`, PR #40 e merge histórico
+  `8fd593430cdf246932a2225e9f96d38916b05778`.
 - Última task institucional concluída: `R21-GOV-003`, PR #36 e merge histórico
   `c9726fae50bb3b355800e83d1ad9fb8f77216536`.
-- Task ativa: nenhuma; `LVFI-ENG-007 — Método 2 — Poisson ajustado` foi
-  publicada pelo PR #38 e integrada pelo merge `842eb955a367d3c1e3e2e45d61057ae8c298475a`.
-- Estado: adaptador interno APP-013, evidência auditável, predicado canônico de
-  concluída e complementos reais foram validados; Método 1, Método 3 e Pricing
+- Task ativa: nenhuma; `LVFI-APP-014 — Catálogo e Configuração` foi publicada
+  pelo PR #40 e integrada pelo merge
+  `8fd593430cdf246932a2225e9f96d38916b05778`.
+- Estado: catálogo `lvfi-mvp@1.0.0`, ledger append-only, precedência
+  reproduzível e evidência por hash foram validados em PostgreSQL isolado,
+  inclusive a cadeia de oito revisões concorrentes; Métodos 1/2/3 e Pricing
   Engine permanecem preservados.
 - Próxima ação: não iniciar task sucessora; aguardar identificação e autorização
   explícitas do Product Owner.
@@ -24,7 +26,8 @@ Capacidades atuais: FastAPI/PostgreSQL, importação histórica revisada e
 idempotente, partidas futuras, revisões estatísticas append-only, consultas,
 amostras, camada estatística comum configurável, Método 1, execuções append-only,
 histórico, comparação, reprodução,
-snapshots teóricos de mercado, referência externa manual e interfaces iniciais.
+snapshots teóricos de mercado, referência externa manual, catálogo/configuração
+versionada e interfaces iniciais.
 Pricing Engine `1.0.1`, distribuição `1.1.1`, Método 1 `1.0.0` e schema 1
 permanecem congelados.
 
