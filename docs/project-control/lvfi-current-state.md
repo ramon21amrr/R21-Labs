@@ -1,13 +1,15 @@
 # Estado atual do LVFI
 
 - **Atualizado em:** 2026-09-09
-- **Referência integrada:** `9998319b4fd9920fbe8bc54623155ea7352b0d84`
-- **Branch de referência:** `main` / `origin/main`, merge do PR #33
-- **Última task institucional concluída:** `LVFI-ENG-005`
+- **Referência-base estável da task ativa:** `0b012291e78fb3b20eb887964ebc26d170e0a81c`
+- **Branch de referência:** `main`; o SHA corrente de `HEAD`, `main` e
+  `origin/main` é sempre resolvido no runtime por Git, não registrado como valor
+  corrente neste handoff.
+- **Última task institucional concluída:** `R21-GOV-002`
 - **Última task de produto concluída:** `LVFI-ENG-005`
-- **Task ativa:** nenhuma
-- **Estado da última task:** concluída, publicada e integrada; encerramento
-  institucional documental em preparação
+- **Task ativa:** `R21-GOV-003 — Referência Git não autorreferencial`
+- **Estado da task ativa:** em execução; correção documental de continuidade,
+  sem alteração de produto e sem publicação autorizada.
 
 ## Capacidades disponíveis
 
@@ -159,9 +161,23 @@ testes, 100% coverage). Método 1 `1.0.0` e Pricing Engine `1.0.1` permaneceram
 preservados. O XLSM local divergente não foi usado; a paridade numérica continua
 indisponível sem a revisão com fingerprint aprovado.
 
+## R21-GOV-003
+
+O Product Owner autorizou em 2026-09-09 a `R21-GOV-003 — Referência Git não
+autorreferencial`, baseada em `0b012291e78fb3b20eb887964ebc26d170e0a81c`. A
+task corrige exclusivamente a governança de continuidade: `reference_commit`
+passa a significar a base estável aprovada da task, e não o HEAD/merge que ela
+mesma criar. Os valores correntes são obtidos no momento da verificação com
+`git rev-parse HEAD`, `git rev-parse main` e `git rev-parse origin/main`.
+
+`LVFI-ENG-005` é a última task de produto concluída e não pertence a
+`planned_tasks`. Não há task funcional sucessora autorizada; Método 2 não foi
+iniciado. Esta task não altera `apps/`, `packages/`, migrations ou roadmap
+funcional.
+
 ## Próxima sequência oficial
 
-- **Task ativa:** nenhuma.
+- **Task ativa:** `R21-GOV-003 — Referência Git não autorreferencial`.
 - **Próxima task funcional sucessora:** nenhuma; não inferir ID ou autorização.
-- **Ação imediata:** aguardar o Product Owner nomear e autorizar uma única task
-  posterior; nenhuma sucessora é inferida.
+- **Ação imediata:** concluir somente a correção de continuidade da R21-GOV-003;
+  após isso, aguardar o Product Owner nomear e autorizar uma única task posterior.

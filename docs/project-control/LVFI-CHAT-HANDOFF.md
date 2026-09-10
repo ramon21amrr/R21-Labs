@@ -4,13 +4,15 @@
 
 - Produto: plataforma auditável de dados, análise e precificação de futebol.
 - Product Owner e usuário inicial: Ramon.
-- `main` / `origin/main`: `6e620f778bed4871961425f639a9b4617e75964c`,
-  merge documental do PR #31 após a integração técnica do PR #30.
-- Última task de produto concluída: `LVFI-APP-013`, PR #30.
-- Última task institucional concluída: `R21-DEV-003`, PR #28.
-- Task ativa: nenhuma.
-- Estado: `LVFI-ENG-005` concluída, publicada, integrada e encerrada
-  institucionalmente pelos PRs #33 e #34.
+- Base estável da task ativa: `0b012291e78fb3b20eb887964ebc26d170e0a81c`.
+  Não representa o SHA corrente.
+- Estado corrente: resolver com `git rev-parse HEAD`, `git rev-parse main` e
+  `git rev-parse origin/main`; SHAs textuais são apenas evidência histórica.
+- Última task de produto concluída: `LVFI-ENG-005`, PR #33.
+- Última task institucional concluída: `R21-GOV-002`.
+- Task ativa: `R21-GOV-003 — Referência Git não autorreferencial`.
+- Estado: correção documental da continuidade, sem alteração de produto,
+  publicação ou sucessora autorizada.
 - Próxima task sucessora: nenhuma; não inferir ID ou autorização.
 
 Capacidades atuais: FastAPI/PostgreSQL, importação histórica revisada e
@@ -40,7 +42,8 @@ XLSM termina em `D45D3924` e suas 2.694 linhas passaram na revalidação estrutu
 1. Leia [estado](lvfi-current-state.md),
    [YAML](lvfi-project-state.yaml), [tasks](lvfi-task-registry.md) e
    [decisões](lvfi-decision-register.md).
-2. Confirme branch, HEAD, origin/main e árvore antes de agir.
+2. Confirme branch e árvore; leia `reference_commit` como base aprovada e
+   resolva HEAD, main e origin/main no runtime com `git rev-parse`.
 3. Use Graphify-first; o grafo foi reconstruído em 2026-09-07 no modo local
    `code-only` (316 nós/663 relações), mas continua sendo apenas um índice.
 4. Nunca modifique Método 1, schemas, hashes, fixtures ou contratos para esconder
@@ -49,14 +52,15 @@ XLSM termina em `D45D3924` e suas 2.694 linhas passaram na revalidação estrutu
 
 ## Ação única
 
-Aguardar o Product Owner nomear e autorizar uma única task posterior; nenhuma
-sucessora é inferida.
+Concluir somente R21-GOV-003; depois, aguardar o Product Owner nomear e
+autorizar uma única task posterior; nenhuma sucessora é inferida.
 
 ## Bootstrap
 
 ```text
-Trate Git e este handoff como fontes de verdade. Valide current-state, YAML,
-registry, branch e reference_commit. Não infira próxima task. Preserve Método 1
-e o Pricing Engine. Use Graphify como índice e confirme decisões nas fontes
-originais. Apresente uma ação por vez em linguagem simples.
+Trate Git e este handoff como fontes de verdade. Valide current-state, YAML e
+registry; trate reference_commit como base estável e resolva o estado corrente
+por git rev-parse. Não infira próxima task. Preserve Método 1 e o Pricing
+Engine. Use Graphify como índice e confirme decisões nas fontes originais.
+Apresente uma ação por vez em linguagem simples.
 ```

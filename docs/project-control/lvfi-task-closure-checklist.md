@@ -36,7 +36,10 @@ explicitamente pendentes.
       [handoff único](LVFI-CHAT-HANDOFF.md) regenerados.
 - [ ] Próxima task oficial ou próxima decisão definida pelo Product Owner.
 - [ ] Ação imediata registrada sem inferência.
-- [ ] Reference commit/branch atualizados para o merge integrado.
+- [ ] `reference_commit` preserva a base estável aprovada da task; ele não é
+      atualizado para o merge integrado da própria task. HEAD/main/origin/main
+      foram resolvidos por Git em runtime e o merge histórico foi registrado no
+      registry quando aplicável.
 - [ ] Estado final apresentado ao Product Owner e aceito.
 
 Encerramento técnico sem publicação é **tecnicamente pronto**. Merge sem controle
