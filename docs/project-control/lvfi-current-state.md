@@ -5,11 +5,12 @@
 - **Branch de referência:** `main`; o SHA corrente de `HEAD`, `main` e
   `origin/main` é sempre resolvido no runtime por Git, não registrado como valor
   corrente neste handoff.
-- **Última task institucional concluída:** `R21-GOV-003`
-- **Última task de produto concluída:** `LVFI-ENG-007 — Método 2 — Poisson ajustado`.
-- **Task ativa:** `LVFI-APP-014 — Catálogo e Configuração`, autorizada explicitamente pelo Product Owner em 2026-09-10.
-- **Estado da última task concluída:** `LVFI-ENG-007` publicada, integrada e
-  encerrada institucionalmente; nenhuma task sucessora foi autorizada.
+- **Último encerramento institucional:** `LVFI-APP-014 — Catálogo e
+  Configuração`.
+- **Última task de produto concluída:** `LVFI-APP-014 — Catálogo e
+  Configuração`.
+- **Task ativa:** nenhuma.
+- **Próxima task:** nenhuma autorizada pelo Product Owner.
 
 ## Capacidades disponíveis
 
@@ -25,6 +26,9 @@ fornece interfaces iniciais sem reproduzir matemática no navegador. A
 `LVFI-APP-013` acrescenta uma camada estatística comum somente leitura, com
 amostras configuráveis e evidência pública de valores, agregados, frequências,
 IDs e completude; a task está publicada e integrada.
+`LVFI-APP-014` acrescenta catálogo imutável, revisões de configuração
+append-only, precedência reproduzível e evidência por hash, sem acoplar a camada
+ao Pricing Engine.
 
 ## Versões e baseline
 
@@ -80,9 +84,9 @@ oportunidades, Value Tracker e deploy remoto não estão concluídos.
 ## LVFI-APP-014
 
 O Product Owner autorizou em 2026-09-10 a `LVFI-APP-014 — Catálogo e
-Configuração`. A task está ativa na branch
-`codex/lvfi-app-014-catalog-configuration`, baseada no SHA resolvido em runtime
-`57243a25a20f87750c08ac8e8cac3598d093505f`. O escopo é catálogo versionado de
+Configuração`. A entrega técnica foi registrada em `251662b3b7e309fd610e5e2f664263b51e3c7167`,
+publicada pelo PR #40 e integrada em `main` pelo merge commit
+`8fd593430cdf246932a2225e9f96d38916b05778`. O escopo foi catálogo versionado de
 parâmetros e linhas estatísticas autorizados, configuração global/por competição/
 por partida com precedência determinística `partida → competição → global`,
 histórico/evidência auditável, configuração efetiva reproduzível e integração
@@ -99,9 +103,8 @@ final não encontrou nenhum `codex_task_*` residual. O `actor` da revisão é
 declarado na operação local até que autenticação/autorização seja autorizada em
 escopo próprio.
 
-`LVFI-ENG-007` entregou e publicou o núcleo do Método 2. `LVFI-ENG-005`
-entregou exclusivamente o Método 3 — frequência observada; os mercados
-estatísticos adicionais serão experimentais até calibração.
+O encerramento institucional é registrado nesta sequência documental, sem
+autorizar ou iniciar task sucessora.
 
 ## LVFI-APP-012
 
@@ -240,6 +243,6 @@ integrada por merge commit `842eb955a367d3c1e3e2e45d61057ae8c298475a`.
 
 ## Próxima sequência oficial
 
-- **Task ativa:** `LVFI-APP-014 — Catálogo e Configuração`.
-- **Próxima ação:** aguardar autorização explícita de publicação; não executar
-  commit, push, PR ou merge sem ela.
+- **Task ativa:** nenhuma.
+- **Próxima ação:** não iniciar task posterior; aguardar identificação e
+  autorização explícitas do Product Owner.
