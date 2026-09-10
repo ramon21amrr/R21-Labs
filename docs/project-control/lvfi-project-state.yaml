@@ -1,22 +1,22 @@
 schema_version: "1.0"
 project: "R21 Labs"
 product: "Linha de Valor Football Intelligence"
-updated_at: "2026-09-09T21:25:00-03:00"
+updated_at: "2026-09-10T08:27:21-03:00"
 reference_commit: "0b012291e78fb3b20eb887964ebc26d170e0a81c"
 reference_branch: "main"
 reference_commit_semantics: "Base estável aprovada da task ativa; nunca substituir pelo HEAD ou merge produzido pela própria task."
 head_resolution_command: "git rev-parse HEAD"
 main_resolution_command: "git rev-parse main"
 origin_main_resolution_command: "git rev-parse origin/main"
-current_phase: "r21_gov_003_institutionally_closed"
-current_milestone: "r21_gov_003_published_integrated_and_closed"
+current_phase: "lvfi_eng_007_active_ready_for_publication"
+current_milestone: "lvfi_eng_007_implemented_gates_passed_pending_publication"
 last_completed_task: "R21-GOV-003"
 last_completed_governance_task: "R21-GOV-003"
 last_completed_product_task: "LVFI-ENG-005"
-next_official_task: null
-next_planned_task: null
-next_required_decision: "Product Owner deve nomear e autorizar uma única task posterior; nenhuma sucessora é inferida."
-immediate_action: "Aguardar o Product Owner nomear e autorizar uma única task posterior; nenhuma sucessora é inferida."
+next_official_task: "LVFI-ENG-007"
+next_planned_task: "LVFI-ENG-007"
+next_required_decision: "Autorizar a publicação de LVFI-ENG-007; nenhuma task sucessora está autorizada."
+immediate_action: "Aguardar autorização explícita de publicação de LVFI-ENG-007, sem iniciar task posterior."
 completed_tasks:
   - "LVFI-DISC-002"
   - "LVFI-ENG-001"
@@ -42,8 +42,10 @@ completed_tasks:
   - "LVFI-APP-013"
   - "LVFI-ENG-005"
   - "R21-GOV-003"
-active_tasks: []
-planned_tasks: []
+active_tasks:
+  - "LVFI-ENG-007"
+planned_tasks:
+  - "LVFI-ENG-007"
 approved_not_implemented_tasks: []
 blocked_tasks: []
 versions:
@@ -54,17 +56,21 @@ versions:
   pricing_engine: "1.0.1"
   method_one: "1.0.0"
   method_one_canonical_schema: 1
+  method_two: "1.0.0"
+  method_two_configuration_schema: 1
+  method_two_evidence_schema: 1
+  method_two_result_schema: 1
 test_baseline:
   api:
-    collected: 174
+    collected: 221
     statements: "100%"
     branches: "100%"
-    evidence: "../project-control/lvfi-current-state.md"
+    evidence: "../.r21-artifacts/quality/gates-20260910-082525-api.log"
   pricing_engine:
     passed: 554
     statements: "100%"
     branches: "100%"
-    evidence: "../products/linha-de-valor-football-intelligence/29-lvfi-eng-004-total-market-numerical-stability.md"
+    evidence: "../.r21-artifacts/quality/gates-20260910-081242-pricing.log"
 approved_program_decisions:
   - "Primeira versão local, para um administrador e sem Docker como requisito diário."
   - "Importação revisada por Excel/CSV e manutenção manual de partidas e estatísticas pela web."
@@ -73,8 +79,6 @@ approved_program_decisions:
   - "PDF-resumo programático gerado de snapshot aprovado e imutável."
   - "Corte após pelo menos 20 análises paralelas em cinco competições e aceite do Product Owner."
 pending_decisions:
-  - "Atribuição futura de ID e plano ao Método 2."
-  - "ID e autorização da primeira task sucessora para fundação operacional de dados."
   - "Tecnologia concreta e política de retenção do PDF-resumo."
   - "Implementação concreta da autenticação local de administrador."
   - "Detalhes de backup, restauração e objetivos de recuperação."

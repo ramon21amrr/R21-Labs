@@ -1,15 +1,16 @@
 # Estado atual do LVFI
 
-- **Atualizado em:** 2026-09-09
+- **Atualizado em:** 2026-09-10
 - **Referência-base estável registrada:** `0b012291e78fb3b20eb887964ebc26d170e0a81c`
 - **Branch de referência:** `main`; o SHA corrente de `HEAD`, `main` e
   `origin/main` é sempre resolvido no runtime por Git, não registrado como valor
   corrente neste handoff.
 - **Última task institucional concluída:** `R21-GOV-003`
 - **Última task de produto concluída:** `LVFI-ENG-005`
-- **Task ativa:** nenhuma
-- **Estado da última task:** `R21-GOV-003` publicada, integrada e encerrada
-  institucionalmente; sem alteração de produto.
+- **Task ativa:** `LVFI-ENG-007 — Método 2 — Poisson ajustado`, implementada,
+  validada e pronta para publicação; publicação não foi autorizada nesta sessão.
+- **Estado da última task concluída:** `R21-GOV-003` publicada, integrada e
+  encerrada institucionalmente; sem alteração de produto.
 
 ## Capacidades disponíveis
 
@@ -73,13 +74,13 @@ em `main` no merge `7819f3fc1a2c76d196c51584c0027cec65e7a67e`.
 
 ## Limitações vigentes
 
-Autenticação, Métodos 2 e 3, configurações, workflow
+Autenticação, configurações, workflow
 completo, Match Center, PDF, launcher, backup/restauração, odds automáticas,
 oportunidades, Value Tracker e deploy remoto não estão concluídos.
 
-O Método 2 permanece sem ID. `LVFI-ENG-005` entregou exclusivamente o Método 3
-— frequência observada; os mercados estatísticos adicionais serão
-experimentais até calibração.
+`LVFI-ENG-007` entregou o núcleo do Método 2 e aguarda publicação. `LVFI-ENG-005`
+entregou exclusivamente o Método 3 — frequência observada; os mercados
+estatísticos adicionais serão experimentais até calibração.
 
 ## LVFI-APP-012
 
@@ -181,9 +182,43 @@ publicada pelo PR #36 e integrada por merge commit
 registrado separadamente para manter o merge histórico fora de
 `reference_commit`.
 
+## LVFI-ENG-007
+
+O Product Owner autorizou em 2026-09-09 a `LVFI-ENG-007 — Método 2 — Poisson
+ajustado`. O runtime confirmou `HEAD`, `main` e `origin/main` em
+`3a9cc087a2ee0ef0ca771b3115131fbd50e5726b` antes da abertura da branch
+`codex/lvfi-eng-007-poisson-adjusted`. O Graphify existente era anterior ao
+HEAD e foi usado somente como índice parcial; as conclusões foram confirmadas
+por busca dirigida nos originais.
+
+O contrato sustentado é apenas o Método 2 conceitual de força relativa ao
+campeonato: força ofensiva, fragilidade defensiva adversária e expectativa como
+seus produtos com a média correspondente da liga; Poisson padrão converte uma
+expectativa `λ` em `P(X=k)=e^(-λ) × λ^k / k!`. A documentação da `APP-013`
+cobre amostras e agregados por time, mas não formaliza o agregado da liga para o
+Método 2. O fingerprint
+aprovado de `METODOS E CALCULOS.docx` é
+`A17074F736EE830F03DA5EB3ADAF12BBAA22DA0CFCCB3B3366FEA8AD0429FFD3`; o
+conteúdo privado não é versionado e o fingerprint não completa a semântica.
+
+O Product Owner fechou os seletores matemáticos: `N` é 5/10/15/20, séries
+parciais usam todos os jogos disponíveis, contexto e referência respeitam
+mandante/visitante ou geral, temporada é atual ou atual+passada, o cutoff aceita
+somente jogos concluídos anteriores, não há pesos/multiplicadores e o total soma
+os dois lambdas. A implementação `method_two_adjusted_poisson` `1.0.0` está no
+[documento 43](../products/linha-de-valor-football-intelligence/43-lvfi-eng-007-method-two-adjusted-poisson.md):
+o adaptador APP-013 centraliza a seleção de jogos, deriva produção e complemento
+em pares da mesma seleção, aplica `match_statistics.match_id IS NOT NULL` e
+registra N, contexto, temporadas, cutoff, ordenação, IDs, valores válidos e
+ausentes, universo da referência e hashes SHA-256. QA independente confirmou os
+quatro P0 após a correção. Método 1, Método 3, APP-013 público e Pricing Engine
+permanecem sem alteração. API: 221 testes, quatro skips condicionais e 100% de
+statements/branches; Pricing: 554 testes e 100%. A task aguarda somente
+autorização explícita de publicação.
+
 ## Próxima sequência oficial
 
-- **Task ativa:** nenhuma.
-- **Próxima task funcional sucessora:** nenhuma; não inferir ID ou autorização.
-- **Ação imediata:** aguardar o Product Owner nomear e autorizar uma única task
-  posterior; nenhuma sucessora é inferida.
+- **Task ativa:** `LVFI-ENG-007`, pronta para publicação e sem autorização de
+  publicação nesta sessão.
+- **Próxima ação:** aguardar autorização explícita de publicação, sem iniciar
+  task posterior.

@@ -16,6 +16,9 @@ from lvfi_api.application.statistics import StatisticsSampleService
 from lvfi_api.config import Settings
 from lvfi_api.domain.errors import InvalidQueryError, ResourceNotFoundError
 from lvfi_api.domain.statistics import (
+    CompetitionReference,
+    CompetitionReferenceRequest,
+    MethodTwoSampleRequest,
     StatisticsCandidate,
     StatisticsSampleRequest,
     StatisticsTarget,
@@ -116,6 +119,28 @@ class RepositoryFake:
         assert target == TARGET
         self.requests.append(sample_request)
         return self.candidates
+
+    async def list_method_two_candidates(
+        self, target: StatisticsTarget, sample_request: MethodTwoSampleRequest
+    ) -> tuple[StatisticsCandidate, ...]:
+        assert target == TARGET
+        return self.candidates
+
+    async def get_competition_reference(
+        self, target: StatisticsTarget, request: CompetitionReferenceRequest
+    ) -> CompetitionReference:
+        raise AssertionError((target, request))
+
+    async def list_method_two_candidate_pair(
+        self, target: StatisticsTarget, sample_request: MethodTwoSampleRequest
+    ) -> tuple[tuple[StatisticsCandidate, ...], tuple[StatisticsCandidate, ...]]:
+        assert target == TARGET
+        return self.candidates, self.candidates
+
+    async def get_competition_reference_pair(
+        self, target: StatisticsTarget, request: CompetitionReferenceRequest
+    ) -> tuple[CompetitionReference, CompetitionReference]:
+        raise AssertionError((target, request))
 
 
 @pytest.mark.asyncio
@@ -367,6 +392,20 @@ def candidate_row(
     }
 
 
+def method_two_row(
+    match_id: int, home_value: int | None, away_value: int | None
+) -> dict[str, object]:
+    return {
+        **target_row(),
+        "match_id": match_id,
+        "played_on": date(2026, 7, 9),
+        "away_team_id": 9,
+        "away_team_name": "Other",
+        "home_value": home_value,
+        "away_value": away_value,
+    }
+
+
 @pytest.mark.asyncio
 async def test_repository_uses_bounded_temporal_deterministic_revision_query() -> None:
     session = SessionFake(
@@ -404,6 +443,256 @@ async def test_repository_uses_bounded_temporal_deterministic_revision_query() -
     assert "statistic_revisions.id DESC" in rendered
     assert "availability" in rendered and "new_value" in rendered
     assert "method_one" not in rendered.lower()
+
+
+@pytest.mark.asyncio
+async def test_method_two_repository_completed_selector_and_inverse() -> None:
+    session = SessionFake(
+        [
+            MappingResult([target_row()]),
+            MappingResult([method_two_row(99, 2, 7), method_two_row(98, None, 4)]),
+            MappingResult([target_row()]),
+            MappingResult([method_two_row(99, 2, 7), method_two_row(98, None, 4)]),
+        ]
+    )
+    repository = SqlAlchemyStatisticsSampleRepository(ProviderFake(session))
+    service = StatisticsSampleService(repository)
+    team = await service.get_method_two_sample(
+        100,
+        MethodTwoSampleRequest(
+            team_id=7,
+            sample_size=5,
+            venue="home",
+            season_scope="current",
+            previous_season_id=None,
+            metric="fouls",
+            component="production",
+        ),
+    )
+    competition = await service.get_method_two_competition_reference(
+        100,
+        CompetitionReferenceRequest(
+            sample_size=5,
+            venue="overall",
+            season_scope="current",
+            previous_season_id=None,
+            metric="cards",
+            component="complement",
+        ),
+    )
+
+    assert team.valid_values == (2,)
+    assert team.unavailable_values[0].match_id == 98
+    assert competition.actual_match_count == 2
+    assert competition.candidate_match_ids == (99, 98)
+    assert competition.valid_values == (7, 2, 4)
+    assert competition.unavailable_values[0].match_id == 98
+    assert competition.completed_predicate == "match_statistics.match_id_is_not_null"
+    rendered = str(session.statements[1])
+    assert "match_statistics.match_id IS NOT NULL" in rendered
+    assert "matches.played_on <" in rendered
+    assert "matches.id <" in rendered
+    assert "matches.played_on DESC" in rendered
+    assert "matches.id ASC" in rendered
+
+
+@pytest.mark.asyncio
+async def test_method_two_repository_away_previous_and_failure() -> None:
+    session = SessionFake([MappingResult([method_two_row(99, 2, 7)])])
+    repository = SqlAlchemyStatisticsSampleRepository(ProviderFake(session))
+    candidates = await repository.list_method_two_candidates(
+        TARGET,
+        MethodTwoSampleRequest(
+            team_id=8,
+            sample_size=5,
+            venue="away",
+            season_scope="current_and_previous",
+            previous_season_id=9,
+            metric="cards",
+            component="complement",
+        ),
+    )
+    assert [(item.match_id, item.value) for item in candidates] == [(99, 2)]
+    rendered = str(session.statements[0])
+    assert "SELECT seasons.label" in rendered
+    assert "matches.away_team_id" in rendered
+    failing = SqlAlchemyStatisticsSampleRepository(
+        ProviderFake(SessionFake([], fail=True))
+    )
+    with pytest.raises(Exception, match="statistics query failed"):
+        await failing.list_method_two_candidates(
+            TARGET,
+            MethodTwoSampleRequest(
+                team_id=7,
+                sample_size=5,
+                venue="overall",
+                season_scope="current",
+                previous_season_id=None,
+                metric="fouls",
+                component="complement",
+            ),
+        )
+
+
+@pytest.mark.asyncio
+async def test_method_two_service_handles_missing_and_invalid_targets() -> None:
+    method_request = MethodTwoSampleRequest(
+        team_id=7,
+        sample_size=5,
+        venue="home",
+        season_scope="current",
+        previous_season_id=None,
+        metric="fouls",
+        component="production",
+    )
+    empty = await StatisticsSampleService(RepositoryFake()).get_method_two_sample(
+        100, method_request
+    )
+    assert empty.warnings == (
+        "no_candidate_matches",
+        "sample_partial",
+        "no_available_values",
+    )
+    full = await StatisticsSampleService(
+        RepositoryFake(tuple(candidate(match_id, 1) for match_id in range(5)))
+    ).get_method_two_sample(100, method_request)
+    assert "sample_partial" not in full.warnings
+    paired = await StatisticsSampleService(
+        RepositoryFake((candidate(99, 2), candidate(98, None, reason="missing")))
+    ).get_method_two_sample_pair(100, method_request)
+    assert paired[0].valid_values == paired[1].valid_values == (2,)
+    with pytest.raises(ResourceNotFoundError):
+        await StatisticsSampleService(
+            RepositoryFake(target=None)
+        ).get_method_two_sample_pair(100, method_request)
+    with pytest.raises(InvalidQueryError, match="participant"):
+        await StatisticsSampleService(RepositoryFake()).get_method_two_sample_pair(
+            100,
+            MethodTwoSampleRequest(
+                team_id=99,
+                sample_size=5,
+                venue="home",
+                season_scope="current",
+                previous_season_id=None,
+                metric="fouls",
+                component="production",
+            ),
+        )
+    with pytest.raises(ResourceNotFoundError):
+        await StatisticsSampleService(
+            RepositoryFake(target=None)
+        ).get_method_two_sample(100, method_request)
+    with pytest.raises(InvalidQueryError, match="participant"):
+        await StatisticsSampleService(RepositoryFake()).get_method_two_sample(
+            100,
+            MethodTwoSampleRequest(
+                team_id=99,
+                sample_size=5,
+                venue="home",
+                season_scope="current",
+                previous_season_id=None,
+                metric="fouls",
+                component="production",
+            ),
+        )
+    with pytest.raises(ResourceNotFoundError):
+        await StatisticsSampleService(
+            RepositoryFake(target=None)
+        ).get_method_two_competition_reference(
+            100,
+            CompetitionReferenceRequest(
+                sample_size=5,
+                venue="home",
+                season_scope="current",
+                previous_season_id=None,
+                metric="fouls",
+                component="production",
+            ),
+        )
+    with pytest.raises(ResourceNotFoundError):
+        await StatisticsSampleService(
+            RepositoryFake(target=None)
+        ).get_method_two_competition_reference_pair(
+            100,
+            CompetitionReferenceRequest(
+                sample_size=5,
+                venue="home",
+                season_scope="current",
+                previous_season_id=None,
+                metric="fouls",
+                component="production",
+            ),
+        )
+
+
+@pytest.mark.asyncio
+async def test_method_two_reference_reports_empty_completed_universe() -> None:
+    session = SessionFake([MappingResult([target_row()]), MappingResult([])])
+    reference = await StatisticsSampleService(
+        SqlAlchemyStatisticsSampleRepository(ProviderFake(session))
+    ).get_method_two_competition_reference(
+        100,
+        CompetitionReferenceRequest(
+            sample_size=5,
+            venue="home",
+            season_scope="current",
+            previous_season_id=None,
+            metric="fouls",
+            component="production",
+        ),
+    )
+    assert reference.actual_match_count == 0
+    assert reference.warnings == (
+        "no_candidate_matches",
+        "sample_partial",
+        "no_available_values",
+    )
+
+
+@pytest.mark.asyncio
+async def test_method_two_reference_does_not_mark_full_universe_partial() -> None:
+    session = SessionFake(
+        [MappingResult([method_two_row(match_id, 1, 2) for match_id in range(95, 100)])]
+    )
+    repository = SqlAlchemyStatisticsSampleRepository(ProviderFake(session))
+    full = await repository.get_competition_reference(
+        TARGET,
+        CompetitionReferenceRequest(
+            sample_size=5,
+            venue="home",
+            season_scope="current",
+            previous_season_id=None,
+            metric="fouls",
+            component="production",
+        ),
+    )
+    assert "sample_partial" not in full.warnings
+
+
+@pytest.mark.asyncio
+async def test_method_two_reference_pair_reuses_one_completed_universe() -> None:
+    session = SessionFake(
+        [
+            MappingResult([target_row()]),
+            MappingResult([method_two_row(99, 2, 7)]),
+        ]
+    )
+    production, complement = await StatisticsSampleService(
+        SqlAlchemyStatisticsSampleRepository(ProviderFake(session))
+    ).get_method_two_competition_reference_pair(
+        100,
+        CompetitionReferenceRequest(
+            sample_size=5,
+            venue="home",
+            season_scope="current",
+            previous_season_id=None,
+            metric="fouls",
+            component="production",
+        ),
+    )
+    assert production.valid_values == (2,)
+    assert complement.valid_values == (7,)
+    assert len(session.statements) == 2
 
 
 @pytest.mark.asyncio
@@ -503,8 +792,9 @@ async def test_repository_sanitizes_target_and_candidate_persistence_failures() 
 
 
 @pytest.mark.asyncio
-async def test_postgresql_goals_conceded_uses_the_opponent_value_for_each_venue(
-) -> None:
+async def test_postgresql_goals_conceded_uses_the_opponent_value_for_each_venue() -> (
+    None
+):
     """Verify the public semantic rather than only the generated SQL fields."""
     database_url = os.environ.get("LVFI_DATABASE_URL")
     if database_url is None or "127.0.0.1:55432" not in database_url:
