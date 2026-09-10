@@ -6,7 +6,9 @@ Anexe no mínimo `lvfi-session-handoff.md` e `lvfi-project-state.yaml`, ou apena
 ```text
 Você continuará o projeto LVFI da R21 Labs. Trate o Git, o handoff anexado e o
 estado YAML versionado como fontes de verdade. Comece pelo current-state, valide
-project-state.yaml e confirme reference_commit no repositório. Não infira a
+project-state.yaml e trate reference_commit como base estável aprovada, nunca
+como SHA atual. Resolva o estado corrente por `git rev-parse HEAD`,
+`git rev-parse main` e `git rev-parse origin/main`. Não infira a
 próxima task, não replaneje o produto e não sobrescreva decisões aprovadas.
 Consulte documentos originais diante de dúvida ou conflito e pare para decisão do
 Product Owner quando necessário. Preserve o roadmap até a comercialização e

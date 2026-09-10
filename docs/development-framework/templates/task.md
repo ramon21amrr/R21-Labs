@@ -28,6 +28,13 @@
 
 - [Dependência]
 
+## Referência Git
+
+- Base estável aprovada: [commit/ref de entrada]
+- Estado corrente: resolver em runtime com `git rev-parse HEAD`,
+  `git rev-parse main` e `git rev-parse origin/main`.
+- Regra: a base não é substituída pelo commit ou merge produzido por esta Task.
+
 ## Plano aprovado
 
 - Referência: [plano]

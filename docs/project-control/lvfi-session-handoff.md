@@ -9,34 +9,27 @@ versionados são a memória oficial. Antes de qualquer task, leia
 [task registry](lvfi-task-registry.md) e confirme a decisão mais recente no
 [registro](lvfi-decision-register.md). Não infira ID, task ou autorização.
 
-## Baseline integrado
+## Baseline e estado corrente
 
-- `main` / `origin/main`: `6e620f778bed4871961425f639a9b4617e75964c`,
-  merge documental do PR #31 após a integração técnica do PR #30.
-- Última task de produto concluída: `LVFI-APP-013`, commit
-  `4a28bd4d5b3e7b9cfb75c1a94834c078d5e55641`, PR #30 e merge
-  `4d9c481627c0447e30ef794cf8645b677441c027`.
-- Última task institucional concluída: `R21-DEV-003`, commit
-  `522bbbfb96e3c9835c5f1e43e8b295c605cc4650`, PR #28 e merge
-  `62b3791e55aca8df501943dfe7fef9f6a27e8bd2`.
+- Base estável da task ativa `R21-GOV-003`:
+  `0b012291e78fb3b20eb887964ebc26d170e0a81c`.
+- `reference_commit` significa exclusivamente essa base aprovada. Não deve ser
+  trocado pelo commit ou merge produzido pela própria task.
+- Resolva o estado corrente, em vez de reutilizar um SHA deste handoff, com
+  `git rev-parse HEAD`, `git rev-parse main` e `git rev-parse origin/main`.
+- Última task de produto concluída: `LVFI-ENG-005`, commit
+  `8f55ecdd62d71d4439a6c082b0571cbbd8f0f709`, PR #33 e merge histórico
+  `9998319b4fd9920fbe8bc54623155ea7352b0d84`.
+- Última task institucional concluída: `R21-GOV-002`.
 - Pricing Engine `1.0.1`; distribuição `1.1.1`; Método 1 `1.0.0`; schema 1.
-- APP-012 validou 116 testes de backend PostgreSQL isolado/100% de cobertura;
-  lint, typecheck, 9 testes e build do frontend, além do smoke frontend → API →
-  PostgreSQL isolado.
 
 ## Task ativa
 
-`LVFI-ENG-005 — Método 3 — frequência observada` foi publicada no commit
-`8f55ecdd62d71d4439a6c082b0571cbbd8f0f709`, PR #33, e integrada no merge
-`9998319b4fd9920fbe8bc54623155ea7352b0d84`. A `LVFI-APP-013 — Camada Estatística Comum` foi publicada pelo
-PR #30 e integrada pelo merge commit
-`4d9c481627c0447e30ef794cf8645b677441c027`. A entrega acrescenta endpoint e
-DTOs públicos reutilizáveis para amostras configuráveis, evidência, agregados,
-frequências e completude; preserva Pricing Engine, Método 1, APP-007 a APP-012 e
-o roadmap. O encerramento documental foi integrado pelo PR #31 no merge
-`6e620f778bed4871961425f639a9b4617e75964c`. O PostgreSQL isolado validou 174
-testes sem skips indevidos e 100% de statements/branches; Vitest (11), lint,
-typecheck, build e smoke passaram.
+`R21-GOV-003 — Referência Git não autorreferencial` está em execução, sem
+autorização de commit, push, PR ou merge. O escopo é somente continuidade:
+estabilizar a semântica de `reference_commit`, obter HEAD/main/origin/main em
+runtime e retirar ENG-005 de `planned_tasks`. Não iniciar Método 2 nem qualquer
+sucessora funcional.
 
 ## Plano aprovado
 
@@ -46,8 +39,8 @@ escanteios, chutes no gol, finalizações, cartões e faltas; Métodos 1, 2 e 3
 separados; configurações versionadas; aprovação e snapshot; Match Center;
 PDF-resumo; launcher, backup e restauração.
 
-Método 1 permanece congelado. Método 2 continua sem ID. `LVFI-ENG-005` está
-autorizada somente para Método 3. Mercados estatísticos adicionais serão
+Método 1 permanece congelado. Método 2 continua sem ID. `LVFI-ENG-005` foi
+concluída exclusivamente como Método 3. Mercados estatísticos adicionais serão
 experimentais até calibração. Jogadores, membros, deploy remoto, dados/odds
 automáticos, oportunidades e Value Tracker estão fora da primeira versão.
 
@@ -66,8 +59,8 @@ Ele foi reconstruído no gate final em modo local `code-only`, com 316 nós e 66
 relações; a consulta de código respondeu e a varredura dos artefatos principais
 não encontrou os padrões sensíveis verificados.
 
-Gate atual: ENG-005 publicada e integrada; docs PASS, API 190/100% e Pricing
-554/100%. Nenhuma task funcional sucessora está autorizada.
+Gate atual: R21-GOV-003 requer gates de documentação, diff/check, links, secrets
+e QA. Nenhuma task funcional sucessora está autorizada.
 
-**Ação imediata:** concluir o encerramento institucional documental e aguardar o
-Product Owner nomear e autorizar uma única task posterior.
+**Ação imediata:** concluir somente R21-GOV-003; depois, aguardar o Product
+Owner nomear e autorizar uma única task posterior.

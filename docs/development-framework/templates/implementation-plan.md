@@ -8,6 +8,12 @@
 
 [Elementos do repositório relevantes para a mudança]
 
+## Referência Git
+
+- Base estável aprovada: [commit/ref de entrada]
+- HEAD/main/origin/main: obter em runtime com `git rev-parse`; não registrar
+  esses valores como a referência-base nem regravar a base pelo próprio merge.
+
 ## Alterações propostas
 
 - [Alteração e resultado esperado]
