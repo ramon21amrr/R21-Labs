@@ -4,15 +4,16 @@
 
 - Produto: plataforma auditável de dados, análise e precificação de futebol.
 - Product Owner e usuário inicial: Ramon.
-- Base estável da task ativa: `0b012291e78fb3b20eb887964ebc26d170e0a81c`.
+- Base estável histórica da última task: `0b012291e78fb3b20eb887964ebc26d170e0a81c`.
   Não representa o SHA corrente.
 - Estado corrente: resolver com `git rev-parse HEAD`, `git rev-parse main` e
   `git rev-parse origin/main`; SHAs textuais são apenas evidência histórica.
 - Última task de produto concluída: `LVFI-ENG-005`, PR #33.
-- Última task institucional concluída: `R21-GOV-002`.
-- Task ativa: `R21-GOV-003 — Referência Git não autorreferencial`.
-- Estado: correção documental da continuidade, sem alteração de produto,
-  publicação ou sucessora autorizada.
+- Última task institucional concluída: `R21-GOV-003`, PR #36 e merge histórico
+  `c9726fae50bb3b355800e83d1ad9fb8f77216536`.
+- Task ativa: nenhuma.
+- Estado: continuidade corrigida e R21-GOV-003 encerrada institucionalmente, sem
+  alteração de produto ou sucessora autorizada.
 - Próxima task sucessora: nenhuma; não inferir ID ou autorização.
 
 Capacidades atuais: FastAPI/PostgreSQL, importação histórica revisada e
@@ -52,8 +53,8 @@ XLSM termina em `D45D3924` e suas 2.694 linhas passaram na revalidação estrutu
 
 ## Ação única
 
-Concluir somente R21-GOV-003; depois, aguardar o Product Owner nomear e
-autorizar uma única task posterior; nenhuma sucessora é inferida.
+Aguardar o Product Owner nomear e autorizar uma única task posterior; nenhuma
+sucessora é inferida.
 
 ## Bootstrap
 
