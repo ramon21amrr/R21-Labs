@@ -7,7 +7,7 @@
   corrente neste handoff.
 - **Última task institucional concluída:** `R21-GOV-003`
 - **Última task de produto concluída:** `LVFI-ENG-007 — Método 2 — Poisson ajustado`.
-- **Task ativa:** nenhuma.
+- **Task ativa:** `LVFI-APP-014 — Catálogo e Configuração`, autorizada explicitamente pelo Product Owner em 2026-09-10.
 - **Estado da última task concluída:** `LVFI-ENG-007` publicada, integrada e
   encerrada institucionalmente; nenhuma task sucessora foi autorizada.
 
@@ -76,6 +76,28 @@ em `main` no merge `7819f3fc1a2c76d196c51584c0027cec65e7a67e`.
 Autenticação, configurações, workflow
 completo, Match Center, PDF, launcher, backup/restauração, odds automáticas,
 oportunidades, Value Tracker e deploy remoto não estão concluídos.
+
+## LVFI-APP-014
+
+O Product Owner autorizou em 2026-09-10 a `LVFI-APP-014 — Catálogo e
+Configuração`. A task está ativa na branch
+`codex/lvfi-app-014-catalog-configuration`, baseada no SHA resolvido em runtime
+`57243a25a20f87750c08ac8e8cac3598d093505f`. O escopo é catálogo versionado de
+parâmetros e linhas estatísticas autorizados, configuração global/por competição/
+por partida com precedência determinística `partida → competição → global`,
+histórico/evidência auditável, configuração efetiva reproduzível e integração
+aditiva mínima API/backend/web. Workflow de aprovação/snapshot, Match Center,
+PDF, serviços externos de apostas ou recomendações permanecem fora de escopo.
+Métodos 1, 2 e 3 e o Pricing Engine devem permanecer inalterados.
+
+A implementação e os gates estão concluídos: API com 234 testes e 100% de
+cobertura, Pricing Engine com 554 testes e 100%, frontend com 14 testes, lint,
+typecheck e build. PostgreSQL 16 isolado aplicou a migration `20260910_08`; o
+smoke HTTP, precedência, append-only e oito gravações concorrentes provaram uma
+única cadeia linear. O banco `codex_task_lvfi_app_014` foi removido e a consulta
+final não encontrou nenhum `codex_task_*` residual. O `actor` da revisão é
+declarado na operação local até que autenticação/autorização seja autorizada em
+escopo próprio.
 
 `LVFI-ENG-007` entregou e publicou o núcleo do Método 2. `LVFI-ENG-005`
 entregou exclusivamente o Método 3 — frequência observada; os mercados
@@ -218,6 +240,6 @@ integrada por merge commit `842eb955a367d3c1e3e2e45d61057ae8c298475a`.
 
 ## Próxima sequência oficial
 
-- **Task ativa:** nenhuma.
-- **Próxima ação:** aguardar identificação e autorização explícitas do Product
-  Owner para qualquer task posterior.
+- **Task ativa:** `LVFI-APP-014 — Catálogo e Configuração`.
+- **Próxima ação:** aguardar autorização explícita de publicação; não executar
+  commit, push, PR ou merge sem ela.

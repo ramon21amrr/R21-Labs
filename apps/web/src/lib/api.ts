@@ -1,4 +1,4 @@
-import type { FutureMatch, FutureMatchDraft, ImportPreview, MarketPricing, MarketReferenceObservation, Match, MethodOneSample, ModelReferenceComparison, Page, PricingExecution, StatisticRevision, StatisticRevisionDraft, StatisticsSample, StatisticsSampleRequest } from "@/lib/contracts";
+import type { ConfigurationCatalog, ConfigurationRevision, ConfigurationRevisionDraft, EffectiveConfiguration, FutureMatch, FutureMatchDraft, ImportPreview, MarketPricing, MarketReferenceObservation, Match, MethodOneSample, ModelReferenceComparison, Page, PricingExecution, StatisticRevision, StatisticRevisionDraft, StatisticsSample, StatisticsSampleRequest } from "@/lib/contracts";
 
 const defaultApiUrl = "/api";
 
@@ -97,3 +97,14 @@ export const createFutureMatch = (payload: FutureMatchDraft) =>
   request<FutureMatch>("/administration/matches", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
 export const createStatisticRevision = (matchId: number, payload: StatisticRevisionDraft) =>
   request<StatisticRevision>(`/administration/matches/${matchId}/statistic-revisions`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+
+export const getConfigurationCatalog = () =>
+  request<ConfigurationCatalog>("/configuration-catalogs/lvfi-mvp/1.0.0");
+export const createConfigurationRevision = (payload: ConfigurationRevisionDraft) =>
+  request<ConfigurationRevision>("/administration/configuration-revisions", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+export const getEffectiveConfiguration = (matchId: number) =>
+  request<EffectiveConfiguration>(`/matches/${matchId}/configuration/effective`);

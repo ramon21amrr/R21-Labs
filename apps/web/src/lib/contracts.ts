@@ -240,3 +240,70 @@ export interface StatisticsSample {
   achievement_rate: number | null;
   warnings: string[];
 }
+
+export type ConfigurationScope = "global" | "competition" | "match";
+export type ConfigurationValue = string | number;
+
+export interface ConfigurationParameter {
+  code: string;
+  allowed_values: ConfigurationValue[];
+}
+
+export interface ProbabilityBand {
+  code: string;
+  lower_exclusive?: number;
+  lower_inclusive?: number;
+  upper_exclusive?: number;
+  upper_inclusive?: number;
+}
+
+export interface ConfigurationCatalogPayload {
+  catalog_id: string;
+  schema_version: number;
+  statistical_parameters: ConfigurationParameter[];
+  statistical_lines: {
+    handicap_line_quarters: number[];
+    total_line_quarters: number[];
+  };
+  probability_bands: ProbabilityBand[];
+}
+
+export interface ConfigurationCatalog {
+  catalog_id: string;
+  schema_version: number;
+  payload: ConfigurationCatalogPayload;
+  content_hash: string;
+  created_at: string;
+}
+
+export interface ConfigurationRevisionDraft {
+  catalog_id: string;
+  scope: ConfigurationScope;
+  parameter_code: string;
+  value: ConfigurationValue;
+  competition_id?: number | null;
+  match_id?: number | null;
+  actor: string;
+  reason: string;
+}
+
+export interface ConfigurationRevision extends Required<Omit<ConfigurationRevisionDraft, "competition_id" | "match_id">> {
+  revision_id: number;
+  catalog_hash: string;
+  competition_id: number | null;
+  match_id: number | null;
+  replaces_revision_id: number | null;
+  revision_hash: string;
+  created_at: string;
+}
+
+export interface EffectiveConfiguration {
+  match_id: number;
+  competition_id: number;
+  catalog_id: string;
+  catalog_hash: string;
+  values: Record<string, ConfigurationValue>;
+  selected_revisions: ConfigurationRevision[];
+  discarded_revisions: ConfigurationRevision[];
+  effective_hash: string;
+}

@@ -301,6 +301,81 @@ statistic_revisions = Table(
     ),
 )
 
+# APP-014 stores the authorized selector/line vocabulary separately from each
+# local operator decision.  Neither table participates in pricing execution;
+# the ledger only supplies reproducible application configuration evidence.
+configuration_catalogs = Table(
+    "configuration_catalogs",
+    metadata,
+    Column("catalog_id", String(64), primary_key=True),
+    Column("schema_version", Integer, nullable=False),
+    Column("payload", JSON, nullable=False),
+    Column("content_hash", String(64), nullable=False),
+    Column(
+        "created_at", DateTime(timezone=True), nullable=False, server_default=func.now()
+    ),
+    CheckConstraint("schema_version = 1", name="configuration_catalog_schema_version"),
+    CheckConstraint(
+        "length(content_hash) = 64", name="configuration_catalog_content_hash_length"
+    ),
+)
+
+configuration_revisions = Table(
+    "configuration_revisions",
+    metadata,
+    Column("id", BigInteger, primary_key=True),
+    Column(
+        "catalog_id",
+        String(64),
+        ForeignKey("configuration_catalogs.catalog_id", ondelete="RESTRICT"),
+        nullable=False,
+    ),
+    Column("catalog_hash", String(64), nullable=False),
+    Column("scope", String(16), nullable=False),
+    Column("parameter_code", String(64), nullable=False),
+    Column("value", JSON, nullable=False),
+    Column(
+        "competition_id",
+        BigInteger,
+        ForeignKey("competitions.id", ondelete="RESTRICT"),
+    ),
+    Column("match_id", BigInteger, ForeignKey("matches.id", ondelete="RESTRICT")),
+    Column("actor", String(128), nullable=False),
+    Column("reason", Text, nullable=False),
+    Column(
+        "replaces_revision_id",
+        BigInteger,
+        ForeignKey("configuration_revisions.id", ondelete="RESTRICT"),
+    ),
+    Column("revision_hash", String(64), nullable=False),
+    Column(
+        "created_at", DateTime(timezone=True), nullable=False, server_default=func.now()
+    ),
+    CheckConstraint(
+        "(scope = 'global' AND competition_id IS NULL AND match_id IS NULL) OR "
+        "(scope = 'competition' AND competition_id IS NOT NULL AND match_id IS NULL) OR "
+        "(scope = 'match' AND match_id IS NOT NULL AND competition_id IS NULL)",
+        name="configuration_revision_scope_shape",
+    ),
+    CheckConstraint(
+        "length(revision_hash) = 64", name="configuration_revision_hash_length"
+    ),
+    CheckConstraint(
+        "length(catalog_hash) = 64", name="configuration_revision_catalog_hash_length"
+    ),
+)
+
+Index(
+    "ix_configuration_revisions_resolution",
+    configuration_revisions.c.catalog_id,
+    configuration_revisions.c.parameter_code,
+    configuration_revisions.c.scope,
+    configuration_revisions.c.competition_id,
+    configuration_revisions.c.match_id,
+    configuration_revisions.c.created_at.desc(),
+    configuration_revisions.c.id.desc(),
+)
+
 Index(
     "ix_statistic_revisions_match_field_created",
     statistic_revisions.c.match_id,
