@@ -6,11 +6,10 @@
   `origin/main` é sempre resolvido no runtime por Git, não registrado como valor
   corrente neste handoff.
 - **Última task institucional concluída:** `R21-GOV-003`
-- **Última task de produto concluída:** `LVFI-ENG-005`
-- **Task ativa:** `LVFI-ENG-007 — Método 2 — Poisson ajustado`, implementada,
-  validada e pronta para publicação; publicação não foi autorizada nesta sessão.
-- **Estado da última task concluída:** `R21-GOV-003` publicada, integrada e
-  encerrada institucionalmente; sem alteração de produto.
+- **Última task de produto concluída:** `LVFI-ENG-007 — Método 2 — Poisson ajustado`.
+- **Task ativa:** nenhuma.
+- **Estado da última task concluída:** `LVFI-ENG-007` publicada, integrada e
+  encerrada institucionalmente; nenhuma task sucessora foi autorizada.
 
 ## Capacidades disponíveis
 
@@ -78,7 +77,7 @@ Autenticação, configurações, workflow
 completo, Match Center, PDF, launcher, backup/restauração, odds automáticas,
 oportunidades, Value Tracker e deploy remoto não estão concluídos.
 
-`LVFI-ENG-007` entregou o núcleo do Método 2 e aguarda publicação. `LVFI-ENG-005`
+`LVFI-ENG-007` entregou e publicou o núcleo do Método 2. `LVFI-ENG-005`
 entregou exclusivamente o Método 3 — frequência observada; os mercados
 estatísticos adicionais serão experimentais até calibração.
 
@@ -213,12 +212,12 @@ registra N, contexto, temporadas, cutoff, ordenação, IDs, valores válidos e
 ausentes, universo da referência e hashes SHA-256. QA independente confirmou os
 quatro P0 após a correção. Método 1, Método 3, APP-013 público e Pricing Engine
 permanecem sem alteração. API: 221 testes, quatro skips condicionais e 100% de
-statements/branches; Pricing: 554 testes e 100%. A task aguarda somente
-autorização explícita de publicação.
+statements/branches; Pricing: 554 testes e 100%. A entrega técnica foi registrada
+no commit `e4b43b4f7926acef309c16a045f057745f218066`, publicada pelo PR #38 e
+integrada por merge commit `842eb955a367d3c1e3e2e45d61057ae8c298475a`.
 
 ## Próxima sequência oficial
 
-- **Task ativa:** `LVFI-ENG-007`, pronta para publicação e sem autorização de
-  publicação nesta sessão.
-- **Próxima ação:** aguardar autorização explícita de publicação, sem iniciar
-  task posterior.
+- **Task ativa:** nenhuma.
+- **Próxima ação:** aguardar identificação e autorização explícitas do Product
+  Owner para qualquer task posterior.

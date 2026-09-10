@@ -17,22 +17,23 @@ versionados são a memória oficial. Antes de qualquer task, leia
   trocado pelo commit ou merge produzido pela própria task.
 - Resolva o estado corrente, em vez de reutilizar um SHA deste handoff, com
   `git rev-parse HEAD`, `git rev-parse main` e `git rev-parse origin/main`.
-- Última task de produto concluída: `LVFI-ENG-005`, commit
-  `8f55ecdd62d71d4439a6c082b0571cbbd8f0f709`, PR #33 e merge histórico
-  `9998319b4fd9920fbe8bc54623155ea7352b0d84`.
+- Última task de produto concluída: `LVFI-ENG-007`, commit
+  `e4b43b4f7926acef309c16a045f057745f218066`, PR #38 e merge histórico
+  `842eb955a367d3c1e3e2e45d61057ae8c298475a`.
 - Última task institucional concluída: `R21-GOV-003`, commit
   `39a1122b34ff467924962ec4320c0d77c065d0df`, PR #36 e merge histórico
   `c9726fae50bb3b355800e83d1ad9fb8f77216536`.
 - Pricing Engine `1.0.1`; distribuição `1.1.1`; Método 1 `1.0.0`; schema 1.
 
-## Task ativa
+## Última entrega publicada
 
-`LVFI-ENG-007 — Método 2 — Poisson ajustado` está ativa na branch
-`codex/lvfi-eng-007-poisson-adjusted`, implementada e pronta para publicação.
+`LVFI-ENG-007 — Método 2 — Poisson ajustado` foi publicada e integrada pela
+branch `codex/lvfi-eng-007-poisson-adjusted`, commit `e4b43b4f`, PR #38 e merge
+commit `842eb955`. Não há task ativa.
 O adaptador concreto APP-013 compartilha a seleção de jogos por pares de
 produção/complemento, registra evidência e usa o predicado canônico de
 concluída. Método 1, Método 3, APP-013 público e Pricing Engine seguem
-intactos. Não houve autorização de publicação.
+intactos. A autorização de publicação e encerramento foi executada.
 
 ## Plano aprovado
 
@@ -65,8 +66,8 @@ não encontrou os padrões sensíveis verificados.
 
 Gates atuais: API 221 testes, 4 skips condicionais e 100% de statements/branches
 (`gates-20260910-082525-api.log`); Pricing 554 testes e 100%
-(`gates-20260910-081242-pricing.log`); QA independente PASS após correção do
-seletor compartilhado.
+(`gates-20260910-081242-pricing.log`); docs, Ruff e mypy de escopo e QA
+independente PASS após correção do seletor compartilhado.
 
-**Ação imediata:** aguardar autorização explícita de publicação, sem iniciar
-task posterior.
+**Ação imediata:** não iniciar task posterior; aguardar identificação e
+autorização explícitas do Product Owner.
