@@ -8,16 +8,17 @@
   Não representa o SHA corrente.
 - Estado corrente: resolver com `git rev-parse HEAD`, `git rev-parse main` e
   `git rev-parse origin/main`; SHAs textuais são apenas evidência histórica.
-- Última task de produto concluída: `LVFI-ENG-005`, PR #33.
+- Última task de produto concluída: `LVFI-ENG-007`, PR #38 e merge histórico
+  `842eb955a367d3c1e3e2e45d61057ae8c298475a`.
 - Última task institucional concluída: `R21-GOV-003`, PR #36 e merge histórico
   `c9726fae50bb3b355800e83d1ad9fb8f77216536`.
-- Task ativa: `LVFI-ENG-007 — Método 2 — Poisson ajustado`, implementada e
-  pronta para publicação, sem autorização de publicação nesta sessão.
+- Task ativa: nenhuma; `LVFI-ENG-007 — Método 2 — Poisson ajustado` foi
+  publicada pelo PR #38 e integrada pelo merge `842eb955a367d3c1e3e2e45d61057ae8c298475a`.
 - Estado: adaptador interno APP-013, evidência auditável, predicado canônico de
   concluída e complementos reais foram validados; Método 1, Método 3 e Pricing
   Engine permanecem preservados.
-- Próxima ação: aguardar autorização explícita de publicação; não iniciar task
-  sucessora.
+- Próxima ação: não iniciar task sucessora; aguardar identificação e autorização
+  explícitas do Product Owner.
 
 Capacidades atuais: FastAPI/PostgreSQL, importação histórica revisada e
 idempotente, partidas futuras, revisões estatísticas append-only, consultas,
@@ -38,7 +39,7 @@ aprovação e snapshots; Match Center; PDF-resumo; launcher e recuperação.
 Jogadores, membros, publicação remota, fornecedores automáticos, oportunidades e
 Value Tracker permanecem fora da primeira versão. Método 2 é `LVFI-ENG-007`,
 implementado como `method_two_adjusted_poisson` `1.0.0`, com schemas 1 e
-evidência SHA-256; sua publicação ainda requer autorização explícita.
+evidência SHA-256; sua publicação foi autorizada e concluída pelo PR #38.
 `LVFI-ENG-005` é Método 3 e está encerrada institucionalmente. Os arquivos privados não
 estão no Git; seus fingerprints estão no documento 39. A revisão corrigida do
 XLSM termina em `D45D3924` e suas 2.694 linhas passaram na revalidação estrutural.
@@ -58,7 +59,8 @@ XLSM termina em `D45D3924` e suas 2.694 linhas passaram na revalidação estrutu
 
 ## Ação única
 
-Aguardar autorização explícita de publicação da `LVFI-ENG-007`.
+Não iniciar task posterior até identificação e autorização explícitas do Product
+Owner.
 
 ## Bootstrap
 
