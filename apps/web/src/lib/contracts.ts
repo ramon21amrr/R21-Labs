@@ -307,3 +307,47 @@ export interface EffectiveConfiguration {
   discarded_revisions: ConfigurationRevision[];
   effective_hash: string;
 }
+
+export type AnalysisStatus = "draft" | "calculated" | "approved";
+export type AnalysisEventType = "calculated" | "reviewed" | "approved";
+
+/** Immutable audit event returned by the APP-015 workflow API. */
+export interface AnalysisEvent {
+  event_id: number;
+  event_type: AnalysisEventType;
+  execution_id: string | null;
+  actor: string | null;
+  reason: string | null;
+  created_at: string;
+}
+
+export interface Analysis {
+  analysis_id: string;
+  match_id: number;
+  status: AnalysisStatus;
+  created_at: string;
+  events: AnalysisEvent[];
+}
+
+export interface AnalysisHistory {
+  analyses: Analysis[];
+}
+
+export interface WorkflowDecisionDraft {
+  actor: string;
+  reason: string;
+}
+
+/** The payload is frozen by the API and intentionally remains opaque to the UI. */
+export interface AnalysisSnapshot {
+  snapshot_id: string;
+  analysis_id: string;
+  payload: Record<string, unknown>;
+  snapshot_hash: string;
+  created_at: string;
+}
+
+export interface AnalysisApproval {
+  analysis: Analysis;
+  snapshot: AnalysisSnapshot;
+}

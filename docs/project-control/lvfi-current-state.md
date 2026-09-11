@@ -9,8 +9,9 @@
   Configuração`.
 - **Última task de produto concluída:** `LVFI-APP-014 — Catálogo e
   Configuração`.
-- **Task ativa:** nenhuma.
-- **Próxima task:** nenhuma autorizada pelo Product Owner.
+- **Task ativa:** `LVFI-APP-015 — Workflow de Revisão, Aprovação e Snapshot`.
+- **Próxima task:** `LVFI-APP-015`, autorizada explicitamente pelo Product Owner
+  em 2026-09-10; nenhuma task posterior está autorizada.
 
 ## Capacidades disponíveis
 
@@ -74,6 +75,18 @@ O Product Owner confirmou a correção da fonte XLSM, aceitou a entrega e autori
 a publicação. A unidade documental foi registrada no commit
 `1134f683f414cb16af0880386c078ea1d0c3c95c`, publicada pelo PR #24 e integrada
 em `main` no merge `7819f3fc1a2c76d196c51584c0027cec65e7a67e`.
+
+## LVFI-APP-015 ativa
+
+O Product Owner autorizou em 2026-09-10 a `LVFI-APP-015 — Workflow de
+Revisão, Aprovação e Snapshot`, sem commit, push, PR ou merge. O escopo é
+somente o workflow auditável de análise nos estados `rascunho`, `calculada` e
+`aprovada`, com revisão anterior à aprovação e snapshot imutável criado somente
+após aprovação. O snapshot deve conter dados, configuração efetiva, versões dos
+motores, resultados, fingerprints, amostras/IDs e warnings necessários para
+reprodução independente do estado mutável posterior. Métodos 1/2/3, Pricing
+Engine, APP-014, Match Center, PDF, autenticação/múltiplos usuários, apostas,
+staking e integrações externas permanecem fora de escopo.
 
 ## Limitações vigentes
 

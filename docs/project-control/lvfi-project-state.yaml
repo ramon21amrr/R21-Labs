@@ -1,22 +1,22 @@
 schema_version: "1.0"
 project: "R21 Labs"
 product: "Linha de Valor Football Intelligence"
-updated_at: "2026-09-10T15:30:00-03:00"
+updated_at: "2026-09-10T16:00:00-03:00"
 reference_commit: "0b012291e78fb3b20eb887964ebc26d170e0a81c"
 reference_branch: "main"
 reference_commit_semantics: "Base estável aprovada da task ativa; nunca substituir pelo HEAD ou merge produzido pela própria task."
 head_resolution_command: "git rev-parse HEAD"
 main_resolution_command: "git rev-parse main"
 origin_main_resolution_command: "git rev-parse origin/main"
-current_phase: "lvfi_no_active_task"
-current_milestone: "lvfi_app_014_catalog_and_configuration_closed"
+current_phase: "lvfi_app_015_workflow_review_approval_snapshot_active"
+current_milestone: "lvfi_app_015_workflow_review_approval_snapshot"
 last_completed_task: "LVFI-APP-014"
 last_completed_governance_task: "R21-GOV-003"
 last_completed_product_task: "LVFI-APP-014"
-next_official_task: null
-next_planned_task: null
-next_required_decision: "Product Owner deve identificar e autorizar a próxima task; não inferir sucessora."
-immediate_action: "Não iniciar task posterior; aguardar identificação e autorização explícitas do Product Owner."
+next_official_task: "LVFI-APP-015"
+next_planned_task: "LVFI-APP-015"
+next_required_decision: null
+immediate_action: "Executar somente LVFI-APP-015: workflow auditável de revisão, aprovação e snapshot; não iniciar task posterior."
 completed_tasks:
   - "LVFI-DISC-002"
   - "LVFI-ENG-001"
@@ -44,9 +44,12 @@ completed_tasks:
   - "R21-GOV-003"
   - "LVFI-ENG-007"
   - "LVFI-APP-014"
-active_tasks: []
-planned_tasks: []
-approved_not_implemented_tasks: []
+active_tasks:
+  - "LVFI-APP-015"
+planned_tasks:
+  - "LVFI-APP-015"
+approved_not_implemented_tasks:
+  - "LVFI-APP-015"
 blocked_tasks: []
 versions:
   api: "0.1.0"

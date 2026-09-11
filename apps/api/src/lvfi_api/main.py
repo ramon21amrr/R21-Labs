@@ -63,6 +63,9 @@ def create_app(
         ResourceNotFoundError,
         StatisticsNotFoundError,
     )
+    from lvfi_api.presentation.analysis_workflow_routes import (
+        router as analysis_workflow_router,
+    )
     from lvfi_api.presentation.configuration_routes import (
         administration_router as configuration_administration_router,
     )
@@ -122,6 +125,7 @@ def create_app(
     app.include_router(configuration_catalog_router)
     app.include_router(configuration_administration_router)
     app.include_router(configuration_match_router)
+    app.include_router(analysis_workflow_router)
     app.include_router(operational_data_router)
     app.include_router(pricing_execution_router)
     app.include_router(pricing_execution_reproduction_router)

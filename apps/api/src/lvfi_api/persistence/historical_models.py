@@ -288,7 +288,8 @@ statistic_revisions = Table(
         "created_at", DateTime(timezone=True), nullable=False, server_default=func.now()
     ),
     CheckConstraint(
-        "availability IN ('available', 'missing')", name="statistic_revision_availability"
+        "availability IN ('available', 'missing')",
+        name="statistic_revision_availability",
     ),
     CheckConstraint(
         "source IN ('manual_correction', 'controlled_import')",
@@ -374,6 +375,85 @@ Index(
     configuration_revisions.c.match_id,
     configuration_revisions.c.created_at.desc(),
     configuration_revisions.c.id.desc(),
+)
+
+# APP-015 deliberately models a workflow as an immutable root record plus an
+# event ledger.  The visible state is derived from the ledger; a draft therefore
+# needs no mutable status column and PostgreSQL can prohibit updates entirely.
+analysis_workflow_analyses = Table(
+    "analysis_workflow_analyses",
+    metadata,
+    Column("analysis_id", String(36), primary_key=True),
+    Column(
+        "match_id",
+        BigInteger,
+        ForeignKey("matches.id", ondelete="RESTRICT"),
+        nullable=False,
+    ),
+    Column(
+        "created_at", DateTime(timezone=True), nullable=False, server_default=func.now()
+    ),
+)
+
+analysis_workflow_events = Table(
+    "analysis_workflow_events",
+    metadata,
+    Column("id", BigInteger, primary_key=True),
+    Column(
+        "analysis_id",
+        String(36),
+        ForeignKey("analysis_workflow_analyses.analysis_id", ondelete="RESTRICT"),
+        nullable=False,
+    ),
+    Column("event_type", String(16), nullable=False),
+    Column(
+        "execution_id",
+        String(36),
+        ForeignKey("pricing_executions.execution_id", ondelete="RESTRICT"),
+    ),
+    Column("actor", String(128)),
+    Column("reason", Text),
+    Column(
+        "created_at", DateTime(timezone=True), nullable=False, server_default=func.now()
+    ),
+    CheckConstraint(
+        "(event_type = 'calculated' AND execution_id IS NOT NULL AND actor IS NULL AND reason IS NULL) OR "
+        "(event_type = 'reviewed' AND execution_id IS NULL AND actor IS NOT NULL AND reason IS NOT NULL) OR "
+        "(event_type = 'approved' AND execution_id IS NULL AND actor IS NOT NULL AND reason IS NOT NULL)",
+        name="analysis_workflow_event_shape",
+    ),
+)
+
+analysis_workflow_snapshots = Table(
+    "analysis_workflow_snapshots",
+    metadata,
+    Column("snapshot_id", String(36), primary_key=True),
+    Column(
+        "analysis_id",
+        String(36),
+        ForeignKey("analysis_workflow_analyses.analysis_id", ondelete="RESTRICT"),
+        nullable=False,
+        unique=True,
+    ),
+    Column("payload", JSON, nullable=False),
+    Column("snapshot_hash", String(64), nullable=False),
+    Column(
+        "created_at", DateTime(timezone=True), nullable=False, server_default=func.now()
+    ),
+    CheckConstraint("length(snapshot_hash) = 64", name="analysis_snapshot_hash_length"),
+)
+
+Index(
+    "ix_analysis_workflow_analyses_match_created_id",
+    analysis_workflow_analyses.c.match_id,
+    analysis_workflow_analyses.c.created_at.asc(),
+    analysis_workflow_analyses.c.analysis_id.asc(),
+)
+Index(
+    "ix_analysis_workflow_events_analysis_created_id",
+    analysis_workflow_events.c.analysis_id,
+    analysis_workflow_events.c.created_at.asc(),
+    analysis_workflow_events.c.id.asc(),
 )
 
 Index(
