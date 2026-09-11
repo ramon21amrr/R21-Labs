@@ -5,13 +5,13 @@
 - **Branch de referência:** `main`; o SHA corrente de `HEAD`, `main` e
   `origin/main` é sempre resolvido no runtime por Git, não registrado como valor
   corrente neste handoff.
-- **Último encerramento institucional:** `LVFI-APP-014 — Catálogo e
-  Configuração`.
-- **Última task de produto concluída:** `LVFI-APP-014 — Catálogo e
-  Configuração`.
-- **Task ativa:** `LVFI-APP-015 — Workflow de Revisão, Aprovação e Snapshot`.
-- **Próxima task:** `LVFI-APP-015`, autorizada explicitamente pelo Product Owner
-  em 2026-09-10; nenhuma task posterior está autorizada.
+- **Último encerramento institucional:** `LVFI-APP-015 — Workflow de Revisão,
+  Aprovação e Snapshot`.
+- **Última task de produto concluída:** `LVFI-APP-015 — Workflow de Revisão,
+  Aprovação e Snapshot`.
+- **Task ativa:** nenhuma.
+- **Próxima task:** nenhuma; aguardar identificação e autorização explícitas do
+  Product Owner.
 
 ## Capacidades disponíveis
 
@@ -30,6 +30,9 @@ IDs e completude; a task está publicada e integrada.
 `LVFI-APP-014` acrescenta catálogo imutável, revisões de configuração
 append-only, precedência reproduzível e evidência por hash, sem acoplar a camada
 ao Pricing Engine.
+`LVFI-APP-015` acrescenta o workflow auditável de análise, revisão obrigatória,
+aprovação e snapshot imutável reprodutível, sem alterar APP-014, Métodos 1/2/3
+ou o Pricing Engine.
 
 ## Versões e baseline
 
@@ -76,17 +79,26 @@ a publicação. A unidade documental foi registrada no commit
 `1134f683f414cb16af0880386c078ea1d0c3c95c`, publicada pelo PR #24 e integrada
 em `main` no merge `7819f3fc1a2c76d196c51584c0027cec65e7a67e`.
 
-## LVFI-APP-015 ativa
+## LVFI-APP-015
 
-O Product Owner autorizou em 2026-09-10 a `LVFI-APP-015 — Workflow de
-Revisão, Aprovação e Snapshot`, sem commit, push, PR ou merge. O escopo é
-somente o workflow auditável de análise nos estados `rascunho`, `calculada` e
-`aprovada`, com revisão anterior à aprovação e snapshot imutável criado somente
-após aprovação. O snapshot deve conter dados, configuração efetiva, versões dos
-motores, resultados, fingerprints, amostras/IDs e warnings necessários para
-reprodução independente do estado mutável posterior. Métodos 1/2/3, Pricing
-Engine, APP-014, Match Center, PDF, autenticação/múltiplos usuários, apostas,
-staking e integrações externas permanecem fora de escopo.
+`LVFI-APP-015 — Workflow de Revisão, Aprovação e Snapshot` foi publicada pela
+branch `codex/lvfi-app-015-workflow`, commit técnico
+`dcad38b26668e804d7b38228358e9442a1170fb2`, PR #42 e merge commit
+`f44ad48309980aac89a0c3fda351ec3ac42e8f99`. A entrega implementa os estados
+`rascunho → calculada → aprovada`, revisão anterior à aprovação, histórico
+append-only e snapshot imutável criado somente após aprovação. O snapshot contém
+dados, configuração efetiva, versões, resultados, fingerprints, amostras/IDs e
+warnings necessários para reprodução sem depender do estado mutável posterior.
+
+O gate full aprovou API com 249 testes e 100% de statements/branches, Pricing
+Engine com 554 testes e 100%, frontend (testes, lint, typecheck e build),
+documentação, diff-check, varredura de segredos e QA independente. PostgreSQL 16
+real validou `20260910_09 → 20260910_08 → 20260910_09`, rollback, triggers
+append-only e smoke frontend → API → PostgreSQL; o banco isolado foi removido e
+a verificação final não encontrou `codex_task_*` residual. APP-014, Métodos
+1/2/3 e Pricing Engine foram preservados. Match Center, PDF, autenticação,
+apostas/staking e integrações externas continuam fora de escopo. Nenhuma task
+sucessora é autorizada.
 
 ## Limitações vigentes
 

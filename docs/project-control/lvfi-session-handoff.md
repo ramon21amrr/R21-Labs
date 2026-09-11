@@ -17,22 +17,22 @@ versionados são a memória oficial. Antes de qualquer task, leia
   trocado pelo commit ou merge produzido pela própria task.
 - Resolva o estado corrente, em vez de reutilizar um SHA deste handoff, com
   `git rev-parse HEAD`, `git rev-parse main` e `git rev-parse origin/main`.
-- Última task de produto concluída: `LVFI-APP-014`, commit
-  `251662b3b7e309fd610e5e2f664263b51e3c7167`, PR #40 e merge histórico
-  `8fd593430cdf246932a2225e9f96d38916b05778`.
-- Última task institucional concluída: `R21-GOV-003`, commit
+- Última task de produto concluída: `LVFI-APP-015`, commit
+  `dcad38b26668e804d7b38228358e9442a1170fb2`, PR #42 e merge histórico
+  `f44ad48309980aac89a0c3fda351ec3ac42e8f99`.
+- Última task de governança concluída: `R21-GOV-003`, commit
   `39a1122b34ff467924962ec4320c0d77c065d0df`, PR #36 e merge histórico
   `c9726fae50bb3b355800e83d1ad9fb8f77216536`.
 - Pricing Engine `1.0.1`; distribuição `1.1.1`; Método 1 `1.0.0`; schema 1.
 
 ## Última entrega publicada
 
-`LVFI-APP-014 — Catálogo e Configuração` foi publicada e integrada pela branch
-`codex/lvfi-app-014-catalog-configuration`, commit `251662b3`, PR #40 e merge
-commit `8fd5934`. Não há task ativa. O catálogo `lvfi-mvp@1.0.0`, o ledger
-append-only, a precedência reproduzível e a evidência por hash foram validados
-em PostgreSQL isolado, incluindo oito revisões concorrentes na mesma cadeia.
-Métodos 1/2/3 e Pricing Engine seguem intactos.
+`LVFI-APP-015 — Workflow de Revisão, Aprovação e Snapshot` foi publicada e
+integrada pela branch `codex/lvfi-app-015-workflow`, commit `dcad38b`, PR #42 e
+merge commit `f44ad48`. Não há task ativa. O workflow `rascunho → calculada →
+aprovada`, revisão obrigatória, histórico append-only e snapshot imutável
+reprodutível foram validados em PostgreSQL real. APP-014, Métodos 1/2/3 e
+Pricing Engine seguem intactos.
 
 ## Plano aprovado
 
@@ -63,12 +63,12 @@ Ele foi reconstruído no gate final em modo local `code-only`, com 316 nós e 66
 relações; a consulta de código respondeu e a varredura dos artefatos principais
 não encontrou os padrões sensíveis verificados.
 
-Gates atuais: API 234 testes, 5 skips condicionais e 100% de statements/branches
-(`gates-20260910-151340-full.log`); Pricing 554 testes e 100%; frontend 14
-testes, lint, typecheck e build; docs, diff-check, secret scan e QA independente
-PASS. A migration `20260910_08` e o teste PostgreSQL real APP-014 passaram, e o
-banco descartável foi removido sem `codex_task_*` residual.
+Gates finais: API 249 testes, 5 skips condicionais e 100% de
+statements/branches (`gates-20260910-215018-full.log`); Pricing 554 testes e
+100%; frontend (testes, lint, typecheck e build); docs, diff-check, secret scan
+e QA independente PASS. A migration `20260910_09`, rollback para `20260910_08`,
+triggers append-only e smoke frontend → API → PostgreSQL real passaram; o banco
+descartável foi removido sem `codex_task_*` residual.
 
-**Ação imediata:** executar exclusivamente `LVFI-APP-015 — Workflow de Revisão,
-Aprovação e Snapshot`, autorizada explicitamente pelo Product Owner em
-2026-09-10. O contrato é o [documento 45](../products/linha-de-valor-football-intelligence/45-lvfi-app-015-workflow-review-approval-snapshot.md); não iniciar task posterior nem publicar sem autorização.
+**Ação imediata:** não iniciar task posterior; aguardar identificação e
+autorização explícitas do Product Owner.

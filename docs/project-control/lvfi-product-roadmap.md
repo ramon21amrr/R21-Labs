@@ -22,7 +22,7 @@ Estados usados: **concluído**, **tecnicamente pronto**, **programa aprovado**,
 | Entrada de mercado | Concluído, publicado, integrado e encerrado institucionalmente | Entrada manual de referência e comparação entre modelo e mercado | ENG-006 concluída | `LVFI-APP-011`, PR #22 e merge `7ef9e0a7a4146637e3121196c6cc743590ddcc4b` | Não ampliar para oportunidade automática sem decisão |
 | Plano mestre e rebaseline | Concluído, publicado, integrado e encerrado institucionalmente | Reconciliar estado, registrar fingerprints e organizar a primeira versão local | APP-011 encerrada e autorização do Product Owner | `R21-GOV-002`, PR #24, merge `7819f3fc1a2c76d196c51584c0027cec65e7a67e` | Não iniciar código nem inferir task sucessora |
 | Fundação operacional de dados | Concluído, publicado, integrado e encerrado institucionalmente | Prévia/confirmação de Excel/CSV, cadastro de partida e revisão estatística auditável | R21-GOV-002 integrada | `LVFI-APP-012`, commit `0bec8682912ebfd6c2e597dbda56b6edd34555bd`, PR #26 e merge `88d7ab486f007d946a053adba4a8ab552b78ee35` | Proveniência e revisão auditável preservadas; ausência não equivale a zero |
-| MVP interno completo | Programa aprovado; dividido em tasks futuras | Camada estatística, Método 2, configurações, revisão/aprovação, snapshot, auditoria, Match Center, PDF-resumo e autenticação local | Fundação operacional de dados e autorizações incrementais | Requisitos e jornada ponta a ponta do documento 39 atendidos | Método 3 concluído pela ENG-005; Método 2 sem ID; preservar Método 1 |
+| MVP interno completo | Programa aprovado; parcialmente entregue | Camada estatística, Método 2, configurações, revisão/aprovação, snapshot, auditoria, Match Center, PDF-resumo e autenticação local | Fundação operacional de dados e autorizações incrementais | Requisitos e jornada ponta a ponta do documento 39 atendidos | APP-014 e APP-015 concluídas; Método 3 concluído pela ENG-005; Método 2 sem ID; preservar Método 1 |
 | MVP utilizável | Planejado | Operação manual pelo administrador no Brasileirão Série A 2026 | MVP interno, dados reconciliados e UX validada | Usuário conclui importar, selecionar, precificar, revisar, aprovar e gerar PDF | Usabilidade, baixa amostra, rastreabilidade e proteção de conhecimento |
 | Relatórios ampliados | Planejado/Futuro | PDF-resumo no MVP; PDF analítico após capacidades correspondentes | Snapshot aprovado, storage e tecnologia de PDF decidida | Legibilidade, rastreabilidade, autorização e retenção validadas | Exposição de conhecimento, paginação e armazenamento |
 | Deploy e recuperação | Dependente de decisão | Preparar ambiente, backup e restauração antes de uso real | MVP utilizável, ADRs 011–013 e decisões operacionais | Ambiente aprovado e restauração ensaiada | Disponibilidade, custo, segurança e perda de dados |
@@ -38,8 +38,8 @@ não antecipam oportunidades, Value Tracker, piloto ou comercialização.
 
 ## Transição institucional vigente
 
-`LVFI-APP-012` é a última task de produto concluída, publicada e integrada pelo
-PR #26 no merge `88d7ab486f007d946a053adba4a8ab552b78ee35`. Nenhuma task
+`LVFI-APP-015` é a última task de produto concluída, publicada e integrada pelo
+PR #42 no merge `f44ad48309980aac89a0c3fda351ec3ac42e8f99`. Nenhuma task
 sucessora está autorizada.
 
 ## Escopo aprovado do MVP
@@ -61,7 +61,8 @@ criar telas vazias, serviços ou integrações antecipadas.
 ## Decisões que ainda condicionam o caminho
 
 - O Método 2 permanece planejado e sem ID por decisão do Product Owner.
-- APP-012 está concluída, publicada, integrada e encerrada institucionalmente.
+- APP-012, APP-014 e APP-015 estão concluídas, publicadas, integradas e
+  encerradas institucionalmente.
 - A primeira versão local, os sete grupos estatísticos, a entrada manual/revisada,
   o PDF programático e o gate mínimo do piloto estão aprovados pela R21-GOV-002.
 - O ID da próxima task, o ID do Método 2, a implementação concreta do

@@ -8,17 +8,15 @@
   Não representa o SHA corrente.
 - Estado corrente: resolver com `git rev-parse HEAD`, `git rev-parse main` e
   `git rev-parse origin/main`; SHAs textuais são apenas evidência histórica.
-- Última task de produto concluída: `LVFI-APP-014`, PR #40 e merge histórico
-  `8fd593430cdf246932a2225e9f96d38916b05778`.
-- Última task institucional concluída: `R21-GOV-003`, PR #36 e merge histórico
+- Última task de produto concluída: `LVFI-APP-015`, PR #42 e merge histórico
+  `f44ad48309980aac89a0c3fda351ec3ac42e8f99`.
+- Última task de governança concluída: `R21-GOV-003`, PR #36 e merge histórico
   `c9726fae50bb3b355800e83d1ad9fb8f77216536`.
-- Task ativa: `LVFI-APP-015 — Workflow de Revisão, Aprovação e Snapshot`,
-  autorizada explicitamente pelo Product Owner em 2026-09-10, sem publicação
-  autorizada. Seu contrato é o [documento 45](../products/linha-de-valor-football-intelligence/45-lvfi-app-015-workflow-review-approval-snapshot.md).
-- Estado: catálogo `lvfi-mvp@1.0.0`, ledger append-only, precedência
-  reproduzível e evidência por hash foram validados em PostgreSQL isolado,
-  inclusive a cadeia de oito revisões concorrentes; Métodos 1/2/3 e Pricing
-  Engine permanecem preservados.
+- Task ativa: nenhuma.
+- Estado: `LVFI-APP-015` integrada: workflow `rascunho → calculada → aprovada`,
+  revisão obrigatória, histórico append-only e snapshot imutável reprodutível.
+  PostgreSQL real validou migration/rollback/triggers e smoke integrado; APP-014,
+  Métodos 1/2/3 e Pricing Engine permanecem preservados.
 - Próxima ação: não iniciar task sucessora; aguardar identificação e autorização
   explícitas do Product Owner.
 
@@ -27,7 +25,7 @@ idempotente, partidas futuras, revisões estatísticas append-only, consultas,
 amostras, camada estatística comum configurável, Método 1, execuções append-only,
 histórico, comparação, reprodução,
 snapshots teóricos de mercado, referência externa manual, catálogo/configuração
-versionada e interfaces iniciais.
+versionada, workflow de aprovação/snapshot e interfaces iniciais.
 Pricing Engine `1.0.1`, distribuição `1.1.1`, Método 1 `1.0.0` e schema 1
 permanecem congelados.
 
@@ -62,8 +60,8 @@ XLSM termina em `D45D3924` e suas 2.694 linhas passaram na revalidação estrutu
 
 ## Ação única
 
-Executar exclusivamente `LVFI-APP-015` conforme o documento 45; não iniciar
-task posterior nem publicar sem autorização explícita do Product Owner.
+Não iniciar task posterior; aguardar identificação e autorização explícitas do
+Product Owner.
 
 ## Bootstrap
 
