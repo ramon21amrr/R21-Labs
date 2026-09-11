@@ -69,5 +69,6 @@ testes, lint, typecheck e build; docs, diff-check, secret scan e QA independente
 PASS. A migration `20260910_08` e o teste PostgreSQL real APP-014 passaram, e o
 banco descartável foi removido sem `codex_task_*` residual.
 
-**Ação imediata:** não iniciar task posterior; aguardar identificação e
-autorização explícitas do Product Owner.
+**Ação imediata:** executar exclusivamente `LVFI-APP-015 — Workflow de Revisão,
+Aprovação e Snapshot`, autorizada explicitamente pelo Product Owner em
+2026-09-10. O contrato é o [documento 45](../products/linha-de-valor-football-intelligence/45-lvfi-app-015-workflow-review-approval-snapshot.md); não iniciar task posterior nem publicar sem autorização.

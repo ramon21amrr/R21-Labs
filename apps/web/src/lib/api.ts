@@ -1,4 +1,4 @@
-import type { ConfigurationCatalog, ConfigurationRevision, ConfigurationRevisionDraft, EffectiveConfiguration, FutureMatch, FutureMatchDraft, ImportPreview, MarketPricing, MarketReferenceObservation, Match, MethodOneSample, ModelReferenceComparison, Page, PricingExecution, StatisticRevision, StatisticRevisionDraft, StatisticsSample, StatisticsSampleRequest } from "@/lib/contracts";
+import type { Analysis, AnalysisApproval, AnalysisHistory, AnalysisSnapshot, ConfigurationCatalog, ConfigurationRevision, ConfigurationRevisionDraft, EffectiveConfiguration, FutureMatch, FutureMatchDraft, ImportPreview, MarketPricing, MarketReferenceObservation, Match, MethodOneSample, ModelReferenceComparison, Page, PricingExecution, StatisticRevision, StatisticRevisionDraft, StatisticsSample, StatisticsSampleRequest, WorkflowDecisionDraft } from "@/lib/contracts";
 
 const defaultApiUrl = "/api";
 
@@ -108,3 +108,28 @@ export const createConfigurationRevision = (payload: ConfigurationRevisionDraft)
   });
 export const getEffectiveConfiguration = (matchId: number) =>
   request<EffectiveConfiguration>(`/matches/${matchId}/configuration/effective`);
+
+export const createAnalysis = (matchId: number) =>
+  request<Analysis>(`/matches/${matchId}/analyses`, { method: "POST" });
+export const calculateAnalysis = (analysisId: string, executionId: string) =>
+  request<Analysis>(`/analyses/${analysisId}/calculate`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ execution_id: executionId })
+  });
+export const reviewAnalysis = (analysisId: string, payload: WorkflowDecisionDraft) =>
+  request<Analysis>(`/analyses/${analysisId}/reviews`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+export const approveAnalysis = (analysisId: string, payload: WorkflowDecisionDraft) =>
+  request<AnalysisApproval>(`/analyses/${analysisId}/approve`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+export const getAnalysis = (analysisId: string) => request<Analysis>(`/analyses/${analysisId}`);
+export const listAnalyses = (matchId: number) => request<AnalysisHistory>(`/matches/${matchId}/analyses`);
+export const getAnalysisSnapshot = (analysisId: string) =>
+  request<AnalysisSnapshot>(`/analyses/${analysisId}/snapshot`);

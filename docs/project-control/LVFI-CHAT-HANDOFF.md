@@ -12,9 +12,9 @@
   `8fd593430cdf246932a2225e9f96d38916b05778`.
 - Última task institucional concluída: `R21-GOV-003`, PR #36 e merge histórico
   `c9726fae50bb3b355800e83d1ad9fb8f77216536`.
-- Task ativa: nenhuma; `LVFI-APP-014 — Catálogo e Configuração` foi publicada
-  pelo PR #40 e integrada pelo merge
-  `8fd593430cdf246932a2225e9f96d38916b05778`.
+- Task ativa: `LVFI-APP-015 — Workflow de Revisão, Aprovação e Snapshot`,
+  autorizada explicitamente pelo Product Owner em 2026-09-10, sem publicação
+  autorizada. Seu contrato é o [documento 45](../products/linha-de-valor-football-intelligence/45-lvfi-app-015-workflow-review-approval-snapshot.md).
 - Estado: catálogo `lvfi-mvp@1.0.0`, ledger append-only, precedência
   reproduzível e evidência por hash foram validados em PostgreSQL isolado,
   inclusive a cadeia de oito revisões concorrentes; Métodos 1/2/3 e Pricing
@@ -62,8 +62,8 @@ XLSM termina em `D45D3924` e suas 2.694 linhas passaram na revalidação estrutu
 
 ## Ação única
 
-Não iniciar task posterior até identificação e autorização explícitas do Product
-Owner.
+Executar exclusivamente `LVFI-APP-015` conforme o documento 45; não iniciar
+task posterior nem publicar sem autorização explícita do Product Owner.
 
 ## Bootstrap
 
