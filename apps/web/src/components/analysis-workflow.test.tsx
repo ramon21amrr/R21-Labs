@@ -30,14 +30,12 @@ describe("AnalysisWorkflow", () => {
     fireEvent.change(screen.getByLabelText("Execution ID concluída"), { target: { value: executionId } });
     fireEvent.click(screen.getByRole("button", { name: "Vincular e calcular" }));
     await waitFor(() => expect(calculateAnalysis).toHaveBeenCalledWith(analysisId, executionId));
-    fireEvent.change(screen.getByLabelText("Autor da revisão"), { target: { value: "reviewer" } });
     fireEvent.change(screen.getByLabelText("Justificativa da revisão"), { target: { value: "evidence checked" } });
     fireEvent.click(screen.getByRole("button", { name: "Registrar revisão" }));
-    await waitFor(() => expect(reviewAnalysis).toHaveBeenCalledWith(analysisId, { actor: "reviewer", reason: "evidence checked" }));
-    fireEvent.change(screen.getByLabelText("Autor da aprovação"), { target: { value: "approver" } });
+    await waitFor(() => expect(reviewAnalysis).toHaveBeenCalledWith(analysisId, { reason: "evidence checked" }));
     fireEvent.change(screen.getByLabelText("Justificativa da aprovação"), { target: { value: "approved" } });
     fireEvent.click(screen.getByRole("button", { name: "Aprovar e criar snapshot" }));
-    await waitFor(() => expect(approveAnalysis).toHaveBeenCalledWith(analysisId, { actor: "approver", reason: "approved" }));
+    await waitFor(() => expect(approveAnalysis).toHaveBeenCalledWith(analysisId, { reason: "approved" }));
     expect(await screen.findByRole("heading", { name: "Snapshot imutável" })).toBeTruthy();
     expect(screen.getByText("public_warning")).toBeTruthy();
     expect(screen.getByText("O payload, hash e evidências abaixo foram congelados pela API após a aprovação; o navegador não os recalcula.")).toBeTruthy();

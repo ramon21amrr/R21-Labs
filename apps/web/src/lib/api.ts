@@ -1,4 +1,4 @@
-import type { Analysis, AnalysisApproval, AnalysisHistory, AnalysisSnapshot, ConfigurationCatalog, ConfigurationRevision, ConfigurationRevisionDraft, EffectiveConfiguration, FutureMatch, FutureMatchDraft, ImportPreview, MarketPricing, MarketReferenceObservation, Match, MethodOneSample, MethodResult, MethodThreeResultRequest, MethodTwoResultRequest, ModelReferenceComparison, Page, PricingExecution, StatisticRevision, StatisticRevisionDraft, StatisticsSample, StatisticsSampleRequest, WorkflowDecisionDraft } from "@/lib/contracts";
+import type { AdminSession, Analysis, AnalysisApproval, AnalysisHistory, AnalysisSnapshot, ConfigurationCatalog, ConfigurationRevision, ConfigurationRevisionDraft, EffectiveConfiguration, FutureMatch, FutureMatchDraft, ImportPreview, MarketPricing, MarketReferenceObservation, Match, MethodOneSample, MethodResult, MethodThreeResultRequest, MethodTwoResultRequest, ModelReferenceComparison, Page, PricingExecution, StatisticRevision, StatisticRevisionDraft, StatisticsSample, StatisticsSampleRequest, WorkflowDecisionDraft } from "@/lib/contracts";
 
 const defaultApiUrl = "/api";
 
@@ -25,12 +25,14 @@ async function request<T>(path: string, init?: RequestInit, params?: URLSearchPa
   try {
     response = await fetch(apiUrl(path, params), {
       ...init,
+      credentials: "same-origin",
       headers: { Accept: "application/json", ...init?.headers }
     });
   } catch {
     throw new ApiError(0, "Não foi possível conectar à API do LVFI.");
   }
   if (!response.ok) throw new ApiError(response.status, sanitizedMessage(response.status));
+  if (response.status === 204) return undefined as T;
   return response.json() as Promise<T>;
 }
 
@@ -83,7 +85,7 @@ async function importRequest(path: string, file: File): Promise<ImportPreview> {
   const params = new URLSearchParams({ filename: file.name });
   let response: Response;
   try {
-    response = await fetch(apiUrl(path, params), { method: "POST", headers: { Accept: "application/json", "Content-Type": file.type || "application/octet-stream" }, body: file });
+    response = await fetch(apiUrl(path, params), { method: "POST", credentials: "same-origin", headers: { Accept: "application/json", "Content-Type": file.type || "application/octet-stream" }, body: file });
   } catch {
     throw new ApiError(0, "Não foi possível conectar à API do LVFI.");
   }
@@ -149,3 +151,8 @@ export const getMethodTwoResult = (matchId: number, selectors: MethodTwoResultRe
   methodResultRequest(`/matches/${matchId}/method-two/result`, selectors);
 export const getMethodThreeResult = (matchId: number, selectors: MethodThreeResultRequest) =>
   methodResultRequest(`/matches/${matchId}/method-three/result`, selectors);
+
+export const login = (password: string) => request<AdminSession>("/auth/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password }) });
+export const logout = () => request<void>("/auth/logout", { method: "POST" });
+export const getAdminSession = () => request<AdminSession>("/auth/session");
+export const changePassword = (currentPassword: string, newPassword: string) => request<void>("/auth/password/change", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ current_password: currentPassword, new_password: newPassword }) });

@@ -25,6 +25,9 @@ from lvfi_api.historical_import import (
     SourceValidationError,
 )
 from lvfi_api.persistence.operational_data import SqlAlchemyOperationalDataRepository
+from lvfi_api.presentation.local_admin_authentication_routes import (
+    require_authenticated_admin,
+)
 
 router = APIRouter(prefix="/administration", tags=["operational data"])
 MAX_SOURCE_BYTES = 25 * 1024 * 1024
@@ -55,7 +58,6 @@ class FutureMatchCreateRequest(BaseModel):
     season: str = Field(min_length=1, max_length=32)
     home_team: str = Field(min_length=1, max_length=255)
     away_team: str = Field(min_length=1, max_length=255)
-    actor: str = Field(default="local-admin", min_length=1, max_length=128)
 
 
 class FutureMatchResponse(BaseModel):
@@ -86,7 +88,6 @@ class StatisticRevisionCreateRequest(BaseModel):
     statistic_field: str = Field(min_length=1, max_length=80)
     availability: Literal["available", "missing"]
     new_value: int | None = Field(default=None, ge=0)
-    actor: str = Field(default="local-admin", min_length=1, max_length=128)
     reason: str = Field(min_length=1, max_length=2000)
 
 
@@ -193,6 +194,7 @@ async def confirm_import(
 @router.post("/matches", response_model=FutureMatchResponse, status_code=201)
 async def create_future_match(
     payload: FutureMatchCreateRequest,
+    actor: str = Depends(require_authenticated_admin),
     service: OperationalDataService = Depends(get_operational_data_service),
 ) -> FutureMatchResponse:
     from datetime import date
@@ -204,7 +206,9 @@ async def create_future_match(
     return FutureMatchResponse.from_contract(
         await service.create_future_match(
             FutureMatchDraft(
-                played_on=played_on, **payload.model_dump(exclude={"played_on"})
+                played_on=played_on,
+                actor=actor,
+                **payload.model_dump(exclude={"played_on"}),
             )
         )
     )
@@ -218,10 +222,13 @@ async def create_future_match(
 async def create_statistic_revision(
     payload: StatisticRevisionCreateRequest,
     match_id: int = FastApiPath(ge=1),
+    actor: str = Depends(require_authenticated_admin),
     service: OperationalDataService = Depends(get_operational_data_service),
 ) -> StatisticRevisionResponse:
     return StatisticRevisionResponse.from_contract(
         await service.revise_statistic(
-            StatisticRevisionDraft(match_id=match_id, **payload.model_dump())
+            StatisticRevisionDraft(
+                match_id=match_id, actor=actor, **payload.model_dump()
+            )
         )
     )

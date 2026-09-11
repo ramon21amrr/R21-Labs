@@ -13,6 +13,9 @@ from lvfi_api.application.analysis_workflow import AnalysisWorkflowService
 from lvfi_api.domain.analysis_workflow import Analysis, AnalysisEvent, AnalysisSnapshot
 from lvfi_api.domain.errors import PersistenceUnavailableError
 from lvfi_api.persistence.analysis_workflow import SqlAlchemyAnalysisWorkflowRepository
+from lvfi_api.presentation.local_admin_authentication_routes import (
+    require_authenticated_admin,
+)
 
 router = APIRouter(tags=["analysis workflow"])
 
@@ -24,7 +27,6 @@ class CalculateAnalysisRequest(BaseModel):
 
 class WorkflowDecisionRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
-    actor: StrictStr = Field(default="local-admin", min_length=1, max_length=128)
     reason: StrictStr = Field(min_length=1, max_length=2000)
 
 
@@ -135,10 +137,11 @@ async def calculate_analysis(
 async def review_analysis(
     payload: WorkflowDecisionRequest,
     analysis_id: str = Path(min_length=36, max_length=36),
+    actor: str = Depends(require_authenticated_admin),
     service: AnalysisWorkflowService = Depends(get_analysis_workflow_service),
 ) -> AnalysisResponse:
     return AnalysisResponse.from_contract(
-        await service.review(analysis_id, payload.actor, payload.reason)
+        await service.review(analysis_id, actor, payload.reason)
     )
 
 
@@ -146,10 +149,11 @@ async def review_analysis(
 async def approve_analysis(
     payload: WorkflowDecisionRequest,
     analysis_id: str = Path(min_length=36, max_length=36),
+    actor: str = Depends(require_authenticated_admin),
     service: AnalysisWorkflowService = Depends(get_analysis_workflow_service),
 ) -> ApprovalResponse:
     analysis, snapshot = await service.approve(
-        analysis_id, payload.actor, payload.reason
+        analysis_id, actor, payload.reason
     )
     return ApprovalResponse(
         analysis=AnalysisResponse.from_contract(analysis),

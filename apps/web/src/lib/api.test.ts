@@ -23,8 +23,8 @@ describe("public API client", () => {
       .mockResolvedValueOnce(new Response(JSON.stringify({}), { status: 200 }));
     vi.stubGlobal("fetch", fetchMock);
     await getConfigurationCatalog();
-    await createConfigurationRevision({ catalog_id: "lvfi-mvp@1.0.0", scope: "global", parameter_code: "sample_size", value: 10, actor: "admin", reason: "teste" });
+    await createConfigurationRevision({ catalog_id: "lvfi-mvp@1.0.0", scope: "global", parameter_code: "sample_size", value: 10, reason: "teste" });
     expect(fetchMock).toHaveBeenNthCalledWith(1, "/api/configuration-catalogs/lvfi-mvp/1.0.0", expect.objectContaining({ headers: { Accept: "application/json" } }));
-    expect(fetchMock).toHaveBeenNthCalledWith(2, "/api/administration/configuration-revisions", expect.objectContaining({ method: "POST", body: JSON.stringify({ catalog_id: "lvfi-mvp@1.0.0", scope: "global", parameter_code: "sample_size", value: 10, actor: "admin", reason: "teste" }) }));
+    expect(fetchMock).toHaveBeenNthCalledWith(2, "/api/administration/configuration-revisions", expect.objectContaining({ method: "POST", body: JSON.stringify({ catalog_id: "lvfi-mvp@1.0.0", scope: "global", parameter_code: "sample_size", value: 10, reason: "teste" }) }));
   });
 });

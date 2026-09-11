@@ -66,7 +66,6 @@ describe("Configuration workspaces", () => {
     fireEvent.change(screen.getByLabelText("Valor de configuração"), { target: { value: "1" } });
     fireEvent.change(screen.getByLabelText("Escopo de configuração"), { target: { value: "competition" } });
     fireEvent.change(screen.getByLabelText("ID da competição"), { target: { value: "3" } });
-    fireEvent.change(screen.getByLabelText("Autor"), { target: { value: "admin" } });
     fireEvent.change(screen.getByLabelText("Justificativa"), { target: { value: "teste" } });
     fireEvent.click(screen.getByRole("button", { name: "Registrar revisão" }));
     await waitFor(() => expect(createConfigurationRevision).toHaveBeenCalledWith({
@@ -75,7 +74,6 @@ describe("Configuration workspaces", () => {
       parameter_code: "venue",
       value: "away",
       competition_id: 3,
-      actor: "admin",
       reason: "teste"
     }));
   });

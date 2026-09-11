@@ -6,7 +6,7 @@ from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from typing import Protocol
 
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
 
 from lvfi_api import __version__
 from lvfi_api.config import Settings, get_settings
@@ -83,7 +83,15 @@ def create_app(
         resource_not_found_handler,
     )
     from lvfi_api.presentation.historical_routes import router as historical_router
-    from lvfi_api.presentation.method_result_routes import router as method_result_router
+    from lvfi_api.presentation.local_admin_authentication_routes import (
+        require_authenticated_admin,
+    )
+    from lvfi_api.presentation.local_admin_authentication_routes import (
+        router as local_admin_authentication_router,
+    )
+    from lvfi_api.presentation.method_result_routes import (
+        router as method_result_router,
+    )
     from lvfi_api.presentation.operational_data_routes import (
         router as operational_data_router,
     )
@@ -100,6 +108,7 @@ def create_app(
         lifespan=_lifespan,
     )
     app.state.database = database or Database(effective_settings)
+    app.state.settings = effective_settings
     app.add_middleware(
         CorrelationMiddleware,
         header_name=effective_settings.correlation_header,
@@ -121,16 +130,18 @@ def create_app(
     app.add_exception_handler(RequestValidationError, request_validation_handler)
     app.add_exception_handler(Exception, unexpected_error_handler)
     app.include_router(router)
-    app.include_router(historical_router)
-    app.include_router(statistics_router)
-    app.include_router(method_result_router)
-    app.include_router(configuration_catalog_router)
-    app.include_router(configuration_administration_router)
-    app.include_router(configuration_match_router)
-    app.include_router(analysis_workflow_router)
-    app.include_router(operational_data_router)
-    app.include_router(pricing_execution_router)
-    app.include_router(pricing_execution_reproduction_router)
-    app.include_router(market_pricing_router)
-    app.include_router(market_reference_router)
+    app.include_router(local_admin_authentication_router)
+    protected = [Depends(require_authenticated_admin)]
+    app.include_router(historical_router, dependencies=protected)
+    app.include_router(statistics_router, dependencies=protected)
+    app.include_router(method_result_router, dependencies=protected)
+    app.include_router(configuration_catalog_router, dependencies=protected)
+    app.include_router(configuration_administration_router, dependencies=protected)
+    app.include_router(configuration_match_router, dependencies=protected)
+    app.include_router(analysis_workflow_router, dependencies=protected)
+    app.include_router(operational_data_router, dependencies=protected)
+    app.include_router(pricing_execution_router, dependencies=protected)
+    app.include_router(pricing_execution_reproduction_router, dependencies=protected)
+    app.include_router(market_pricing_router, dependencies=protected)
+    app.include_router(market_reference_router, dependencies=protected)
     return app
