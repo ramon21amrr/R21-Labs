@@ -17,8 +17,9 @@ versionados são a memória oficial. Antes de qualquer task, leia
   trocado pelo commit ou merge produzido pela própria task.
 - Resolva o estado corrente, em vez de reutilizar um SHA deste handoff, com
   `git rev-parse HEAD`, `git rev-parse main` e `git rev-parse origin/main`.
-- Última task de produto tecnicamente concluída: `LVFI-APP-016`; sem commit,
-  push, PR ou merge nesta execução.
+- Última task de produto concluída: `LVFI-APP-016`, commit
+  `28b62e7e67bea2d45d3d5ffa846a379096cef754`, PR #44 e merge histórico
+  `c2d67e5c6c9f4ab273628f9b67ab26d5ea7f40f5`.
 - Última task de governança concluída: `R21-GOV-003`, commit
   `39a1122b34ff467924962ec4320c0d77c065d0df`, PR #36 e merge histórico
   `c9726fae50bb3b355800e83d1ad9fb8f77216536`.
@@ -26,11 +27,10 @@ versionados são a memória oficial. Antes de qualquer task, leia
 
 ## Última entrega publicada
 
-`LVFI-APP-015 — Workflow de Revisão, Aprovação e Snapshot` é a última entrega
-publicada e integrada. A `LVFI-APP-016 — Match Center` está tecnicamente
-concluída na branch `codex/lvfi-app-016-match-center` e aguarda autorização
-posterior de publicação. Integra uma jornada por partida sem alterar APP-012 a
-APP-015, Métodos 1/2/3 ou Pricing Engine.
+`LVFI-APP-016 — Match Center` é a última entrega publicada e integrada pela
+branch `codex/lvfi-app-016-match-center`, commit `28b62e7`, PR #44 e merge
+`c2d67e5`. Integra uma jornada por partida sem alterar APP-012 a APP-015,
+Métodos 1/2/3 ou Pricing Engine.
 
 ## Plano aprovado
 
@@ -62,11 +62,11 @@ relações; a consulta de código respondeu e a varredura dos artefatos principa
 não encontrou os padrões sensíveis verificados.
 
 Gates finais APP-016: profile full PASS (parser, diff-check, links locais, API
-253/100% e Pricing 554/100%) em `gates-20260911-080410-full.log`; frontend com
+253/100% e Pricing 554/100%) em `gates-20260911-080915-full.log`; frontend com
 18 testes, lint, typecheck e build PASS; API em PostgreSQL 16 real com migrations
 até `20260910_09`, 258 testes e 100% PASS. O banco descartável foi removido sem
 `codex_task_*` residual. QA independente não encontrou P0; acessibilidade por
 teclado/foco e a cobertura foram revalidadas após os ajustes.
 
-**Ação imediata:** aguardar autorização de publicação da `LVFI-APP-016`; não
-iniciar task sucessora.
+**Ação imediata:** nenhuma task posterior está autorizada; aguardar instrução
+explícita do Product Owner.

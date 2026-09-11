@@ -8,19 +8,21 @@
   Não representa o SHA corrente.
 - Estado corrente: resolver com `git rev-parse HEAD`, `git rev-parse main` e
   `git rev-parse origin/main`; SHAs textuais são apenas evidência histórica.
-- Última task de produto tecnicamente concluída: `LVFI-APP-016`; sem commit,
-  push, PR ou merge nesta execução.
+- Última task de produto concluída: `LVFI-APP-016`, commit `28b62e7`, PR #44 e
+  merge histórico `c2d67e5c6c9f4ab273628f9b67ab26d5ea7f40f5`.
 - Última task de governança concluída: `R21-GOV-003`, PR #36 e merge histórico
   `c9726fae50bb3b355800e83d1ad9fb8f77216536`.
-- Task ativa: nenhuma. `LVFI-APP-016 — Match Center` está tecnicamente pronta
-  para publicação na branch `codex/lvfi-app-016-match-center`.
+- Task ativa: nenhuma. `LVFI-APP-016 — Match Center` foi publicada, integrada e
+  encerrada institucionalmente pela branch `codex/lvfi-app-016-match-center`,
+  commit `28b62e7`, PR #44 e merge `c2d67e5`.
 - Estado: Match Center integra contexto, estatística APP-013, configuração
   efetiva APP-014, Método 1 existente, consultas somente leitura dos Métodos 2/3
   e workflow/snapshot APP-015. Workflow/snapshot continuam limitados ao Método
   1 persistido. Profile full, frontend e PostgreSQL real passaram; a base
   descartável foi removida. APP-012 a APP-015, Métodos 1/2/3 e Pricing Engine
   permanecem preservados.
-- Próxima ação: aguardar autorização de publicação; não iniciar task sucessora.
+- Próxima ação: aguardar instrução explícita do Product Owner; não iniciar task
+  sucessora.
 
 Capacidades atuais: FastAPI/PostgreSQL, importação histórica revisada e
 idempotente, partidas futuras, revisões estatísticas append-only, consultas,
@@ -62,8 +64,8 @@ XLSM termina em `D45D3924` e suas 2.694 linhas passaram na revalidação estrutu
 
 ## Ação única
 
-Aguardar autorização de publicação da `LVFI-APP-016`; nenhuma task sucessora
-está autorizada.
+Nenhuma task sucessora está autorizada; aguardar instrução explícita do Product
+Owner.
 
 ## Bootstrap
 
