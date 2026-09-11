@@ -23,7 +23,7 @@ R21-GOV-002.
 | 15 | Plano mestre e rebaseline | Concluído, publicado, integrado e encerrado institucionalmente | `R21-GOV-002`; PR #24; merge `7819f3fc1a2c76d196c51584c0027cec65e7a67e`; [Documento 39](../products/linha-de-valor-football-intelligence/39-lvfi-master-plan-rebaseline.md) | Estado reconciliado; próxima task ainda exige ID e autorização |
 | 16 | Fundação operacional de dados | Concluído, publicado, integrado e encerrado institucionalmente | `LVFI-APP-012`; commit `0bec8682912ebfd6c2e597dbda56b6edd34555bd`; PR #26; merge `88d7ab486f007d946a053adba4a8ab552b78ee35` | Importação revisada e manutenção web de partidas/estatísticas |
 | 17 | Camada estatística e métodos restantes | Método 3 concluído; demais tasks dependentes de decisão | [Requisitos](../products/linha-de-valor-football-intelligence/05-requirements.md) e Documento 39 | `LVFI-ENG-005` concluída; Método 2 sem ID |
-| 18 | Configuração, aprovação e snapshots | Programa aprovado; sem task autorizada | Documento 39 | Configuração versionada e análise aprovada imutável |
+| 18 | Configuração, aprovação e snapshots | Configuração e workflow concluídos, publicados, integrados e encerrados institucionalmente | `LVFI-APP-014`, PR #40/merge `8fd593430cdf246932a2225e9f96d38916b05778`; `LVFI-APP-015`, PR #42/merge `f44ad48309980aac89a0c3fda351ec3ac42e8f99` | Configuração versionada, análise aprovada imutável e snapshot reprodutível disponíveis |
 | 19 | Match Center e autenticação local | Programa aprovado; sem task autorizada | RF-001–004, RNF-010–014 e Documento 39 | Jornada pessoal ponta a ponta e proteção server-side validadas |
 | 20 | PDF-resumo e operação local | Programa aprovado; sem task autorizada | [UX e PDF](../products/linha-de-valor-football-intelligence/09-user-experience-and-pdf.md) e Documento 39 | PDF legível; launcher; backup e restauração ensaiados |
 | 21 | Piloto e corte | Programa aprovado; sem task autorizada | Documento 39 e critérios do documento 11 | 20 análises em cinco competições e aceite operacional |
@@ -31,9 +31,9 @@ R21-GOV-002.
 | 23 | Value Tracker, resultados e desempenho | Futuro | [Integração futura](../products/linha-de-valor-football-intelligence/10-value-tracker-integration.md) | Contratos, identidade, evento e CLV decididos |
 | 24 | Preparação comercial e lançamento | Futuro | Etapa 4 do documento 11 | Piloto aceito, segurança, suporte, planos e cobrança decididos |
 
-A APP-012 concluiu a ordem 16. A R21-GOV-002 organiza as capacidades 16–21, mas
-não antecipa oportunidades, Value Tracker ou comercialização e não autoriza uma
-task sucessora.
+A APP-015 concluiu a parte de configuração, aprovação e snapshots da ordem 18.
+A R21-GOV-002 organiza as capacidades 16–21, mas não antecipa oportunidades,
+Value Tracker ou comercialização e não autoriza uma task sucessora.
 
 O identificador `LVFI-ENG-004` pertence exclusivamente à correção numérica já
 publicada. A reserva histórica desse ID para o Método 2 foi revogada; nenhum novo
