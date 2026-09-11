@@ -83,6 +83,7 @@ def create_app(
         resource_not_found_handler,
     )
     from lvfi_api.presentation.historical_routes import router as historical_router
+    from lvfi_api.presentation.method_result_routes import router as method_result_router
     from lvfi_api.presentation.operational_data_routes import (
         router as operational_data_router,
     )
@@ -122,6 +123,7 @@ def create_app(
     app.include_router(router)
     app.include_router(historical_router)
     app.include_router(statistics_router)
+    app.include_router(method_result_router)
     app.include_router(configuration_catalog_router)
     app.include_router(configuration_administration_router)
     app.include_router(configuration_match_router)

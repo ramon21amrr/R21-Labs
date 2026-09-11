@@ -4,21 +4,23 @@
 
 - Produto: plataforma auditável de dados, análise e precificação de futebol.
 - Product Owner e usuário inicial: Ramon.
-- Base estável histórica da última task: `0b012291e78fb3b20eb887964ebc26d170e0a81c`.
+- Base estável aprovada da task ativa: `9bc9a7cdb58fcdf5947b5a433c602465add453e3`.
   Não representa o SHA corrente.
 - Estado corrente: resolver com `git rev-parse HEAD`, `git rev-parse main` e
   `git rev-parse origin/main`; SHAs textuais são apenas evidência histórica.
-- Última task de produto concluída: `LVFI-APP-015`, PR #42 e merge histórico
-  `f44ad48309980aac89a0c3fda351ec3ac42e8f99`.
+- Última task de produto tecnicamente concluída: `LVFI-APP-016`; sem commit,
+  push, PR ou merge nesta execução.
 - Última task de governança concluída: `R21-GOV-003`, PR #36 e merge histórico
   `c9726fae50bb3b355800e83d1ad9fb8f77216536`.
-- Task ativa: nenhuma.
-- Estado: `LVFI-APP-015` integrada: workflow `rascunho → calculada → aprovada`,
-  revisão obrigatória, histórico append-only e snapshot imutável reprodutível.
-  PostgreSQL real validou migration/rollback/triggers e smoke integrado; APP-014,
-  Métodos 1/2/3 e Pricing Engine permanecem preservados.
-- Próxima ação: não iniciar task sucessora; aguardar identificação e autorização
-  explícitas do Product Owner.
+- Task ativa: nenhuma. `LVFI-APP-016 — Match Center` está tecnicamente pronta
+  para publicação na branch `codex/lvfi-app-016-match-center`.
+- Estado: Match Center integra contexto, estatística APP-013, configuração
+  efetiva APP-014, Método 1 existente, consultas somente leitura dos Métodos 2/3
+  e workflow/snapshot APP-015. Workflow/snapshot continuam limitados ao Método
+  1 persistido. Profile full, frontend e PostgreSQL real passaram; a base
+  descartável foi removida. APP-012 a APP-015, Métodos 1/2/3 e Pricing Engine
+  permanecem preservados.
+- Próxima ação: aguardar autorização de publicação; não iniciar task sucessora.
 
 Capacidades atuais: FastAPI/PostgreSQL, importação histórica revisada e
 idempotente, partidas futuras, revisões estatísticas append-only, consultas,
@@ -60,8 +62,8 @@ XLSM termina em `D45D3924` e suas 2.694 linhas passaram na revalidação estrutu
 
 ## Ação única
 
-Não iniciar task posterior; aguardar identificação e autorização explícitas do
-Product Owner.
+Aguardar autorização de publicação da `LVFI-APP-016`; nenhuma task sucessora
+está autorizada.
 
 ## Bootstrap
 

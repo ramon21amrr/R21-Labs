@@ -351,3 +351,28 @@ export interface AnalysisApproval {
   analysis: Analysis;
   snapshot: AnalysisSnapshot;
 }
+
+export interface MethodTwoResultRequest {
+  sample_size: StatisticsSampleSize;
+  context: "venue" | "overall";
+  season_scope: StatisticsSeasonScope;
+  previous_season_id?: number;
+  metric: "goals_scored" | "corners" | "shots_on_target" | "shots" | "cards" | "fouls";
+}
+
+export interface MethodThreeResultRequest {
+  sample_size: StatisticsSampleSize;
+  competition_scope: StatisticsCompetitionScope;
+  season_scope: StatisticsSeasonScope;
+  previous_season_id?: number;
+  metric: StatisticsMetric;
+  comparator: StatisticsComparator;
+  achievement_target: number;
+}
+
+/** Server-generated result and evidence. The browser treats payload as read-only. */
+export interface MethodResult {
+  method: string;
+  method_version: string;
+  payload: Record<string, unknown>;
+}
