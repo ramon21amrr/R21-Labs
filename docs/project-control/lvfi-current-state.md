@@ -9,8 +9,8 @@
 - **Última task de produto concluída:** `LVFI-APP-016 — Match Center`, commit
   `28b62e7e67bea2d45d3d5ffa846a379096cef754`, PR #44 e merge commit
   `c2d67e5c6c9f4ab273628f9b67ab26d5ea7f40f5`.
-- **Task ativa:** nenhuma.
-- **Próxima task:** não definida; nenhuma task sucessora foi autorizada.
+- **Task ativa:** `LVFI-APP-017 — Autenticação Local de Administrador`, autorizada pelo Product Owner em 2026-09-11 e aberta na branch `codex/lvfi-app-017-local-admin-auth`. O contrato de segurança, QA independente, revisão de segurança e gates foram concluídos; a implementação aguarda apenas publicação explicitamente autorizada.
+- **Próxima task:** `LVFI-APP-017`; nenhuma task posterior foi autorizada.
 
 ## Capacidades disponíveis
 

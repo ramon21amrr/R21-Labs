@@ -27,6 +27,7 @@ class Settings(BaseSettings):
     database_max_overflow: int = Field(default=5, ge=0, le=50)
     database_timeout_seconds: int = Field(default=5, ge=1, le=60)
     correlation_header: str = "X-Request-ID"
+    external_https: bool = False
 
     @field_validator("database_url")
     @classmethod

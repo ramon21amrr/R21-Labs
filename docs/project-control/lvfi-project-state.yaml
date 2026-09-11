@@ -1,22 +1,22 @@
 schema_version: "1.0"
 project: "R21 Labs"
 product: "Linha de Valor Football Intelligence"
-updated_at: "2026-09-11T08:28:00-03:00"
+updated_at: "2026-09-11T13:56:30-03:00"
 reference_commit: "9bc9a7cdb58fcdf5947b5a433c602465add453e3"
 reference_branch: "main"
 reference_commit_semantics: "Base estável aprovada da LVFI-APP-016; nunca substituir pelo HEAD ou merge produzido pela própria task."
 head_resolution_command: "git rev-parse HEAD"
 main_resolution_command: "git rev-parse main"
 origin_main_resolution_command: "git rev-parse origin/main"
-current_phase: "lvfi_app_016_match_center_institutionally_closed"
-current_milestone: "lvfi_app_016_match_center"
+current_phase: "lvfi_app_017_local_admin_authentication_validated_pending_publication"
+current_milestone: "lvfi_app_017_local_admin_authentication"
 last_completed_task: "LVFI-APP-016"
 last_completed_governance_task: "R21-GOV-003"
 last_completed_product_task: "LVFI-APP-016"
-next_official_task: null
+next_official_task: "LVFI-APP-017"
 next_planned_task: null
-next_required_decision: "Nenhuma task sucessora está autorizada; consultar o Product Owner antes de iniciar novo trabalho."
-immediate_action: "Não iniciar task posterior; aguardar autorização explícita do Product Owner."
+next_required_decision: "Nenhuma decisão de produto pendente para LVFI-APP-017; não iniciar task posterior sem autorização explícita."
+immediate_action: "Aguardar autorização explícita de publicação de LVFI-APP-017; não iniciar task posterior."
 completed_tasks:
   - "LVFI-DISC-002"
   - "LVFI-ENG-001"
@@ -46,7 +46,8 @@ completed_tasks:
   - "LVFI-APP-014"
   - "LVFI-APP-015"
   - "LVFI-APP-016"
-active_tasks: []
+active_tasks:
+  - "LVFI-APP-017"
 planned_tasks: []
 approved_not_implemented_tasks: []
 blocked_tasks: []
@@ -64,16 +65,16 @@ versions:
   method_two_result_schema: 1
 test_baseline:
   api:
-    collected: 253
+    collected: 258
     statements: "100%"
     branches: "100%"
-    isolated_postgresql_collected: 258
-    evidence: "../.r21-artifacts/quality/gates-20260911-080915-full.log"
+    isolated_postgresql_collected: 264
+    evidence: "../.r21-artifacts/quality/gates-20260911-091555-full.log"
   pricing_engine:
     passed: 554
     statements: "100%"
     branches: "100%"
-    evidence: "../.r21-artifacts/quality/gates-20260911-080915-full.log"
+    evidence: "../.r21-artifacts/quality/gates-20260911-091555-full.log"
 approved_program_decisions:
   - "Primeira versão local, para um administrador e sem Docker como requisito diário."
   - "Importação revisada por Excel/CSV e manutenção manual de partidas e estatísticas pela web."
@@ -83,7 +84,6 @@ approved_program_decisions:
   - "Corte após pelo menos 20 análises paralelas em cinco competições e aceite do Product Owner."
 pending_decisions:
   - "Tecnologia concreta e política de retenção do PDF-resumo."
-  - "Implementação concreta da autenticação local de administrador."
   - "Detalhes de backup, restauração e objetivos de recuperação."
   - "Fornecedores de dados e odds e seus contratos."
   - "Evento de integração com Value Tracker e metodologia de CLV."

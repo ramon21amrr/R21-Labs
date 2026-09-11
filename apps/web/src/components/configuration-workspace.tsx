@@ -69,7 +69,6 @@ export function ConfigurationCatalogWorkspace() {
         value,
         ...(scope === "competition" ? { competition_id: contextId } : {}),
         ...(scope === "match" ? { match_id: contextId } : {}),
-        actor: String(values.get("actor")),
         reason: String(values.get("reason"))
       });
       setNotice(`Revisão ${revision.revision_id} registrada para ${scopeLabel(revision.scope).toLowerCase()}.`);
@@ -89,7 +88,7 @@ export function ConfigurationCatalogWorkspace() {
       <label>Escopo<select aria-label="Escopo de configuração" value={scope} onChange={(event) => setScope(event.target.value as ConfigurationScope)}><option value="global">Global</option><option value="competition">Competição</option><option value="match">Partida</option></select></label>
       {scope === "competition" && <label>ID da competição<input aria-label="ID da competição" required min="1" name="competition_id" type="number" /></label>}
       {scope === "match" && <label>ID da partida<input aria-label="ID da partida" required min="1" name="match_id" type="number" /></label>}
-      <label>Autor<input aria-label="Autor" required name="actor" /></label><label>Justificativa<input aria-label="Justificativa" required name="reason" /></label><button disabled={busy} type="submit">{busy ? "Registrando…" : "Registrar revisão"}</button>
+      <label>Justificativa<input aria-label="Justificativa" required name="reason" /></label><button disabled={busy} type="submit">{busy ? "Registrando…" : "Registrar revisão"}</button>
     </form></section></>}
   </section>;
 }

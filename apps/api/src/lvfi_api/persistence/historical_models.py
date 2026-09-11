@@ -443,6 +443,51 @@ analysis_workflow_snapshots = Table(
     CheckConstraint("length(snapshot_hash) = 64", name="analysis_snapshot_hash_length"),
 )
 
+# APP-017 isolates the one local administrator from the historical and pricing
+# ledgers.  Credentials and opaque session secrets are never stored here: only
+# their derived hashes are durable.  Session rows are deliberately mutable so
+# inactivity renewal and immediate invalidation can be enforced server-side.
+local_admin_credentials = Table(
+    "local_admin_credentials",
+    metadata,
+    Column("username", String(16), primary_key=True),
+    Column("password_hash", Text, nullable=False),
+    Column("failed_attempts", Integer, nullable=False, server_default="0"),
+    Column("locked_until", DateTime(timezone=True)),
+    Column("password_changed_at", DateTime(timezone=True), nullable=False, server_default=func.now()),
+    Column("created_at", DateTime(timezone=True), nullable=False, server_default=func.now()),
+    CheckConstraint("username = 'admin'", name="local_admin_single_username"),
+    CheckConstraint("failed_attempts >= 0", name="local_admin_failed_attempts_nonnegative"),
+)
+
+local_admin_sessions = Table(
+    "local_admin_sessions",
+    metadata,
+    Column("session_id", String(36), primary_key=True),
+    Column("username", String(16), ForeignKey("local_admin_credentials.username", ondelete="RESTRICT"), nullable=False),
+    Column("token_hash", String(64), nullable=False, unique=True),
+    Column("issued_at", DateTime(timezone=True), nullable=False),
+    Column("last_activity_at", DateTime(timezone=True), nullable=False),
+    Column("idle_expires_at", DateTime(timezone=True), nullable=False),
+    Column("absolute_expires_at", DateTime(timezone=True), nullable=False),
+    Column("invalidated_at", DateTime(timezone=True)),
+    CheckConstraint("length(token_hash) = 64", name="local_admin_session_token_hash_length"),
+)
+
+local_admin_auth_events = Table(
+    "local_admin_auth_events",
+    metadata,
+    Column("id", BigInteger, primary_key=True),
+    Column("event_type", String(32), nullable=False),
+    Column("actor", String(128)),
+    Column("correlation_id", String(128)),
+    Column("created_at", DateTime(timezone=True), nullable=False, server_default=func.now()),
+    CheckConstraint("event_type IN ('bootstrap', 'login_succeeded', 'login_failed', 'logout', 'password_changed', 'password_reset')", name="local_admin_auth_event_type"),
+)
+
+Index("ix_local_admin_sessions_validity", local_admin_sessions.c.token_hash, local_admin_sessions.c.invalidated_at)
+Index("ix_local_admin_auth_events_created", local_admin_auth_events.c.created_at.asc(), local_admin_auth_events.c.id.asc())
+
 Index(
     "ix_analysis_workflow_analyses_match_created_id",
     analysis_workflow_analyses.c.match_id,

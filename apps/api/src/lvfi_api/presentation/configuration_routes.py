@@ -18,6 +18,9 @@ from lvfi_api.domain.configuration import (
 )
 from lvfi_api.domain.errors import InvalidQueryError, PersistenceUnavailableError
 from lvfi_api.persistence.configuration import SqlAlchemyConfigurationRepository
+from lvfi_api.presentation.local_admin_authentication_routes import (
+    require_authenticated_admin,
+)
 
 catalog_router = APIRouter(tags=["configuration"])
 administration_router = APIRouter(prefix="/administration", tags=["configuration"])
@@ -51,7 +54,6 @@ class ConfigurationRevisionCreateRequest(BaseModel):
     value: StrictInt | StrictStr
     competition_id: StrictInt | None = Field(default=None, ge=1)
     match_id: StrictInt | None = Field(default=None, ge=1)
-    actor: StrictStr = Field(default="local-admin", min_length=1, max_length=128)
     reason: StrictStr = Field(min_length=1, max_length=2000)
 
 
@@ -167,11 +169,12 @@ async def get_catalog(
 )
 async def create_configuration_revision(
     payload: ConfigurationRevisionCreateRequest,
+    actor: str = Depends(require_authenticated_admin),
     service: ConfigurationService = Depends(get_configuration_service),
 ) -> ConfigurationRevisionResponse:
     return ConfigurationRevisionResponse.from_contract(
         await service.create_revision(
-            ConfigurationRevisionDraft(**payload.model_dump())
+            ConfigurationRevisionDraft(actor=actor, **payload.model_dump())
         )
     )
 

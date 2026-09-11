@@ -6,8 +6,13 @@ from __future__ import annotations
 import argparse
 import asyncio
 import sys
+from getpass import getpass
 from pathlib import Path
 
+from lvfi_api.application.local_admin_authentication import (
+    BootstrapError,
+    LocalAdminAuthenticationService,
+)
 from lvfi_api.config import get_settings
 from lvfi_api.historical_import import (
     APPROVED_SOURCE_SHA256,
@@ -29,6 +34,8 @@ def _parser() -> argparse.ArgumentParser:
     mode = historical.add_mutually_exclusive_group(required=True)
     mode.add_argument("--dry-run", action="store_true")
     mode.add_argument("--execute", action="store_true")
+    commands.add_parser("admin-bootstrap", help="create the one local administrator")
+    commands.add_parser("admin-reset-password", help="reset the local administrator password")
     return parser
 
 
@@ -54,6 +61,27 @@ async def _historical_import(arguments: argparse.Namespace) -> int:
     return 2 if summary.rejected_records else 0
 
 
+def _confirmed_password() -> str | None:
+    password = getpass("Nova senha do administrador: ")
+    confirmation = getpass("Confirme a nova senha: ")
+    return password if password == confirmation else None
+
+
+async def _admin_credential(operation: str, password: str) -> int:
+    database = Database(get_settings())
+    await database.start()
+    try:
+        service = LocalAdminAuthenticationService(database)
+        if operation == "admin-bootstrap":
+            await service.bootstrap(password)
+        else:
+            await service.reset_password(password)
+    finally:
+        await database.stop()
+    print(f"{operation} completed")
+    return 0
+
+
 def main(arguments: list[str] | None = None) -> int:
     """Run the CLI and return documented process codes without leaking source data."""
 
@@ -61,8 +89,18 @@ def main(arguments: list[str] | None = None) -> int:
     try:
         if parsed.command == "historical-import":
             return asyncio.run(_historical_import(parsed))
+        if parsed.command not in {"admin-bootstrap", "admin-reset-password"}:
+            return 4
+        password = _confirmed_password()
+        if password is None:
+            print("admin credential confirmation failed", file=sys.stderr)
+            return 2
+        return asyncio.run(_admin_credential(parsed.command, password))
     except SourceValidationError as error:
         print(f"historical-import structural-error: {error}", file=sys.stderr)
+        return 3
+    except BootstrapError:
+        print("admin credential operation failed", file=sys.stderr)
         return 3
     except Exception:
         print("historical-import configuration-or-database-error", file=sys.stderr)

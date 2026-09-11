@@ -126,7 +126,6 @@ export interface FutureMatchDraft {
   season: string;
   home_team: string;
   away_team: string;
-  actor?: string;
 }
 
 export interface FutureMatch extends Required<FutureMatchDraft> {
@@ -138,7 +137,6 @@ export interface StatisticRevisionDraft {
   statistic_field: string;
   availability: "available" | "missing";
   new_value: number | null;
-  actor?: string;
   reason: string;
 }
 
@@ -283,7 +281,6 @@ export interface ConfigurationRevisionDraft {
   value: ConfigurationValue;
   competition_id?: number | null;
   match_id?: number | null;
-  actor: string;
   reason: string;
 }
 
@@ -334,9 +331,10 @@ export interface AnalysisHistory {
 }
 
 export interface WorkflowDecisionDraft {
-  actor: string;
   reason: string;
 }
+
+export interface AdminSession { actor: "admin"; }
 
 /** The payload is frozen by the API and intentionally remains opaque to the UI. */
 export interface AnalysisSnapshot {
