@@ -8,19 +8,20 @@
   Não representa o SHA corrente.
 - Estado corrente: resolver com `git rev-parse HEAD`, `git rev-parse main` e
   `git rev-parse origin/main`; SHAs textuais são apenas evidência histórica.
-- Última task de produto concluída: `LVFI-APP-016`, commit `28b62e7`, PR #44 e
-  merge histórico `c2d67e5c6c9f4ab273628f9b67ab26d5ea7f40f5`.
+- Última task de produto concluída: `LVFI-APP-017`, commit `af2bfb9`, PR #46 e
+  merge histórico `32c2cbd267deea449f9c572fbdc85f56d442b4b0`.
 - Última task de governança concluída: `R21-GOV-003`, PR #36 e merge histórico
   `c9726fae50bb3b355800e83d1ad9fb8f77216536`.
-- Task ativa: nenhuma. `LVFI-APP-016 — Match Center` foi publicada, integrada e
-  encerrada institucionalmente pela branch `codex/lvfi-app-016-match-center`,
-  commit `28b62e7`, PR #44 e merge `c2d67e5`.
-- Estado: Match Center integra contexto, estatística APP-013, configuração
-  efetiva APP-014, Método 1 existente, consultas somente leitura dos Métodos 2/3
-  e workflow/snapshot APP-015. Workflow/snapshot continuam limitados ao Método
-  1 persistido. Profile full, frontend e PostgreSQL real passaram; a base
-  descartável foi removida. APP-012 a APP-015, Métodos 1/2/3 e Pricing Engine
-  permanecem preservados.
+- Task ativa: nenhuma. `LVFI-APP-017 — Autenticação Local de Administrador` foi
+  publicada, integrada e encerrada institucionalmente pela branch
+  `codex/lvfi-app-017-local-admin-auth`, commit `af2bfb9`, PR #46 e merge
+  `32c2cbd`.
+- Estado: autenticação local single-admin protege UI e APIs no servidor, persiste
+  somente hashes Argon2id/SHA-256 e mantém auditoria derivada da sessão. Profile
+  full, frontend e PostgreSQL real passaram; a base descartável foi removida.
+  APP-012 a APP-016, Métodos 1/2/3 e Pricing Engine permanecem preservados.
+  Para HTTPS com rewrite interno, usar `LVFI_EXTERNAL_HTTPS=true`; a cobertura
+  dedicada de `proxy.ts` permanece melhoria P2 futura.
 - Próxima ação: aguardar instrução explícita do Product Owner; não iniciar task
   sucessora.
 

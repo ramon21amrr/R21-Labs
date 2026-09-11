@@ -1,22 +1,22 @@
 schema_version: "1.0"
 project: "R21 Labs"
 product: "Linha de Valor Football Intelligence"
-updated_at: "2026-09-11T13:56:30-03:00"
+updated_at: "2026-09-11T14:15:09-03:00"
 reference_commit: "9bc9a7cdb58fcdf5947b5a433c602465add453e3"
 reference_branch: "main"
 reference_commit_semantics: "Base estável aprovada da LVFI-APP-016; nunca substituir pelo HEAD ou merge produzido pela própria task."
 head_resolution_command: "git rev-parse HEAD"
 main_resolution_command: "git rev-parse main"
 origin_main_resolution_command: "git rev-parse origin/main"
-current_phase: "lvfi_app_017_local_admin_authentication_validated_pending_publication"
-current_milestone: "lvfi_app_017_local_admin_authentication"
-last_completed_task: "LVFI-APP-016"
+current_phase: "lvfi_app_017_local_admin_authentication_closed"
+current_milestone: "lvfi_app_017_local_admin_authentication_closed"
+last_completed_task: "LVFI-APP-017"
 last_completed_governance_task: "R21-GOV-003"
-last_completed_product_task: "LVFI-APP-016"
-next_official_task: "LVFI-APP-017"
+last_completed_product_task: "LVFI-APP-017"
+next_official_task: null
 next_planned_task: null
-next_required_decision: "Nenhuma decisão de produto pendente para LVFI-APP-017; não iniciar task posterior sem autorização explícita."
-immediate_action: "Aguardar autorização explícita de publicação de LVFI-APP-017; não iniciar task posterior."
+next_required_decision: "Nenhuma task posterior está autorizada; aguardar instrução explícita do Product Owner."
+immediate_action: "Aguardar instrução explícita do Product Owner; não iniciar task posterior."
 completed_tasks:
   - "LVFI-DISC-002"
   - "LVFI-ENG-001"
@@ -46,8 +46,8 @@ completed_tasks:
   - "LVFI-APP-014"
   - "LVFI-APP-015"
   - "LVFI-APP-016"
-active_tasks:
   - "LVFI-APP-017"
+active_tasks: []
 planned_tasks: []
 approved_not_implemented_tasks: []
 blocked_tasks: []
