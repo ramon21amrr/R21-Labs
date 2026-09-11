@@ -1,17 +1,17 @@
 # Estado atual do LVFI
 
-- **Atualizado em:** 2026-09-10
-- **Referência-base estável registrada:** `0b012291e78fb3b20eb887964ebc26d170e0a81c`
+- **Atualizado em:** 2026-09-11
+- **Referência-base estável registrada:** `9bc9a7cdb58fcdf5947b5a433c602465add453e3`
 - **Branch de referência:** `main`; o SHA corrente de `HEAD`, `main` e
   `origin/main` é sempre resolvido no runtime por Git, não registrado como valor
   corrente neste handoff.
 - **Último encerramento institucional:** `LVFI-APP-015 — Workflow de Revisão,
   Aprovação e Snapshot`.
-- **Última task de produto concluída:** `LVFI-APP-015 — Workflow de Revisão,
-  Aprovação e Snapshot`.
+- **Última task de produto tecnicamente concluída:** `LVFI-APP-016 — Match
+  Center` (sem commit, push, PR ou merge nesta execução).
 - **Task ativa:** nenhuma.
-- **Próxima task:** nenhuma; aguardar identificação e autorização explícitas do
-  Product Owner.
+- **Próxima task:** não definida. A única ação humana pendente é decidir sobre a
+  publicação da `LVFI-APP-016`; não há task sucessora autorizada.
 
 ## Capacidades disponíveis
 
@@ -102,8 +102,7 @@ sucessora é autorizada.
 
 ## Limitações vigentes
 
-Autenticação, configurações, workflow
-completo, Match Center, PDF, launcher, backup/restauração, odds automáticas,
+Autenticação, PDF, launcher, backup/restauração, odds automáticas,
 oportunidades, Value Tracker e deploy remoto não estão concluídos.
 
 ## LVFI-APP-014
@@ -266,8 +265,29 @@ statements/branches; Pricing: 554 testes e 100%. A entrega técnica foi registra
 no commit `e4b43b4f7926acef309c16a045f057745f218066`, publicada pelo PR #38 e
 integrada por merge commit `842eb955a367d3c1e3e2e45d61057ae8c298475a`.
 
-## Próxima sequência oficial
+## LVFI-APP-016
 
-- **Task ativa:** nenhuma.
-- **Próxima ação:** não iniciar task posterior; aguardar identificação e
-  autorização explícitas do Product Owner.
+`LVFI-APP-016 — Match Center` está tecnicamente concluída na branch
+`codex/lvfi-app-016-match-center`, sobre a base estável
+`9bc9a7cdb58fcdf5947b5a433c602465add453e3`, e aguarda apenas uma autorização
+posterior de publicação. A jornada por partida apresenta identificação/contexto,
+estatísticas APP-013, configuração efetiva APP-014, Método 1 existente e os
+resultados somente leitura dos Métodos 2/3, workflow APP-015, snapshot aprovado
+e evidência auditável. O workflow e snapshot continuam restritos às execuções
+persistidas do Método 1, conforme APP-015; Métodos 2/3 não ganharam persistência,
+workflow ou nova matemática.
+
+Os endpoints aditivos dos Métodos 2/3 delegam aos serviços existentes e exigem
+seletores explícitos, sem defaults inventados. O Match Center não recalcula no
+cliente. Estados de loading, vazio e erro, navegação por abas com teclado/foco e
+layout responsivo foram validados. Não foram incluídos PDF,
+autenticação/múltiplos usuários, Value Tracker, integrações externas, task
+posterior ou nova lógica matemática.
+
+O perfil completo passou em 2026-09-11: API 253 testes e 5 skips condicionais
+com 100% de statements/branches, Pricing Engine 554 testes com 100%, parser,
+diff-check e links locais. Frontend: 18 testes, lint, typecheck e build. Em
+PostgreSQL 16 real e descartável, migrations até `20260910_09` e 258 testes com
+100% passaram; a base `codex_task_lvfi_app_016` foi removida e a inspeção final
+não encontrou `codex_task_*`. QA independente não encontrou P0; os apontamentos
+de teclado/foco e cobertura foram resolvidos e revalidados.

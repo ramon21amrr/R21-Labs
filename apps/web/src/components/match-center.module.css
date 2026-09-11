@@ -1,0 +1,18 @@
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.focusable:focus-visible {
+  outline: 3px solid #fbbf24;
+  outline-offset: 2px;
+}
+
+@media (max-width: 780px) {
+  .tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}

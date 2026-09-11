@@ -11,15 +11,14 @@ versionados são a memória oficial. Antes de qualquer task, leia
 
 ## Baseline e estado corrente
 
-- Base estável histórica da última task `R21-GOV-003`:
-  `0b012291e78fb3b20eb887964ebc26d170e0a81c`.
+- Base estável aprovada da `LVFI-APP-016`:
+  `9bc9a7cdb58fcdf5947b5a433c602465add453e3`.
 - `reference_commit` significa exclusivamente essa base aprovada. Não deve ser
   trocado pelo commit ou merge produzido pela própria task.
 - Resolva o estado corrente, em vez de reutilizar um SHA deste handoff, com
   `git rev-parse HEAD`, `git rev-parse main` e `git rev-parse origin/main`.
-- Última task de produto concluída: `LVFI-APP-015`, commit
-  `dcad38b26668e804d7b38228358e9442a1170fb2`, PR #42 e merge histórico
-  `f44ad48309980aac89a0c3fda351ec3ac42e8f99`.
+- Última task de produto tecnicamente concluída: `LVFI-APP-016`; sem commit,
+  push, PR ou merge nesta execução.
 - Última task de governança concluída: `R21-GOV-003`, commit
   `39a1122b34ff467924962ec4320c0d77c065d0df`, PR #36 e merge histórico
   `c9726fae50bb3b355800e83d1ad9fb8f77216536`.
@@ -27,12 +26,11 @@ versionados são a memória oficial. Antes de qualquer task, leia
 
 ## Última entrega publicada
 
-`LVFI-APP-015 — Workflow de Revisão, Aprovação e Snapshot` foi publicada e
-integrada pela branch `codex/lvfi-app-015-workflow`, commit `dcad38b`, PR #42 e
-merge commit `f44ad48`. Não há task ativa. O workflow `rascunho → calculada →
-aprovada`, revisão obrigatória, histórico append-only e snapshot imutável
-reprodutível foram validados em PostgreSQL real. APP-014, Métodos 1/2/3 e
-Pricing Engine seguem intactos.
+`LVFI-APP-015 — Workflow de Revisão, Aprovação e Snapshot` é a última entrega
+publicada e integrada. A `LVFI-APP-016 — Match Center` está tecnicamente
+concluída na branch `codex/lvfi-app-016-match-center` e aguarda autorização
+posterior de publicação. Integra uma jornada por partida sem alterar APP-012 a
+APP-015, Métodos 1/2/3 ou Pricing Engine.
 
 ## Plano aprovado
 
@@ -63,12 +61,12 @@ Ele foi reconstruído no gate final em modo local `code-only`, com 316 nós e 66
 relações; a consulta de código respondeu e a varredura dos artefatos principais
 não encontrou os padrões sensíveis verificados.
 
-Gates finais: API 249 testes, 5 skips condicionais e 100% de
-statements/branches (`gates-20260910-215018-full.log`); Pricing 554 testes e
-100%; frontend (testes, lint, typecheck e build); docs, diff-check, secret scan
-e QA independente PASS. A migration `20260910_09`, rollback para `20260910_08`,
-triggers append-only e smoke frontend → API → PostgreSQL real passaram; o banco
-descartável foi removido sem `codex_task_*` residual.
+Gates finais APP-016: profile full PASS (parser, diff-check, links locais, API
+253/100% e Pricing 554/100%) em `gates-20260911-080410-full.log`; frontend com
+18 testes, lint, typecheck e build PASS; API em PostgreSQL 16 real com migrations
+até `20260910_09`, 258 testes e 100% PASS. O banco descartável foi removido sem
+`codex_task_*` residual. QA independente não encontrou P0; acessibilidade por
+teclado/foco e a cobertura foram revalidadas após os ajustes.
 
-**Ação imediata:** não iniciar task posterior; aguardar identificação e
-autorização explícitas do Product Owner.
+**Ação imediata:** aguardar autorização de publicação da `LVFI-APP-016`; não
+iniciar task sucessora.

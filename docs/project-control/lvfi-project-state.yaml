@@ -1,22 +1,22 @@
 schema_version: "1.0"
 project: "R21 Labs"
 product: "Linha de Valor Football Intelligence"
-updated_at: "2026-09-10T22:30:00-03:00"
-reference_commit: "0b012291e78fb3b20eb887964ebc26d170e0a81c"
+updated_at: "2026-09-11T08:08:00-03:00"
+reference_commit: "9bc9a7cdb58fcdf5947b5a433c602465add453e3"
 reference_branch: "main"
-reference_commit_semantics: "Base estável aprovada da task ativa; nunca substituir pelo HEAD ou merge produzido pela própria task."
+reference_commit_semantics: "Base estável aprovada da LVFI-APP-016; nunca substituir pelo HEAD ou merge produzido pela própria task."
 head_resolution_command: "git rev-parse HEAD"
 main_resolution_command: "git rev-parse main"
 origin_main_resolution_command: "git rev-parse origin/main"
-current_phase: "lvfi_no_active_task"
-current_milestone: "lvfi_app_015_workflow_review_approval_snapshot_closed"
-last_completed_task: "LVFI-APP-015"
+current_phase: "lvfi_app_016_match_center_ready_for_publication"
+current_milestone: "lvfi_app_016_match_center"
+last_completed_task: "LVFI-APP-016"
 last_completed_governance_task: "R21-GOV-003"
-last_completed_product_task: "LVFI-APP-015"
+last_completed_product_task: "LVFI-APP-016"
 next_official_task: null
 next_planned_task: null
-next_required_decision: "Product Owner deve identificar e autorizar explicitamente a próxima task; nenhuma é inferida após LVFI-APP-015."
-immediate_action: "Não iniciar task posterior; aguardar identificação e autorização explícitas do Product Owner."
+next_required_decision: "O Product Owner pode autorizar ou recusar a publicação da LVFI-APP-016; nenhuma task sucessora está autorizada."
+immediate_action: "Aguardar decisão de publicação da LVFI-APP-016; não iniciar task posterior."
 completed_tasks:
   - "LVFI-DISC-002"
   - "LVFI-ENG-001"
@@ -45,6 +45,7 @@ completed_tasks:
   - "LVFI-ENG-007"
   - "LVFI-APP-014"
   - "LVFI-APP-015"
+  - "LVFI-APP-016"
 active_tasks: []
 planned_tasks: []
 approved_not_implemented_tasks: []
@@ -63,15 +64,16 @@ versions:
   method_two_result_schema: 1
 test_baseline:
   api:
-    collected: 249
+    collected: 253
     statements: "100%"
     branches: "100%"
-    evidence: "../.r21-artifacts/quality/gates-20260910-215018-full.log"
+    isolated_postgresql_collected: 258
+    evidence: "../.r21-artifacts/quality/gates-20260911-080915-full.log"
   pricing_engine:
     passed: 554
     statements: "100%"
     branches: "100%"
-    evidence: "../.r21-artifacts/quality/gates-20260910-215018-full.log"
+    evidence: "../.r21-artifacts/quality/gates-20260911-080915-full.log"
 approved_program_decisions:
   - "Primeira versão local, para um administrador e sem Docker como requisito diário."
   - "Importação revisada por Excel/CSV e manutenção manual de partidas e estatísticas pela web."

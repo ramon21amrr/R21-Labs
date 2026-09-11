@@ -1,4 +1,4 @@
-import type { Analysis, AnalysisApproval, AnalysisHistory, AnalysisSnapshot, ConfigurationCatalog, ConfigurationRevision, ConfigurationRevisionDraft, EffectiveConfiguration, FutureMatch, FutureMatchDraft, ImportPreview, MarketPricing, MarketReferenceObservation, Match, MethodOneSample, ModelReferenceComparison, Page, PricingExecution, StatisticRevision, StatisticRevisionDraft, StatisticsSample, StatisticsSampleRequest, WorkflowDecisionDraft } from "@/lib/contracts";
+import type { Analysis, AnalysisApproval, AnalysisHistory, AnalysisSnapshot, ConfigurationCatalog, ConfigurationRevision, ConfigurationRevisionDraft, EffectiveConfiguration, FutureMatch, FutureMatchDraft, ImportPreview, MarketPricing, MarketReferenceObservation, Match, MethodOneSample, MethodResult, MethodThreeResultRequest, MethodTwoResultRequest, ModelReferenceComparison, Page, PricingExecution, StatisticRevision, StatisticRevisionDraft, StatisticsSample, StatisticsSampleRequest, WorkflowDecisionDraft } from "@/lib/contracts";
 
 const defaultApiUrl = "/api";
 
@@ -133,3 +133,19 @@ export const getAnalysis = (analysisId: string) => request<Analysis>(`/analyses/
 export const listAnalyses = (matchId: number) => request<AnalysisHistory>(`/matches/${matchId}/analyses`);
 export const getAnalysisSnapshot = (analysisId: string) =>
   request<AnalysisSnapshot>(`/analyses/${analysisId}/snapshot`);
+
+function methodResultRequest<T extends object>(
+  path: string,
+  selectors: T
+): Promise<MethodResult> {
+  const params = new URLSearchParams();
+  for (const [key, value] of Object.entries(selectors as Record<string, string | number | undefined>)) {
+    if (value !== undefined) params.set(key, String(value));
+  }
+  return request<MethodResult>(path, undefined, params);
+}
+
+export const getMethodTwoResult = (matchId: number, selectors: MethodTwoResultRequest) =>
+  methodResultRequest(`/matches/${matchId}/method-two/result`, selectors);
+export const getMethodThreeResult = (matchId: number, selectors: MethodThreeResultRequest) =>
+  methodResultRequest(`/matches/${matchId}/method-three/result`, selectors);

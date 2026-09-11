@@ -141,6 +141,8 @@ O encerramento técnico, as limitações remanescentes e a referência ao arquiv
 - [39 — Plano mestre e rebaseline do LVFI](39-lvfi-master-plan-rebaseline.md)
 - [41 — Camada Estatística Comum](41-lvfi-app-013-statistics-layer.md)
 - [44 — Catálogo e Configuração](44-lvfi-app-014-catalog-and-configuration.md)
+- [45 — Workflow de Revisão, Aprovação e Snapshot](45-lvfi-app-015-workflow-review-approval-snapshot.md)
+- [46 — Match Center](46-lvfi-app-016-match-center.md)
 
 ## Continuidade institucional
 
