@@ -39,3 +39,12 @@ alterados. O rollback remove somente os objetos APP-017.
 Após aplicar as migrations, o Product Owner executa `python -m lvfi_api.cli
 admin-bootstrap` para criar a credencial e `admin-reset-password` apenas para
 recuperação local. Ambos solicitam a senha duas vezes por entrada oculta.
+
+## Publicação e encerramento
+
+O commit técnico `af2bfb93893abfe878ce7e106b7a482657f7caba` foi publicado no PR #46
+e integrado por merge commit `32c2cbd267deea449f9c572fbdc85f56d442b4b0`.
+Os gates de API, PostgreSQL 16 isolado, frontend e Pricing Engine passaram; QA e
+revisão de segurança não deixaram P0/P1 abertos. Para HTTPS com rewrite interno,
+`LVFI_EXTERNAL_HTTPS=true` é requisito operacional. Cobertura dedicada de
+`proxy.ts` permanece melhoria P2 futura, sem bloquear esta entrega.
