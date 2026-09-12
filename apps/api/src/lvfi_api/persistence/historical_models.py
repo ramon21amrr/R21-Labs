@@ -443,6 +443,37 @@ analysis_workflow_snapshots = Table(
     CheckConstraint("length(snapshot_hash) = 64", name="analysis_snapshot_hash_length"),
 )
 
+# APP-018 artifacts are append-only projections of an already approved snapshot.
+# The file's SHA-256 and relative location let backup/restore validate both sides
+# without re-running pricing or reading mutable product state.
+analysis_pdf_artifacts = Table(
+    "analysis_pdf_artifacts",
+    metadata,
+    Column("artifact_id", String(36), primary_key=True),
+    Column(
+        "snapshot_id",
+        String(36),
+        ForeignKey("analysis_workflow_snapshots.snapshot_id", ondelete="RESTRICT"),
+        nullable=False,
+    ),
+    Column("template_version", String(32), nullable=False),
+    Column("sha256", String(64), nullable=False),
+    Column("storage_path", String(512), nullable=False),
+    Column(
+        "created_at", DateTime(timezone=True), nullable=False, server_default=func.now()
+    ),
+    CheckConstraint("length(sha256) = 64", name="analysis_pdf_artifact_hash_length"),
+    UniqueConstraint(
+        "snapshot_id", "template_version", name="analysis_pdf_artifact_snapshot_template"
+    ),
+)
+Index(
+    "ix_analysis_pdf_artifacts_snapshot_created",
+    analysis_pdf_artifacts.c.snapshot_id,
+    analysis_pdf_artifacts.c.created_at.asc(),
+    analysis_pdf_artifacts.c.artifact_id.asc(),
+)
+
 # APP-017 isolates the one local administrator from the historical and pricing
 # ledgers.  Credentials and opaque session secrets are never stored here: only
 # their derived hashes are durable.  Session rows are deliberately mutable so

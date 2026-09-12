@@ -1,4 +1,4 @@
-import type { AdminSession, Analysis, AnalysisApproval, AnalysisHistory, AnalysisSnapshot, ConfigurationCatalog, ConfigurationRevision, ConfigurationRevisionDraft, EffectiveConfiguration, FutureMatch, FutureMatchDraft, ImportPreview, MarketPricing, MarketReferenceObservation, Match, MethodOneSample, MethodResult, MethodThreeResultRequest, MethodTwoResultRequest, ModelReferenceComparison, Page, PricingExecution, StatisticRevision, StatisticRevisionDraft, StatisticsSample, StatisticsSampleRequest, WorkflowDecisionDraft } from "@/lib/contracts";
+import type { AdminSession, Analysis, AnalysisApproval, AnalysisHistory, AnalysisSnapshot, ConfigurationCatalog, ConfigurationRevision, ConfigurationRevisionDraft, EffectiveConfiguration, FutureMatch, FutureMatchDraft, ImportPreview, MarketPricing, MarketReferenceObservation, Match, MethodOneSample, MethodResult, MethodThreeResultRequest, MethodTwoResultRequest, ModelReferenceComparison, Page, PdfArtifact, PdfArtifactHistory, PricingExecution, StatisticRevision, StatisticRevisionDraft, StatisticsSample, StatisticsSampleRequest, WorkflowDecisionDraft } from "@/lib/contracts";
 
 const defaultApiUrl = "/api";
 
@@ -135,6 +135,12 @@ export const getAnalysis = (analysisId: string) => request<Analysis>(`/analyses/
 export const listAnalyses = (matchId: number) => request<AnalysisHistory>(`/matches/${matchId}/analyses`);
 export const getAnalysisSnapshot = (analysisId: string) =>
   request<AnalysisSnapshot>(`/analyses/${analysisId}/snapshot`);
+export const createPdfArtifact = (snapshotId: string) =>
+  request<PdfArtifact>(`/analysis-snapshots/${snapshotId}/pdfs`, { method: "POST" });
+export const listPdfArtifacts = (snapshotId: string) =>
+  request<PdfArtifactHistory>(`/analysis-snapshots/${snapshotId}/pdfs`);
+export const pdfArtifactDownloadUrl = (artifactId: string) =>
+  apiUrl(`/analysis-pdfs/${artifactId}/download`);
 
 function methodResultRequest<T extends object>(
   path: string,

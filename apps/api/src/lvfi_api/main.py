@@ -95,6 +95,7 @@ def create_app(
     from lvfi_api.presentation.operational_data_routes import (
         router as operational_data_router,
     )
+    from lvfi_api.presentation.pdf_report_routes import router as pdf_report_router
     from lvfi_api.presentation.pricing_execution_routes import (
         router as pricing_execution_router,
     )
@@ -139,6 +140,7 @@ def create_app(
     app.include_router(configuration_administration_router, dependencies=protected)
     app.include_router(configuration_match_router, dependencies=protected)
     app.include_router(analysis_workflow_router, dependencies=protected)
+    app.include_router(pdf_report_router, dependencies=protected)
     app.include_router(operational_data_router, dependencies=protected)
     app.include_router(pricing_execution_router, dependencies=protected)
     app.include_router(pricing_execution_reproduction_router, dependencies=protected)

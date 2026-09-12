@@ -4,8 +4,8 @@ import type { FormEvent } from "react";
 import { useEffect, useState } from "react";
 
 import { CanonicalValue } from "@/components/canonical-value";
-import { ApiError, approveAnalysis, calculateAnalysis, createAnalysis, getAnalysis, getAnalysisSnapshot, listAnalyses, reviewAnalysis } from "@/lib/api";
-import type { Analysis, AnalysisEventType, AnalysisSnapshot, WorkflowDecisionDraft } from "@/lib/contracts";
+import { ApiError, approveAnalysis, calculateAnalysis, createAnalysis, createPdfArtifact, getAnalysis, getAnalysisSnapshot, listAnalyses, listPdfArtifacts, pdfArtifactDownloadUrl, reviewAnalysis } from "@/lib/api";
+import type { Analysis, AnalysisEventType, AnalysisSnapshot, PdfArtifact, WorkflowDecisionDraft } from "@/lib/contracts";
 
 function failureMessage(reason: unknown, fallback: string): string {
   return reason instanceof ApiError ? reason.message : fallback;
@@ -33,10 +33,15 @@ function SnapshotDetails({ snapshot }: { snapshot: AnalysisSnapshot }) {
   return <section aria-labelledby="analysis-snapshot-title"><h3 id="analysis-snapshot-title">Snapshot imutável</h3><p className="hint">O payload, hash e evidências abaixo foram congelados pela API após a aprovação; o navegador não os recalcula.</p><dl className="metadata"><dt>Snapshot ID</dt><dd><code>{snapshot.snapshot_id}</code></dd><dt>Criado em</dt><dd>{snapshot.created_at}</dd><dt>SHA-256</dt><dd><code>{snapshot.snapshot_hash}</code></dd></dl><CanonicalValue value={snapshot.payload} /></section>;
 }
 
+function PdfArtifacts({ artifacts, busy, generate }: { artifacts: PdfArtifact[]; busy: boolean; generate: () => void }) {
+  return <section aria-labelledby="pdf-artifacts-title"><h3 id="pdf-artifacts-title">PDF-resumo imutável</h3><p className="hint">Gerado no servidor exclusivamente do snapshot aprovado; esta tela não recalcula resultados.</p><button type="button" onClick={generate} disabled={busy}>{busy ? "Gerando…" : "Gerar PDF-resumo"}</button>{artifacts.length === 0 ? <p className="empty">Ainda não há PDF-resumo para este snapshot.</p> : <ul>{artifacts.map((artifact) => <li key={artifact.artifact_id}><code>{artifact.template_version}</code> · <code>{artifact.sha256}</code> · <a href={pdfArtifactDownloadUrl(artifact.artifact_id)}>Baixar PDF</a></li>)}</ul>}</section>;
+}
+
 export function AnalysisWorkflow({ matchId }: { matchId: number }) {
   const [analyses, setAnalyses] = useState<Analysis[]>([]);
   const [selected, setSelected] = useState<Analysis | null>(null);
   const [snapshot, setSnapshot] = useState<AnalysisSnapshot | null>(null);
+  const [pdfArtifacts, setPdfArtifacts] = useState<PdfArtifact[]>([]);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
@@ -60,7 +65,7 @@ export function AnalysisWorkflow({ matchId }: { matchId: number }) {
     try {
       const analysis = await getAnalysis(analysisId);
       setSelected(analysis); setAnalyses((current) => replaceAnalysis(current, analysis));
-      if (analysis.status === "approved") setSnapshot(await getAnalysisSnapshot(analysis.analysis_id));
+      if (analysis.status === "approved") { const approvedSnapshot = await getAnalysisSnapshot(analysis.analysis_id); setSnapshot(approvedSnapshot); setPdfArtifacts((await listPdfArtifacts(approvedSnapshot.snapshot_id)).artifacts); }
     } catch (reason) { setMessage(failureMessage(reason, "Não foi possível consultar a análise.")); }
     finally { setBusy(false); }
   }
@@ -109,6 +114,8 @@ export function AnalysisWorkflow({ matchId }: { matchId: number }) {
     finally { setBusy(false); }
   }
 
+  async function generatePdf() { if (!snapshot) return; setBusy(true); setMessage(null); try { const artifact = await createPdfArtifact(snapshot.snapshot_id); setPdfArtifacts((await listPdfArtifacts(snapshot.snapshot_id)).artifacts); setMessage(`PDF-resumo gerado pelo servidor (SHA-256 ${artifact.sha256}).`); } catch (reason) { setMessage(failureMessage(reason, "Não foi possível gerar o PDF-resumo.")); } finally { setBusy(false); } }
+
   return <section className="shell" aria-labelledby="analysis-workflow-title"><div className="panel"><div className="section-heading"><div><p className="eyebrow">APP-015 · fluxo auditável</p><h2 id="analysis-workflow-title">Revisão, aprovação e snapshot</h2></div><button type="button" onClick={() => void createDraft()} disabled={busy || invalidMatchId}>{busy ? "Aguarde…" : "Criar rascunho"}</button></div><p className="hint">As transições e a captura reprodutível são aplicadas pela API. Esta tela não calcula resultados, hashes ou fingerprints.</p>
     {invalidMatchId && <p className="status error" role="alert">Identificador de partida inválido.</p>}
     {!invalidMatchId && loading && <p className="status" role="status">Carregando histórico de análises…</p>}
@@ -117,7 +124,7 @@ export function AnalysisWorkflow({ matchId }: { matchId: number }) {
       {selected.status === "draft" && <form className="filters" onSubmit={(event) => void calculate(event)}><label>Execution ID concluída<input aria-label="Execution ID concluída" name="execution_id" required minLength={36} maxLength={36} /></label><div><button type="submit" disabled={busy}>Vincular e calcular</button></div></form>}
       {selected.status === "calculated" && <><form className="filters" onSubmit={(event) => void decide(event, "review")}><label>Justificativa da revisão<input aria-label="Justificativa da revisão" name="reason" required maxLength={2000} /></label><div><button type="submit" disabled={busy}>Registrar revisão</button></div></form><form className="filters" onSubmit={(event) => void decide(event, "approve")}><label>Justificativa da aprovação<input aria-label="Justificativa da aprovação" name="reason" required maxLength={2000} /></label><div><button type="submit" disabled={busy}>Aprovar e criar snapshot</button></div></form></>}
       <section><h4>Eventos auditáveis</h4>{selected.events.length === 0 ? <p className="empty">O rascunho ainda não possui eventos.</p> : <div className="table-wrap"><table><caption className="sr-only">Eventos auditáveis da análise</caption><thead><tr><th>Evento</th><th>Em</th><th>Autor</th><th>Justificativa</th><th>Execução</th></tr></thead><tbody>{selected.events.map((item) => <tr key={item.event_id}><td>{eventLabel(item.event_type)}</td><td>{item.created_at}</td><td>{item.actor ?? "—"}</td><td>{item.reason ?? "—"}</td><td>{item.execution_id ? <code>{item.execution_id}</code> : "—"}</td></tr>)}</tbody></table></div>}</section>
-      {snapshot && <SnapshotDetails snapshot={snapshot} />}
+      {snapshot && <><SnapshotDetails snapshot={snapshot} /><PdfArtifacts artifacts={pdfArtifacts} busy={busy} generate={() => void generatePdf()} /></>}
     </section>}
     {!loading && <WorkflowHistory analyses={analyses} select={(analysisId) => void openAnalysis(analysisId)} />}
   </div></section>;

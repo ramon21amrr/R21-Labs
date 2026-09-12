@@ -58,6 +58,7 @@ def settings() -> Settings:
         environment="test",
         app_name="lvfi-api-test",
         database_url="postgresql+asyncpg://lvfi:lvfi@127.0.0.1:5432/lvfi_test",
+        pdf_storage_dir="C:/lvfi-test/pdfs",
     )
 
 

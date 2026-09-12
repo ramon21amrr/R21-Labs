@@ -8,8 +8,8 @@ reference_commit_semantics: "Base estável aprovada da LVFI-APP-016; nunca subst
 head_resolution_command: "git rev-parse HEAD"
 main_resolution_command: "git rev-parse main"
 origin_main_resolution_command: "git rev-parse origin/main"
-current_phase: "lvfi_app_017_local_admin_authentication_closed"
-current_milestone: "lvfi_app_017_local_admin_authentication_closed"
+current_phase: "lvfi_app_018_pdf_local_operation_active"
+current_milestone: "lvfi_app_018_pdf_local_operation_active"
 last_completed_task: "LVFI-APP-017"
 last_completed_governance_task: "R21-GOV-003"
 last_completed_product_task: "LVFI-APP-017"
@@ -47,9 +47,11 @@ completed_tasks:
   - "LVFI-APP-015"
   - "LVFI-APP-016"
   - "LVFI-APP-017"
-active_tasks: []
+active_tasks:
+  - "LVFI-APP-018"
 planned_tasks: []
-approved_not_implemented_tasks: []
+approved_not_implemented_tasks:
+  - "LVFI-APP-018"
 blocked_tasks: []
 versions:
   api: "0.1.0"
