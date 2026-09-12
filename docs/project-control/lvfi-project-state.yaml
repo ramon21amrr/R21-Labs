@@ -1,18 +1,18 @@
 schema_version: "1.0"
 project: "R21 Labs"
 product: "Linha de Valor Football Intelligence"
-updated_at: "2026-09-11T14:15:09-03:00"
+updated_at: "2026-09-12T08:00:02-03:00"
 reference_commit: "9bc9a7cdb58fcdf5947b5a433c602465add453e3"
 reference_branch: "main"
 reference_commit_semantics: "Base estável aprovada da LVFI-APP-016; nunca substituir pelo HEAD ou merge produzido pela própria task."
 head_resolution_command: "git rev-parse HEAD"
 main_resolution_command: "git rev-parse main"
 origin_main_resolution_command: "git rev-parse origin/main"
-current_phase: "lvfi_app_018_pdf_local_operation_active"
-current_milestone: "lvfi_app_018_pdf_local_operation_active"
-last_completed_task: "LVFI-APP-017"
+current_phase: "lvfi_app_018_pdf_local_operation_closed"
+current_milestone: "lvfi_app_018_pdf_local_operation_closed"
+last_completed_task: "LVFI-APP-018"
 last_completed_governance_task: "R21-GOV-003"
-last_completed_product_task: "LVFI-APP-017"
+last_completed_product_task: "LVFI-APP-018"
 next_official_task: null
 next_planned_task: null
 next_required_decision: "Nenhuma task posterior está autorizada; aguardar instrução explícita do Product Owner."
@@ -47,11 +47,10 @@ completed_tasks:
   - "LVFI-APP-015"
   - "LVFI-APP-016"
   - "LVFI-APP-017"
-active_tasks:
   - "LVFI-APP-018"
+active_tasks: []
 planned_tasks: []
-approved_not_implemented_tasks:
-  - "LVFI-APP-018"
+approved_not_implemented_tasks: []
 blocked_tasks: []
 versions:
   api: "0.1.0"
@@ -67,26 +66,26 @@ versions:
   method_two_result_schema: 1
 test_baseline:
   api:
-    collected: 258
+    collected: 267
     statements: "100%"
     branches: "100%"
-    isolated_postgresql_collected: 264
-    evidence: "../.r21-artifacts/quality/gates-20260911-091555-full.log"
+    conditional_skips: 6
+    evidence: "../.r21-artifacts/quality/gates-20260911-213622-full.log"
   pricing_engine:
     passed: 554
     statements: "100%"
     branches: "100%"
-    evidence: "../.r21-artifacts/quality/gates-20260911-091555-full.log"
+    evidence: "../.r21-artifacts/quality/gates-20260911-213622-full.log"
 approved_program_decisions:
   - "Primeira versão local, para um administrador e sem Docker como requisito diário."
   - "Importação revisada por Excel/CSV e manutenção manual de partidas e estatísticas pela web."
   - "Sete grupos estatísticos por time; jogadores, membros, odds automáticas e Value Tracker fora da primeira versão."
   - "Métodos apresentados separadamente; Método 1 congelado; mercados adicionais experimentais até calibração."
   - "PDF-resumo programático gerado de snapshot aprovado e imutável."
+  - "APP-018: HTML/CSS→PDF por Chromium/Playwright, artefato append-only com SHA-256 e template versionado, retenção enquanto o snapshot existir."
+  - "APP-018: backup local diário de PostgreSQL, PDFs, metadados e configuração, com retenção 14/8/6, RPO 24 h e RTO 2 h."
   - "Corte após pelo menos 20 análises paralelas em cinco competições e aceite do Product Owner."
 pending_decisions:
-  - "Tecnologia concreta e política de retenção do PDF-resumo."
-  - "Detalhes de backup, restauração e objetivos de recuperação."
   - "Fornecedores de dados e odds e seus contratos."
   - "Evento de integração com Value Tracker e metodologia de CLV."
   - "Critérios quantitativos adicionais e autoridade final de cutover."

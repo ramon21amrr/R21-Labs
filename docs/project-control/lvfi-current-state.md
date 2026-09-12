@@ -5,12 +5,13 @@
 - **Branch de referência:** `main`; o SHA corrente de `HEAD`, `main` e
   `origin/main` é sempre resolvido no runtime por Git, não registrado como valor
   corrente neste handoff.
-- **Último encerramento institucional:** `LVFI-APP-017 — Autenticação Local de Administrador`.
-- **Última task de produto concluída:** `LVFI-APP-017 — Autenticação Local de
-  Administrador`, commit `af2bfb93893abfe878ce7e106b7a482657f7caba`, PR #46 e
-  merge commit `32c2cbd267deea449f9c572fbdc85f56d442b4b0`.
-- **Task ativa:** `LVFI-APP-018 — PDF-resumo e Operação Local`.
-- **Próxima task:** nenhuma; APP-018 é a única task autorizada em execução.
+- **Último encerramento institucional:** `LVFI-APP-018 — PDF-resumo e Operação
+  Local`.
+- **Última task de produto concluída:** `LVFI-APP-018 — PDF-resumo e Operação
+  Local`, commit `28bae5f3ba64eddf86a344239dbd4eece5590538`, PR #48 e merge
+  commit `80e785c7a8e6f2b8b111a6c56e6a6c97092647db`.
+- **Task ativa:** nenhuma.
+- **Próxima task:** nenhuma; nenhuma task posterior foi autorizada.
 
 ## Capacidades disponíveis
 
@@ -32,18 +33,22 @@ ao Pricing Engine.
 `LVFI-APP-015` acrescenta o workflow auditável de análise, revisão obrigatória,
 aprovação e snapshot imutável reprodutível, sem alterar APP-014, Métodos 1/2/3
 ou o Pricing Engine.
+`LVFI-APP-018` acrescenta PDF-resumo HTML/CSS convertido por Chromium/Playwright
+exclusivamente de snapshot aprovado, com SHA-256, versão de template e
+persistência append-only. Também disponibiliza launcher Windows, health/readiness
+e backup/restauração local de PostgreSQL, PDFs, metadados e configuração.
 
 ## Versões e baseline
 
 - API `0.1.0`; Python `>=3.13,<3.14`; PostgreSQL 16 na validação isolada.
 - Distribuição `lvfi-pricing-engine` `1.1.1`; Pricing Engine `1.0.1`.
 - Método 1 `1.0.0`; schema canônico do Método 1 `1`.
-- APP-011: 103 testes de backend no PostgreSQL isolado com 100% de cobertura;
-  frontend com lint, typecheck, testes e build aprovados.
-- APP-012: 116 testes de backend no PostgreSQL isolado com 100% de cobertura;
-  lint, typecheck, 9 testes e build do frontend aprovados; smoke frontend → API
-  → PostgreSQL isolado aprovado.
-- Pricing Engine: 554 testes e cobertura integral no último gate aplicável.
+- APP-018: API com 267 testes e 6 skips condicionais, 100% de
+  statements/branches; Pricing Engine com 554 testes e 100%; frontend com 19
+  testes, lint, typecheck e build aprovados.
+- PDF Chromium real, launcher Windows, PostgreSQL real e ensaio de
+  backup/restauração passaram. RPO medido: 408,86 s (≤ 24 h); RTO medido: 5,62 s
+  (≤ 2 h). O ambiente descartável foi removido.
 - A `R21-GOV-002` é documental e não altera aplicação, contratos, schemas,
   versões, hashes, fixtures ou matemática.
 
@@ -101,8 +106,26 @@ sucessora é autorizada.
 
 ## Limitações vigentes
 
-Autenticação, PDF, launcher, backup/restauração, odds automáticas,
-oportunidades, Value Tracker e deploy remoto não estão concluídos.
+Odds automáticas, oportunidades, Value Tracker, múltiplos usuários, publicação
+remota e integrações externas permanecem fora do escopo concluído. Nenhuma task
+posterior, inclusive piloto, está autorizada.
+
+## LVFI-APP-018
+
+`LVFI-APP-018 — PDF-resumo e Operação Local` foi publicada pela branch
+`codex/lvfi-app-018-pdf-operacao-local`, commit técnico
+`28bae5f3ba64eddf86a344239dbd4eece5590538`, PR #48 e merge commit
+`80e785c7a8e6f2b8b111a6c56e6a6c97092647db`. O contrato usa exclusivamente o
+snapshot aprovado APP-015 como fonte do PDF; não recalcula domínio nem consulta
+estado mutável. Artefatos são append-only, têm SHA-256/template versionado e não
+sofrem exclusão automática enquanto o snapshot existir.
+
+O gate full oficial passou em
+`.r21-artifacts/quality/gates-20260911-213622-full.log`. QA independente,
+varredura de segredos, PDF Chromium real, operação Windows e recuperação real
+passaram sem pendência bloqueante. APP-012–017, Métodos 1/2/3 e Pricing Engine
+permaneceram preservados. Este encerramento documental não autoriza piloto nem
+task sucessora.
 
 ## LVFI-APP-014
 
