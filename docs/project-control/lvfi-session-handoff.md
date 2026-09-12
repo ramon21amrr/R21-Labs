@@ -17,9 +17,9 @@ versionados são a memória oficial. Antes de qualquer task, leia
   trocado pelo commit ou merge produzido pela própria task.
 - Resolva o estado corrente, em vez de reutilizar um SHA deste handoff, com
   `git rev-parse HEAD`, `git rev-parse main` e `git rev-parse origin/main`.
-- Última task de produto concluída: `LVFI-APP-017`, commit
-  `af2bfb93893abfe878ce7e106b7a482657f7caba`, PR #46 e merge histórico
-  `32c2cbd267deea449f9c572fbdc85f56d442b4b0`.
+- Última task de produto concluída: `LVFI-APP-018`, commit
+  `28bae5f3ba64eddf86a344239dbd4eece5590538`, PR #48 e merge histórico
+  `80e785c7a8e6f2b8b111a6c56e6a6c97092647db`.
 - Última task de governança concluída: `R21-GOV-003`, commit
   `39a1122b34ff467924962ec4320c0d77c065d0df`, PR #36 e merge histórico
   `c9726fae50bb3b355800e83d1ad9fb8f77216536`.
@@ -27,15 +27,16 @@ versionados são a memória oficial. Antes de qualquer task, leia
 
 ## Última entrega publicada
 
-`LVFI-APP-017 — Autenticação Local de Administrador` é a última entrega
-publicada e integrada pela branch `codex/lvfi-app-017-local-admin-auth`, commit
-`af2bfb9`, PR #46 e merge `32c2cbd`. Adiciona autenticação local single-admin
-sem alterar APP-012 a APP-016, Métodos 1/2/3 ou Pricing Engine.
+`LVFI-APP-018 — PDF-resumo e Operação Local` é a última entrega publicada e
+integrada pela branch `codex/lvfi-app-018-pdf-operacao-local`, commit `28bae5f`,
+PR #48 e merge `80e785c`. Adiciona PDF Chromium determinístico de snapshot
+aprovado, launcher Windows e recuperação local ensaiada sem alterar APP-012 a
+APP-017, Métodos 1/2/3 ou Pricing Engine.
 
 ## Plano aprovado
 
-A primeira versão será local, para um administrador, com importação revisada de
-Excel/CSV e manutenção web de partidas/estatísticas. Ela cobrirá resultado, gols,
+A primeira versão é local, para um administrador, com importação revisada de
+Excel/CSV e manutenção web de partidas/estatísticas. Ela cobre resultado, gols,
 escanteios, chutes no gol, finalizações, cartões e faltas; Métodos 1, 2 e 3
 separados; configurações versionadas; aprovação e snapshot; Match Center;
 PDF-resumo; launcher, backup e restauração.
@@ -61,13 +62,14 @@ Ele foi reconstruído no gate final em modo local `code-only`, com 316 nós e 66
 relações; a consulta de código respondeu e a varredura dos artefatos principais
 não encontrou os padrões sensíveis verificados.
 
-Gates finais APP-017: profile full PASS (parser, diff-check, links locais, API
-258/100% e Pricing 554/100%); frontend com 18 testes, lint, typecheck e build
-PASS; API em PostgreSQL 16 real com migration `20260911_10`, rollback/reupgrade,
-264 testes e 100% PASS. O banco descartável foi removido sem `codex_task_*`
-residual. QA e revisão de segurança não encontraram P0/P1. Para HTTPS com
-rewrite interno, configurar `LVFI_EXTERNAL_HTTPS=true`; cobertura dedicada de
-`proxy.ts` permanece melhoria P2 futura.
+Gates finais APP-018: profile full PASS (parser, diff-check, links locais, API
+267 + 6 skips condicionais/100% e Pricing 554/100%); frontend com 19 testes,
+lint, typecheck e build PASS; PDF Chromium real, launcher e PostgreSQL 16 real
+PASS. O ensaio de backup/restauração passou com RPO de 408,86 s e RTO de 5,62 s;
+o ambiente descartável foi removido sem `codex_task_*` residual. QA e revisão de
+segurança não encontraram P0/P1. Para HTTPS com rewrite interno, configurar
+`LVFI_EXTERNAL_HTTPS=true`; cobertura dedicada de `proxy.ts` permanece melhoria
+P2 futura.
 
 **Ação imediata:** nenhuma task posterior está autorizada; aguardar instrução
 explícita do Product Owner.

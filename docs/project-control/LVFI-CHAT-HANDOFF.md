@@ -8,18 +8,19 @@
   Não representa o SHA corrente.
 - Estado corrente: resolver com `git rev-parse HEAD`, `git rev-parse main` e
   `git rev-parse origin/main`; SHAs textuais são apenas evidência histórica.
-- Última task de produto concluída: `LVFI-APP-017`, commit `af2bfb9`, PR #46 e
-  merge histórico `32c2cbd267deea449f9c572fbdc85f56d442b4b0`.
+- Última task de produto concluída: `LVFI-APP-018`, commit `28bae5f`, PR #48 e
+  merge histórico `80e785c7a8e6f2b8b111a6c56e6a6c97092647db`.
 - Última task de governança concluída: `R21-GOV-003`, PR #36 e merge histórico
   `c9726fae50bb3b355800e83d1ad9fb8f77216536`.
-- Task ativa: nenhuma. `LVFI-APP-017 — Autenticação Local de Administrador` foi
+- Task ativa: nenhuma. `LVFI-APP-018 — PDF-resumo e Operação Local` foi
   publicada, integrada e encerrada institucionalmente pela branch
-  `codex/lvfi-app-017-local-admin-auth`, commit `af2bfb9`, PR #46 e merge
-  `32c2cbd`.
-- Estado: autenticação local single-admin protege UI e APIs no servidor, persiste
-  somente hashes Argon2id/SHA-256 e mantém auditoria derivada da sessão. Profile
-  full, frontend e PostgreSQL real passaram; a base descartável foi removida.
-  APP-012 a APP-016, Métodos 1/2/3 e Pricing Engine permanecem preservados.
+  `codex/lvfi-app-018-pdf-operacao-local`, commit `28bae5f`, PR #48 e merge
+  `80e785c`.
+- Estado: PDF determinístico é gerado por Chromium exclusivamente de snapshot
+  aprovado e é persistido append-only com SHA-256/template versionado. Launcher,
+  health/readiness e backup/restauração local passaram em PostgreSQL real; RPO
+  foi 408,86 s e RTO 5,62 s. APP-012 a APP-017, Métodos 1/2/3 e Pricing Engine
+  permanecem preservados.
   Para HTTPS com rewrite interno, usar `LVFI_EXTERNAL_HTTPS=true`; a cobertura
   dedicada de `proxy.ts` permanece melhoria P2 futura.
 - Próxima ação: aguardar instrução explícita do Product Owner; não iniciar task
