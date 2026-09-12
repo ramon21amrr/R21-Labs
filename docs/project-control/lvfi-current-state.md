@@ -9,8 +9,8 @@
 - **Última task de produto concluída:** `LVFI-APP-017 — Autenticação Local de
   Administrador`, commit `af2bfb93893abfe878ce7e106b7a482657f7caba`, PR #46 e
   merge commit `32c2cbd267deea449f9c572fbdc85f56d442b4b0`.
-- **Task ativa:** nenhuma.
-- **Próxima task:** nenhuma; nenhuma task posterior foi autorizada.
+- **Task ativa:** `LVFI-APP-018 — PDF-resumo e Operação Local`.
+- **Próxima task:** nenhuma; APP-018 é a única task autorizada em execução.
 
 ## Capacidades disponíveis
 

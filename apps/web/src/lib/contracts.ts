@@ -350,6 +350,18 @@ export interface AnalysisApproval {
   snapshot: AnalysisSnapshot;
 }
 
+export interface PdfArtifact {
+  artifact_id: string;
+  snapshot_id: string;
+  template_version: string;
+  sha256: string;
+  created_at: string;
+}
+
+export interface PdfArtifactHistory {
+  artifacts: PdfArtifact[];
+}
+
 export interface MethodTwoResultRequest {
   sample_size: StatisticsSampleSize;
   context: "venue" | "overall";

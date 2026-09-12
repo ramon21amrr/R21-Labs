@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from functools import lru_cache
+from pathlib import Path
 from typing import Literal
 
 from pydantic import Field, PostgresDsn, field_validator
@@ -28,6 +29,8 @@ class Settings(BaseSettings):
     database_timeout_seconds: int = Field(default=5, ge=1, le=60)
     correlation_header: str = "X-Request-ID"
     external_https: bool = False
+    pdf_storage_dir: Path | None = None
+    pdf_renderer_script: Path = Path("../../scripts/local/render-lvfi-pdf.mjs")
 
     @field_validator("database_url")
     @classmethod
