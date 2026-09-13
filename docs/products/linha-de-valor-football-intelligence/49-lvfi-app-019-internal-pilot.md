@@ -168,3 +168,10 @@ aceita pelo Product Owner de que M1/M2 não possuem vínculo legado reproduzíve
 A recomendação técnica é `APTO`; o Product Owner aprovou o cutover interno.
 Isto não altera APP-012–018, contratos, versões ou matemática e não autoriza
 atividade financeira, comercial, Value Tracker ou integração externa.
+
+## Publicação e encerramento institucional
+
+O commit técnico-documental `d0cd4ccd0c9ff2bf02168614844e0d59262293dc` foi
+publicado pelo PR #50 e integrado em `main` pelo merge commit
+`79880af721ace00e27f86557d6e058880823a69e`. O encerramento documental ocorre
+nesta sequência autorizada, sem criar ou inferir task sucessora.

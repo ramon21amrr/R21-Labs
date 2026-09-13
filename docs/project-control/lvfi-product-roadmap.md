@@ -22,11 +22,11 @@ Estados usados: **concluído**, **tecnicamente pronto**, **programa aprovado**,
 | Entrada de mercado | Concluído, publicado, integrado e encerrado institucionalmente | Entrada manual de referência e comparação entre modelo e mercado | ENG-006 concluída | `LVFI-APP-011`, PR #22 e merge `7ef9e0a7a4146637e3121196c6cc743590ddcc4b` | Não ampliar para oportunidade automática sem decisão |
 | Plano mestre e rebaseline | Concluído, publicado, integrado e encerrado institucionalmente | Reconciliar estado, registrar fingerprints e organizar a primeira versão local | APP-011 encerrada e autorização do Product Owner | `R21-GOV-002`, PR #24, merge `7819f3fc1a2c76d196c51584c0027cec65e7a67e` | Não iniciar código nem inferir task sucessora |
 | Fundação operacional de dados | Concluído, publicado, integrado e encerrado institucionalmente | Prévia/confirmação de Excel/CSV, cadastro de partida e revisão estatística auditável | R21-GOV-002 integrada | `LVFI-APP-012`, commit `0bec8682912ebfd6c2e597dbda56b6edd34555bd`, PR #26 e merge `88d7ab486f007d946a053adba4a8ab552b78ee35` | Proveniência e revisão auditável preservadas; ausência não equivale a zero |
-| MVP interno completo | Concluído localmente; piloto e cutover interno aprovados | Camada estatística, Métodos 2/3, configurações, revisão/aprovação, snapshot, auditoria, Match Center, PDF-resumo, autenticação e recuperação local | Fundação operacional de dados e autorizações incrementais | APP-014 a APP-019 concluídas tecnicamente; piloto validou a jornada ponta a ponta e recuperação | Preservar Método 1 e contratos; não autoriza operação financeira, Value Tracker, comercialização ou integrações externas |
+| MVP interno completo | Concluído, publicado, integrado e encerrado institucionalmente | Camada estatística, Métodos 2/3, configurações, revisão/aprovação, snapshot, auditoria, Match Center, PDF-resumo, autenticação e recuperação local | Fundação operacional de dados e autorizações incrementais | APP-014 a APP-019 concluídas; APP-019 PR #50/merge `79880af721ace00e27f86557d6e058880823a69e` validou a jornada ponta a ponta e recuperação | Preservar Método 1 e contratos; não autoriza operação financeira, Value Tracker, comercialização ou integrações externas |
 | MVP utilizável | Planejado | Operação manual pelo administrador no Brasileirão Série A 2026 | MVP interno, dados reconciliados e UX validada | Usuário conclui importar, selecionar, precificar, revisar, aprovar e gerar PDF | Usabilidade, baixa amostra, rastreabilidade e proteção de conhecimento |
 | Relatórios ampliados | Planejado/Futuro | PDF-resumo no MVP; PDF analítico após capacidades correspondentes | Snapshot aprovado, storage e tecnologia de PDF decidida | Legibilidade, rastreabilidade, autorização e retenção validadas | Exposição de conhecimento, paginação e armazenamento |
 | Deploy e recuperação | Dependente de decisão | Preparar ambiente, backup e restauração antes de uso real | MVP utilizável, ADRs 011–013 e decisões operacionais | Ambiente aprovado e restauração ensaiada | Disponibilidade, custo, segurança e perda de dados |
-| Piloto | Concluído tecnicamente; cutover interno aprovado | Operação controlada com backup, restauração e jornadas críticas | MVP utilizável, segurança e deploy | `LVFI-APP-019`: 20/20 jornadas, 5/5 competições, M3 ENG-005 20/20, recovery PASS e aceite do Product Owner | M1/M2 não têm vínculo legado reproduzível; não autoriza operação financeira, Value Tracker ou integrações externas |
+| Piloto | Concluído, publicado, integrado e encerrado institucionalmente; cutover interno aprovado | Operação controlada com backup, restauração e jornadas críticas | MVP utilizável, segurança e deploy | `LVFI-APP-019`, PR #50/merge `79880af721ace00e27f86557d6e058880823a69e`: 20/20 jornadas, 5/5 competições, M3 ENG-005 20/20, recovery PASS e aceite do Product Owner | M1/M2 não têm vínculo legado reproduzível; não autoriza operação financeira, Value Tracker ou integrações externas |
 | Operação de mercado ampliada | Fora do MVP | Provedores de odds, snapshots temporais, margem, EV e comparação além da APP-011 | Piloto e decisões de fornecedor/contrato | Observações auditáveis e comparação validada | Licenciamento, reconciliação, atraso e lock-in |
 | Oportunidades | Fora do MVP | Elegibilidade e aprovação de oportunidades sem registrar aposta | Operação de mercado | Contrato e decisão operacional aprovados | Não confundir precificação, oportunidade e aposta |
 | Value Tracker, resultados e melhoria | Futuro | Registrar apostas/paperbets, resultados, ROI, yield e CLV; retornar desempenho para análise | Contrato versionado, decisão do evento e dados suficientes | Integração auditada; aprendizado gera proposta de versão | Identidade, duplicidade, CLV e alteração automática de modelos |
@@ -38,10 +38,10 @@ não antecipam oportunidades, Value Tracker, piloto ou comercialização.
 
 ## Transição institucional vigente
 
-`LVFI-APP-019` é a última task de produto concluída tecnicamente; seu piloto e
-cutover interno foram aprovados pelo Product Owner. Os identificadores de
-publicação serão registrados no fechamento documental após os merges autorizados.
-Nenhuma task sucessora está autorizada.
+`LVFI-APP-019` é a última task de produto concluída, publicada, integrada e
+encerrada institucionalmente pelo PR #50 no merge
+`79880af721ace00e27f86557d6e058880823a69e`; seu piloto e cutover interno foram
+aprovados pelo Product Owner. Nenhuma task sucessora está autorizada.
 
 ## Escopo aprovado do MVP
 
@@ -62,8 +62,8 @@ criar telas vazias, serviços ou integrações antecipadas.
 ## Decisões que ainda condicionam o caminho
 
 - Método 2 foi concluído pela `LVFI-ENG-007`; Método 3 pela `LVFI-ENG-005`.
-- APP-012 a APP-018 estão concluídas, publicadas, integradas e encerradas
-  institucionalmente; APP-019 está em publicação/encerramento autorizado.
+- APP-012 a APP-019 estão concluídas, publicadas, integradas e encerradas
+  institucionalmente.
 - A primeira versão local, os sete grupos estatísticos, a entrada manual/revisada,
   o PDF programático e o gate mínimo do piloto estão aprovados pela R21-GOV-002.
 - O ID da próxima task e fornecedores futuros exigem decisões nas respectivas

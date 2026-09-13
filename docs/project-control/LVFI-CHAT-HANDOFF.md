@@ -8,8 +8,8 @@
   Não representa o SHA corrente.
 - Estado corrente: resolver com `git rev-parse HEAD`, `git rev-parse main` e
   `git rev-parse origin/main`; SHAs textuais são apenas evidência histórica.
-- Última task de produto concluída: `LVFI-APP-018`, commit `28bae5f`, PR #48 e
-  merge histórico `80e785c7a8e6f2b8b111a6c56e6a6c97092647db`.
+- Última task de produto concluída: `LVFI-APP-019`, commit `d0cd4cc`, PR #50 e
+  merge histórico `79880af721ace00e27f86557d6e058880823a69e`.
 - Última task de governança concluída: `R21-GOV-003`, PR #36 e merge histórico
   `c9726fae50bb3b355800e83d1ad9fb8f77216536`.
 - Task ativa: nenhuma. `LVFI-APP-019 — Piloto Interno e Validação Operacional`
@@ -17,8 +17,10 @@
   recovery APP-018, autenticação restaurada, snapshot/PDF/hashes e QA PASS;
   RPO 106,231 s, RTO 64,379 s e P0/P1/P2/P3 = 0/0/0/0. M1/M2 não têm vínculo
   legado observável e reproduzível (0 comparações sustentadas), limitação aceita
-  pelo Product Owner. O cutover interno e o encerramento foram autorizados; os
-  identificadores finais de publicação serão registrados após os merges. A
+  pelo Product Owner. O commit `d0cd4ccd0c9ff2bf02168614844e0d59262293dc` foi
+  publicado pelo PR #50 e integrado no merge
+  `79880af721ace00e27f86557d6e058880823a69e`; o encerramento documental ocorre
+  nesta sequência. A
   `LVFI-APP-018 — PDF-resumo e Operação Local` foi
   publicada, integrada e encerrada institucionalmente pela branch
   `codex/lvfi-app-018-pdf-operacao-local`, commit `28bae5f`, PR #48 e merge
@@ -30,8 +32,8 @@
   permanecem preservados.
   Para HTTPS com rewrite interno, usar `LVFI_EXTERNAL_HTTPS=true`; a cobertura
   dedicada de `proxy.ts` permanece melhoria P2 futura.
-- Próxima ação: concluir somente a publicação e o encerramento institucional
-  autorizados; não iniciar task sucessora.
+- Próxima ação: nenhuma task posterior está autorizada; aguardar instrução
+  explícita do Product Owner.
 
 Capacidades atuais: FastAPI/PostgreSQL, importação histórica revisada e
 idempotente, partidas futuras, revisões estatísticas append-only, consultas,
