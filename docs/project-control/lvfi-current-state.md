@@ -6,12 +6,16 @@
   `origin/main` é sempre resolvido no runtime por Git, não registrado como valor
   corrente neste handoff.
 - **Último encerramento institucional:** `LVFI-APP-018 — PDF-resumo e Operação
-  Local`.
-- **Última task de produto concluída:** `LVFI-APP-018 — PDF-resumo e Operação
-  Local`, commit `28bae5f3ba64eddf86a344239dbd4eece5590538`, PR #48 e merge
-  commit `80e785c7a8e6f2b8b111a6c56e6a6c97092647db`.
-- **Task ativa:** nenhuma.
-- **Próxima task:** nenhuma; nenhuma task posterior foi autorizada.
+  Local`; o encerramento publicado de `LVFI-APP-019` será registrado após os
+  merges autorizados desta sequência.
+- **Última task de produto concluída:** `LVFI-APP-019 — Piloto Interno e
+  Validação Operacional`, tecnicamente concluída; commit, PR e merge serão
+  resolvidos e registrados no fechamento documental.
+- **Task ativa:** nenhuma. O Product Owner aprovou as 20/20 jornadas em 5/5
+  competições, M3 ENG-005 20/20, recovery APP-018, autenticação restaurada,
+  snapshot/PDF/hashes, RPO 106,231 s, RTO 64,379 s, QA PASS e cutover interno.
+- **Próxima ação humana:** nenhuma. Não iniciar task posterior nem inferir
+  sucessora.
 
 ## Capacidades disponíveis
 
@@ -126,6 +130,29 @@ varredura de segredos, PDF Chromium real, operação Windows e recuperação rea
 passaram sem pendência bloqueante. APP-012–017, Métodos 1/2/3 e Pricing Engine
 permaneceram preservados. Este encerramento documental não autoriza piloto nem
 task sucessora.
+
+## LVFI-APP-019
+
+`LVFI-APP-019 — Piloto Interno e Validação Operacional` foi concluída
+tecnicamente e teve publicação, encerramento institucional e cutover interno
+aprovados pelo Product Owner em 2026-09-13. O protocolo versionado confirma o
+mínimo de 20 análises em cinco competições, a jornada
+importação→amostras→Métodos 1/2/3→configuração→revisão/aprovação→snapshot→PDF→
+auditoria/reprodução e recuperação.
+
+O PostgreSQL institucional está disponível em `127.0.0.1:55432`; as evidências
+privadas retidas validam 20 jornadas técnicas distintas em cinco competições,
+com M1/M2/M3 `1.0.0`, revisão/aprovação, snapshot, PDF e reprodução exata. O
+XLSM corrigido tem SHA-256 `FDCA46B855CC3FA28A34F622D282221F9B8E3EA41B0B6664432D9614D45D3924`,
+mas não registra vínculo histórico reproduzível por análise. Pela decisão
+aprovada, M1/M2 permanecem sem comparação legada forçada (0 sustentadas) e M3
+PASS nos 20 testes/baselines ENG-005. A colisão P2 de sequência foi contornada
+com bancos descartáveis separados e importação limpa de 2.694/0/0. O recovery
+APP-018 PASS confirmou backup/restauração isolados, autenticação original,
+snapshot/PDF/hashes e auditoria; RPO 106,231 s, RTO 64,379 s, QA independente
+PASS e P0/P1/P2/P3 = 0/0/0/0. APP-012–018, Métodos 1/2/3 e Pricing Engine
+permaneceram sem alteração. Os identificadores de publicação serão registrados
+no fechamento documental posterior ao merge técnico.
 
 ## LVFI-APP-014
 
