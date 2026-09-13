@@ -1,22 +1,22 @@
 schema_version: "1.0"
 project: "R21 Labs"
 product: "Linha de Valor Football Intelligence"
-updated_at: "2026-09-12T08:00:02-03:00"
+updated_at: "2026-09-13T15:00:00-03:00"
 reference_commit: "9bc9a7cdb58fcdf5947b5a433c602465add453e3"
 reference_branch: "main"
 reference_commit_semantics: "Base estável aprovada da LVFI-APP-016; nunca substituir pelo HEAD ou merge produzido pela própria task."
 head_resolution_command: "git rev-parse HEAD"
 main_resolution_command: "git rev-parse main"
 origin_main_resolution_command: "git rev-parse origin/main"
-current_phase: "lvfi_app_018_pdf_local_operation_closed"
-current_milestone: "lvfi_app_018_pdf_local_operation_closed"
-last_completed_task: "LVFI-APP-018"
+current_phase: "lvfi_app_019_publication_and_institutional_closure_authorized"
+current_milestone: "lvfi_app_019_internal_cutover_approved"
+last_completed_task: "LVFI-APP-019"
 last_completed_governance_task: "R21-GOV-003"
-last_completed_product_task: "LVFI-APP-018"
+last_completed_product_task: "LVFI-APP-019"
 next_official_task: null
 next_planned_task: null
 next_required_decision: "Nenhuma task posterior está autorizada; aguardar instrução explícita do Product Owner."
-immediate_action: "Aguardar instrução explícita do Product Owner; não iniciar task posterior."
+immediate_action: "Concluir somente a publicação e o encerramento institucional autorizados da LVFI-APP-019; não iniciar task posterior."
 completed_tasks:
   - "LVFI-DISC-002"
   - "LVFI-ENG-001"
@@ -48,6 +48,7 @@ completed_tasks:
   - "LVFI-APP-016"
   - "LVFI-APP-017"
   - "LVFI-APP-018"
+  - "LVFI-APP-019"
 active_tasks: []
 planned_tasks: []
 approved_not_implemented_tasks: []

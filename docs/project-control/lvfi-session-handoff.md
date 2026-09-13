@@ -71,5 +71,8 @@ segurança não encontraram P0/P1. Para HTTPS com rewrite interno, configurar
 `LVFI_EXTERNAL_HTTPS=true`; cobertura dedicada de `proxy.ts` permanece melhoria
 P2 futura.
 
-**Ação imediata:** nenhuma task posterior está autorizada; aguardar instrução
-explícita do Product Owner.
+**Ação imediata:** concluir somente a publicação e o encerramento institucional
+autorizados da `LVFI-APP-019`. O piloto passou 20/20 jornadas em 5/5 competições;
+M3 ENG-005 20/20; recovery APP-018, autenticação restaurada, snapshot/PDF/hashes
+e QA PASS; RPO 106,231 s, RTO 64,379 s e P0/P1/P2/P3 = 0/0/0/0. O Product Owner
+aprovou o cutover interno. Não iniciar task sucessora.
