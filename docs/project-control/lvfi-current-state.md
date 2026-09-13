@@ -5,12 +5,14 @@
 - **Branch de referência:** `main`; o SHA corrente de `HEAD`, `main` e
   `origin/main` é sempre resolvido no runtime por Git, não registrado como valor
   corrente neste handoff.
-- **Último encerramento institucional:** `LVFI-APP-018 — PDF-resumo e Operação
-  Local`; o encerramento publicado de `LVFI-APP-019` será registrado após os
-  merges autorizados desta sequência.
+- **Último encerramento institucional:** `LVFI-APP-019 — Piloto Interno e
+  Validação Operacional`, publicada pelo PR #50 e integrada no merge commit
+  `79880af721ace00e27f86557d6e058880823a69e`; encerramento documental nesta
+  sequência.
 - **Última task de produto concluída:** `LVFI-APP-019 — Piloto Interno e
-  Validação Operacional`, tecnicamente concluída; commit, PR e merge serão
-  resolvidos e registrados no fechamento documental.
+  Validação Operacional`, commit
+  `d0cd4ccd0c9ff2bf02168614844e0d59262293dc`, PR #50 e merge commit
+  `79880af721ace00e27f86557d6e058880823a69e`.
 - **Task ativa:** nenhuma. O Product Owner aprovou as 20/20 jornadas em 5/5
   competições, M3 ENG-005 20/20, recovery APP-018, autenticação restaurada,
   snapshot/PDF/hashes, RPO 106,231 s, RTO 64,379 s, QA PASS e cutover interno.
@@ -151,8 +153,10 @@ com bancos descartáveis separados e importação limpa de 2.694/0/0. O recovery
 APP-018 PASS confirmou backup/restauração isolados, autenticação original,
 snapshot/PDF/hashes e auditoria; RPO 106,231 s, RTO 64,379 s, QA independente
 PASS e P0/P1/P2/P3 = 0/0/0/0. APP-012–018, Métodos 1/2/3 e Pricing Engine
-permaneceram sem alteração. Os identificadores de publicação serão registrados
-no fechamento documental posterior ao merge técnico.
+permaneceram sem alteração. O commit
+`d0cd4ccd0c9ff2bf02168614844e0d59262293dc` foi publicado pelo PR #50 e
+integrado no merge `79880af721ace00e27f86557d6e058880823a69e`; este documento
+encerra institucionalmente a task nesta sequência.
 
 ## LVFI-APP-014
 

@@ -17,9 +17,9 @@ versionados são a memória oficial. Antes de qualquer task, leia
   trocado pelo commit ou merge produzido pela própria task.
 - Resolva o estado corrente, em vez de reutilizar um SHA deste handoff, com
   `git rev-parse HEAD`, `git rev-parse main` e `git rev-parse origin/main`.
-- Última task de produto concluída: `LVFI-APP-018`, commit
-  `28bae5f3ba64eddf86a344239dbd4eece5590538`, PR #48 e merge histórico
-  `80e785c7a8e6f2b8b111a6c56e6a6c97092647db`.
+- Última task de produto concluída: `LVFI-APP-019`, commit
+  `d0cd4ccd0c9ff2bf02168614844e0d59262293dc`, PR #50 e merge histórico
+  `79880af721ace00e27f86557d6e058880823a69e`.
 - Última task de governança concluída: `R21-GOV-003`, commit
   `39a1122b34ff467924962ec4320c0d77c065d0df`, PR #36 e merge histórico
   `c9726fae50bb3b355800e83d1ad9fb8f77216536`.
@@ -27,11 +27,11 @@ versionados são a memória oficial. Antes de qualquer task, leia
 
 ## Última entrega publicada
 
-`LVFI-APP-018 — PDF-resumo e Operação Local` é a última entrega publicada e
-integrada pela branch `codex/lvfi-app-018-pdf-operacao-local`, commit `28bae5f`,
-PR #48 e merge `80e785c`. Adiciona PDF Chromium determinístico de snapshot
-aprovado, launcher Windows e recuperação local ensaiada sem alterar APP-012 a
-APP-017, Métodos 1/2/3 ou Pricing Engine.
+`LVFI-APP-019 — Piloto Interno e Validação Operacional` é a última entrega
+publicada e integrada pela branch `codex/lvfi-app-019-internal-pilot`, commit
+`d0cd4cc`, PR #50 e merge `79880af`. Valida 20/20 jornadas em 5/5 competições,
+M3 ENG-005 20/20, recovery, autenticação restaurada, snapshot/PDF/hashes e QA;
+preserva APP-012–018, Métodos 1/2/3 e Pricing Engine.
 
 ## Plano aprovado
 
@@ -71,8 +71,9 @@ segurança não encontraram P0/P1. Para HTTPS com rewrite interno, configurar
 `LVFI_EXTERNAL_HTTPS=true`; cobertura dedicada de `proxy.ts` permanece melhoria
 P2 futura.
 
-**Ação imediata:** concluir somente a publicação e o encerramento institucional
-autorizados da `LVFI-APP-019`. O piloto passou 20/20 jornadas em 5/5 competições;
-M3 ENG-005 20/20; recovery APP-018, autenticação restaurada, snapshot/PDF/hashes
-e QA PASS; RPO 106,231 s, RTO 64,379 s e P0/P1/P2/P3 = 0/0/0/0. O Product Owner
-aprovou o cutover interno. Não iniciar task sucessora.
+**Ação imediata:** nenhuma task posterior está autorizada; aguardar instrução
+explícita do Product Owner. `LVFI-APP-019` foi publicada pelo PR #50 e integrada
+no merge `79880af721ace00e27f86557d6e058880823a69e`; 20/20 jornadas, 5/5
+competições, M3 ENG-005 20/20, recovery/auth/snapshot/PDF/hashes/QA PASS,
+RPO 106,231 s, RTO 64,379 s e P0/P1/P2/P3 = 0/0/0/0. O cutover interno foi
+aprovado. Não iniciar task sucessora.
